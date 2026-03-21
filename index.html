@@ -18393,7 +18393,13 @@ function selectSection(sectionId) {
 
   // Scroll active pill into view
   var activePill = document.querySelector('.section-pill.active');
-  if (activePill) activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  if (activePill) {
+    try {
+      activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    } catch (e) {
+      activePill.scrollIntoView();
+    }
+  }
 
   // Show component list, hide detail
   document.getElementById('component-list').style.display = '';
@@ -18407,7 +18413,7 @@ function selectComponent(componentId) {
 
   // Hide component list, show detail
   document.getElementById('component-list').style.display = 'none';
-  document.getElementById('component-detail').style.display = '';
+  document.getElementById('component-detail').style.display = 'block';
 
   // Find the component data
   var comp = findComponent(componentId);
