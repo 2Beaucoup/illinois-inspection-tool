@@ -89,20 +89,20 @@ body{font-family:var(--font-ui);color:var(--ink);background:var(--bg);padding:0;
 #component-list .cl-cya{background:var(--warn-bg);padding:8px 10px;border-radius:var(--radius-sm);font-size:0.72rem;color:var(--warn);line-height:1.4}
 #component-list .cl-cya strong{display:block;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
 
-.component-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.component-grid{display:grid;grid-template-columns:1fr;gap:6px}
 .component-card-btn{
   background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);
-  padding:14px 12px;cursor:pointer;font-family:var(--font-ui);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  transition:all .15s;min-height:80px;justify-content:center;
-  text-align:center;box-shadow:var(--shadow-sm);
+  padding:12px 14px;cursor:pointer;font-family:var(--font-ui);
+  display:flex;flex-direction:row;align-items:center;gap:10px;
+  transition:all .15s;min-height:52px;
+  text-align:left;box-shadow:var(--shadow-sm);width:100%;
 }
-.component-card-btn:hover{border-color:rgba(184,90,47,0.3);background:var(--accent-soft)}
-.component-card-btn .ccb-icon{font-size:1.4rem}
-.component-card-btn .ccb-name{font-size:0.78rem;font-weight:600;line-height:1.2}
-.component-card-btn .ccb-progress{font-size:0.62rem;color:var(--muted);margin-top:2px}
+.component-card-btn:hover,.component-card-btn:active{border-color:rgba(184,90,47,0.3);background:var(--accent-soft)}
+.component-card-btn .ccb-icon{font-size:1.2rem;flex-shrink:0}
+.component-card-btn .ccb-name{font-size:0.82rem;font-weight:600;line-height:1.2;flex:1;min-width:0}
+.component-card-btn .ccb-progress{font-size:0.62rem;color:var(--muted);flex-shrink:0;white-space:nowrap}
 .component-card-btn .ccb-progress.done{color:var(--good);font-weight:700}
-.component-card-btn .ccb-rating{font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:99px;margin-top:2px}
+.component-card-btn .ccb-rating{font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:99px;flex-shrink:0;white-space:nowrap}
 .component-card-btn .ccb-rating.acceptable{background:var(--good-bg);color:var(--good)}
 .component-card-btn .ccb-rating.fair{background:var(--warn-bg);color:var(--warn)}
 .component-card-btn .ccb-rating.poor{background:var(--danger-bg);color:var(--danger)}
