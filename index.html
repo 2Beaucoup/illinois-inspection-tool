@@ -312,6 +312,65 @@ body{font-family:var(--font-ui);color:var(--ink);background:var(--bg);padding:0;
 .empty-state .es-icon{font-size:2rem;margin-bottom:10px}
 .empty-state .es-title{font-size:0.9rem;font-weight:700;margin-bottom:4px}
 .empty-state .es-desc{font-size:0.78rem;line-height:1.4}
+
+/* ============================================
+   SEARCH BAR
+   ============================================ */
+#search-bar{
+  position:sticky;top:calc(var(--top-bar-h) + var(--nav-h));z-index:98;
+  background:var(--bg);padding:8px 10px;border-bottom:1px solid var(--line);
+}
+#search-wrap{position:relative}
+#search-input{
+  width:100%;padding:10px 36px 10px 36px;border:1.5px solid var(--line);
+  border-radius:999px;background:#fff;font-family:var(--font-ui);
+  font-size:0.86rem;color:var(--ink);outline:none;min-height:44px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23656055' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:12px center;
+}
+#search-input:focus{border-color:var(--accent)}
+#search-input::placeholder{color:var(--muted)}
+#search-clear{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  background:none;border:none;font-size:1.2rem;color:var(--muted);cursor:pointer;
+  padding:6px;display:none;min-width:32px;min-height:32px;
+}
+
+/* SEARCH RESULTS */
+#search-results{padding:12px;display:none}
+.sr-group{margin-bottom:16px}
+.sr-group-header{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent-strong);padding:4px 0;margin-bottom:6px;border-bottom:1px solid var(--line)}
+.sr-item{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);
+  margin-bottom:6px;cursor:pointer;transition:all .15s;
+}
+.sr-item:hover,.sr-item:active{border-color:rgba(184,90,47,0.3);background:var(--accent-soft)}
+.sr-item .sr-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.sr-item .sr-body{flex:1;min-width:0}
+.sr-item .sr-title{font-size:0.84rem;font-weight:600;color:var(--ink)}
+.sr-item .sr-path{font-size:0.68rem;color:var(--muted);margin-top:1px}
+.sr-item .sr-snippet{font-size:0.76rem;color:var(--muted);margin-top:3px;line-height:1.3}
+.sr-snippet mark{background:var(--accent-soft);color:var(--accent-strong);padding:0 2px;border-radius:2px;font-weight:600}
+.sr-empty{text-align:center;padding:30px 20px;color:var(--muted);font-size:0.84rem}
+
+/* RELATED / SEE ALSO */
+.related-section{margin-top:4px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.related-btn{
+  padding:10px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);
+  cursor:pointer;font-family:var(--font-ui);text-align:left;transition:all .15s;min-height:54px;
+}
+.related-btn:hover,.related-btn:active{border-color:var(--accent);background:var(--accent-soft)}
+.related-btn .rb-icon{font-size:0.9rem}
+.related-btn .rb-name{font-size:0.76rem;font-weight:600;color:var(--ink);display:block;margin-top:2px}
+.related-btn .rb-section{font-size:0.64rem;color:var(--muted)}
+
+/* BREADCRUMB */
+.breadcrumb{display:flex;align-items:center;gap:4px;font-size:0.74rem;color:var(--muted);margin-bottom:4px;flex-wrap:wrap}
+.breadcrumb a{color:var(--accent-strong);text-decoration:none;cursor:pointer;font-weight:600}
+.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb .bc-sep{color:var(--line);font-size:0.6rem}
 </style>
 </head>
 <body>
@@ -328,6 +387,17 @@ body{font-family:var(--font-ui);color:var(--ink);background:var(--bg);padding:0;
 
 <!-- SECTION NAV: Horizontal scrollable pill navigation -->
 <div id="section-nav"></div>
+
+<!-- SEARCH BAR -->
+<div id="search-bar">
+  <div id="search-wrap">
+    <input type="text" id="search-input" placeholder="Search anything... roof, caulking, water heater, venting" oninput="handleSearch(this.value)">
+    <button id="search-clear" onclick="clearSearch()">&times;</button>
+  </div>
+</div>
+
+<!-- SEARCH RESULTS -->
+<div id="search-results"></div>
 
 <!-- COMPONENT LIST: Shows components for selected section -->
 <div id="component-list"></div>
@@ -18386,6 +18456,14 @@ function selectSection(sectionId) {
   currentSectionId = sectionId;
   currentComponentId = null;
 
+  // Clear search if active
+  var sr = document.getElementById('search-results');
+  if (sr) { sr.style.display = 'none'; sr.innerHTML = ''; }
+  var si = document.getElementById('search-input');
+  if (si) si.value = '';
+  var sc = document.getElementById('search-clear');
+  if (sc) sc.style.display = 'none';
+
   // Update pill active states
   document.querySelectorAll('.section-pill').forEach(function(p) {
     p.classList.toggle('active', p.getAttribute('data-section') === sectionId);
@@ -18505,6 +18583,16 @@ function renderComponent(comp) {
   var state = getComponentState(comp.id);
   var html = '';
 
+  // Breadcrumb
+  var section = findSection(currentSectionId);
+  if (section) {
+    html += '<div class="breadcrumb">';
+    html += '<a onclick="goBack()">' + (section.icon || '') + ' ' + esc(section.name || section.title || '') + '</a>';
+    html += '<span class="bc-sep">&#9656;</span>';
+    html += '<span>' + esc(comp.title || '') + '</span>';
+    html += '</div>';
+  }
+
   // Back button
   html += '<button class="back-btn" onclick="goBack()">&#8592; Back to components</button>';
 
@@ -18558,6 +18646,9 @@ function renderComponent(comp) {
 
   // 9. Live Summary
   html += renderSummary(comp.id, comp, state);
+
+  // 10. Related / See Also
+  html += renderRelatedItems(comp.id);
 
   html += '</div></div>'; // close card-body, card
 
@@ -19252,6 +19343,318 @@ function truncate(str, len) {
 }
 
 /* ============================================
+   SEARCH INDEX & CROSS-REFERENCES
+   ============================================ */
+var searchIndex = [];
+var searchTimeout = null;
+
+var CROSS_REFS = {
+  "ext-caulking":["ext-windows","ext-foundation","ext-flashing","ext-siding","ext-hosebibs","roof-flashing"],
+  "ext-flashing":["roof-flashing","ext-caulking","ext-windows","ext-siding","roof-chimney","roof-vents"],
+  "roof-flashing":["ext-flashing","ext-caulking","roof-chimney","roof-vents","roof-valleys","roof-skylights"],
+  "ext-windows":["ext-caulking","ext-flashing","ext-siding","int-rooms"],
+  "ext-foundation":["basement-foundation","ext-caulking","grounds-grading","basement-moisture"],
+  "basement-foundation":["ext-foundation","basement-structure","basement-moisture","grounds-grading"],
+  "plumb-water-heater":["plumb-gas","plumb-supply","plumb-dwv","elec-branch","heat-system"],
+  "elec-main":["elec-sub","elec-branch","elec-gfci","ext-service-entry","plumb-supply"],
+  "elec-sub":["elec-main","elec-branch","elec-gfci"],
+  "elec-branch":["elec-main","elec-gfci","elec-afci","cool-ac","heat-system","plumb-water-heater"],
+  "elec-gfci":["elec-main","elec-branch","ext-receptacles","int-kitchen","int-bathroom","int-laundry","garage-service"],
+  "plumb-supply":["plumb-dwv","plumb-water-heater","plumb-gas","elec-main","int-bathroom","int-kitchen"],
+  "plumb-dwv":["plumb-supply","plumb-water-heater","roof-vents","basement-moisture"],
+  "plumb-gas":["plumb-water-heater","heat-system","int-fireplace","cool-ac"],
+  "heat-system":["cool-ac","plumb-gas","elec-branch","attic-insulation","int-fireplace"],
+  "cool-ac":["heat-system","elec-branch","ext-ac-unit","attic-insulation"],
+  "ext-ac-unit":["cool-ac","elec-branch","heat-system"],
+  "roof-general":["roof-material","roof-condition","roof-flashing","roof-ventilation"],
+  "roof-material":["roof-general","roof-condition","roof-valleys","roof-flashing"],
+  "roof-ventilation":["attic-insulation","attic-structure","roof-vents","ext-soffit"],
+  "roof-chimney":["roof-flashing","int-fireplace","plumb-gas","heat-system"],
+  "roof-vents":["plumb-dwv","roof-flashing","roof-ventilation","attic-insulation"],
+  "roof-valleys":["roof-flashing","roof-material","roof-condition"],
+  "roof-skylights":["roof-flashing","roof-condition","int-rooms"],
+  "roof-condition":["roof-material","roof-flashing","roof-general","roof-valleys"],
+  "attic-structure":["roof-material","attic-insulation","attic-access"],
+  "attic-insulation":["attic-structure","roof-ventilation","heat-system","cool-ac"],
+  "attic-access":["attic-structure","attic-insulation"],
+  "grounds-walkways":["grounds-driveway","grounds-steps","grounds-grading"],
+  "grounds-driveway":["grounds-walkways","grounds-grading"],
+  "grounds-steps":["grounds-walkways","grounds-porch","grounds-deck","int-stairs"],
+  "grounds-deck":["grounds-steps","grounds-porch","ext-flashing","basement-structure"],
+  "grounds-porch":["grounds-deck","grounds-steps","ext-foundation","ext-siding"],
+  "grounds-patio":["grounds-deck","grounds-grading"],
+  "grounds-grading":["ext-foundation","basement-moisture","grounds-retaining","ext-gutters"],
+  "grounds-fence":["grounds-retaining","grounds-grading"],
+  "grounds-retaining":["grounds-grading","ext-foundation","basement-moisture","grounds-fence"],
+  "ext-soffit":["ext-fascia","ext-gutters","roof-ventilation","attic-insulation"],
+  "ext-fascia":["ext-soffit","ext-gutters","roof-flashing"],
+  "ext-gutters":["ext-soffit","ext-fascia","ext-foundation","grounds-grading","basement-moisture"],
+  "ext-siding":["ext-caulking","ext-flashing","ext-windows","ext-foundation"],
+  "ext-hosebibs":["plumb-supply","ext-caulking"],
+  "ext-service-entry":["elec-main","ext-receptacles"],
+  "ext-receptacles":["elec-gfci","ext-service-entry","garage-service"],
+  "garage-type":["garage-floor","garage-overhead","garage-service"],
+  "garage-floor":["garage-type","basement-foundation","basement-moisture"],
+  "garage-overhead":["garage-type","garage-service"],
+  "garage-service":["elec-gfci","ext-receptacles","elec-branch","garage-type"],
+  "int-kitchen":["plumb-supply","plumb-dwv","elec-gfci","elec-branch"],
+  "int-bathroom":["plumb-supply","plumb-dwv","elec-gfci","roof-vents"],
+  "int-laundry":["plumb-supply","plumb-dwv","elec-gfci","elec-branch"],
+  "int-rooms":["int-stairs","ext-windows","elec-branch"],
+  "int-fireplace":["roof-chimney","plumb-gas","heat-system"],
+  "int-stairs":["grounds-steps","grounds-deck","int-rooms"],
+  "int-smoke-co":["elec-smoke-co","int-fireplace","heat-system","plumb-gas"],
+  "basement-structure":["basement-foundation","attic-structure","grounds-deck"],
+  "basement-moisture":["basement-foundation","grounds-grading","plumb-supply","ext-gutters"],
+  "elec-smoke-co":["int-smoke-co","elec-branch","heat-system","plumb-gas"],
+  "elec-afci":["elec-main","elec-branch","elec-gfci"],
+  "plumb-water-softener":["plumb-supply","plumb-water-heater"]
+};
+
+function buildSearchIndex() {
+  searchIndex = [];
+  INSPECTION_DATA.sections.forEach(function(section) {
+    if (!section.components) return;
+    var si = section.id, sn = section.name || section.title || section.id, sx = section.icon || '';
+    section.components.forEach(function(comp) {
+      var ci = comp.id, ct = comp.title || comp.id, cx = comp.icon || '';
+
+      // Component title
+      addIdx(ct, si, sn, sx, ci, ct, cx, 'component', ct);
+
+      // DataCapture labels
+      if (comp.dataCapture) comp.dataCapture.forEach(function(f) {
+        addIdx(f.label, si, sn, sx, ci, ct, cx, 'field', f.label);
+      });
+
+      // Type options + their checks/findings
+      if (comp.typeSelect) {
+        comp.typeSelect.options.forEach(function(opt) {
+          var optText = opt.label;
+          if (opt.checks) opt.checks.forEach(function(c) { optText += ' ' + (c.label || c.text || ''); });
+          addIdx(optText, si, sn, sx, ci, ct, cx, 'type', opt.label);
+          if (opt.findings) opt.findings.forEach(function(f) {
+            addIdx((f.chipLabel || f.label || f.id) + ' ' + gft(f), si, sn, sx, ci, ct, cx, 'finding', f.chipLabel || f.label || f.id);
+          });
+        });
+        if (comp.typeSelect.idHelper) comp.typeSelect.idHelper.forEach(function(h) {
+          addIdx(h.name + ' ' + h.clues, si, sn, sx, ci, ct, cx, 'id-helper', h.name);
+        });
+      }
+
+      // Universal checks
+      if (comp.universalChecks) comp.universalChecks.forEach(function(c) {
+        addIdx((c.label || c.text || '') + ' ' + (c.tip || ''), si, sn, sx, ci, ct, cx, 'check', c.label || c.text || '');
+      });
+
+      // Component-level findings
+      if (comp.findings) comp.findings.forEach(function(f) {
+        addIdx((f.chipLabel || f.label || f.id) + ' ' + gft(f), si, sn, sx, ci, ct, cx, 'finding', f.chipLabel || f.label || f.id);
+      });
+
+      // Ref tables
+      if (comp.refTables) comp.refTables.forEach(function(rt) {
+        var txt = rt.title || '';
+        if (rt.rows) rt.rows.forEach(function(row) {
+          if (Array.isArray(row)) txt += ' ' + row.join(' ');
+          else if (row.key) txt += ' ' + row.key + ' ' + row.value;
+        });
+        addIdx(txt, si, sn, sx, ci, ct, cx, 'reference', rt.title);
+      });
+
+      // ICA fields
+      if (comp.icaFields && Array.isArray(comp.icaFields)) comp.icaFields.forEach(function(f) {
+        addIdx(f.label + ' ' + (f.tip || ''), si, sn, sx, ci, ct, cx, 'ica', f.label);
+      });
+
+      // Red flags
+      if (comp.redFlags) comp.redFlags.forEach(function(rf) {
+        var t = typeof rf === 'string' ? rf : (rf.text || rf.title || '');
+        addIdx(t, si, sn, sx, ci, ct, cx, 'red-flag', t);
+      });
+
+      // Study content
+      if (comp.study) {
+        var st = (comp.study.whatItIs || '') + ' ' + (comp.study.howToInspect || '') + ' ' + (comp.study.ashiSop || '');
+        if (comp.study.details) st += ' ' + comp.study.details.join(' ');
+        if (st.trim()) addIdx(st, si, sn, sx, ci, ct, cx, 'study', 'Study: ' + ct);
+      }
+
+      // Legacy field data
+      if (comp.field) {
+        var ft = (comp.field.howToIdentify || '') + ' ';
+        if (comp.field.reasoning) ft += comp.field.reasoning.join(' ');
+        if (comp.field.checklist) ft += ' ' + comp.field.checklist.join(' ');
+        if (ft.trim()) addIdx(ft, si, sn, sx, ci, ct, cx, 'reference', ct);
+      }
+    });
+  });
+}
+
+function gft(f) {
+  var t = '';
+  if (f.context) {
+    if (f.context.yes) t += f.context.yes.join(' ') + ' ';
+    if (f.context.no) t += f.context.no.join(' ') + ' ';
+  }
+  if (f.expect) t += f.expect.join(' ') + ' ';
+  if (f.conditions) f.conditions.forEach(function(c) { t += (c.label||'') + ' ' + (c.title||'') + ' ' + (c.note||'') + ' '; });
+  return t;
+}
+
+function addIdx(text, secId, secName, secIcon, compId, compTitle, compIcon, type, label) {
+  if (!text || !text.trim()) return;
+  searchIndex.push({ t:text.toLowerCase(), si:secId, sn:secName, sx:secIcon, ci:compId, ct:compTitle, cx:compIcon, tp:type, lb:label||'' });
+}
+
+function handleSearch(query) {
+  clearTimeout(searchTimeout);
+  var clearBtn = document.getElementById('search-clear');
+  if (query.trim().length > 0) {
+    clearBtn.style.display = 'block';
+    searchTimeout = setTimeout(function() { showSearchResults(query.trim()); }, 150);
+  } else {
+    clearBtn.style.display = 'none';
+    exitSearch();
+  }
+}
+
+function showSearchResults(query) {
+  var terms = query.toLowerCase().split(/\s+/);
+  var seen = {};
+  var results = [];
+
+  searchIndex.forEach(function(e) {
+    for (var i = 0; i < terms.length; i++) {
+      if (e.t.indexOf(terms[i]) === -1) return;
+    }
+    var key = e.si + '|' + e.ci;
+    if (!seen[key]) {
+      seen[key] = { si:e.si, sn:e.sn, sx:e.sx, ci:e.ci, ct:e.ct, cx:e.cx, matches:[] };
+      results.push(seen[key]);
+    }
+    if (seen[key].matches.length < 5) seen[key].matches.push({ tp:e.tp, lb:e.lb });
+  });
+
+  var container = document.getElementById('search-results');
+  document.getElementById('component-list').style.display = 'none';
+  document.getElementById('component-detail').style.display = 'none';
+  container.style.display = 'block';
+
+  if (results.length === 0) {
+    container.innerHTML = '<div class="sr-empty">No results for "' + esc(query) + '"</div>';
+    return;
+  }
+
+  // Group by section
+  var groups = {};
+  var order = [];
+  results.forEach(function(r) {
+    if (!groups[r.si]) { groups[r.si] = { name:r.sn, icon:r.sx, items:[] }; order.push(r.si); }
+    groups[r.si].items.push(r);
+  });
+
+  var html = '<div style="font-size:0.72rem;color:var(--muted);margin-bottom:8px;padding:0 2px">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for "' + esc(query) + '"</div>';
+
+  order.forEach(function(sid) {
+    var g = groups[sid];
+    html += '<div class="sr-group">';
+    html += '<div class="sr-group-header">' + g.icon + ' ' + esc(g.name) + '</div>';
+    g.items.forEach(function(item) {
+      var snippets = [];
+      var seenTypes = {};
+      item.matches.forEach(function(m) {
+        if (!seenTypes[m.tp] && snippets.length < 3) { snippets.push(m.lb); seenTypes[m.tp] = true; }
+      });
+      html += '<div class="sr-item" onclick="navigateToComponent(\'' + item.si + '\',\'' + item.ci + '\')">';
+      html += '<div class="sr-icon">' + (item.cx || '') + '</div>';
+      html += '<div class="sr-body">';
+      html += '<div class="sr-title">' + esc(item.ct) + '</div>';
+      html += '<div class="sr-path">' + g.icon + ' ' + esc(g.name) + '</div>';
+      if (snippets.length) html += '<div class="sr-snippet">' + snippets.map(function(s) { return hlMatch(s, query); }).join(' &middot; ') + '</div>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function hlMatch(text, query) {
+  if (!text) return '';
+  if (text.length > 80) text = text.substring(0, 80) + '...';
+  var out = esc(text);
+  query.toLowerCase().split(/\s+/).forEach(function(term) {
+    var safe = esc(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    out = out.replace(new RegExp('(' + safe + ')', 'gi'), '<mark>$1</mark>');
+  });
+  return out;
+}
+
+function navigateToComponent(sectionId, componentId) {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  document.getElementById('search-results').style.display = 'none';
+  document.getElementById('search-results').innerHTML = '';
+  selectSection(sectionId);
+  selectComponent(componentId);
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  exitSearch();
+}
+
+function exitSearch() {
+  var sr = document.getElementById('search-results');
+  sr.style.display = 'none';
+  sr.innerHTML = '';
+  if (currentSectionId) {
+    document.getElementById('component-list').style.display = '';
+    if (currentComponentId) {
+      document.getElementById('component-list').style.display = 'none';
+      document.getElementById('component-detail').style.display = 'block';
+    }
+  }
+}
+
+function getRelatedComponents(compId) {
+  var refs = CROSS_REFS[compId] || [];
+  var results = [];
+  refs.forEach(function(relId) {
+    for (var i = 0; i < INSPECTION_DATA.sections.length; i++) {
+      var sec = INSPECTION_DATA.sections[i];
+      if (!sec.components) continue;
+      for (var j = 0; j < sec.components.length; j++) {
+        if (sec.components[j].id === relId) {
+          results.push({ si:sec.id, sn:sec.name||sec.title||sec.id, sx:sec.icon||'', comp:sec.components[j] });
+          break;
+        }
+      }
+    }
+  });
+  return results;
+}
+
+function renderRelatedItems(compId) {
+  var related = getRelatedComponents(compId);
+  if (related.length === 0) return '';
+  var html = '<div class="related-section">';
+  html += '<div class="section-label accent">See Also</div>';
+  html += '<div class="related-grid">';
+  related.forEach(function(r) {
+    html += '<button class="related-btn" onclick="navigateToComponent(\'' + r.si + '\',\'' + r.comp.id + '\')">';
+    html += '<span class="rb-icon">' + (r.comp.icon || '') + '</span>';
+    html += '<span class="rb-name">' + esc(r.comp.title || r.comp.id) + '</span>';
+    html += '<span class="rb-section">' + r.sx + ' ' + esc(r.sn) + '</span>';
+    html += '</button>';
+  });
+  html += '</div></div>';
+  return html;
+}
+
+/* ============================================
    INITIALIZATION
    ============================================ */
 function init() {
@@ -19265,6 +19668,9 @@ function init() {
 
   // Build navigation
   buildSectionNav();
+
+  // Build search index
+  buildSearchIndex();
 
   // Select first section
   if (INSPECTION_DATA.sections.length > 0) {
