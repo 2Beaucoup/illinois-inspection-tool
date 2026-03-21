@@ -18407,21 +18407,13 @@ function selectComponent(componentId) {
 
   // Hide component list, show detail
   document.getElementById('component-list').style.display = 'none';
-  var detailEl = document.getElementById('component-detail');
-  detailEl.style.display = 'block';
+  document.getElementById('component-detail').style.display = '';
 
   // Find the component data
   var comp = findComponent(componentId);
-  if (!comp) {
-    detailEl.innerHTML = '<button class="back-btn" onclick="goBack()">&#8592; Back</button><div class="card"><div class="card-body"><p>Component not found: ' + componentId + '</p></div></div>';
-    return;
-  }
+  if (!comp) return;
 
-  try {
-    renderComponent(comp);
-  } catch(e) {
-    detailEl.innerHTML = '<button class="back-btn" onclick="goBack()">&#8592; Back</button><div class="card"><div class="card-body"><div class="hazard"><span class="h-icon">&#9888;</span><div class="h-body"><div class="h-title">Render Error</div><div class="h-desc">' + e.message + '<br><br>Component: ' + componentId + '<br>Stack: ' + (e.stack || '').substring(0, 500) + '</div></div></div></div></div>';
-  }
+  renderComponent(comp);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -18456,11 +18448,8 @@ function findSection(sectionId) {
    ============================================ */
 function renderComponentList(sectionId) {
   var section = findSection(sectionId);
+  if (!section) return;
   var container = document.getElementById('component-list');
-  if (!section) { container.innerHTML = '<div class="hazard"><span class="h-icon">&#9888;</span><div class="h-body"><div class="h-title">Section not found: ' + sectionId + '</div></div></div>'; return; }
-  try { renderComponentListInner(sectionId, section, container); } catch(e) { container.innerHTML = '<div class="hazard"><span class="h-icon">&#9888;</span><div class="h-body"><div class="h-title">List Render Error</div><div class="h-desc">' + e.message + '</div></div></div>'; }
-}
-function renderComponentListInner(sectionId, section, container) {
   var html = '';
 
   // Section header
@@ -18515,35 +18504,13 @@ function renderComponent(comp) {
 
   // Card shell
   html += '<div class="card">';
-  html += '<div class="card-header"><span class="icon">' + (comp.icon || '') + '</span><h2>' + esc(comp.title || comp.name || '') + '</h2></div>';
+  html += '<div class="card-header"><span class="icon">' + (comp.icon || '') + '</span><h2>' + esc(comp.title || '') + '</h2></div>';
   html += '<div class="card-body" id="card-body-' + comp.id + '">';
 
-  // Report field reference (if present)
-  if (comp.reportField) {
-    html += '<div class="ica-field"><span class="ica-label">ICA Report Field</span><span class="ica-val">' + esc(comp.reportField) + '</span></div>';
-  }
-
-  // 1. Data Capture (also handle "fillIn" alias)
-  var dataCap = comp.dataCapture || comp.fillIn;
-  if (dataCap && dataCap.length) {
+  // 1. Data Capture
+  if (comp.dataCapture && comp.dataCapture.length) {
     html += '<div class="section-label accent">Data Capture</div>';
-    html += renderDataCapture(comp.id, dataCap, state);
-  }
-
-  // Simple field (pre-inspection, exclusions)
-  if (comp.field && !dataCap) {
-    html += '<div class="section-label accent">Field</div>';
-    html += renderSimpleField(comp);
-  }
-
-  // Outdoor temp gate (cooling)
-  if (comp.outdoorTempGate) {
-    html += renderOutdoorTempGate(comp.outdoorTempGate);
-  }
-
-  // Rating guide (HVAC)
-  if (comp.ratingGuide) {
-    html += renderRatingGuide(comp.ratingGuide);
+    html += renderDataCapture(comp.id, comp.dataCapture, state);
   }
 
   // 2. Type Select
@@ -18551,28 +18518,10 @@ function renderComponent(comp) {
     html += renderTypeSelect(comp.id, comp.typeSelect, state);
   }
 
-  // Additional type selects (electrical panelTypeSelect)
-  if (comp.panelTypeSelect) {
-    html += renderTypeSelect(comp.id + '-panel', comp.panelTypeSelect, state);
-  }
-
-  // Interactive logic blocks (electrical amperage wizard, grounding/bonding)
-  if (comp.interactiveLogic && comp.interactiveLogic.length) {
-    comp.interactiveLogic.forEach(function(logic) {
-      html += renderInteractiveLogic(comp.id, logic, state);
-    });
-  }
-
-  // Sub-areas (interior components like kitchen, bathroom)
-  if (comp.subAreas && comp.subAreas.length) {
-    html += renderSubAreas(comp.id, comp.subAreas, state);
-  }
-
-  // 3. Universal Checks — handle both "universalChecks" and top-level "checks"
-  var uChecks = comp.universalChecks || comp.checks;
-  if (uChecks && uChecks.length) {
+  // 3. Universal Checks (always shown)
+  if (comp.universalChecks && comp.universalChecks.length) {
     html += '<div class="section-label">General Checks</div>';
-    html += renderChecks(comp.id, uChecks, state, 'universal');
+    html += renderChecks(comp.id, comp.universalChecks, state, 'universal');
   }
 
   // 4. ICA Fields (component-level)
@@ -18581,59 +18530,27 @@ function renderComponent(comp) {
     html += renderIcaFields(comp.id, comp.icaFields, state);
   }
 
-  // IL Notes at component level
-  var ilNotes = comp.ilNote || comp.ilNotes;
-  if (ilNotes) {
-    var notes = Array.isArray(ilNotes) ? ilNotes : [ilNotes];
-    notes.forEach(function(n) {
-      html += '<div class="il-note"><span class="flag">&#127987;&#65039;</span>' + esc(n) + '</div>';
-    });
+  // 5. Ref Tables (component-level)
+  if (comp.refTables && comp.refTables.length) {
+    comp.refTables.forEach(function(rt) { html += renderRefTable(rt); });
   }
 
-  // 5. Ref Tables — handle plural, singular, and special named tables
-  var allRefTables = [];
-  if (comp.refTables && comp.refTables.length) allRefTables = allRefTables.concat(comp.refTables);
-  if (comp.refTable) allRefTables.push(comp.refTable);
-  if (comp.crackReference) allRefTables.push(comp.crackReference);
-  if (comp.crackWidthGuide) allRefTables.push(comp.crackWidthGuide);
-  if (comp.flowTest) allRefTables.push(comp.flowTest);
-  allRefTables.forEach(function(rt) { html += renderRefTable(rt); });
-
-  // 6. Top-level findings (some components have findings outside typeSelect)
-  if (comp.findings && comp.findings.length) {
-    html += '<div class="section-label">Findings</div>';
-    html += renderFindings(comp.id, comp.findings, state, 'comp');
+  // 6. Rating (component-level, if no typeSelect has ratings or for universal)
+  if (comp.rating || !comp.typeSelect) {
+    html += renderRating(comp.id, comp.rating, state);
   }
 
-  // 7. Rating
-  if (comp.rating !== undefined || comp.ratingGuide || !comp.typeSelect) {
-    html += renderRating(comp.id, comp.ratingGuide || comp.rating, state);
-  }
-
-  // 8. Red Flags
+  // 7. Red Flags
   if (comp.redFlags && comp.redFlags.length) {
     html += renderRedFlags(comp.redFlags);
   }
 
-  // Refer-to specialist
-  if (comp.referTo) {
-    html += '<div class="il-note"><span class="flag">&#128269;</span><strong>Refer to:</strong> ' + esc(comp.referTo) + '</div>';
-  }
-
-  // Safe language templates
-  if (comp.safeLanguage && comp.safeLanguage.length) {
-    html += '<div class="section-label">Safe Language Templates</div>';
-    comp.safeLanguage.forEach(function(sl) {
-      html += '<div class="report-block define"><span class="label">Use</span><span class="text">' + esc(sl) + '</span><button class="copy-btn" onclick="copyText(this)">Copy</button></div>';
-    });
-  }
-
-  // 9. Study
+  // 8. Study
   if (comp.study) {
     html += renderStudy(comp.study);
   }
 
-  // 10. Live Summary
+  // 9. Live Summary
   html += renderSummary(comp.id, comp, state);
 
   html += '</div></div>'; // close card-body, card
@@ -18642,153 +18559,6 @@ function renderComponent(comp) {
 
   // Restore state after DOM is rendered
   restoreComponentState(comp.id, comp, state);
-}
-
-/* ============================================
-   RENDER: Simple Field (pre-inspection, exclusions)
-   ============================================ */
-function renderSimpleField(comp) {
-  var html = '';
-  if (typeof comp.field === 'string') {
-    html += '<div class="ica-field"><span class="ica-val">' + esc(comp.field) + '</span></div>';
-  } else if (comp.field && comp.field.items) {
-    html += '<div style="display:grid;gap:6px">';
-    comp.field.items.forEach(function(item) {
-      html += '<div class="check-item"><div class="check-box" onclick="toggleCheck(this,\'' + comp.id + '\',\'field-' + Math.random().toString(36).substr(2,6) + '\')">&#10003;</div>';
-      html += '<div class="check-label">' + esc(item) + '</div></div>';
-    });
-    html += '</div>';
-  }
-  return html;
-}
-
-/* ============================================
-   RENDER: Outdoor Temp Gate (cooling)
-   ============================================ */
-function renderOutdoorTempGate(gate) {
-  var html = '<div class="cond-panel" style="margin-bottom:12px">';
-  html += '<div class="cp-header">&#127777;&#65039; ' + esc(gate.title || 'Outdoor Temperature Check') + '</div>';
-  html += '<div class="cp-body">';
-  if (gate.blocked) {
-    html += '<div class="hazard"><span class="h-icon">&#9888;&#65039;</span><div class="h-body"><div class="h-title">Below ' + (gate.blocked.below || '60') + '°F</div><div class="h-desc">' + esc(gate.blocked.message || 'Do not operate A/C — risk of compressor damage') + '</div></div></div>';
-  }
-  if (gate.marginal) {
-    html += '<div class="il-note"><span class="flag">&#9888;&#65039;</span>' + esc(gate.marginal.message || 'Marginal temperature — use caution') + '</div>';
-  }
-  if (gate.ok) {
-    html += '<div class="il-note" style="background:var(--good-bg);color:var(--good)"><span class="flag">&#10003;</span>' + esc(gate.ok.message || 'Safe to operate') + '</div>';
-  }
-  html += '</div></div>';
-  return html;
-}
-
-/* ============================================
-   RENDER: Rating Guide (HVAC)
-   ============================================ */
-function renderRatingGuide(guide) {
-  var html = '';
-  if (typeof guide === 'object' && !Array.isArray(guide)) {
-    html += '<div class="cond-panel" style="margin-bottom:10px"><div class="cp-header">Rating Criteria</div><div class="cp-body">';
-    for (var key in guide) {
-      var color = key.toLowerCase() === 'acceptable' ? 'var(--good)' : key.toLowerCase() === 'fair' ? 'var(--warn)' : 'var(--danger)';
-      html += '<div style="font-size:0.82rem;padding:4px 0"><strong style="color:' + color + '">' + esc(key) + ':</strong> ' + esc(guide[key]) + '</div>';
-    }
-    html += '</div></div>';
-  }
-  return html;
-}
-
-/* ============================================
-   RENDER: Interactive Logic (electrical wizards)
-   ============================================ */
-function renderInteractiveLogic(compId, logic, state) {
-  var html = '<div class="cond-panel" style="margin-bottom:12px">';
-  html += '<div class="cp-header">' + esc(logic.title || logic.id || 'Interactive Logic') + '</div>';
-  html += '<div class="cp-body">';
-  if (logic.description) html += '<div style="font-size:0.82rem;color:var(--muted);margin-bottom:8px">' + esc(logic.description) + '</div>';
-  if (logic.inputs && logic.inputs.length) {
-    html += '<div class="fill-grid">';
-    logic.inputs.forEach(function(inp) {
-      html += '<div class="fill-item"><label>' + esc(inp.label || inp.id) + '</label>';
-      if (inp.options && inp.options.length) {
-        html += '<div class="chip-group" style="margin-top:4px">';
-        inp.options.forEach(function(opt) {
-          var optLabel = typeof opt === 'string' ? opt : (opt.label || opt.value || '');
-          html += '<button class="chip sm" onclick="this.parentElement.querySelectorAll(\'.chip\').forEach(function(c){c.classList.remove(\'active\')});this.classList.add(\'active\')">' + esc(optLabel) + '</button>';
-        });
-        html += '</div>';
-      } else {
-        html += '<input type="text" placeholder="' + esc(inp.placeholder || '') + '">';
-      }
-      html += '</div>';
-    });
-    html += '</div>';
-  }
-  if (logic.refTable) html += renderRefTable(logic.refTable);
-  if (logic.rules && logic.rules.length) {
-    html += '<div style="margin-top:8px">';
-    logic.rules.forEach(function(rule) {
-      html += '<div style="font-size:0.78rem;padding:4px 0;color:var(--muted)">• ' + esc(typeof rule === 'string' ? rule : (rule.rule || rule.text || JSON.stringify(rule))) + '</div>';
-    });
-    html += '</div>';
-  }
-  html += '</div></div>';
-  return html;
-}
-
-/* ============================================
-   RENDER: Sub-Areas (interior components)
-   ============================================ */
-function renderSubAreas(compId, subAreas, state) {
-  var html = '';
-  html += '<div class="section-label accent">Areas to Inspect</div>';
-  html += '<div class="chip-group" id="subareas-' + compId + '">';
-  subAreas.forEach(function(sa, idx) {
-    html += '<button class="chip sm" onclick="toggleSubArea(\'' + compId + '\',' + idx + ',this)">' + esc(sa.name || sa.title || sa.id || ('Area ' + (idx+1))) + '</button>';
-  });
-  html += '</div>';
-
-  subAreas.forEach(function(sa, idx) {
-    html += '<div id="subarea-' + compId + '-' + idx + '" class="hidden cond">';
-    html += '<div class="cond-panel"><div class="cp-header">' + esc(sa.name || sa.title || '') + '</div><div class="cp-body">';
-    // Sub-area checks
-    if (sa.checks && sa.checks.length) {
-      html += renderChecks(compId, sa.checks, state, 'sub-' + idx);
-    }
-    // Sub-area type select
-    if (sa.typeSelect) {
-      html += renderTypeSelect(compId + '-sub' + idx, sa.typeSelect, state);
-    }
-    // Sub-area ref tables
-    if (sa.refTables && sa.refTables.length) {
-      sa.refTables.forEach(function(rt) { html += renderRefTable(rt); });
-    }
-    if (sa.refTable) html += renderRefTable(sa.refTable);
-    // Sub-area ICA fields
-    if (sa.icaFields && sa.icaFields.length) {
-      html += renderIcaFields(compId + '-sub' + idx, sa.icaFields, state);
-    }
-    // Sub-area findings
-    if (sa.findings && sa.findings.length) {
-      html += renderFindings(compId, sa.findings, state, 'sub-' + idx);
-    }
-    // Sub-area notes
-    if (sa.ilNote) html += '<div class="il-note"><span class="flag">&#127987;&#65039;</span>' + esc(sa.ilNote) + '</div>';
-    if (sa.ilNotes) {
-      (Array.isArray(sa.ilNotes) ? sa.ilNotes : [sa.ilNotes]).forEach(function(n) {
-        html += '<div class="il-note"><span class="flag">&#127987;&#65039;</span>' + esc(n) + '</div>';
-      });
-    }
-    html += '</div></div></div>';
-  });
-
-  return html;
-}
-
-function toggleSubArea(compId, idx, el) {
-  el.classList.toggle('active');
-  var panel = document.getElementById('subarea-' + compId + '-' + idx);
-  if (panel) panel.classList.toggle('hidden');
 }
 
 /* ============================================
@@ -18883,22 +18653,13 @@ function renderTypeOptionContent(compId, opt, state) {
 
   // Type-specific checks
   if (opt.checks && opt.checks.length) {
-    html += '<div class="section-label">' + esc(opt.label || opt.name || '') + ' Checks</div>';
+    html += '<div class="section-label">' + esc(opt.label) + ' Checks</div>';
     html += renderChecks(compId, opt.checks, state, 'type-' + opt.id);
   }
 
-  // IL Notes (singular or plural)
-  var ilN = opt.ilNote || opt.ilNotes;
-  if (ilN) {
-    var notes = Array.isArray(ilN) ? ilN : [ilN];
-    notes.forEach(function(n) {
-      html += '<div class="il-note"><span class="flag">&#127987;&#65039;</span>' + esc(n) + '</div>';
-    });
-  }
-
-  // Type-specific data capture / fill-in
-  if (opt.dataCapture && opt.dataCapture.length) {
-    html += renderDataCapture(compId + '-' + opt.id, opt.dataCapture, state);
+  // IL Note
+  if (opt.ilNote) {
+    html += '<div class="il-note"><span class="flag">&#127987;&#65039;</span>' + esc(opt.ilNote) + '</div>';
   }
 
   // Type-specific ICA fields
@@ -18907,38 +18668,14 @@ function renderTypeOptionContent(compId, opt, state) {
     html += renderIcaFields(compId, opt.icaFields, state);
   }
 
-  // Type-specific ref tables (plural and singular)
+  // Type-specific ref tables
   if (opt.refTables && opt.refTables.length) {
     opt.refTables.forEach(function(rt) { html += renderRefTable(rt); });
-  }
-  if (opt.refTable) html += renderRefTable(opt.refTable);
-
-  // Type-specific sub-types / cascading
-  if (opt.subTypes && opt.subTypes.length) {
-    html += '<div class="section-label">Sub-Type</div>';
-    html += '<div class="chip-group">';
-    opt.subTypes.forEach(function(st, idx) {
-      html += '<button class="chip sm" onclick="toggleSubType(this,' + idx + ',\'' + compId + '-' + opt.id + '\')">' + esc(st.label || st.name || '') + '</button>';
-    });
-    html += '</div>';
-    opt.subTypes.forEach(function(st, idx) {
-      html += '<div id="subtype-' + compId + '-' + opt.id + '-' + idx + '" class="hidden cond">';
-      if (st.checks && st.checks.length) html += renderChecks(compId, st.checks, state, 'subtype-' + opt.id + '-' + idx);
-      if (st.refTable) html += renderRefTable(st.refTable);
-      if (st.refTables) st.refTables.forEach(function(rt) { html += renderRefTable(rt); });
-      if (st.ilNote) html += '<div class="il-note"><span class="flag">&#127987;&#65039;</span>' + esc(st.ilNote) + '</div>';
-      html += '</div>';
-    });
-  }
-
-  // Type-specific red flags
-  if (opt.redFlags && opt.redFlags.length) {
-    html += renderRedFlags(opt.redFlags);
   }
 
   // Type-specific rating
   if (opt.rating) {
-    html += renderRating(compId + '-' + opt.id, opt.rating, state);
+    html += renderRating(compId, opt.rating, state);
   }
 
   // Type-specific findings
@@ -18947,25 +18684,7 @@ function renderTypeOptionContent(compId, opt, state) {
     html += renderFindings(compId, opt.findings, state, 'type-' + opt.id);
   }
 
-  // Safe language
-  if (opt.safeLanguage && opt.safeLanguage.length) {
-    opt.safeLanguage.forEach(function(sl) {
-      html += '<div class="report-block define"><span class="label">Use</span><span class="text">' + esc(sl) + '</span><button class="copy-btn" onclick="copyText(this)">Copy</button></div>';
-    });
-  }
-
   return html;
-}
-
-function toggleSubType(el, idx, prefix) {
-  // Deactivate siblings
-  el.parentElement.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
-  el.classList.add('active');
-  // Hide all subtype panels, show selected
-  var parent = el.parentElement.parentElement;
-  parent.querySelectorAll('[id^="subtype-' + prefix + '-"]').forEach(function(p) { p.classList.add('hidden'); });
-  var target = document.getElementById('subtype-' + prefix + '-' + idx);
-  if (target) target.classList.remove('hidden');
 }
 
 function selectTypeOption(compId, typeId, el) {
@@ -19216,24 +18935,22 @@ function renderFindings(compId, findings, state, prefix) {
   // Finding chips
   html += '<div class="chip-group">';
   findings.forEach(function(f) {
-    var fLabel = f.chipLabel || f.label || f.name || f.id;
-    html += '<button class="chip sm" onclick="showFinding(this,\'' + compId + '-' + (prefix||'f') + '-' + f.id + '\')">' + esc(fLabel) + '</button>';
+    html += '<button class="chip sm" onclick="showFinding(this,\'' + compId + '-' + (prefix||'f') + '-' + f.id + '\')">' + esc(f.chipLabel || f.id) + '</button>';
   });
   html += '</div>';
 
   // Finding panels
   findings.forEach(function(f) {
-    var fLabel = f.chipLabel || f.label || f.name || f.id;
     var panelId = compId + '-' + (prefix||'f') + '-' + f.id;
     html += '<div id="finding-' + panelId + '" class="hidden cond">';
     html += '<div class="cond-panel">';
-    html += '<div class="cp-header">' + esc(fLabel) + '</div>';
+    html += '<div class="cp-header">' + esc(f.chipLabel || f.id) + '</div>';
     html += '<div class="cp-body">';
 
     // Context (does this apply?)
     if (f.context) {
       html += '<div class="finding-context">';
-      html += '<div class="ctx-label">' + esc(f.context.label || f.context.question || 'Does this apply?') + '</div>';
+      html += '<div class="ctx-label">' + esc(f.context.question || 'Does this apply?') + '</div>';
       html += '<div class="ctx-grid">';
       if (f.context.yes) f.context.yes.forEach(function(y) { html += '<div class="ctx-yes">' + esc(y) + '</div>'; });
       if (f.context.no) f.context.no.forEach(function(n) { html += '<div class="ctx-no">' + esc(n) + '</div>'; });
@@ -19243,10 +18960,9 @@ function renderFindings(compId, findings, state, prefix) {
     // Expect (what does good look like?)
     if (f.expect) {
       html += '<div class="finding-expect">';
-      html += '<div class="ctx-label">' + esc(f.expect.label || 'What does GOOD look like?') + '</div>';
+      html += '<div class="ctx-label">What does GOOD look like?</div>';
       html += '<div class="expect-list">';
-      var expectItems = Array.isArray(f.expect) ? f.expect : (f.expect.items || []);
-      expectItems.forEach(function(e) { html += '<div>&#10003; ' + esc(e) + '</div>'; });
+      f.expect.forEach(function(e) { html += '<div>&#10003; ' + esc(e) + '</div>'; });
       html += '</div></div>';
     }
 
@@ -19255,52 +18971,40 @@ function renderFindings(compId, findings, state, prefix) {
       html += '<div class="ctx-label">What are you seeing?</div>';
       html += '<div class="chip-group">';
       f.conditions.forEach(function(cond) {
-        html += '<button class="chip sm" onclick="showConditionResult(this,\'' + panelId + '-' + cond.id + '\')">' + esc(cond.label || cond.id) + '</button>';
+        html += '<button class="chip sm" onclick="showConditionResult(this,\'' + panelId + '-' + cond.id + '\')">' + esc(cond.label) + '</button>';
       });
       html += '</div>';
 
       // Condition result panels
       f.conditions.forEach(function(cond) {
         html += '<div id="cond-' + panelId + '-' + cond.id + '" class="hidden cond">';
-        // Guidance block — handle both direct title/note AND guidance:{title,note} object
-        var gTitle = cond.title || (cond.guidance && cond.guidance.title) || '';
-        var gNote = cond.note || (cond.guidance && cond.guidance.note) || '';
-        var severity = cond.severity || 'warn';
-        if (severity || gTitle) {
-          var guidanceClass = severity === 'good' ? 'good-guidance' : severity === 'warn' ? 'warn-guidance' : 'danger-guidance';
+        // Guidance block
+        if (cond.severity) {
+          var guidanceClass = cond.severity === 'good' ? 'good-guidance' : cond.severity === 'warn' ? 'warn-guidance' : 'danger-guidance';
           html += '<div class="finding-guidance ' + guidanceClass + '">';
-          if (gTitle) html += '<div class="g-title">' + esc(gTitle) + '</div>';
-          if (gNote) html += '<div class="g-note">' + esc(gNote) + '</div>';
+          if (cond.title) html += '<div class="g-title">' + esc(cond.title) + '</div>';
+          if (cond.note) html += '<div class="g-note">' + esc(cond.note) + '</div>';
           html += '</div>';
         }
         // Can't say
         if (cond.cantSay) {
           html += '<div class="cant-say"><div class="cant-title">&#10060; Do NOT say</div><div>' + esc(cond.cantSay) + '</div></div>';
         }
-        // Report blocks — handle both cond.report object AND direct define/direct/defer on cond
-        var report = cond.report || {};
-        var defText = report.define || cond.define || '';
-        var dirText = report.direct || cond.direct || '';
-        var defText2 = report.defer || cond.defer || '';
-        if (defText) html += renderReportBlock('define', defText);
-        if (dirText) html += renderReportBlock('direct', dirText);
-        if (defText2) html += renderReportBlock('defer', defText2);
+        // Report blocks
+        if (cond.report) {
+          if (cond.report.define) html += renderReportBlock('define', cond.report.define);
+          if (cond.report.direct) html += renderReportBlock('direct', cond.report.direct);
+          if (cond.report.defer) html += renderReportBlock('defer', cond.report.defer);
+        }
         html += '</div>';
       });
     }
 
-    // Simple findings (define/direct/defer at finding level, no conditions)
+    // Simple findings (define/direct/defer at finding level)
     if (f.define || f.direct || f.defer) {
       if (f.define) html += renderReportBlock('define', f.define);
       if (f.direct) html += renderReportBlock('direct', f.direct);
       if (f.defer) html += renderReportBlock('defer', f.defer);
-    }
-
-    // Report object at finding level
-    if (f.report) {
-      if (f.report.define) html += renderReportBlock('define', f.report.define);
-      if (f.report.direct) html += renderReportBlock('direct', f.report.direct);
-      if (f.report.defer) html += renderReportBlock('defer', f.report.defer);
     }
 
     html += '</div></div></div>'; // close cp-body, cond-panel, finding panel
