@@ -9782,6 +9782,54 @@ var INSPECTION_DATA = {
                     "standard": "Minimum 3 feet above any walkable roof surface (slope 4:12 or steeper, measured within 3 feet horizontally from the edge). Minimum 8 feet above a flat or low-slope roof. The conductor should not contact the roof surface at any point.",
                     "tip": "This clearance is about the service drop passing over the roof surface, not the mast itself. If the service drop (from pole to weatherhead) passes over any portion of the roof, check the clearance at the closest point. A walkable roof (4:12 slope or steeper) gets the 3-foot minimum. A flat roof that is accessible (e.g., for HVAC access) gets the 8-foot minimum. Conductors resting on or dragging across the roof surface is a serious defect.",
                     "redFlag": "Service conductors contacting or too close to roof surface"
+                  },
+                  {
+                    "label": "Individual open conductors vs triplex — indicator of dated service",
+                    "standard": "Modern service drops use triplex cable (three wires twisted together). Individual open conductors (separate wires on insulators/spreaders) are an obsolete service drop configuration.",
+                    "tip": "If you see individual wires on glass or ceramic insulators or on a wooden spreader rack at the point of attachment (instead of a single twisted triplex cable), this is an older service drop. Individual open conductors are more vulnerable to wind, ice, and branch contact. They also indicate the overall electrical system is likely dated — expect older wiring methods, smaller service amperage, and possibly obsolete panel equipment inside. Document this as an observation that the service appears dated.",
+                    "redFlag": "Individual open conductors — obsolete service drop, likely dated electrical system"
+                  },
+                  {
+                    "label": "Service drop near or in contact with metal soffit or other conductive surfaces",
+                    "standard": "The service drop and service entrance conductors must not contact any conductive building surface (metal soffit, metal fascia, aluminum siding, metal gutters, metal flashing). Contact can energize the building surface.",
+                    "tip": "This is a critical check. If the service drop or SEC touches or rubs against a metal soffit, the soffit can become energized at full line voltage. Anyone touching the soffit, gutter, or connected metal components could receive a lethal shock. Look for wires touching or passing through metal soffit panels, rubbing against aluminum siding, or contacting metal gutters. Wind can cause intermittent contact that is not visible during calm weather. Also check for damaged insulation at contact points — the rubbing wears through insulation over time.",
+                    "redFlag": "SAFETY: Service conductors contacting metal soffit — electrocution hazard",
+                    "evidence": "CAPTURE: Photograph the contact point showing the wire and the metal surface."
+                  },
+                  {
+                    "label": "Neutral conductor intact — no visible breaks in the service drop neutral",
+                    "standard": "The neutral (grounded) conductor in the service drop must be continuous and intact. A broken or severed neutral creates a dangerous condition where voltage between the two hot legs becomes unbalanced, potentially sending 240V to 120V circuits.",
+                    "tip": "A broken neutral is one of the most dangerous electrical defects. With a broken neutral, the two hot legs are no longer balanced — one side of the house may receive significantly more than 120V while the other receives less. This causes lights to flicker or burn very bright on one side and dim on the other. Appliances on the high-voltage side can be destroyed or catch fire. Look for the neutral wire (often the bare or lowest wire on a triplex) showing signs of fraying, separation, or breaks. On triplex, the neutral is the bare messenger wire that supports the cable. Also look for burn marks at connection points.",
+                    "redFlag": "SAFETY: Broken or damaged neutral — voltage imbalance, fire hazard, appliance damage"
+                  },
+                  {
+                    "label": "Strap clamps / staples present — SEC properly secured to building",
+                    "standard": "Service entrance cable must be secured to the building at intervals not exceeding the NEC requirements. NM cable (Romex) requires staples or straps within 12 inches of every box and at intervals not exceeding 4.5 feet. SE cable requires support within 12 inches of every termination and every 30 inches for vertical runs.",
+                    "tip": "Look for missing strap clamps, cable staples, or cable hangers along the SEC run from the meter to where it enters the building. Unsecured cable can sag, pull on connections, and be damaged by impact or animal activity. Also check that the fasteners are appropriate — cable staples should not be driven so tight they deform or damage the cable insulation. Nails through cable insulation is a defect. On interior NM (Romex) runs visible in basements or garages, the same rules apply — stapled within 12 inches of the box, every 4.5 feet along the run.",
+                    "redFlag": "Missing strap clamps or staples — unsecured cable"
+                  },
+                  {
+                    "label": "Clearance from balconies, decks, and porches — 10 feet, extending 3 feet past edge",
+                    "standard": "Service drop must maintain 10 feet of clearance above balconies, decks, and porches. This clearance extends 3 feet horizontally past the railing or edge of the deck/balcony/porch. Measurement is from the bottom of the drip loop or lowest point of the service drop.",
+                    "tip": "This is often overlooked. The 10-foot clearance does not end at the railing — it extends 3 feet beyond the railing or edge of the structure. This accounts for a person leaning or reaching over the railing. Measure from the lowest point of the service drop (bottom of the drip loop or the sag point) to the deck/balcony surface. Even check the measurement from ground level up to the drip loop for areas adjacent to the house.",
+                    "redFlag": "Service drop clearance inadequate over deck/balcony — must be 10ft, extending 3ft past edge"
+                  },
+                  {
+                    "label": "Service drop clearance from swimming pool — Illinois pool restriction",
+                    "standard": "Service drop must maintain at least 22.5 feet of clearance above a swimming pool. Per NEC 680.8/680.9, in Illinois you cannot install a NEW pool under an existing service drop. The service drop must be relocated first.",
+                    "tip": "If a swimming pool exists under or near the service drop path, estimate the clearance at the closest point. The 22.5-foot requirement is the most stringent clearance requirement for service drops. Note: the NEC and Illinois prohibit installing a new pool under a service drop — if the pool appears newer than the house, verify whether the service drop was relocated. Existing pools that predate this rule may have inadequate clearance — this is a reportable condition.",
+                    "redFlag": "Service drop over swimming pool with inadequate clearance — 22.5ft required"
+                  },
+                  {
+                    "label": "Overhead wires to outbuildings — same clearance requirements apply",
+                    "standard": "Overhead wires running from the house to a detached garage, shed, workshop, or other outbuilding must maintain the same minimum clearance requirements as the service drop: 10ft over pedestrian areas, 12ft over driveways, 18ft over roads.",
+                    "tip": "Homeowners often run overhead feeds to garages, sheds, or workshops. These wires frequently do not meet clearance requirements — especially over driveways. The wires from house to outbuilding are the homeowner's responsibility (not the utility's). Also check if the wire gauge is appropriate for the distance and load, and if the connection is properly weatherproofed at both ends.",
+                    "redFlag": "Overhead wires to outbuilding with inadequate clearance"
+                  },
+                  {
+                    "label": "Service drop and SEC cables same size — matched ampacity",
+                    "standard": "The service entrance conductors (from weatherhead to panel) should be sized to match or exceed the service drop capacity and the main breaker rating. If the SEC appears significantly smaller than the service drop cables, the SEC may be undersized for the service.",
+                    "tip": "Visually compare the wire diameter of the service drop (coming from the pole) to the SEC (going from the weatherhead down to the meter and panel). They should appear similar in size. If the SEC cables look noticeably thinner than the service drop cables, the SEC may be undersized — this is a mismatch that a qualified electrician should evaluate. A larger service drop feeding smaller SEC means the SEC could be overloaded before the utility's fuse on the pole blows."
                   }
                 ],
                 "findings": [
@@ -9869,6 +9917,43 @@ var INSPECTION_DATA = {
                     "define": "Only two conductors were observed entering the weatherhead, indicating a 120V-only service. This is an obsolete service configuration that cannot supply 240V. Modern appliances requiring 240V (electric range, dryer, central air conditioning, electric water heater, electric heat) cannot operate on this service.",
                     "direct": "Recommend evaluation by a qualified electrician for service upgrade to 120/240V (3-wire) service. This is a significant limitation for modern occupancy.",
                     "describe_accessible": "Your house only has 2-wire power, which means you only get 120 volts. A modern house needs 240 volts for big appliances like a stove, dryer, A/C, or electric water heater. None of those will work with your current service. You need an electrician to upgrade to 3-wire 240-volt service."
+                  },
+                  {
+                    "id": "service-contact-metal-soffit",
+                    "chipLabel": "Service Lines Contacting Metal Soffit",
+                    "urgent": true,
+                    "define": "Service drop or service entrance conductors observed [contacting / rubbing against / passing through] metal soffit at [location]. Contact between live conductors and a conductive building surface can energize the soffit, gutters, fascia, and any connected metal components. This creates an electrocution hazard for anyone touching or working near these surfaces.",
+                    "direct": "Recommend immediate evaluation by a qualified electrician. Do not touch metal soffit, fascia, or gutter components near the service entry until the condition is corrected.",
+                    "describe_accessible": "Your power wires are touching the metal soffit on your house. This can make the soffit and gutters carry live electricity. Anyone touching those metal surfaces could get a serious shock. An electrician needs to separate the wires from the metal immediately."
+                  },
+                  {
+                    "id": "broken-neutral",
+                    "chipLabel": "Broken / Damaged Neutral",
+                    "urgent": true,
+                    "define": "The neutral conductor in the service drop appears [frayed / separated / broken / damaged] at [location]. A broken neutral causes voltage imbalance between the two hot legs — one side of the house may receive significantly more than 120V (potentially up to 240V on 120V circuits) while the other side receives less. This destroys appliances and creates a fire hazard. Symptoms include lights flickering or burning very bright on one side while dim on the other.",
+                    "direct": "Recommend immediate evaluation. If the break is on the service drop (utility wires from pole), contact the utility provider. If on the SEC (homeowner wiring), contact a qualified electrician. This is a serious condition that can damage appliances and start fires.",
+                    "describe_accessible": "The neutral wire in your power lines appears damaged. This is serious — when the neutral breaks, the electricity going to one side of your house can spike much higher than it should. Lights burn super bright on one side and dim on the other, and appliances can be destroyed or catch fire. Call the power company if it is on their wires, or an electrician if it is on your wires."
+                  },
+                  {
+                    "id": "pool-under-service-drop",
+                    "chipLabel": "Pool Under Service Drop",
+                    "define": "A swimming pool is located below the service drop path. Minimum clearance above a swimming pool is 22.5 feet (NEC 680.8/680.9). In Illinois, a new pool cannot be installed under an existing service drop — the service drop must be relocated first. If the pool appears newer than the electrical service, the service drop may have been non-compliant when the pool was installed.",
+                    "direct": "Recommend evaluation of clearance by a qualified electrician. If clearance is inadequate, the service drop must be relocated by the utility provider before the pool can be safely used. Verify with local building department if the pool installation was permitted.",
+                    "describe_accessible": "Your pool is under the power lines from the pole. Power lines must be at least 22.5 feet above a pool. In Illinois, you cannot put a new pool under existing power lines — the lines have to be moved first. If the pool was added after the house was built, this may be a code violation. An electrician and the power company need to evaluate this."
+                  },
+                  {
+                    "id": "outbuilding-wires-low",
+                    "chipLabel": "Low Overhead Wires to Outbuilding",
+                    "define": "Overhead wires running from the house to a [detached garage / shed / workshop / outbuilding] at [location] appear to have inadequate clearance. The same clearance requirements that apply to service drops apply to overhead feeds to outbuildings: 10 feet over pedestrian areas, 12 feet over driveways, 18 feet over roads.",
+                    "direct": "Recommend evaluation and correction by a qualified electrician. The overhead feed should be raised to meet clearance requirements, or replaced with an underground feed.",
+                    "describe_accessible": "The wires running from your house to the [garage/shed] are hanging too low. These wires have the same height requirements as the power company's wires — at least 10 feet over walkways and 12 feet over driveways. An electrician needs to raise them or run the power underground instead."
+                  },
+                  {
+                    "id": "obsolete-open-conductors",
+                    "chipLabel": "Obsolete Open Conductor Service Drop",
+                    "define": "Individual open conductors on insulators or spreader racks observed at the service drop point of attachment instead of modern triplex cable. This is an obsolete service drop configuration indicating a dated electrical system. Individual open conductors are more vulnerable to wind damage, ice loading, and branch contact than modern triplex cable.",
+                    "direct": "Recommend noting as an observation that the service drop is dated. The utility provider may upgrade on request. Also recommend evaluation of the entire electrical system by a qualified electrician, as dated service drops frequently indicate dated wiring and panel equipment throughout the home.",
+                    "describe_accessible": "Your power wires from the pole are individual separate wires on old-style insulators instead of the modern twisted cable. This tells us the electrical system is likely very old. The power company can usually upgrade these on request. Since the outside is old, the wiring inside is probably old too — an electrician should evaluate the whole electrical system."
                   }
                 ]
               },
@@ -9997,39 +10082,98 @@ var INSPECTION_DATA = {
             "title": "Service Drop Clearances (Overhead)",
             "headers": [
               "Location",
-              "Minimum Clearance"
+              "Minimum Clearance",
+              "Notes"
             ],
             "rows": [
               [
                 "Above ground (walkways, patios)",
-                "10 feet"
+                "10 feet",
+                "Measured from lowest point of drip loop or sag point"
+              ],
+              [
+                "Balconies, decks, porches",
+                "10 feet",
+                "Extends 3 feet past the railing or edge"
               ],
               [
                 "Above residential driveway",
-                "12 feet"
+                "12 feet",
+                "Applies wherever vehicles can access"
               ],
               [
                 "Above public road",
-                "18 feet"
+                "18 feet",
+                "Any road with regular vehicle traffic"
               ],
               [
                 "From openable windows/doors",
-                "3 feet horizontal"
+                "3 feet horizontal",
+                "Fixed/sealed windows exempt"
               ],
               [
                 "Over walkable roof (4:12+ slope)",
-                "3 feet"
+                "3 feet",
+                "Within 3 feet horizontally of roof edge"
               ],
               [
                 "Over flat/low-slope roof",
-                "8 feet"
+                "8 feet",
+                "Less than 4:12 slope"
               ],
               [
                 "Above swimming pool",
-                "22.5 feet"
+                "22.5 feet",
+                "IL: cannot install NEW pool under service drop (NEC 680.8/680.9)"
+              ],
+              [
+                "To outbuildings (garage, shed)",
+                "Same as above",
+                "Overhead feeds have identical clearance requirements"
               ]
             ]
           },
+          "refTables": [
+            {
+              "id": "sec-gauge-copper",
+              "title": "Service Entrance Conductor Sizing — Copper",
+              "columns": ["Service Amperage", "Copper Gauge"],
+              "rows": [
+                ["60A", "6 AWG"],
+                ["100A", "2 or 3 AWG"],
+                ["150A", "1 AWG"],
+                ["200A", "2/0 AWG"],
+                ["400A", "400 kcmil"]
+              ]
+            },
+            {
+              "id": "sec-gauge-aluminum",
+              "title": "Service Entrance Conductor Sizing — Aluminum",
+              "description": "Aluminum has only 61% of the conductivity of copper — requires larger gauge for the same amperage. Aluminum SEC is standard and acceptable in residential.",
+              "columns": ["Service Amperage", "Aluminum Gauge"],
+              "rows": [
+                ["60A", "4 AWG"],
+                ["100A", "1 or 1/0 AWG"],
+                ["150A", "2/0 AWG"],
+                ["200A", "4/0 AWG"]
+              ]
+            },
+            {
+              "id": "branch-wire-gauge",
+              "title": "Branch Circuit Wire Gauge — Copper vs Aluminum",
+              "description": "Stranded aluminum branch circuit wire should be one size larger than copper for the same amperage.",
+              "columns": ["Breaker", "Copper", "Aluminum"],
+              "rows": [
+                ["15A", "14 AWG", "12 AWG"],
+                ["20A", "12 AWG", "10 AWG"],
+                ["30A", "10 AWG", "8 AWG"],
+                ["40A", "8 AWG", "6 AWG"],
+                ["50A", "6 AWG", "4 AWG"],
+                ["70A", "4 AWG", "3 AWG"],
+                ["100A", "2 AWG", "1/0 AWG"]
+              ]
+            }
+          ],
           "redFlags": [],
           "study": {
             "whatItIs": "The service entry is the point where electrical power transitions from the utility system to the building's electrical system. It encompasses everything from the point of attachment (overhead) or the lateral termination (underground) through the service entrance conductors to the meter base. The service entry is ALWAYS LIVE — there is no disconnect between the utility and the main breaker. The inspector's assessment is visual only, from ground level.",
@@ -10044,6 +10188,9 @@ var INSPECTION_DATA = {
               "GROUNDING ELECTRODE CONDUCTOR (GEC): The conductor from the service entrance to the grounding electrode (ground rod, water pipe, Ufer ground). Must be copper (usually bare or green-insulated). Must be continuous (no splices except irreversible compression connections). Must be protected where subject to physical damage. The GEC provides a low-impedance path to earth for lightning and fault current.",
               "CLEARANCES: Service drops must maintain minimum clearances above grade (10ft/12ft/18ft depending on what's below), 3ft horizontal from operable windows, and specific clearances above roof surfaces. These clearances prevent accidental contact with live conductors. In IL, ice loading can cause service drops to sag below acceptable clearances in winter.",
               "WIRE COUNT AND SERVICE VOLTAGE: 3 wires (triplex) = 120/240V (standard modern service). 2 wires = 120V only (obsolete, severe limitation). Count the wires entering the weatherhead to confirm service voltage.",
+              "SERVICE ENTRANCE CONDUCTOR SIZING — COPPER: 6 AWG = 60A service. 2 or 3 AWG = 100A service. 1 AWG = 150A service. 2/0 AWG = 200A service. 400 kcmil = 400A service.",
+              "SERVICE ENTRANCE CONDUCTOR SIZING — ALUMINUM: 4 AWG = 60A service. 1 or 1/0 AWG = 100A service. 2/0 AWG = 150A service. 4/0 AWG = 200A service. Aluminum has only 61% of the conductivity of copper, which is why the gauge must be larger for the same amperage. Aluminum SEC is standard and acceptable — do not confuse this with the aluminum branch wiring concern.",
+              "UTILITY vs HOMEOWNER RESPONSIBILITY: The utility is responsible for the service drop (wires from the pole to the point of attachment) and the meter itself. The homeowner is responsible for the weatherhead, service mast, SEC, meter base (housing), grounding electrode system, and everything downstream. Always recommend a qualified electrician for homeowner-side issues and contacting the utility for service drop issues. Never say the utility will fix something that is homeowner responsibility.",
               "DO NOT TOUCH RULE: The SEC is the single most dangerous component an inspector encounters. It carries the full utility amperage, it is always live, and it CANNOT be turned off from inside the building. The only way to de-energize it is for the utility to pull the meter or disconnect at the transformer. Visual inspection ONLY. Never probe, test, or physically examine SEC, meter base, or weatherhead."
             ],
             "ashiSop": "ASHI SOP Section 7.1: The inspector shall inspect the service drop/lateral, service entrance conductors, cables, and raceways, and the service equipment and main disconnects and overcurrent devices. InterNACHI SOP 2.7.I: Inspect service entrance conductors, service equipment, grounding equipment. IL SOP 1410.200(h)(1): Inspect service entrance, the main panel, and sub panels, including feeders."
@@ -24516,6 +24663,16 @@ var INSPECTION_DATA = {
               "label": "AC unit breaker vs data plate (MOCP/MCA)",
               "tip": "Every air conditioning unit has a data plate (usually on the side or back of the outdoor condenser) that lists two critical numbers: MCA (Minimum Circuit Ampacity) — this determines the MINIMUM wire gauge required. MOCP (Maximum Overcurrent Protection) — this is the MAXIMUM breaker size allowed. Example: data plate says MCA 19.6A, MOCP 30A. The wire must be rated for at least 19.6A (#12 CU minimum), and the breaker must be 30A or smaller. A 40A breaker on this unit = defect (exceeds MOCP). An undersized wire for the MCA = defect (fire hazard). The manufacturer set these numbers based on the compressor's locked-rotor amps and running load. CYA: ALWAYS photograph the AC data plate. If you cannot read it (faded, painted, obstructed), photograph the condition that prevents reading.",
               "redFlag": "Breaker exceeds MOCP on AC data plate — overcurrent protection insufficient per manufacturer specifications"
+            },
+            {
+              "label": "NM cable (Romex) stapled within 12\" of boxes and every 4.5 feet",
+              "tip": "NM cable must be stapled or supported within 12 inches of every electrical box and at intervals not exceeding 4.5 feet along the run. SE cable requires support within 12 inches of terminations and every 30 inches vertically. Look for: missing staples (cable hangs loose), over-driven staples (crushed/deformed cable sheathing — this damages insulation and is a fire hazard), nails through cable, and cable run across the top of joists in accessible attics (must follow joists or be protected by running boards). In basements and garages, NM cable below 8 feet must be protected from physical damage.",
+              "redFlag": "Unsecured wiring — missing staples or cable hangers"
+            },
+            {
+              "label": "Wire color compliance — neutrals white, grounds bare/green",
+              "tip": "NEC mandates: neutral conductors MUST be white or gray. Ground conductors MUST be bare copper or green insulated. Hot conductors can be any other color (black, red, blue, orange). Watch for: white wire used as a hot without being re-identified (should be marked with black tape at both ends), green or bare wire used as a hot (serious violation), and hot/neutral reversal (3-light tester will show this at receptacles). Reversed hot/neutral means the device stays energized even when switched off — shock hazard.",
+              "redFlag": "White neutral used as hot without re-identification — shock hazard"
             }
           ],
           "refTables": [
@@ -25141,7 +25298,10 @@ var INSPECTION_DATA = {
               "NEC 240.4(D) — THE SMALL WIRE EXCEPTION: For #14, #12, and #10 AWG, the NEC simply caps the maximum breaker size regardless of anything else: #14=15A, #12=20A, #10=30A. Period. No temperature column matters. No insulation type matters. The breaker caps the ampacity. This is the rule you will use for 90% of residential inspection — because 90% of residential circuits are #14 or #12.",
               "WHEN THE 90°C RATING ACTUALLY HELPS: The 90°C wire rating is NOT useless — it provides an additional margin of safety. If a connection gets hot due to a loose terminal, a 90°C-rated wire will tolerate that heat without its insulation failing as quickly as a 60°C wire would. The 90°C rating is a safety factor, not an ampacity increase, in residential applications.",
               "ALUMINUM WIRE AMPACITY: Aluminum conductors have lower ampacity than copper conductors of the same gauge. A separate table applies. For example, #6 copper at 75°C = 65A, but #6 aluminum at 75°C = 50A. When assessing aluminum conductors, use the aluminum ampacity table (NEC Table 310.16, aluminum column). Do not use the copper column for aluminum wire — this is a common error that can approve an undersized conductor.",
-              "DERATING FOR BUNDLED CONDUCTORS: When more than 3 current-carrying conductors are bundled together (common in conduit), ampacity must be reduced (derated) because the conductors cannot dissipate heat as effectively. This is a professional electrician concern more than an inspector concern, but understanding it explains why conduit installations sometimes have larger wire than expected."
+              "DERATING FOR BUNDLED CONDUCTORS: When more than 3 current-carrying conductors are bundled together (common in conduit), ampacity must be reduced (derated) because the conductors cannot dissipate heat as effectively. 4-6 conductors = 80% of rated ampacity. 7-9 conductors = 70%. 10-20 conductors = 50%. This is why conduit installations sometimes have larger wire than expected — the derated ampacity requires upsizing. Also applies to NM cables bundled together in a drilled hole or stacked on a joist for long runs. As an inspector, if you see unusually large wire on a circuit, derating may be the reason — it is not necessarily a defect.",
+              "A/C WIRE SIZING EXCEPTION: One residential exception to standard wire gauge-to-breaker matching is central air conditioning. The wire size for central A/C is determined by reading the nameplate on the exterior condenser/compressor unit, NOT by the breaker size. The wire is sized at the 'minimum circuit ampacity' (MCA) rating on the nameplate, not the 'maximum overcurrent protection' (MOP/MOCP) breaker rating. The breaker may be larger than what the wire gauge normally allows — this is permitted by NEC 440 because motor circuits have high inrush current on startup. Example: a 30A breaker with #10 wire for A/C may be normal even though #10 normally goes with a 30A breaker — if the nameplate MCA requires #10 but MOP allows up to 40A or 50A, the breaker will be larger than the wire gauge suggests. Always check the condenser nameplate.",
+              "WIRE COLOR RULES (NEC): Branch circuit wire colors are NOT mandated by the NEC except for two critical rules: (1) Neutrals MUST be white or gray. (2) Grounds MUST be bare copper or green insulated. Hot conductors can be any other color — black, red, blue, orange, etc. If you see a white wire used as a hot conductor without being re-identified (marked with black tape or paint at both ends), that is a violation. If you see a green wire or bare wire used as a hot, that is a serious violation. Mixing up hot and neutral wires creates a shock hazard because the device remains energized even when switched off.",
+              "CABLE STAPLING AND SUPPORT REQUIREMENTS: NM cable (Romex) must be stapled or supported within 12 inches of every electrical box and at intervals not exceeding 4.5 feet along the run. SE cable must be supported within 12 inches of every termination and every 30 inches for vertical runs. Staples must not be driven so tight that they deform or cut into the cable sheathing — damaged insulation from over-driven staples is a fire hazard. Cable must not be run across the top of joists in accessible attics (it must follow the joist or be protected by running boards). In basements and garages, NM cable must be protected from physical damage if run below 8 feet — typically by running through conduit, behind guard strips, or along the face of studs or joists rather than across them."
             ],
             "ashiSop": "ASHI SOP Section 7: Inspect branch circuit conductors, their overcurrent devices, and their compatibility.",
             "wireTemperatureNote": "Wire temperature ratings and their impact on ampacity (current-carrying capacity). Every wire has an insulation material rated for a maximum operating temperature (60°C, 75°C, or 90°C). Higher temperature ratings mean the insulation can withstand more heat, which allows the wire to carry more current without the insulation degrading. However, the practical ampacity is limited by the weakest thermal link in the system — usually the termination (breaker, device, or connector)."
