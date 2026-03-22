@@ -4219,7 +4219,8 @@ var INSPECTION_DATA = {
               "Window wells should have gravel drainage and proper covers. Deep window wells (>44\") need a ladder for emergency egress.",
               "Keep vegetation 12\"+ from siding. Tree branches touching the roof should be trimmed. Trees at foundation = root damage risk.",
               "CISTERNS AND CATCH BASINS: Not in SOP but cisterns are child safety hazards if the lid can be removed. Collapsing cistern near foundation can cause structural damage. Worth looking in if accessible.",
-              "FOUNDATION VISIBILITY: Each ground material at the foundation changes what you can see and what risks exist. Bare soil = best visibility. Mulch = reduced visibility, holds moisture. Hardscape = eliminates visibility where it touches."
+              "FOUNDATION VISIBILITY: Each ground material at the foundation changes what you can see and what risks exist. Bare soil = best visibility. Mulch = reduced visibility, holds moisture. Hardscape = eliminates visibility where it touches.",
+              "additionalDetails"
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect grading, drainage, and vegetation when any of these are likely to adversely affect the structure."
           },
@@ -4231,9 +4232,34 @@ var INSPECTION_DATA = {
             "Downspout extensions appeared to direct water away from the foundation",
             "No visible evidence of soil erosion was observed at the foundation",
             "Mulch and landscape materials appeared to be maintained below the siding line",
-            "Surface drainage appeared functional at the time of inspection"
+            "Surface drainage appeared functional at the time of inspection",
+            "Grading appeared to slope away from the foundation on all accessible and visible sides at the time of inspection.",
+            "Negative grading was observed at the [direction] side of the foundation. Soil appeared to slope toward the structure, which may contribute to moisture intrusion.",
+            "Foundation clearance above grade appeared adequate on accessible sides at the time of inspection.",
+            "Grading assessment was limited by [snow cover / standing water / dense vegetation / hardscape] on the [direction] side. Concealed areas were not evaluated.",
+            "Vegetation was observed in contact with the structure at [location]. Recommend maintaining 12-inch minimum clearance.",
+            "Grade and drainage conditions are evaluated visually at the time of inspection and do not include subsurface analysis or prediction of future performance."
           ],
-          "confusedMaterials": [],
+          "confusedMaterials": [
+            {
+              "pair": [
+                "Positive Grade",
+                "Flat Grade with Surface Drainage"
+              ],
+              "distinguishing": "Positive grade means the soil itself slopes downward away from the foundation. Flat grade with surface drainage means the soil is level but water moves via swales, channels, or surface grading features. Both move water away, but flat grade with surface drainage can fail if the drainage features clog or are altered.",
+              "whyItMatters": "Positive grade is self-maintaining — gravity does the work continuously. Surface drainage systems (swales, French drains) require maintenance and can be inadvertently blocked by landscaping changes. Report differently because the risk profile differs.",
+              "fieldTest": "Place a ball on the soil 2 feet from the foundation. If it rolls away from the house, that is positive grade. If it sits still but water would flow along a visible channel or swale, that is surface drainage on flat grade."
+            },
+            {
+              "pair": [
+                "Settlement (Grade Change)",
+                "Original Negative Grade"
+              ],
+              "distinguishing": "Settlement shows signs of prior positive grade that has changed — look for a gap between hardscape and foundation, old soil staining lines on the foundation wall at a higher level, or backfill depression along the foundation. Original negative grade shows no evidence of prior positive slope — the lot was graded this way or the house was built lower than surroundings.",
+              "whyItMatters": "Settlement-caused negative grade is fixable by adding fill to restore the original slope. Original negative grade may require more significant site work, drainage systems, or structural waterproofing because the problem is foundational to the lot design.",
+              "fieldTest": "Look at the foundation wall for old soil lines or staining above the current grade. If soil used to be higher, the grade has settled. Check if backfill along foundation has a depression — common settlement indicator within the first 5-10 years after construction."
+            }
+          ],
           "interactiveLogic": [
             {
               "id": "grading-drainage-evaluation",
@@ -4386,7 +4412,9 @@ var INSPECTION_DATA = {
             "ext-siding",
             "ext-gutters",
             "basement-foundation",
-            "basement-moisture"
+            "basement-moisture",
+            "basement-sump",
+            "roof-gutters"
           ],
           "findings": [
             {
@@ -4738,7 +4766,8 @@ var INSPECTION_DATA = {
               "FENCE POST DEPTH RULE: Post depth should equal approximately 1/3 of the total post height (above-ground + below-ground). For a 6 ft fence, that means roughly 2 ft in the ground minimum. In Illinois, the frost line requires 24-36 inches minimum depth to prevent frost heave — whichever is greater (1/3 rule or frost line) governs.",
               "POST SPACING: Maximum 6-8 ft on center between posts. High fences (6 ft+), solid-panel fences (catch more wind), and high-wind areas need closer spacing. Gate posts and corner/end posts should be larger diameter or set deeper because they carry more load.",
               "HEIGHT LIMITS (TYPICAL IL MUNICIPAL): Most IL municipalities allow 6 ft maximum in backyards and 4 ft maximum in front yards. These vary by municipality — always check local code. Some HOAs have additional restrictions.",
-              "LEAN TEST: If a fence post leans significantly when pushed, the base is compromised — either the post has rotted at the ground line, the concrete footing has cracked, or the post was never set deep enough. This is the single most telling field test for fence condition."
+              "LEAN TEST: If a fence post leans significantly when pushed, the base is compromised — either the post has rotted at the ground line, the concrete footing has cracked, or the post was never set deep enough. This is the single most telling field test for fence condition.",
+              "additionalDetails"
             ],
             "ashiSop": "Fences are NOT required per ASHI SOP Section 13 (exclusions). Reporting fence condition exceeds the standard for customer service."
           },
@@ -4748,7 +4777,12 @@ var INSPECTION_DATA = {
             "Gate hardware appeared functional at the time of inspection",
             "No significant deterioration of fence materials was observed",
             "Fence appeared to maintain clearance from the ground surface",
-            "Note: Fences and boundary walls are not required to be inspected per ASHI SOP Section 4.2. Comments are provided as a courtesy."
+            "Note: Fences and boundary walls are not required to be inspected per ASHI SOP Section 4.2. Comments are provided as a courtesy.",
+            "Fencing was observed and noted for customer service purposes. Fences are excluded from the ASHI Standard of Practice (SOP 13.2.B).",
+            "Fence appeared in serviceable condition at the time of inspection. This observation exceeds the standard of practice.",
+            "[Material] fence at [location] appeared to show [condition]. This observation is provided for informational purposes as fences are excluded from the scope of a standard home inspection.",
+            "Gate operation was tested at accessible locations. [Gates operated and latched properly / Gate at (location) did not latch — see findings].",
+            "Fence inspection is limited to visual observation of accessible and visible areas at the time of inspection. Buried post conditions, property line locations, and code compliance are not evaluated."
           ],
           "confusedMaterials": [
             {
@@ -4759,13 +4793,34 @@ var INSPECTION_DATA = {
               "distinguishing": "Cedar has natural reddish-brown color, tight grain, and aromatic smell. Pressure-treated pine shows a greenish tint when new, wider grain with visible knots, and may have visible treatment stamps on posts. Both weather to gray if left unsealed.",
               "whyItMatters": "Cedar has natural rot resistance but is softer. PT pine is harder but depends on chemical treatment for rot resistance — if the treatment does not fully penetrate, the untreated core can rot from within. Maintenance recommendations differ.",
               "fieldTest": "Look at post bottoms or cut ends for treatment stamps. Cedar has a distinctive aroma when scratched. PT pine is noticeably heavier than cedar for the same dimensions."
+            },
+            {
+              "pair": [
+                "Wrought Iron",
+                "Aluminum Ornamental"
+              ],
+              "distinguishing": "Wrought iron is heavy, magnetic, and will rust. Aluminum ornamental looks similar but is lighter, non-magnetic, and does not rust. Wrought iron has forged or welded joints that are heavier and often uneven. Aluminum sections are typically bolted or screwed together with uniform factory joints.",
+              "whyItMatters": "Rust is the primary failure mode for wrought iron and requires ongoing paint/coating maintenance. Aluminum never rusts — if you see rust, it is wrought iron (or steel), not aluminum. Repair methods and costs differ significantly.",
+              "fieldTest": "Use a magnet. Wrought iron and steel are magnetic. Aluminum is not. Also check weight by lifting a loose section — aluminum is noticeably lighter. Look at joints — forged/welded = iron; bolted/screwed = likely aluminum."
+            },
+            {
+              "pair": [
+                "Masonry Fence Wall",
+                "Retaining Wall"
+              ],
+              "distinguishing": "A masonry fence wall is a freestanding privacy/boundary wall with soil at the same level on both sides. A retaining wall holds back soil at different elevations. The structural demands are completely different.",
+              "whyItMatters": "A fence wall that appears to be retaining soil may be acting as a retaining wall without being designed for lateral soil pressure. If soil is higher on one side of a fence wall, it is functioning as a retaining wall regardless of original intent and should be evaluated accordingly.",
+              "fieldTest": "Check soil level on both sides. Same level = fence wall. Different levels = functioning as retaining wall. If soil is banked against one side, evaluate for lean, cracks, and drainage as a retaining wall."
             }
           ],
           "interactiveLogic": [],
           "crossReferences": [
             "grounds-grading",
             "grounds-retaining",
-            "ext-siding"
+            "ext-siding",
+            "grounds-patio",
+            "grounds-deck",
+            "ext-foundation"
           ],
           "findings": [
             {
@@ -5184,7 +5239,8 @@ var INSPECTION_DATA = {
               "ENGINEERING THRESHOLD: Walls over 4 ft should have engineering design and drainage behind them. No visible drainage on a 4+ ft wall = water pressure building behind it.",
               "OWNERSHIP: Walls near street/sidewalk/property line may be municipality-owned or shared responsibility. Always recommend client check with local government.",
               "ACTIVE FAILURE: Five signs — (1) significant lean, (2) bulging at mid-height, (3) horizontal cracking, (4) soil washing out at base, (5) gaps at top between wall and soil. ANY present = recommend structural evaluation immediately.",
-              "NEVER say 'structurally sound' — E&O insurance specifically excludes this phrase."
+              "NEVER say 'structurally sound' — E&O insurance specifically excludes this phrase.",
+              "additionalDetails"
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect retaining walls when likely to adversely affect the structure."
           },
@@ -5195,7 +5251,12 @@ var INSPECTION_DATA = {
             "Drainage provisions appeared present and functional where observable",
             "No significant deterioration of retaining wall materials was observed",
             "Retaining wall appeared structurally stable at the time of inspection",
-            "Note: Retaining walls are inspected when they are likely to adversely affect the building per ASHI SOP Section 4.1 and Illinois SOP 1410.200(h)"
+            "Note: Retaining walls are inspected when they are likely to adversely affect the building per ASHI SOP Section 4.1 and Illinois SOP 1410.200(h)",
+            "Retaining wall at [location] appeared to be performing its intended function at the time of inspection.",
+            "No significant lean, bulging, or cracking was observed on accessible and visible surfaces of the retaining wall.",
+            "Retaining wall assessment is limited to visual observation of accessible surfaces. Subsurface conditions, drainage behind the wall, and engineering adequacy are not evaluated in a standard home inspection.",
+            "Retaining wall at [location] appeared to show [condition]. Further evaluation by a qualified structural contractor is recommended.",
+            "Retaining wall was not evaluated [beyond / at (location)] as it did not appear likely to adversely affect the building per ASHI SOP Section 4."
           ],
           "confusedMaterials": [
             {
@@ -5215,6 +5276,33 @@ var INSPECTION_DATA = {
               "distinguishing": "Landscape timbers are milled to uniform dimensions (typically 4x6 or 6x6) with clean edges, and are pressure-treated for ground contact. Railroad ties are rough-hewn, inconsistent in dimension, heavily treated with creosote (black, oily, strong odor), and may have bolt holes or metal hardware embedded.",
               "whyItMatters": "Railroad ties contain creosote, which is a potential environmental and health concern. Creosote can leach into soil and groundwater. Landscape timbers use copper-based treatments that are considered safer for residential use. Both have limited structural lifespan when used as retaining walls, but railroad ties are no longer recommended for residential applications.",
               "fieldTest": "Smell is the most obvious indicator — creosote has a very strong, distinctive tar-like odor. Railroad ties also feel oily on the surface and will stain your hands black. Landscape timbers have a cleaner appearance with visible treatment stamps."
+            },
+            {
+              "pair": [
+                "Concrete Block (CMU)",
+                "Segmental Retaining Wall Block"
+              ],
+              "distinguishing": "CMU (concrete masonry units) are standard rectangular blocks laid with mortar, similar to foundation blocks. Segmental blocks are manufactured specifically for retaining walls — they have interlocking lips or pins on the back, textured split-face fronts, and are dry-stacked without mortar. Segmental blocks are designed to step back (batter) automatically via the lip design.",
+              "whyItMatters": "CMU walls require mortar and typically need drainage and reinforcement to function as retaining walls. Segmental systems are engineered as retaining solutions with built-in batter. Failure modes differ: CMU fails at mortar joints; segmental fails at the interlocking connections or when blocks shift out of alignment.",
+              "fieldTest": "Look at the joints. Mortar between blocks = CMU. No mortar with tight-fitting joints and consistent setback per course = segmental. Segmental blocks also typically have a textured/split face while CMU is smooth or painted."
+            },
+            {
+              "pair": [
+                "Railroad Ties",
+                "Landscape Timbers"
+              ],
+              "distinguishing": "Railroad ties are heavy (150-200 lbs each), 7x9 inches, dark creosote-treated, with bolt holes and metal plate impressions from rail service. Landscape timbers are lighter (40-60 lbs), typically 4x6 or 6x6 inches, pressure-treated (greenish tint), and uniformly shaped with no rail hardware marks.",
+              "whyItMatters": "Railroad ties are much heavier and last longer (20-30 years) but contain creosote which is a health/environmental concern. Landscape timbers are lighter and have shorter lifespans (10-15 years). Both rot from inside out — probe with screwdriver to check. Replacement costs and methods differ due to weight.",
+              "fieldTest": "Size and weight are the easiest tells. Railroad ties are significantly larger and heavier. Creosote treatment is dark/oily with a distinct tar smell. Pressure-treated landscape timbers have a greenish tint (CCA or ACQ treatment) and are lighter colored."
+            },
+            {
+              "pair": [
+                "Structural Retaining Wall",
+                "Decorative Garden Wall"
+              ],
+              "distinguishing": "A structural retaining wall holds back soil that would otherwise move — there is a meaningful difference in grade on either side and the wall is resisting lateral pressure. A decorative garden wall defines a bed or border but has minimal grade difference (under 18 inches) and is not resisting significant lateral pressure.",
+              "whyItMatters": "Structural retaining walls are in scope when they may adversely affect the building (ASHI SOP 4.1). Decorative garden walls far from the house are not required to inspect. A wall over 4 feet high retaining soil is almost always structural and should have been engineered. Failure of a structural wall near the house can undermine the foundation.",
+              "fieldTest": "Measure the grade difference on either side. Under 18 inches with the wall far from the house = likely decorative. Over 18 inches or any height near the foundation = structural. Walls over 4 feet should have drainage provisions and possibly geogrid — absence of these on a tall wall is a finding."
             }
           ],
           "interactiveLogic": [
@@ -5331,7 +5419,8 @@ var INSPECTION_DATA = {
             "grounds-fence",
             "ext-foundation",
             "basement-foundation",
-            "basement-moisture"
+            "basement-moisture",
+            "basement-walls"
           ],
           "findings": [
             {
@@ -17330,6 +17419,26 @@ var INSPECTION_DATA = {
             {
               "label": "Mark 'None' if no skylights present",
               "tip": "Quick checkbox on report"
+            },
+            {
+              "label": "Mark 'None' if no skylights present",
+              "tip": "Quick checkbox on report — no further evaluation needed"
+            },
+            {
+              "label": "Inspect from BOTH sides — exterior and interior",
+              "tip": "Exterior for flashing/glass. Interior for leak evidence on shaft walls. Both are required for a complete assessment."
+            },
+            {
+              "label": "Check for moss or algae growth near skylight on roof",
+              "tip": "Indicates moisture retention in that area — may signal slow leak or poor drainage around skylight"
+            },
+            {
+              "label": "IF staining on interior shaft: determine leak vs condensation",
+              "tip": "One-sided staining = leak. Uniform on glass = condensation. Check timing — rain-related vs cold-weather."
+            },
+            {
+              "label": "Count and note all skylights with locations",
+              "tip": "Multiple skylights = multiple penetrations. Each one is an independent leak risk."
             }
           ],
           "refTables": [
@@ -17381,6 +17490,66 @@ var INSPECTION_DATA = {
                 [
                   "Humidity issue — not a roof defect",
                   "Flashing failure — needs repair"
+                ]
+              ]
+            },
+            {
+              "title": "Skylight Flashing System by Type",
+              "columns": [
+                "Skylight Type",
+                "Flashing Method",
+                "Common Failure Point"
+              ],
+              "rows": [
+                [
+                  "Curb-mount",
+                  "Step + counter flashing around wood curb (like chimney)",
+                  "Uphill side head flashing and curb-to-frame sealant"
+                ],
+                [
+                  "Deck-mount",
+                  "Manufacturer integrated flashing kit (one system)",
+                  "Debris dam on uphill side; field-fabricated flashing substitution"
+                ],
+                [
+                  "Tubular",
+                  "Single-piece rubber/metal boot (like plumbing vent)",
+                  "Boot cracking from UV exposure"
+                ]
+              ]
+            },
+            {
+              "title": "Condensation vs Leak Diagnosis",
+              "columns": [
+                "Indicator",
+                "Condensation",
+                "Leak"
+              ],
+              "rows": [
+                [
+                  "Location",
+                  "Uniform on glass surface",
+                  "One side or corner of shaft walls"
+                ],
+                [
+                  "Timing",
+                  "Cold weather, regardless of rain",
+                  "During or after rain events"
+                ],
+                [
+                  "Pattern",
+                  "Fog/droplets on glass, evaporates",
+                  "Staining, water trails on drywall"
+                ],
+                [
+                  "Root cause",
+                  "Interior humidity, poor ventilation",
+                  "Flashing failure, sealant failure"
+                ],
+                [
+                  "Fix",
+                  "Improve ventilation, dehumidifier",
+                  "Roofing repair — flashing or reseal"
                 ]
               ]
             }
@@ -17435,7 +17604,12 @@ var INSPECTION_DATA = {
             "Condensation on skylight glass in cold weather is a humidity issue, not a roof leak. Staining on the shaft walls, particularly in one corner, indicates a flashing problem.",
             "Skylight flashing appears [intact / deteriorated] at [location]. The uphill side of the skylight is the most common leak location.",
             "Further evaluation by a qualified roofing contractor is recommended for skylight showing [condition] at [location].",
-            "Dual-pane skylight glass appears [clear / fogged between panes]. Fogging indicates seal failure between panes — cosmetic, not a leak."
+            "Dual-pane skylight glass appears [clear / fogged between panes]. Fogging indicates seal failure between panes — cosmetic, not a leak.",
+            "Skylight at [location] appeared in serviceable condition at the time of inspection. No evidence of active leaking was observed from [exterior / interior / both sides].",
+            "Water staining was observed around the skylight at [location] on [side/corner]. Recommend evaluation by a qualified roofing contractor to determine if an active leak is present.",
+            "Skylight inspection is limited to visual observation from [roof surface / ground with binoculars / interior]. Seal integrity between glass and frame cannot be fully evaluated visually.",
+            "Condensation was observed on the skylight glass. This is a humidity condition, not a roof leak, and is common during cold weather in Illinois.",
+            "No skylights were observed on the roof. Mark 'None' on report."
           ],
           "study": {
             "whatItIs": "Windows installed in the roof surface. Common leak source due to roof penetration.",
@@ -17443,7 +17617,15 @@ var INSPECTION_DATA = {
             "details": [
               "CURB-MOUNTED vs DECK-MOUNTED: Curb-mounted sits on a raised frame. Deck-mounted sits flush. Both need proper flashing but details differ.",
               "LEAK PATTERNS: Uphill side most common. Corners where flashing pieces meet second most common. Pre-manufactured flashing kits are better than field-fabricated.",
-              "TUBULAR SKYLIGHTS (sun tunnels): 10-14\" reflective tubes. Single-piece flashing boot. Less leak-prone due to smaller penetration."
+              "TUBULAR SKYLIGHTS (sun tunnels): 10-14\" reflective tubes. Single-piece flashing boot. Less leak-prone due to smaller penetration.",
+              "SCOPE (ASHI SOP 5.1): Skylights are specifically listed as required inspection items under roofing. They are in scope.",
+              "CURB vs DECK MOUNT: Curb-mounted sits on a raised wood frame. Deck-mounted sits directly on the deck with factory flashing. Know which you are looking at because flashing systems differ completely.",
+              "STEP FLASHING on curb mounts: Must be individual L-pieces woven with each shingle course — NOT one continuous piece bent along the curb. One long piece is improper installation (Module 5).",
+              "HEAD FLASHING: At the uphill side, a single solid piece goes UNDER the roofing and OVER the top step flashing. This is the most common leak point on any skylight.",
+              "SILL FLASHING: At the downhill side, the apron extends OVER the roofing below so water sheets off onto the roof surface.",
+              "TUBULAR SKYLIGHTS: 10-14 inch diameter reflective tubes with a dome on the roof and diffuser on the ceiling. Smaller penetration = less leak risk. Main IL concern is condensation in uninsulated tube sections in the attic.",
+              "INTERIOR CHECK: Staining on shaft walls in one corner = flashing failure on that side. Uniform condensation on glass = humidity issue (common in IL winter). These require different repairs.",
+              "CASCADE: Skylight leak evidence → check attic near skylight for moisture/mold → check ceiling below for stains → if active, check insulation for compression from water weight."
             ]
           },
           "confusedMaterials": [
@@ -17464,6 +17646,24 @@ var INSPECTION_DATA = {
               "distinguishing": "A leak shows as staining on the shaft walls, typically concentrated at one corner or the uphill side, and worsens during rain. Condensation appears as uniform moisture on the glass surface, typically in cold weather, and is not associated with rain events.",
               "whyItMatters": "A leak requires flashing repair by a roofing contractor. Condensation requires humidity management (bathroom exhaust fans, dehumidifier). Misdiagnosing one as the other leads to incorrect remediation.",
               "fieldTest": "Check the timing: moisture during or after rain = leak. Moisture in cold weather without rain = condensation. Location: shaft wall staining = leak. Glass surface moisture = condensation."
+            },
+            {
+              "pair": [
+                "Curb-Mounted Skylight",
+                "Deck-Mounted Skylight"
+              ],
+              "distinguishing": "A curb-mounted skylight sits on top of a raised wood frame (curb) built on the roof deck. The curb is typically 4-6 inches high and is visible as a wood or metal frame between the roof surface and the skylight unit. A deck-mounted skylight sits directly on the roof deck with no raised curb — the skylight frame itself rests flush against the roof sheathing with an integrated flashing kit.",
+              "whyItMatters": "Flashing systems are completely different. Curb-mounted skylights use step flashing and counter flashing around the curb (similar to a chimney). Deck-mounted skylights use a manufacturer-specific integrated flashing kit that is designed as a single system. Replacing or repairing flashing on a curb mount is more complex. Deck-mounted skylights with factory flashing kits are generally more reliable but must use the manufacturer's kit — field-fabricated flashing on a deck mount is a common installation error.",
+              "fieldTest": "Look at the base of the skylight from the roof. If there is a visible wood or metal frame (curb) between the roof surface and the skylight unit, it is curb-mounted. If the skylight unit sits directly on the roof deck with only its own frame visible and an integrated metal flashing apron, it is deck-mounted."
+            },
+            {
+              "pair": [
+                "Skylight Leak",
+                "Skylight Condensation"
+              ],
+              "distinguishing": "A leak shows staining on the interior shaft walls, typically concentrated on one side or corner, and appears during or after rain. Condensation shows uniform moisture on the glass surface itself, appears in cold weather regardless of rain, and is a humidity issue.",
+              "whyItMatters": "A leak requires roofing repair (flashing failure). Condensation requires humidity control (ventilation, dehumidifier). Misdiagnosing condensation as a leak leads to unnecessary roofing work. Misdiagnosing a leak as condensation allows water damage to continue.",
+              "fieldTest": "Check the location of moisture. On the glass surface uniformly = condensation. On the shaft walls in one area = leak. Check timing: appears in cold weather regardless of rain = condensation. Appears during or after rain = leak. Staining on shaft drywall that you can see old water trails = leak history."
             }
           ],
           "interactiveLogic": [
@@ -17669,6 +17869,22 @@ var INSPECTION_DATA = {
               "label": "Interior Staining Present?",
               "type": "toggle",
               "placeholder": "Staining on shaft walls around skylight?"
+            },
+            {
+              "id": "skylight-location",
+              "label": "Location",
+              "type": "text",
+              "placeholder": "e.g., front slope over master bedroom"
+            },
+            {
+              "id": "skylight-leak-evidence",
+              "label": "Interior Leak Evidence?",
+              "type": "toggle",
+              "options": [
+                "Yes",
+                "No",
+                "N/A — no interior access"
+              ]
             }
           ],
           "crossReferences": [
@@ -17676,8 +17892,205 @@ var INSPECTION_DATA = {
             "roof-condition",
             "roof-general",
             "attic-insulation",
-            "int-rooms"
-          ]
+            "int-rooms",
+            "attic-general",
+            "interior-ceilings"
+          ],
+          "typeSelect": {
+            "question": "What type of skylight?",
+            "idHelper": [
+              {
+                "name": "Curb-Mounted",
+                "clues": "Sits on a raised wood frame (curb) on the roof. Curb is 4-6 inches high, visible between roof surface and skylight unit. Most common on older installations and flat/low-slope roofs."
+              },
+              {
+                "name": "Deck-Mounted",
+                "clues": "Sits directly on roof deck, no raised curb. Integrated flashing kit from manufacturer. Lower profile. Most common on newer steep-slope roof installations."
+              },
+              {
+                "name": "Tubular (Sun Tunnel)",
+                "clues": "Small round opening (10-14 inch diameter), dome on roof, reflective tube through attic to diffuser lens in ceiling. Single-piece flashing boot. Much smaller than standard skylights."
+              }
+            ],
+            "options": [
+              {
+                "id": "curb-mount",
+                "label": "Curb-Mounted Skylight",
+                "checks": [
+                  {
+                    "label": "Check curb condition (wood frame)",
+                    "tip": "Curb is wood — check for rot, especially at corners and where it meets the roof deck"
+                  },
+                  {
+                    "label": "Check step flashing along curb sides",
+                    "tip": "Individual L-pieces woven with shingles along each side. One continuous piece = improper installation.",
+                    "redFlag": "Single continuous piece of flashing instead of step flashing"
+                  },
+                  {
+                    "label": "Check head flashing at top (uphill side)",
+                    "tip": "Single solid piece UNDER roofing, OVER top of step flashing. This is the most common leak point."
+                  },
+                  {
+                    "label": "Check sill flashing at bottom (downhill side)",
+                    "tip": "Apron extending OVER roofing below skylight. Water must sheet off this onto the roof surface."
+                  },
+                  {
+                    "label": "Check counter flashing over step flashing",
+                    "tip": "Counter flashing covers the top edge of step flashing. Missing = exposed step flashing edges = leak path."
+                  },
+                  {
+                    "label": "Check sealant at curb-to-frame connection",
+                    "tip": "Sealant between skylight frame and curb top. Failed sealant = water entry between frame and curb.",
+                    "redFlag": "Failed sealant at skylight frame-to-curb connection"
+                  },
+                  {
+                    "label": "Check glass/glazing condition",
+                    "tip": "Cracked glass = replacement. Clouded double-pane = seal failure (functional but cosmetic). Haze between panes = failed thermal seal."
+                  }
+                ],
+                "ilNote": "Curb-mounted skylights are common on older IL homes. IL temperature swings cause the wood curb to expand and contract, stressing sealant joints. Freeze-thaw accelerates flashing failure. Check uphill side first — most common leak location.",
+                "rating": {
+                  "acceptable": "Glass intact, curb solid, flashing properly installed and sealed, no interior staining.",
+                  "fair": "Aging sealant, minor flashing wear, no active leak evidence. Maintenance recommended.",
+                  "poor": "Cracked glass, rotted curb, failed flashing, active leak evidence on interior shaft walls."
+                },
+                "findings": [
+                  {
+                    "id": "curb-rot",
+                    "chipLabel": "Curb Rot",
+                    "define": "Wood curb beneath the skylight at [location] appeared to show deterioration consistent with moisture damage. Rotted curb compromises the flashing system and skylight support.",
+                    "direct": "Recommend evaluation and repair by a qualified roofing contractor. Skylight may need to be removed and reset on a new curb.",
+                    "defer": "Refer to a qualified roofing contractor for evaluation."
+                  },
+                  {
+                    "id": "curb-flashing-fail",
+                    "chipLabel": "Flashing Failure",
+                    "define": "Skylight flashing at [location] showed [deterioration / lifting / gaps] at the [uphill / side / downhill] position. This condition creates a water entry path.",
+                    "direct": "Recommend repair by a qualified roofing contractor.",
+                    "defer": "Refer to a qualified roofing contractor for flashing repair."
+                  },
+                  {
+                    "id": "curb-sealant-fail",
+                    "chipLabel": "Sealant Failure",
+                    "define": "Sealant at the skylight frame-to-curb connection at [location] appeared cracked or separated, creating a potential water entry path between the frame and curb.",
+                    "direct": "Recommend resealing by a qualified roofing contractor.",
+                    "defer": "Refer to a qualified roofing contractor."
+                  }
+                ]
+              },
+              {
+                "id": "deck-mount",
+                "label": "Deck-Mounted Skylight",
+                "checks": [
+                  {
+                    "label": "Check integrated flashing kit",
+                    "tip": "Should be manufacturer's kit — one continuous system. Field-fabricated flashing on a deck mount = improper installation.",
+                    "redFlag": "Field-fabricated flashing on deck-mounted skylight (should use manufacturer kit)"
+                  },
+                  {
+                    "label": "Check uphill side for debris dam",
+                    "tip": "Leaves and debris dam against uphill edge, trapping water. Most common leak source on deck mounts."
+                  },
+                  {
+                    "label": "Check frame-to-glass seal",
+                    "tip": "Gasket or sealant between glass and frame. Failed = water between glass and frame drips inside."
+                  },
+                  {
+                    "label": "Check apron flashing at bottom",
+                    "tip": "Metal apron should extend over shingles below. Check for lifting or corrosion."
+                  },
+                  {
+                    "label": "Check glass/glazing condition",
+                    "tip": "Cracked = replace. Clouded between panes = seal failure. Single-pane on older units = upgrade candidate."
+                  },
+                  {
+                    "label": "Check from interior — shaft wall staining",
+                    "tip": "Staining on one side/corner of shaft = flashing issue on that side. Uniform condensation on glass = humidity."
+                  }
+                ],
+                "ilNote": "Deck-mounted skylights are standard on newer IL homes. Factory flashing kits are reliable when properly installed. The most common failure point is debris damming on the uphill side — IL deciduous trees drop heavy leaf loads in fall.",
+                "rating": {
+                  "acceptable": "Glass intact, factory flashing system intact, no interior staining, no debris dam.",
+                  "fair": "Minor wear on flashing, some debris accumulation, no active leak evidence.",
+                  "poor": "Cracked glass, field-fabricated flashing, active leak evidence on interior shaft walls."
+                },
+                "findings": [
+                  {
+                    "id": "deck-flashing-improper",
+                    "chipLabel": "Improper Flashing",
+                    "define": "Skylight at [location] appeared to have field-fabricated flashing rather than the manufacturer's integrated flashing kit. Factory flashing kits are designed as complete systems — field-fabricated flashing on a deck-mounted skylight is a common installation error that increases leak risk.",
+                    "direct": "Recommend evaluation by a qualified roofing contractor. Reinstallation with the manufacturer's flashing kit may be warranted.",
+                    "defer": "Refer to a qualified roofing contractor for evaluation."
+                  },
+                  {
+                    "id": "deck-leak-evidence",
+                    "chipLabel": "Leak Evidence",
+                    "define": "Water staining was observed on the interior shaft walls around the skylight at [location], concentrated on the [uphill / side / corner] area, consistent with flashing failure at that location.",
+                    "direct": "Recommend evaluation and repair by a qualified roofing contractor.",
+                    "defer": "Refer to a qualified roofing contractor for evaluation."
+                  },
+                  {
+                    "id": "deck-seal-failure",
+                    "chipLabel": "Glazing Seal Failure",
+                    "define": "Skylight at [location] showed [clouding / moisture] between panes consistent with thermal seal failure. Unit is still functional but has reduced energy efficiency.",
+                    "direct": "Replacement of the skylight unit is recommended when practical. This is not an emergency but will worsen over time.",
+                    "defer": "Refer to a qualified roofing contractor or skylight specialist for replacement."
+                  }
+                ]
+              },
+              {
+                "id": "tubular",
+                "label": "Tubular Skylight (Sun Tunnel)",
+                "checks": [
+                  {
+                    "label": "Check dome condition on roof",
+                    "tip": "Dome is acrylic or polycarbonate — check for cracking, yellowing, clouding"
+                  },
+                  {
+                    "label": "Check flashing boot at roof penetration",
+                    "tip": "Single-piece boot similar to plumbing vent flashing. Check for cracking or separation from roof surface."
+                  },
+                  {
+                    "label": "Check from interior — ceiling diffuser",
+                    "tip": "Staining around diffuser ring = leak at roof boot or condensation in tube"
+                  },
+                  {
+                    "label": "Check tube connection in attic (if accessible)",
+                    "tip": "Sections should be sealed and insulated. Unsealed joints = condensation inside tube."
+                  }
+                ],
+                "ilNote": "Tubular skylights are less leak-prone than standard skylights due to the smaller roof penetration. The primary IL concern is condensation inside the tube during winter — unsealed or uninsulated tube sections in the attic allow warm moist interior air to meet the cold tube wall.",
+                "rating": {
+                  "acceptable": "Dome clear, boot intact, no staining around interior diffuser.",
+                  "fair": "Minor dome yellowing, boot aging but intact, slight condensation evidence.",
+                  "poor": "Cracked dome, failed boot, staining around diffuser indicating leak."
+                },
+                "findings": [
+                  {
+                    "id": "tubular-boot-fail",
+                    "chipLabel": "Boot Failure",
+                    "define": "Flashing boot around the tubular skylight penetration at [location] appeared to show [cracking / separation / deterioration]. This is the primary water entry point for tubular skylights.",
+                    "direct": "Recommend replacement of the flashing boot by a qualified roofing contractor.",
+                    "defer": "Refer to a qualified roofing contractor for boot replacement."
+                  },
+                  {
+                    "id": "tubular-condensation",
+                    "chipLabel": "Tube Condensation",
+                    "define": "Staining observed around the interior diffuser of the tubular skylight at [location]. If tube sections in the attic are not insulated or sealed, condensation forms inside the tube and drips at the diffuser.",
+                    "direct": "Recommend checking tube insulation and joint sealing in the attic. This is typically a condensation issue, not a roof leak.",
+                    "defer": "Refer to a qualified contractor to insulate and seal tube sections in the attic."
+                  },
+                  {
+                    "id": "tubular-dome-damage",
+                    "chipLabel": "Dome Damage",
+                    "define": "Roof dome on the tubular skylight at [location] showed [cracking / yellowing / clouding]. Cracked domes allow water entry. Yellowed or clouded domes reduce light transmission.",
+                    "direct": "Recommend dome replacement by a qualified contractor.",
+                    "defer": "Refer to a qualified roofing contractor for dome replacement."
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           "id": "roof-flashing",
@@ -18984,7 +19397,12 @@ var INSPECTION_DATA = {
             "Efflorescence (white crystalline deposits) observed on chimney exterior at [location], indicating water migrating through the masonry.",
             "Chimney appears to [meet / not meet] the 3-2-10 height rule. Should be 3 feet above the roof at penetration and 2 feet above anything within 10 feet horizontal.",
             "Chimney inspection from the exterior and the visible portion of the flue. Internal flue condition requires evaluation by a qualified chimney professional.",
-            "At the time of inspection, chimney appears [plumb / to be leaning away from the house — structural concern requiring immediate evaluation]."
+            "At the time of inspection, chimney appears [plumb / to be leaning away from the house — structural concern requiring immediate evaluation].",
+            "Chimney appeared in serviceable condition at the time of inspection. Assessment based on visual observation from [roof surface / ground with binoculars / ladder at eaves].",
+            "Chimney flashing at roof shows [deterioration / gaps]. Recommend repair by a qualified roofing contractor.",
+            "Chimney interior, flue liner condition, and concealed components were not evaluated as they are not readily accessible per ASHI SOP 5.2.B.",
+            "Chimney inspection is limited to visible and accessible exterior surfaces. Internal condition of flue, liner, and smoke chamber cannot be determined without a Level 2 chimney inspection by a qualified chimney professional.",
+            "No chimney present. High-efficiency equipment vents through wall with PVC — no chimney required."
           ],
           "study": {
             "whatItIs": "Structure providing vent path for combustion gases from appliance through roof.",
@@ -18996,7 +19414,8 @@ var INSPECTION_DATA = {
               "3-2-10 RULE: 3' above roof at penetration + 2' above anything within 10' horizontal. Measure from HIGH side.",
               "TUCKPOINTING: Scratch mortar with key — crumbles = deteriorated. Water → spalling → structural failure.",
               "EFFLORESCENCE: White deposits = water actively moving through masonry. Address source, not deposits.",
-              "CREOSOTE: Stage 1 (flaky soot), Stage 2 (tar glaze), Stage 3 (thick/hardened). Any visible = recommend sweep."
+              "CREOSOTE: Stage 1 (flaky soot), Stage 2 (tar glaze), Stage 3 (thick/hardened). Any visible = recommend sweep.",
+              "additionalDetails"
             ]
           },
           "confusedMaterials": [
@@ -19026,6 +19445,33 @@ var INSPECTION_DATA = {
               "distinguishing": "A proper crown is a concrete or morite cap that overhangs the chimney edges by at least 2 inches with a drip edge, sloping away from the flue. A wash is simply mortar sloped from the flue to the chimney edge with no overhang.",
               "whyItMatters": "A proper crown with overhang and drip edge directs water away from the chimney walls. A wash with no overhang allows water to run directly down the chimney face, accelerating mortar deterioration.",
               "fieldTest": "Look at the top of the chimney. If the cap extends past the chimney edges (overhang visible from below), it is a proper crown. If the cap is flush with the chimney edges, it is a wash."
+            },
+            {
+              "pair": [
+                "Masonry Chimney",
+                "Masonry Chase Around Prefab Pipe"
+              ],
+              "distinguishing": "A true masonry chimney has a brick or block structure with a clay tile flue liner inside — the masonry IS the chimney. A masonry chase is a brick or block enclosure built around a factory-built metal chimney pipe — the masonry is decorative/protective, and the actual chimney is the metal pipe inside. From the exterior, they can look identical.",
+              "whyItMatters": "A true masonry chimney needs crown, liner, and mortar maintenance. A masonry chase around a prefab pipe needs the same masonry maintenance PLUS the prefab pipe components (clearances, chase cover, pipe sections). Missing the prefab pipe inside means missing clearance violations and pipe condition. The chase cover on top is different from a masonry crown.",
+              "fieldTest": "Look at the top. A true masonry chimney has a concrete crown with clay tile flue(s) visible. A masonry chase around a prefab pipe typically has a metal chase cover on top with the metal pipe extending through it. If you see a metal cap on a flat metal surface on top of what looks like a brick chimney, it is likely a chase around a prefab pipe."
+            },
+            {
+              "pair": [
+                "Chimney Crown",
+                "Chimney Cap"
+              ],
+              "distinguishing": "The crown (also called the wash) is the concrete or morite top surface of the chimney that covers the masonry around the flue. It slopes away from the flue to shed water. The cap (also called rain cap or spark arrestor) is the metal fitting that sits on TOP of the flue opening to keep out rain, animals, and embers. Crown = concrete surface. Cap = metal lid.",
+              "whyItMatters": "These are two different components with different failure modes and different tradespeople. A cracked crown is a masonry repair (mason). A missing cap is a chimney accessory (chimney professional). Both allow water into the chimney but at different points — crown damage lets water into the masonry structure, missing cap lets water directly down the flue.",
+              "fieldTest": "Crown is the flat (slightly sloped) concrete area on top of the chimney. Cap is the metal piece sitting on or over the flue opening. If someone says 'the cap is cracked' — clarify: is the concrete surface cracked (crown) or is the metal fitting damaged (cap)?"
+            },
+            {
+              "pair": [
+                "Step Flashing",
+                "Counter Flashing"
+              ],
+              "distinguishing": "Step flashing consists of individual L-shaped metal pieces installed under each shingle course and bent up against the chimney. Counter flashing is a second layer installed INTO the mortar joint (reglet) that folds down OVER the top edge of the step flashing. Together they create a two-layer water barrier.",
+              "whyItMatters": "Both must be present for proper waterproofing. Step flashing alone with exposed top edges lets water run behind it. Counter flashing caulked to the surface (not in a reglet) will pull away. Missing either layer = eventual leak at chimney base.",
+              "fieldTest": "Look at where the chimney meets the roof. You should see two layers of metal: step flashing coming up from under the shingles, and counter flashing coming down from a mortar joint OVER the step flashing. If you see only one layer, or counter flashing surface-mounted with caulk instead of set into a mortar joint, the flashing system is incomplete or improperly installed."
             }
           ],
           "interactiveLogic": [
@@ -19497,7 +19943,12 @@ var INSPECTION_DATA = {
             "attic-insulation",
             "int-fireplace",
             "heat-system",
-            "ext-chimney"
+            "ext-chimney",
+            "roof-general",
+            "attic-general",
+            "heating-system",
+            "fireplace",
+            "interior-ceilings"
           ]
         }
       ]
