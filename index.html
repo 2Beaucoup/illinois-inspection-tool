@@ -3642,8 +3642,8 @@ var INSPECTION_DATA = {
                 "clues": "Smooth metal surface. May oxidize. Older homes."
               },
               {
-                "name": "Wood",
-                "clues": "Painted plywood or boards. Grain visible. Needs maintenance."
+                "name": "Wood / Plywood / Hardboard",
+                "clues": "Painted panels or boards. If grain visible = real wood or plywood. If very smooth face with no grain = may be hardboard (Masonite). Check edges: plywood shows alternating thin layers, hardboard shows uniform compressed fibers. Hardboard soffits common on 1980s-1990s homes. Both need paint maintenance."
               },
               {
                 "name": "Fiber Cement",
@@ -3819,10 +3819,80 @@ var INSPECTION_DATA = {
                     "direct": "Recommend repair by a qualified contractor."
                   }
                 ]
+              },
+              {
+                "id": "eifs",
+                "label": "EIFS (Synthetic Stucco)",
+                "checks": [
+                  {
+                    "label": "Soft spots or delamination",
+                    "tip": "Press gently. Soft = moisture-damaged substrate underneath. EIFS soffits trap moisture more than any other soffit material."
+                  },
+                  {
+                    "label": "Cracking at seams or penetrations",
+                    "tip": "Any crack in EIFS soffit allows moisture into the wall/eave assembly with no drainage path."
+                  },
+                  {
+                    "label": "Staining or discoloration",
+                    "tip": "Brown/dark staining indicates moisture trapped behind the EIFS."
+                  },
+                  {
+                    "label": "Confirm it is EIFS, not real stucco",
+                    "tip": "Tap test: EIFS sounds hollow. Real stucco is NEVER used on soffits (per ICA Module 6). If it looks like stucco on a soffit, it is EIFS.",
+                    "redFlag": "EIFS soffits (moisture trap)"
+                  }
+                ],
+                "ilNote": "EIFS-wrapped soffits are a significant moisture concern. The material traps moisture with no drainage path. IL freeze-thaw cycles worsen damage. If home has EIFS walls AND EIFS soffits, moisture testing may be warranted for the entire EIFS system.",
+                "rating": {
+                  "acceptable": "No cracking, soft spots, or staining. Surface intact",
+                  "fair": "Hairline cracking only, no evidence of moisture behind surface",
+                  "poor": "Soft spots, delamination, staining, or significant cracking"
+                },
+                "findings": [
+                  {
+                    "id": "eifs-soffit-moisture",
+                    "chipLabel": "EIFS Soffit Moisture",
+                    "define": "EIFS (synthetic stucco) soffit observed with [soft spots / staining / delamination] at [location]. EIFS soffits trap moisture with no drainage path. Real stucco is never used on soffits.",
+                    "defer": "Recommend evaluation by a qualified EIFS contractor. Invasive moisture testing may be warranted."
+                  },
+                  {
+                    "id": "eifs-soffit-cracking",
+                    "chipLabel": "EIFS Soffit Cracking",
+                    "define": "Cracking observed in EIFS soffit at [location].",
+                    "direct": "Recommend repair by a qualified EIFS contractor to prevent moisture intrusion into the eave assembly."
+                  }
+                ]
               }
             ]
           },
           "universalChecks": [
+            {
+              "label": "Are soffits present?",
+              "tip": "Some homes have open eaves (exposed rafter tails) with no soffits. Open eaves = no soffit to inspect, but rafter tails and roof sheathing underside should be visible. Document as 'open eave construction' if no soffits present."
+            },
+            {
+              "label": "Are soffits vented?",
+              "tip": "Look for perforated panels, individual round/rectangular vents, or continuous strip vents. Vented soffits provide intake air for attic ventilation system. Non-vented soffits = no intake = ventilation system cannot function. Attic exhaust vents (ridge, turbine, power) cannot work properly without soffit intake air.",
+              "redFlag": "No soffit venting present (attic ventilation system has no intake)"
+            },
+            {
+              "label": "Evidence of multiple layers",
+              "tip": "Aluminum/vinyl installed OVER original wood soffits? Common retrofit. Check edges where old and new meet. Multiple layers trap moisture between them, accelerate rot of original wood underneath. Aluminum over rotted wood = hidden damage.",
+              "redFlag": "Multiple soffit layers detected (moisture trapped between layers)"
+            },
+            {
+              "label": "Fascia board condition",
+              "tip": "Fascia is the vertical board at the edge of the roof that soffits attach to and gutters mount on. Check for rot (probe at gutter line), paint failure, pulling away from rafter tails. Water dripping behind gutters rots fascia first."
+            },
+            {
+              "label": "Soffit-to-wall junction",
+              "tip": "Where soffit meets house wall. Gaps here allow animal entry and water intrusion. Check entire perimeter. Common entry point for squirrels, raccoons, birds, and bats."
+            },
+            {
+              "label": "Drip edge at fascia",
+              "tip": "Metal drip edge should extend from roof edge over fascia into gutter. Missing drip edge = water runs down fascia face instead of into gutter = fascia rot. Look for exposed sheathing edge at eave.",
+              "redFlag": "Missing drip edge at fascia (water running behind gutter)"
+            },
             {
               "label": "Check all eaves on all sides",
               "tip": "Walk full perimeter looking up.",
@@ -3844,6 +3914,28 @@ var INSPECTION_DATA = {
               "redFlag": "Water staining (ice dam evidence)"
             }
           ],
+          "findings": [
+            {
+              "id": "fascia-rot",
+              "chipLabel": "Fascia Rot",
+              "define": "Fascia board deterioration observed at [location]. Wood is soft when probed, indicating rot.",
+              "direct": "Recommend repair or replacement of rotted fascia board(s) by a qualified carpenter. Gutter attachment should be evaluated at the same time, as rotted fascia cannot support gutter weight.",
+              "defer": "If rot is extensive or affects structural rafter tail connections, recommend evaluation by a qualified contractor to assess scope of damage."
+            },
+            {
+              "id": "fascia-pulling",
+              "chipLabel": "Fascia Pulling Away",
+              "define": "Fascia board observed pulling away from rafter tails at [location]. Gap visible between fascia and roof edge/soffit.",
+              "direct": "Recommend re-securing fascia to rafter tails. If fascia is rotted at attachment points, replacement of fascia board(s) is needed. Check that rafter tails themselves are not deteriorated.",
+              "defer": "If rafter tail deterioration is suspected, recommend evaluation by a qualified carpenter or roofing contractor."
+            },
+            {
+              "id": "fascia-missing-drip",
+              "chipLabel": "Missing Drip Edge at Fascia",
+              "define": "Metal drip edge not present at fascia/roof edge at [location]. Without drip edge, water runs down the face of the fascia instead of into the gutter, accelerating fascia rot and allowing water behind the gutter.",
+              "direct": "Recommend installation of metal drip edge by a qualified roofing contractor to direct water into gutter and protect fascia board."
+            }
+          ],
           "redFlags": [],
           "study": {
             "whatItIs": "The underside of the roof overhang (eave). Provides weather protection and often includes ventilation for the attic.",
@@ -3853,10 +3945,41 @@ var INSPECTION_DATA = {
               "PAINTED-OVER SOFFIT VENTS: Very common defect. Homeowners/painters cover perforations with paint, blocking attic intake ventilation.",
               "ANIMAL ENTRY: Gaps between soffit panels, rotted wood, or damaged sections are the #1 entry point for squirrels, raccoons, birds, bats into attics. Look for gnaw marks at panel edges, especially at corners.",
               "WATER STAINING: Brown stains indicate (1) ice dam backup, (2) gutter overflow behind fascia, or (3) roof leak dripping along sheathing. All require investigation from attic side.",
-              "EIFS SOFFITS: If home has EIFS, soffits may also be EIFS-wrapped. Traps moisture more than traditional materials. Real stucco is never used to wrap soffits.",
-              "DRIP EDGE: If exposed sheathing visible at eave edge (no metal drip edge), water wicks back along sheathing and rots from the edge."
+              "EIFS SOFFITS: If home has EIFS, soffits may also be EIFS-wrapped. Traps moisture more than traditional materials. Real stucco is never used to wrap soffits. If it looks like stucco on a soffit, it IS EIFS.",
+              "WOOD vs HARDBOARD SOFFITS: Many 'wood' soffits from the 1980s-1990s are actually hardboard (Masonite). Hardboard soffits have a very smooth face with no visible grain (unlike plywood which shows wood grain). Check edges: plywood shows alternating thin layers, hardboard shows uniform compressed fibers. Hardboard is more susceptible to moisture damage than plywood and is subject to the same class-action lawsuit history as hardboard siding.",
+              "DRIP EDGE: If exposed sheathing visible at eave edge (no metal drip edge), water wicks back along sheathing and rots from the edge.",
+              "MULTIPLE SOFFIT LAYERS: Common retrofit -- aluminum or vinyl installed directly over original wood soffits. Check at edges where old and new materials meet. The trapped layer cannot dry and rot accelerates unseen. If you can see the edge of two layers, photograph it. Press on surface to feel for soft spots in the hidden wood layer.",
+              "OPEN EAVE CONSTRUCTION: Some homes, particularly ranch and mid-century modern styles, have open eaves with no soffits. The underside of the roof sheathing and rafter tails are exposed. This is not a defect -- it is a design choice. However, check rafter tails for rot and sheathing underside for water staining or damage."
             ],
-            "ashiSop": "ASHI SOP Section 4: Inspector shall inspect eaves, soffits, and fascia."
+            "idHelper": [
+              {
+                "id": "fasciaMaterials",
+                "title": "Fascia Material Identification",
+                "items": [
+                  {
+                    "name": "Wood (Painted Boards)",
+                    "clues": "Most common fascia material. Painted 1x boards nailed to rafter tails. Probe for rot at gutter line -- this is where water sits when gutters overflow or drip behind. Newer-growth wood (post-1970s) is softer and less rot-resistant than old-growth."
+                  },
+                  {
+                    "name": "Aluminum Wrap (Over Wood)",
+                    "clues": "Thin aluminum sheet bent and nailed over existing wood fascia boards. Very common retrofit. Hides the condition of the wood underneath. Check for dents, loose sections, and always press-test for soft spots indicating rotted wood behind the wrap."
+                  },
+                  {
+                    "name": "Vinyl",
+                    "clues": "Similar appearance to vinyl siding. Snaps or nails into place. Check for secure attachment and cracking (can become brittle in extreme cold). No rot risk but can crack or detach."
+                  },
+                  {
+                    "name": "Fiber Cement",
+                    "clues": "Dense, heavy, painted boards. Rare on fascia but used on high-end installations. Very durable but must be kept painted to prevent moisture absorption."
+                  },
+                  {
+                    "name": "Composite/PVC",
+                    "clues": "Engineered material that looks like painted wood but will not rot. No maintenance required. Premium option. Consistent color throughout (no wood grain). Will not absorb moisture."
+                  }
+                ]
+              }
+            ],
+            "ashiSop": "ASHI SOP Section 4: Inspector shall inspect eaves, soffits, and fascia. InterNACHI SOP 2.2.I.B: Inspector shall inspect eaves, soffits and fascias."
           }
         },
         {
@@ -4322,8 +4445,20 @@ var INSPECTION_DATA = {
                 "clues": "Very uniform appearance. Embossed wood grain. Lighter than fiber cement. Edges may show compressed wood fiber."
               },
               {
+                "name": "Hardboard / Masonite",
+                "clues": "Smooth, dense, uniform face (no visible wood grain or layers). Very smooth back side. Edges show tightly compressed wood fibers (no layers like plywood, no chips like OSB). Thinner than fiber cement (~7/16\"). Lighter than fiber cement but heavier than vinyl. Often painted in lap/clapboard style. Tap: solid but lighter than fiber cement. Common on 1980s-1990s homes. Masonite is a brand name -- generic term is hardboard."
+              },
+              {
                 "name": "Manufactured Stone Veneer (MSV)",
                 "clues": "Also called cultured stone, fake stone, faux stone. Concrete molded/colored to look like natural stone. Uniform thickness at edges (real stone is irregular). Repeating patterns in the 'stone' faces. Lighter than real stone -- tap test sounds hollow/lighter. Does NOT need structural foundation support like real stone."
+              },
+              {
+                "name": "Clay/Concrete Tile (Shingles)",
+                "clues": "May be painted to look like wood shakes. Tap test = sharp ceramic/stone sound (never the dull thud of wood). Much heavier than wood. Will NOT flex. Edges are hard and sharp, not fibrous like wood. Some are grooved to mimic wood grain -- look at edges and broken areas for the clay/concrete interior."
+              },
+              {
+                "name": "Asbestos Cement Shingles",
+                "clues": "Common 1940s-1970s. Very hard, dense, brittle. Often in 12x24 rectangular shingles. May have wavy bottom edge. DO NOT drill, cut, break, or disturb. Gray cement color at broken edges. Much harder than wood but lighter than fiber cement lap siding."
               }
             ],
             "options": [
@@ -4757,6 +4892,93 @@ var INSPECTION_DATA = {
                 ]
               },
               {
+                "id": "hardboard",
+                "label": "Hardboard / Masonite",
+                "checks": [
+                  {
+                    "label": "Bottom edge swelling",
+                    "tip": "Hardboard wicks moisture from the bottom edge very easily. Swollen bottom edges are the #1 hardboard defect. Check all bottom courses.",
+                    "redFlag": "Swollen bottom edges (moisture wicking)"
+                  },
+                  {
+                    "label": "Delamination / surface peeling",
+                    "tip": "Surface layer separates from the core. Begins at edges and butt joints where moisture enters. Once started, cannot be reversed."
+                  },
+                  {
+                    "label": "Paint failure / blistering",
+                    "tip": "Paint fails when moisture pushes out from behind. Blistering and bubbling paint on hardboard indicates moisture penetration into the substrate."
+                  },
+                  {
+                    "label": "Buckling or warping panels",
+                    "tip": "Hardboard absorbs moisture and expands unevenly. Buckling indicates chronic moisture exposure."
+                  },
+                  {
+                    "label": "Fastener popping",
+                    "tip": "As hardboard swells and contracts around nails, fasteners push out. Exposed nail heads then rust, creating more moisture entry points."
+                  },
+                  {
+                    "label": "Moisture damage at butt joints",
+                    "tip": "Butt joints (where two boards meet end-to-end) are the primary moisture entry point. Check for swelling, discoloration, or gap opening at all butt joints."
+                  },
+                  {
+                    "label": "Soil contact / inadequate grade clearance",
+                    "tip": "Minimum 6\" clearance. Hardboard is far more moisture-sensitive than wood -- soil contact is especially destructive."
+                  }
+                ],
+                "ilNote": "Hardboard siding has a well-documented history of moisture failure. All brands (including Masonite) have been subject to class action lawsuits due to warping, rotting, and deterioration. IL freeze-thaw cycles and humidity accelerate these failures. Bottom edge swelling is extremely common. Consider recommending evaluation by a contractor experienced with hardboard siding.",
+                "rating": {
+                  "acceptable": "Paint intact, no swelling or delamination, adequate grade clearance, butt joints sealed",
+                  "fair": "Minor paint wear, isolated edge swelling, no active delamination",
+                  "poor": "Swelling, delamination, buckling, widespread paint failure, or fastener popping"
+                },
+                "findings": [
+                  {
+                    "id": "swelling",
+                    "chipLabel": "Swelling/Delamination",
+                    "define": "Hardboard siding observed with [bottom edge swelling / delamination / surface peeling] at [location]. Hardboard (Masonite) siding is a compressed wood fiber product with a well-documented history of moisture-related failure.",
+                    "direct": "Recommend evaluation and repair by a qualified siding contractor experienced with hardboard siding. All brands of hardboard siding have been subject to class action lawsuits due to moisture damage."
+                  },
+                  {
+                    "id": "paint-failure",
+                    "chipLabel": "Paint Failure",
+                    "define": "Hardboard siding showing [paint blistering / peeling / failure] at [location], indicating moisture penetration into the substrate.",
+                    "direct": "Recommend evaluation by a qualified siding contractor. Paint failure on hardboard siding allows rapid moisture absorption and accelerated deterioration."
+                  },
+                  {
+                    "id": "buckling",
+                    "chipLabel": "Buckling/Warping",
+                    "define": "Hardboard siding observed with [buckling / warping] at [location], consistent with chronic moisture absorption.",
+                    "direct": "Recommend evaluation by a qualified siding contractor experienced with hardboard siding."
+                  },
+                  {
+                    "id": "butt-joint-damage",
+                    "chipLabel": "Butt Joint Damage",
+                    "define": "Hardboard siding butt joints observed with [swelling / deterioration / open gaps] at [location]. Butt joints are the primary moisture entry point on hardboard siding.",
+                    "direct": "Recommend sealing and repair by a qualified siding contractor."
+                  },
+                  {
+                    "id": "widespread-failure",
+                    "chipLabel": "Widespread Failure",
+                    "define": "Hardboard siding showing widespread deterioration including [swelling / delamination / paint failure / fastener popping] across multiple elevations. This is consistent with the documented pattern of moisture-related failure in hardboard siding products.",
+                    "defer": "Recommend evaluation by a qualified siding contractor experienced with hardboard siding to assess the extent of damage and determine whether repair or full replacement is warranted."
+                  }
+                ],
+                "knownIssues": [
+                  {
+                    "name": "Masonite Corporation Hardboard Siding",
+                    "detail": "Subject to class action settlement. All Masonite-brand hardboard siding experienced premature deterioration from moisture. Settlement fund may still be active for some claims."
+                  },
+                  {
+                    "name": "Louisiana-Pacific (LP) Inner-Seal Hardboard Siding",
+                    "detail": "Subject to class action settlement in the 1990s. LP Inner-Seal hardboard siding exhibited widespread moisture damage including swelling, buckling, and delamination. LP paid approximately $375 million in settlements."
+                  },
+                  {
+                    "name": "All Hardboard Brands",
+                    "detail": "Per ICA Module 6: All brands of hardboard siding have had extensive problems with warping, rotting, and general deterioration due to moisture. All were subject to class action lawsuits. Hardboard is inherently moisture-sensitive because it is made of compressed wood fibers and glue with no solid wood structure."
+                  }
+                ]
+              },
+              {
                 "id": "manufactured-stone-veneer",
                 "label": "Manufactured Stone Veneer (MSV)",
                 "checks": [
@@ -4825,10 +5047,241 @@ var INSPECTION_DATA = {
                     "direct": "Recommend installation of kick-out flashing by a qualified contractor."
                   }
                 ]
+              },
+              {
+                "id": "clay-tile",
+                "label": "Clay/Concrete Tile Shingles",
+                "checks": [
+                  {
+                    "label": "Cracking or broken tiles",
+                    "tip": "Clay and concrete tiles are brittle. Impact, freeze-thaw, and settling can crack them. Check all elevations for cracked, chipped, or broken tiles."
+                  },
+                  {
+                    "label": "Loose or missing tiles",
+                    "tip": "Wind can dislodge tiles if fasteners corrode or fail. Missing tiles expose the weather-resistive barrier and sheathing to direct water entry."
+                  },
+                  {
+                    "label": "Attachment method (nailed, clipped, or adhered)",
+                    "tip": "Tiles may be face-nailed, hung on clips, or adhered with mortar. Check for consistent attachment. Loose attachment = wind vulnerability."
+                  },
+                  {
+                    "label": "Paint condition (if painted)",
+                    "tip": "Many clay/concrete tile shingles are painted to mimic wood shakes. Peeling or flaking paint is cosmetic but exposes the tile surface to increased moisture absorption (especially concrete tiles)."
+                  },
+                  {
+                    "label": "Flashing at penetrations and transitions",
+                    "tip": "Check flashing where tiles meet windows, doors, corners, and roof-wall intersections. Tile profiles create channels that can direct water to vulnerable points."
+                  },
+                  {
+                    "label": "Efflorescence on concrete tiles",
+                    "tip": "White chalky deposits on concrete tiles indicate moisture migrating through the tile. Common in new installations, persistent efflorescence may indicate chronic moisture."
+                  }
+                ],
+                "ilNote": "Less common in IL than other regions. Freeze-thaw is the primary enemy -- absorbed moisture expands when frozen, cracking tiles. Concrete tiles are more susceptible to freeze-thaw damage than fired clay. Weight requires adequate structural support.",
+                "rating": {
+                  "acceptable": "Tiles intact, properly attached, no significant cracking or missing pieces, flashing intact at penetrations",
+                  "fair": "Isolated cracking, minor paint deterioration, all tiles in place",
+                  "poor": "Multiple cracked or missing tiles, loose attachment, compromised flashing"
+                },
+                "findings": [
+                  {
+                    "id": "cracking",
+                    "chipLabel": "Cracking/Broken Tiles",
+                    "define": "Clay/concrete tile shingles observed with [cracking / chipping / broken tiles] at [location].",
+                    "direct": "Recommend repair or replacement by a qualified contractor experienced with tile siding."
+                  },
+                  {
+                    "id": "missing-tiles",
+                    "chipLabel": "Missing Tiles",
+                    "define": "Clay/concrete tile shingles missing at [location], exposing the weather-resistive barrier and/or sheathing.",
+                    "direct": "Recommend replacement by a qualified contractor experienced with tile siding."
+                  },
+                  {
+                    "id": "loose-attachment",
+                    "chipLabel": "Loose Attachment",
+                    "define": "Clay/concrete tile shingles observed with loose or failing attachment at [location]. Tiles are not securely fastened.",
+                    "direct": "Recommend evaluation and re-fastening by a qualified contractor experienced with tile siding."
+                  },
+                  {
+                    "id": "paint-failure",
+                    "chipLabel": "Paint Deterioration",
+                    "define": "Paint deterioration observed on clay/concrete tile shingles at [location].",
+                    "direct": "Recommend repainting with appropriate masonry/concrete paint. Exposed concrete tiles absorb more moisture, increasing freeze-thaw vulnerability."
+                  }
+                ]
+              },
+              {
+                "id": "asbestos-cement",
+                "label": "Asbestos Cement Shingles",
+                "checks": [
+                  {
+                    "label": "DO NOT DISTURB -- observe only",
+                    "tip": "Asbestos cement shingles contain asbestos fibers. DO NOT drill, cut, break, sand, or disturb in any way. Disturbing releases hazardous airborne fibers. Visual inspection only.",
+                    "redFlag": "Asbestos-containing material identified -- do not disturb"
+                  },
+                  {
+                    "label": "Cracked, broken, or missing shingles (observe only)",
+                    "tip": "Note location and extent of any cracked, broken, or missing shingles. Broken shingles may have exposed friable asbestos at edges. DO NOT touch or probe broken pieces."
+                  },
+                  {
+                    "label": "Paint condition",
+                    "tip": "Many asbestos cement shingles are painted. Intact paint encapsulates the asbestos fibers. Peeling paint may expose the asbestos cement substrate. Note condition but do not scrape or probe."
+                  },
+                  {
+                    "label": "Damaged or missing pieces at corners and edges",
+                    "tip": "Corners and edges are most vulnerable to impact damage. Broken pieces can release fibers. Note and document but do not handle."
+                  },
+                  {
+                    "label": "Evidence of prior repair or modification",
+                    "tip": "Look for patches, replaced sections, or areas where shingles have been cut or drilled. Improper repair of asbestos cement siding can release fibers. Note any evidence of unprofessional modification."
+                  }
+                ],
+                "ilNote": "Common on IL homes built 1940s-1970s. Asbestos cement shingles that are intact and in good condition are generally considered non-friable and low risk. However, ANY modification, repair, or removal requires a licensed asbestos abatement professional per Illinois EPA regulations (35 IAC 855). Home inspectors should identify the material, note its condition, and defer to a qualified asbestos professional for any further evaluation.",
+                "rating": {
+                  "acceptable": "Shingles intact, no cracking or breakage, paint (if present) in serviceable condition. Material is non-friable and low risk in current state",
+                  "fair": "Isolated minor cracking, paint showing wear, all shingles in place. Note: any future repair or modification requires asbestos-certified contractor",
+                  "poor": "Multiple cracked/broken/missing shingles, exposed substrate at breaks. Recommend evaluation by a qualified asbestos professional"
+                },
+                "findings": [
+                  {
+                    "id": "asbestos-identified",
+                    "chipLabel": "Asbestos Cement Identified",
+                    "define": "Exterior wall covering appears to be asbestos cement shingles, common on homes built between the 1940s and 1970s. Asbestos cement shingles contain asbestos fibers embedded in Portland cement.",
+                    "defer": "Recommend evaluation by a qualified asbestos professional before any modification, repair, or removal. Intact asbestos cement siding in good condition is generally considered non-friable and low risk. Illinois EPA regulations (35 IAC 855) require licensed asbestos abatement professionals for any disturbance of asbestos-containing materials."
+                  },
+                  {
+                    "id": "damaged-asbestos",
+                    "chipLabel": "Damaged Shingles",
+                    "define": "Asbestos cement shingles observed with [cracking / breakage / missing pieces] at [location]. Damaged asbestos cement shingles may expose friable asbestos fibers at broken edges.",
+                    "defer": "Recommend evaluation by a qualified asbestos professional. Do not attempt repair without proper licensing and containment procedures. Illinois EPA regulations require licensed asbestos abatement professionals for any disturbance of asbestos-containing materials."
+                  },
+                  {
+                    "id": "paint-failure-asbestos",
+                    "chipLabel": "Paint Deterioration",
+                    "define": "Paint deterioration observed on asbestos cement shingles at [location], potentially exposing the asbestos cement substrate.",
+                    "defer": "Recommend evaluation by a qualified asbestos professional before repainting or any surface preparation. Paint encapsulates the asbestos fibers; surface preparation (scraping, sanding) can release hazardous fibers."
+                  },
+                  {
+                    "id": "improper-modification",
+                    "chipLabel": "Evidence of Modification",
+                    "define": "Evidence of prior [cutting / drilling / repair / modification] of asbestos cement shingles observed at [location]. Improper modification of asbestos-containing materials can release hazardous fibers.",
+                    "defer": "Recommend evaluation by a qualified asbestos professional to assess whether prior modification was performed in accordance with Illinois EPA regulations and whether remediation is needed."
+                  }
+                ]
               }
             ]
           },
+          "confusedMaterials": [
+            {
+              "pair": "Vinyl vs Wood",
+              "why": "Vinyl clapboard can closely mimic wood grain, especially higher-end products.",
+              "tests": [
+                "TAP TEST: Vinyl sounds hollow and plastic. Wood sounds solid.",
+                "TEMPERATURE: Vinyl feels warm/room-temp. Wood feels cooler.",
+                "COLOR-THROUGH: Cut or scratch vinyl -- color goes all the way through (no paint). Wood has paint/stain on surface only.",
+                "GRAIN: Vinyl grain is perfectly uniform and repeating. Wood grain has natural variation.",
+                "FLEX: Vinyl panels flex when pressed. Wood is rigid.",
+                "NAILING: Vinyl has nailing flange hidden under the overlap. Wood is face-nailed or blind-nailed."
+              ]
+            },
+            {
+              "pair": "Real Stucco vs EIFS (Synthetic Stucco)",
+              "why": "Both have a smooth, textured plaster-like finish. Misidentifying EIFS as stucco means missing a moisture-trap system.",
+              "tests": [
+                "TAP TEST: Real stucco = hard, solid sound. EIFS = hollow, drum-like sound.",
+                "FLEX: Push gently. Stucco is rigid (cement-based). EIFS gives slightly (foam underneath).",
+                "WEEP SCREED: Real stucco has a metal weep screed at the base allowing drainage. EIFS typically has a sealed bottom edge.",
+                "WRAPPING: EIFS wraps everything -- window sills, columns, soffits, fascia. Stucco stops at transitions.",
+                "THICKNESS: Real stucco is 7/8\" thick (3 coats). EIFS is thinner and backed by foam insulation board.",
+                "SOFFITS: If soffits are also covered in the material, it is EIFS. Real stucco is never used on soffits (per ICA Module 6)."
+              ]
+            },
+            {
+              "pair": "Fiber Cement vs Engineered Wood vs Hardboard (Masonite)",
+              "why": "All three can look like wood clapboard siding. They have very different failure modes and lifespans. Hardboard has class-action lawsuit history.",
+              "tests": [
+                "WEIGHT: Fiber cement is very heavy (~2.5 lbs/sq ft). Engineered wood and hardboard are noticeably lighter.",
+                "EDGE APPEARANCE: Fiber cement = gray cement-like interior at cut edges. Engineered wood = visible wood strands/flakes compressed together. Hardboard = very tightly compressed uniform wood fibers (smooth, no visible strands or layers).",
+                "TAP DENSITY: Fiber cement = dense, almost ceramic sound. Engineered wood = lighter wood-composite sound. Hardboard = solid but lighter than fiber cement.",
+                "THICKNESS: Fiber cement is typically 5/16\" to 5/8\". Hardboard is typically 7/16\". Engineered wood varies by product.",
+                "PROBE TEST: Fiber cement -- probe will not penetrate at all. Engineered wood and hardboard -- probe may penetrate slightly at damaged edges.",
+                "BACK SIDE: Hardboard has a very smooth, almost glossy back. Engineered wood back may show mesh or strand pattern.",
+                "BOTTOM EDGES: Hardboard swells from the bottom up (its signature failure mode). Fiber cement does not swell. Engineered wood swells but less uniformly."
+              ]
+            },
+            {
+              "pair": "Plywood vs OSB vs Hardboard (as sheathing)",
+              "why": "When siding is removed or damaged, you may see the sheathing underneath. Identifying it matters for moisture assessment.",
+              "tests": [
+                "EDGE LAYERING: Plywood = visible alternating thin wood layers (veneers) at the edge. OSB and hardboard have no layers.",
+                "CHIP PATTERN: OSB = visible wood chips/strands pressed together in random orientation. Plywood = smooth veneer layers. Hardboard = uniform compressed fibers (no visible chips or layers).",
+                "SMOOTH FACE: Hardboard has the smoothest face of all three. Plywood face shows wood grain. OSB face shows chip pattern.",
+                "MOISTURE RESPONSE: OSB swells at edges and stays swollen (doesn't recover). Plywood swells less and can partially dry back. Hardboard swells and delaminates permanently."
+              ]
+            },
+            {
+              "pair": "Brick Veneer vs Solid Masonry",
+              "why": "Treatment, defect patterns, and structural implications are completely different. Veneer is a decorative shell; solid masonry is structural.",
+              "tests": [
+                "WEEP HOLES: Present every ~32\" at base = brick veneer (post-1960s). Absent = likely solid masonry (pre-1950s).",
+                "WALL THICKNESS: Measure at a window or door opening. Veneer = one brick width (~4\"). Solid = two or more brick widths (~8\"+).",
+                "WINDOW DEPTH: Deep-set windows = thick solid masonry walls. Shallow-set = veneer over wood frame.",
+                "AGE: Pre-1950s = more likely solid masonry. Post-1960s = almost certainly veneer.",
+                "HEADER PATTERN: Solid masonry may show header bricks (short face out) every 5-7 courses for structural bonding. Veneer is all stretchers (long face)."
+              ]
+            },
+            {
+              "pair": "Steel vs Aluminum (Metal Siding)",
+              "why": "Steel rusts, aluminum does not. Different maintenance and insurance implications.",
+              "tests": [
+                "MAGNET TEST: Magnet sticks = steel. Magnet does not stick = aluminum.",
+                "WEIGHT: Steel is heavier gauge and feels more substantial.",
+                "DENT PATTERN: Aluminum dents more easily and stays dented (softer metal). Steel dents require more force.",
+                "CORROSION: Steel = red/brown rust. Aluminum = white powdery oxidation (chalking).",
+                "REPORT TIP: Per ICA Module 6 -- on your report, you can just say 'metal siding' if you don't want to distinguish. But magnet test is quick and definitive."
+              ]
+            },
+            {
+              "pair": "Manufactured Stone Veneer (MSV) vs Real Stone",
+              "why": "MSV requires drainage plane and weep screed. Real stone has different structural requirements. Different defect patterns.",
+              "tests": [
+                "WEIGHT: Real stone is significantly heavier. Tap MSV -- it sounds lighter/more hollow.",
+                "EDGE THICKNESS: MSV has uniform thickness at cut edges (~1-2\"). Real stone is irregular/variable thickness.",
+                "REPEATING PATTERNS: Look for identical 'stone' faces repeating across the wall. MSV is cast from molds -- patterns repeat. Real stone is always unique.",
+                "SAME PLANE AS SIDING: MSV is often in the same plane as adjacent clapboard siding. Real stone projects further from the wall because it is thicker.",
+                "MORTAR JOINTS: MSV mortar joints are often too uniform and regular. Real stone mortar follows irregular stone shapes.",
+                "FOUNDATION: MSV does not need foundation support (lightweight). Real stone requires structural foundation support extending below."
+              ]
+            }
+          ],
           "universalChecks": [
+            {
+              "label": "Can you see the bottom course of siding?",
+              "tip": "If covered by soil, mulch, or landscaping, you cannot verify clearance or moisture damage. Note the limitation.",
+              "gate": true
+            },
+            {
+              "label": "Bottom of siding minimum 6\" above grade",
+              "tip": "Soil contact = moisture wicking, rot, and termite entry. Measure from finish grade to bottom of siding.",
+              "redFlag": "Siding in contact with soil (moisture and pest entry)"
+            },
+            {
+              "label": "Foundation wall exposed between siding and grade (min 4-6\" visible)",
+              "tip": "You need to see the foundation to check for cracks, water intrusion evidence, and termite shelter tubes. If siding covers the foundation completely, note as limitation.",
+              "redFlag": "No visible foundation wall (cannot inspect for cracks, water intrusion, or termite evidence)"
+            },
+            {
+              "label": "If bottom is NOT visible: staining, warping, or bulging at lowest visible course?",
+              "tip": "Damage at the lowest visible point suggests hidden damage below. Moisture wicking from soil causes damage from the bottom up."
+            },
+            {
+              "label": "Starter strip / Z-flashing at bottom course",
+              "tip": "Directs water away from sheathing behind siding. Missing = water behind siding."
+            },
+            {
+              "label": "Walk all 4 elevations — overall siding condition from each",
+              "tip": "North elevation = most moisture, least sun, most moss/algae growth. South = most UV/heat damage, fading."
+            },
             {
               "label": "Check all four elevations bottom to top",
               "tip": "Walk full perimeter. Corners and under roof edges get most exposure.",
@@ -4851,6 +5304,93 @@ var INSPECTION_DATA = {
             }
           ],
           "redFlags": [],
+          "interactiveLogic": [
+            {
+              "id": "siding-bottom-gate",
+              "title": "Siding Bottom Course Assessment",
+              "description": "Gate check: Can you see the bottom of the siding? This determines what you can and cannot report about moisture, clearance, and foundation condition.",
+              "inputs": [
+                {
+                  "id": "bottom-visible",
+                  "label": "Is the bottom course of siding visible?",
+                  "type": "chips",
+                  "options": ["Yes - fully visible", "Partially visible", "No - covered by soil/mulch/landscaping"]
+                },
+                {
+                  "id": "clearance-ok",
+                  "label": "Is there 6\"+ clearance from grade to bottom of siding?",
+                  "type": "chips",
+                  "options": ["Yes", "No - siding near/touching soil", "Cannot determine"],
+                  "conditional": { "showWhen": "bottom-visible", "notEquals": "No - covered by soil/mulch/landscaping" }
+                },
+                {
+                  "id": "foundation-visible",
+                  "label": "Is foundation wall visible between siding and grade?",
+                  "type": "chips",
+                  "options": ["Yes - 4\"+ exposed", "Barely visible", "No - siding goes to grade"],
+                  "conditional": { "showWhen": "bottom-visible", "notEquals": "No - covered by soil/mulch/landscaping" }
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "Yes", "foundation-visible": "Yes - 4\"+ exposed" },
+                  "result": "acceptable",
+                  "define": "Bottom course of siding is visible with adequate clearance from grade. Foundation wall is exposed and available for inspection.",
+                  "direct": "No action needed. Proceed with siding type-specific checks.",
+                  "reportLanguage": "Siding-to-grade clearance is adequate. Foundation wall is visible for inspection."
+                },
+                {
+                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "No - siding near/touching soil", "foundation-visible": "Yes - 4\"+ exposed" },
+                  "result": "deficiency",
+                  "define": "Siding is in contact with or near soil at [location]. Soil contact provides a moisture wicking path and concealed termite entry point.",
+                  "direct": "Recommend correcting grade or trimming siding to maintain minimum 6-inch clearance between finish grade and bottom of siding. Recommend evaluation for moisture damage and wood-destroying organism activity.",
+                  "reportLanguage": "Siding at [location] does not maintain the recommended minimum 6-inch clearance from grade. Soil contact creates conditions conducive to moisture damage and wood-destroying organism entry."
+                },
+                {
+                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "No - siding near/touching soil", "foundation-visible": "No - siding goes to grade" },
+                  "result": "deficiency",
+                  "define": "Siding extends to grade level at [location] with no visible foundation wall. Both siding-to-grade clearance and foundation inspection are compromised.",
+                  "direct": "Recommend correcting grade to expose minimum 4-6 inches of foundation wall and maintain minimum 6-inch clearance to bottom of siding. Recommend evaluation for moisture damage, foundation condition, and wood-destroying organism activity.",
+                  "reportLanguage": "Siding at [location] extends to grade level. No foundation wall is visible between siding and grade. Cannot inspect for foundation cracks, water intrusion evidence, or termite shelter tubes at this location. Recommend correcting grade to expose foundation wall."
+                },
+                {
+                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "Yes", "foundation-visible": "No - siding goes to grade" },
+                  "result": "limitation",
+                  "define": "Siding has adequate height clearance from grade but foundation wall is not visible at [location].",
+                  "direct": "Note limitation: foundation wall concealed behind siding at [location]. Cannot inspect for foundation cracks, water intrusion, or termite evidence at this location.",
+                  "reportLanguage": "Foundation wall is not visible between siding and grade at [location]. Inspection of the foundation wall for cracks, water intrusion evidence, and termite shelter tubes was limited at this location."
+                },
+                {
+                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "Yes", "foundation-visible": "Barely visible" },
+                  "result": "monitor",
+                  "define": "Foundation wall is barely visible between siding and grade at [location]. Less than recommended 4-6 inches of foundation is exposed.",
+                  "direct": "Monitor grade level. Consider lowering grade to expose additional foundation wall for future inspections.",
+                  "reportLanguage": "Foundation wall is minimally visible between siding and grade at [location]. Less than the recommended 4-6 inches is exposed. Foundation inspection is limited at this location."
+                },
+                {
+                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "No - siding near/touching soil", "foundation-visible": "Barely visible" },
+                  "result": "deficiency",
+                  "define": "Siding is near or touching soil at [location] with minimal foundation wall visible.",
+                  "direct": "Recommend correcting grade to maintain minimum 6-inch clearance from siding to grade and to expose minimum 4-6 inches of foundation wall. Recommend evaluation for moisture damage and wood-destroying organism activity.",
+                  "reportLanguage": "Siding at [location] is near or in contact with soil. Foundation wall exposure is minimal. Recommend grade correction to maintain proper clearance and allow foundation inspection."
+                },
+                {
+                  "when": { "bottom-visible": "Partially visible" },
+                  "result": "limitation",
+                  "define": "Bottom course of siding is partially obscured by [soil/mulch/landscaping/other] at [location].",
+                  "direct": "Note limitation in report. Evaluate visible portions for damage. Check for evidence of moisture damage at lowest visible course (staining, warping, bulging). Recommend clearing obstructions for full evaluation.",
+                  "reportLanguage": "Bottom course of siding was partially obscured at [location]. Inspection of siding-to-grade clearance, foundation condition, and bottom course condition was limited. Visible portions were evaluated. [Note any damage observed at lowest visible course.]"
+                },
+                {
+                  "when": { "bottom-visible": "No - covered by soil/mulch/landscaping" },
+                  "result": "limitation",
+                  "define": "Bottom course of siding is not visible at [location] due to [soil/mulch/landscaping]. Cannot verify siding-to-grade clearance, foundation condition, or bottom course condition.",
+                  "direct": "Document limitation. Evaluate lowest visible course for evidence of hidden damage (staining, warping, bulging from below). Recommend clearing soil/mulch/landscaping away from siding to verify clearance and allow inspection of foundation wall.",
+                  "reportLanguage": "Bottom course of siding was not accessible for inspection at [location] due to [soil/mulch/landscaping]. Siding-to-grade clearance could not be verified. Foundation wall was not visible. Recommend clearing material away from the foundation to maintain minimum 6-inch clearance between grade and siding and to expose foundation wall for inspection."
+                }
+              ]
+            }
+          ],
           "study": {
             "whatItIs": "The exterior wall covering that protects the structure from weather.",
             "howToInspect": "Walk all four sides, bottom to top. Check transitions. Press on questionable wood for softness. Use tap test, touch test, and magnet test to identify materials.",
@@ -4861,6 +5401,7 @@ var INSPECTION_DATA = {
               "BRICK VENEER: Single wythe over wood frame with 1\" air gap. Weep holes must be open. Step cracking follows mortar joints = settlement.",
               "STUCCO vs EIFS: Tap test (solid vs hollow), flexibility test, does it wrap everything? Weep screed vs sealed bottom edge.",
               "ASBESTOS-CEMENT: Pre-1970 homes. Hard, brittle shingles. DO NOT break/drill/disturb. Report and recommend testing.",
+              "HARDBOARD / MASONITE: Compressed wood fiber product. Masonite is a brand name -- generic term is 'hardboard.' Made of wood fibers and glue (NOT layers like plywood, NOT chips like OSB). Very smooth face, smooth back. Common on 1980s-1990s homes. ALL brands subject to class action lawsuits due to moisture failure. Per ICA Module 6: 'All brands of hardboard siding have had extensive problems with warping, rotting, and general deterioration due to moisture.' Bottom edges wick moisture and swell. Distinct from T1-11 (which is plywood siding, made from thin layers of real wood and glue). Distinct from engineered wood (broader category). Distinct from fiber cement (which is cement-based and much heavier).",
               "REPORT LANGUAGE: Don't guess. Touch it, tap it, feel it. Safe categories: 'masonry construction,' 'wood-based,' 'synthetic,' 'metal.'",
               "WALL ASSEMBLY LAYERS (inside out): The inspector sees only the outermost layer, but understanding what is behind it matters for diagnosing problems. (1) Interior finish (drywall/plaster). (2) Vapor barrier (plastic sheeting on warm side of wall). (3) Insulation (fiberglass batts, cellulose, or spray foam between studs). (4) Sheathing (plywood, OSB, or foam board -- the structural skin nailed to studs). (5) Weather-resistive barrier / housewrap (e.g., Tyvek -- keeps liquid water out, lets water vapor escape; older homes used 15 or 30 lb felt/tar paper, or red rosin paper). (6) Drainage plane / air gap (especially for brick/stone veneer -- 1 inch air gap allows moisture to drain down and out through weep holes). (7) Exterior cladding (siding, brick, stone, stucco, EIFS). When moisture problems appear on the exterior, they often originate from failures in layers 2-6 that you cannot see.",
               "MANUFACTURED STONE VENEER (MSV): Also called cultured stone, fake stone, faux stone. Made of concrete molded and colored to look like natural stone. Much lighter than real stone -- does not need structural foundation support. HOW TO TELL FROM REAL: uniform thickness at cut edges (real stone is irregular), repeating patterns in the faces, lighter weight tap test. KEY INSPECTION POINTS: must have a drainage plane behind it, must have weep screed at bottom, most common failure = moisture trapped behind it from missing or improper WRB/flashing.",
@@ -5069,6 +5610,55 @@ var INSPECTION_DATA = {
             {
               "id": "ext-doors",
               "label": "Exterior Doors",
+              "dataCapture": [
+                {
+                  "id": "door-material",
+                  "label": "Door Material",
+                  "type": "chips",
+                  "multi": true,
+                  "options": [
+                    "Wood",
+                    "Steel",
+                    "Fiberglass",
+                    "Aluminum/Glass",
+                    "Vinyl"
+                  ],
+                  "idHelper": [
+                    {
+                      "name": "Wood (Solid)",
+                      "clues": "Heavy. Knock test = solid thud. Visible wood grain (may be stained or painted). Edges show solid wood cross-section. Warps over time in moisture. Common on older and higher-end homes."
+                    },
+                    {
+                      "name": "Steel",
+                      "clues": "Magnet sticks. Smooth surface (no grain). Knock test = metallic ring or hollow sound (insulated core). Can dent from impact. May rust at bottom edge or where paint is chipped. Most common exterior door material."
+                    },
+                    {
+                      "name": "Fiberglass",
+                      "clues": "Magnet does NOT stick. May have embossed wood grain texture. Knock test = solid but slightly hollow. Will NOT rust or rot. Heavier than steel doors. Hairline cracks possible but no rot or rust. Premium option."
+                    },
+                    {
+                      "name": "Aluminum/Glass (Storm Door)",
+                      "clues": "Lightweight aluminum frame with glass or screen insert panels. Typically installed in front of the primary exterior door. Interchangeable glass/screen panels for seasons."
+                    },
+                    {
+                      "name": "Vinyl",
+                      "clues": "PVC material similar to vinyl windows. Smooth non-metallic surface. Magnet does NOT stick. Lightweight. Most common on sliding patio doors. Will not rot, rust, or need painting."
+                    }
+                  ]
+                },
+                {
+                  "id": "door-style",
+                  "label": "Door Style",
+                  "type": "chips",
+                  "multi": true,
+                  "options": [
+                    "Hinged (Standard)",
+                    "Sliding Glass",
+                    "French (Double)",
+                    "Storm Door Present"
+                  ]
+                }
+              ],
               "checks": [
                 {
                   "label": "Operate each exterior door",
@@ -5426,6 +6016,58 @@ var INSPECTION_DATA = {
               }
             ]
           },
+          "dataCapture": [
+            {
+              "id": "window-style",
+              "label": "Window Style",
+              "type": "chips",
+              "multi": true,
+              "options": [
+                "Double-Hung",
+                "Single-Hung",
+                "Casement",
+                "Awning",
+                "Hopper",
+                "Slider",
+                "Fixed",
+                "Jalousie"
+              ],
+              "idHelper": [
+                {
+                  "name": "Double-Hung",
+                  "clues": "Two sashes that both slide up and down. Most common residential window. Upper and lower sash both operable. Tilt-in feature on modern versions for cleaning."
+                },
+                {
+                  "name": "Single-Hung",
+                  "clues": "Looks like double-hung but ONLY the bottom sash moves. Top sash is fixed. Common in older homes and budget replacements. Less expensive than double-hung."
+                },
+                {
+                  "name": "Casement",
+                  "clues": "Hinged on one side, cranks outward like a door. Handle/crank operator at bottom of frame. Excellent seal when closed (sash presses against weatherstripping). Best egress -- full opening. Common in kitchens over sinks."
+                },
+                {
+                  "name": "Awning",
+                  "clues": "Hinged at TOP, opens outward from the bottom. Crank or push-out operator. Can stay open in light rain because the glass acts as an awning. Often used above or below fixed windows."
+                },
+                {
+                  "name": "Hopper",
+                  "clues": "Hinged at BOTTOM, opens inward from the top. Common in basements and bathrooms. Opens into the room. Collects debris on the sash when open."
+                },
+                {
+                  "name": "Slider",
+                  "clues": "One or both sashes slide horizontally on a track. Like a sliding glass door but window-sized. Common in mid-century and ranch homes. Simple mechanism, fewer parts to fail."
+                },
+                {
+                  "name": "Fixed",
+                  "clues": "Does not open. No moving parts. Used for views, light, and architectural features (picture windows, transoms, sidelights). Provides ZERO egress -- cannot be used as emergency escape. Must NOT be the only window in a bedroom."
+                },
+                {
+                  "name": "Jalousie",
+                  "clues": "Horizontal glass slats (louvers) that tilt open like blinds using a crank. Common in older porches, sunrooms, and Southern/tropical homes. Very poor insulation and air sealing. Rare in modern IL construction."
+                }
+              ]
+            }
+          ],
           "universalChecks": [
             {
               "label": "Operate representative windows in each room",
@@ -20865,6 +21507,11 @@ function renderComponent(comp) {
     html += renderInteractiveLogic(comp.id, comp.interactiveLogic, state);
   }
 
+  // 5e. Confused Materials comparison guide
+  if (comp.confusedMaterials && comp.confusedMaterials.length) {
+    html += renderConfusedMaterials(comp.confusedMaterials);
+  }
+
   // 6. Rating (component-level, if no typeSelect has ratings or for universal)
   if (comp.rating || !comp.typeSelect) {
     html += renderRating(comp.id, comp.rating, state);
@@ -20916,7 +21563,31 @@ function renderDataCapture(compId, fields, state) {
     html += '<div class="fill-item' + wideClass + '">';
     html += '<label>' + esc(field.label) + '</label>';
 
-    if (field.type === 'toggle' && field.options) {
+    if (field.type === 'chips' && field.options) {
+      // Multi-select chips or single-select chips
+      var selectedVals = field.multi ? (Array.isArray(val) ? val : (val ? [val] : [])) : [];
+      html += '<div class="toggle-row" style="flex-wrap:wrap;gap:6px">';
+      field.options.forEach(function(opt) {
+        var optVal = (typeof opt === 'object') ? opt.value || opt.label || opt : opt;
+        var optLabel = (typeof opt === 'object') ? opt.label || opt.value || opt : opt;
+        var isActive = field.multi ? (selectedVals.indexOf(optVal) > -1) : (val === optVal);
+        var activeClass = isActive ? ' active-neutral' : '';
+        html += '<button class="toggle-btn' + activeClass + '" onclick="setDataCaptureChip(\'' + compId + '\',\'' + field.id + '\',' + (field.multi ? 'true' : 'false') + ',\'' + esc(optVal) + '\',this)">' + esc(optLabel) + '</button>';
+      });
+      html += '</div>';
+      // Render idHelper if present
+      if (field.idHelper && field.idHelper.length) {
+        html += '<details class="id-helper-details" style="margin-top:6px"><summary style="font-size:13px;color:var(--accent);cursor:pointer;font-weight:600">How to Identify</summary>';
+        html += '<div style="display:grid;gap:6px;padding:8px 0">';
+        field.idHelper.forEach(function(h) {
+          html += '<div style="background:var(--accent-soft);border-radius:var(--radius-sm);padding:8px 10px">';
+          html += '<strong style="font-size:13px">' + esc(h.name) + '</strong>';
+          html += '<div style="font-size:12px;color:var(--dim);margin-top:2px">' + esc(h.clues) + '</div>';
+          html += '</div>';
+        });
+        html += '</div></details>';
+      }
+    } else if (field.type === 'toggle' && field.options) {
       html += '<div class="toggle-row">';
       field.options.forEach(function(opt, idx) {
         var activeClass = (val === opt) ? ' active-neutral' : '';
@@ -20953,6 +21624,31 @@ function setDataCapture(compId, fieldId, value, btnEl) {
       b.classList.remove('active-neutral','active-yes','active-no','active-na');
     });
     btnEl.classList.add('active-neutral');
+  }
+  updateComponentSummary(compId);
+}
+
+function setDataCaptureChip(compId, fieldId, isMulti, value, btnEl) {
+  var state = getComponentState(compId);
+  if (isMulti) {
+    var current = Array.isArray(state.dataCapture[fieldId]) ? state.dataCapture[fieldId] : [];
+    var idx = current.indexOf(value);
+    if (idx > -1) { current.splice(idx, 1); } else { current.push(value); }
+    state.dataCapture[fieldId] = current;
+  } else {
+    state.dataCapture[fieldId] = (state.dataCapture[fieldId] === value) ? '' : value;
+  }
+  saveState();
+  // Update button visual
+  if (btnEl) {
+    if (isMulti) {
+      btnEl.classList.toggle('active-neutral');
+    } else {
+      btnEl.parentElement.querySelectorAll('.toggle-btn').forEach(function(b) {
+        b.classList.remove('active-neutral');
+      });
+      if (state.dataCapture[fieldId] === value) btnEl.classList.add('active-neutral');
+    }
   }
   updateComponentSummary(compId);
 }
@@ -21168,12 +21864,20 @@ function renderIcaFields(compId, icaFields, state) {
     if (field.checks && field.checks.length) {
       html += '<div class="ica-field" style="padding:0;border:none;background:none">';
       html += '<div class="section-label">' + esc(field.label) + '</div>';
+      // Data capture inside ICA field (e.g. door material, door style)
+      if (field.dataCapture && field.dataCapture.length) {
+        html += renderDataCapture(compId, field.dataCapture, state);
+      }
       html += renderChecks(compId, field.checks, state, 'ica-' + field.id);
       if (field.rating) {
         html += renderRating(compId, field.rating, state, 'ica-' + field.id);
       }
       if (field.findings && field.findings.length) {
         html += renderFindings(compId, field.findings, state, 'ica-' + field.id);
+      }
+      // Ref tables inside ICA field (e.g. door anatomy)
+      if (field.refTables && field.refTables.length) {
+        field.refTables.forEach(function(rt) { html += renderRefTable(rt); });
       }
       html += '</div>';
     }
@@ -21529,6 +22233,14 @@ function renderInteractiveLogic(compId, wizards, state) {
     // Wizard inputs (chip-based steps)
     if (wiz.inputs && wiz.inputs.length) {
       wiz.inputs.forEach(function(input) {
+        // Check conditional visibility
+        if (input.conditional) {
+          var depKey = 'wiz-' + wiz.id + '-' + input.conditional.showWhen;
+          var depVal = state.wizard && state.wizard[depKey];
+          if (input.conditional.notEquals && depVal === input.conditional.notEquals) return;
+          if (input.conditional.equals && depVal !== input.conditional.equals) return;
+          if (!depVal) return; // Don't show until dependency is answered
+        }
         html += '<div class="wizard-step">';
         html += '<div class="ws-label">' + esc(input.label || '') + '</div>';
         if (input.hint) html += '<div class="ws-hint">' + esc(input.hint) + '</div>';
@@ -21571,9 +22283,44 @@ function renderInteractiveLogic(compId, wizards, state) {
       html += '<div class="wizard-outcomes">';
       html += '<div class="wo-title">Report Language Templates</div>';
       wiz.outcomes.forEach(function(out) {
-        html += '<div class="wizard-outcome" onclick="copyWizardOutcome(this)">';
+        // Check if outcome matches current wizard state (when object)
+        var isMatch = false;
+        if (out.when && typeof out.when === 'object') {
+          isMatch = true;
+          var keys = Object.keys(out.when);
+          for (var k = 0; k < keys.length; k++) {
+            var sk = 'wiz-' + wiz.id + '-' + keys[k];
+            var sv = state.wizard && state.wizard[sk];
+            if (sv !== out.when[keys[k]]) { isMatch = false; break; }
+          }
+        }
+        var matchClass = isMatch ? ' style="border:2px solid var(--accent);background:var(--accent-soft)"' : '';
+        html += '<div class="wizard-outcome"' + matchClass + '>';
+        if (out.result) {
+          var rColor = out.result === 'acceptable' ? 'var(--check)' : out.result === 'deficiency' ? 'var(--warn)' : 'var(--accent)';
+          html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:' + rColor + ';margin-bottom:4px">' + esc(out.result) + '</div>';
+        }
         if (out.confidence) html += '<div class="wo-conf ' + out.confidence + '">' + esc(out.confidence) + '</div>';
         if (out.label) html += '<div class="wo-label">' + esc(out.label) + '</div>';
+        if (out.define) {
+          html += '<div class="report-block define" style="margin:4px 0">';
+          html += '<span class="text">' + esc(out.define) + '</span>';
+          html += '<button class="copy-btn" onclick="event.stopPropagation();copyText(this)">Copy</button>';
+          html += '</div>';
+        }
+        if (out.direct) {
+          html += '<div class="report-block direct" style="margin:4px 0">';
+          html += '<span class="text">' + esc(out.direct) + '</span>';
+          html += '<button class="copy-btn" onclick="event.stopPropagation();copyText(this)">Copy</button>';
+          html += '</div>';
+        }
+        if (out.reportLanguage) {
+          html += '<div class="report-block define" style="margin:4px 0;border-left-color:var(--accent)">';
+          html += '<div style="font-size:10px;font-weight:600;color:var(--accent);margin-bottom:2px">REPORT LANGUAGE</div>';
+          html += '<span class="text">' + esc(out.reportLanguage) + '</span>';
+          html += '<button class="copy-btn" onclick="event.stopPropagation();copyText(this)">Copy</button>';
+          html += '</div>';
+        }
         if (out.report) {
           html += '<div class="report-block define" style="margin:4px 0">';
           html += '<span class="text">' + esc(out.report) + '</span>';
@@ -21595,8 +22342,8 @@ function setWizardInput(el, compId, stateKey, value) {
   if (!state.wizard) state.wizard = {};
   state.wizard[stateKey] = value;
   saveState();
-  el.parentElement.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
-  el.classList.add('active');
+  // Re-render component so conditional fields and outcome matching update
+  renderComponent(compId);
 }
 
 function copyWizardOutcome(el) {
@@ -21667,6 +22414,31 @@ function renderVentTypes(ventTypes) {
     });
   }
   html += '</div>';
+  return html;
+}
+
+/* ============================================
+   RENDER: Confused Materials (comparison guide)
+   ============================================ */
+function renderConfusedMaterials(materials) {
+  var html = '<div class="section-label accent">Material Identification Guide</div>';
+  materials.forEach(function(pair) {
+    html += '<div class="anatomy-block">';
+    html += '<div class="anatomy-header" onclick="this.classList.toggle(\'open\');var b=this.nextElementSibling;b.classList.toggle(\'hidden\')">';
+    html += '<span class="arrow">&#9654;</span>';
+    html += '<span style="font-weight:600;font-size:13px">' + esc(pair.pair) + '</span>';
+    html += '</div>';
+    html += '<div class="hidden" style="padding:10px 14px">';
+    html += '<div style="font-size:12px;color:var(--dim);margin-bottom:8px;font-style:italic">' + esc(pair.why) + '</div>';
+    if (pair.tests && pair.tests.length) {
+      html += '<div style="display:grid;gap:5px">';
+      pair.tests.forEach(function(test) {
+        html += '<div style="font-size:12px;line-height:1.5;padding:6px 8px;background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--line)">' + esc(test) + '</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div></div>';
+  });
   return html;
 }
 
