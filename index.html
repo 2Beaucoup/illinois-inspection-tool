@@ -23559,7 +23559,18 @@ var INSPECTION_DATA = {
               "EXTERIOR TERMINATION: Should NOT be screened. Should NOT terminate in interior space.",
               "WASHER SUPPLY HOSES: Rubber = burst risk. Braided stainless = recommended.",
               "ELECTRIC DRYER: 240V, 30-amp. 4-prong (newer) or 3-prong (older).",
-              "GAS DRYER: 120V outlet + gas connection with accessible shutoff."
+              "GAS DRYER: 120V outlet + gas connection with accessible shutoff.",
+              "SCOPE: ASHI SOP Section 11.1.A: Inspect clothes dryer exhaust systems. Inspect kitchen, bathroom, laundry, and similar exhaust systems. Illinois SOP 1410.200(o): Inspect mechanical ventilation systems in kitchens, bathrooms, and laundry.",
+              "NOT REQUIRED: InterNACHI SOP 2.6.II.G: Not required to inspect clothes washing machines or their connections. ASHI SOP 10.2.G: Not required to inspect installed and freestanding kitchen and laundry appliances not listed in 10.1.F.",
+              "DRYER DUCT DEDUCTIONS: Each 90-degree elbow = 5 ft. Each 45-degree = 2.5 ft. Keep total under 35 ft equivalent.",
+              "EXTERIOR TERMINATION: Should NOT be screened (screen catches lint). Should have flap/damper that closes when dryer is off. Should NOT terminate in interior space.",
+              "FIRE STATISTICS: Failure to clean dryer vents is the leading cause of dryer fires. Lint is highly combustible.",
+              "WASHER SUPPLY HOSES: Rubber = burst risk (leading cause of residential water damage claims). Braided stainless = recommended. Replace every 5-8 years regardless of appearance.",
+              "DRAIN STANDPIPE: Should be 18-30\" above floor with P-trap. Prevents sewer gas backup and provides air break.",
+              "ELECTRIC DRYER: 240V, 30-amp. 4-prong NEMA 14-30 (current standard since 1996) or 3-prong NEMA 10-30 (older, acceptable where installed).",
+              "GAS DRYER: 120V outlet for controls/motor + gas connection with accessible shutoff valve near the appliance.",
+              "UPPER FLOOR LAUNDRY: Check ceiling below for water stains. Higher risk location because any leak damages the floor below.",
+              "CASCADE: Vinyl dryer duct found -> also check attic for lint accumulation if duct passes through attic."
             ],
             "ashiSop": "ASHI SOP Section 17-18: Inspect walls, ceilings, floors. Report moisture penetration."
           },
@@ -23608,6 +23619,57 @@ var INSPECTION_DATA = {
               "id": "il-lint-buildup",
               "label": "No visible lint buildup at dryer vent connections or exterior termination",
               "type": "pass-fail"
+            },
+            {
+              "label": "Dryer vents to EXTERIOR",
+              "tip": "Follow duct from dryer to termination. Must go through exterior wall or roof with hood and flap/damper. Dryer venting into attic, crawlspace, or interior = fire and moisture hazard.",
+              "redFlag": "Dryer vent terminates in interior space (fire and moisture hazard)"
+            },
+            {
+              "label": "Duct material is metal (rigid or semi-rigid)",
+              "tip": "Vinyl/plastic = FIRE HAZARD. Foil/flex = not recommended (sags, collects lint). Only rigid or semi-rigid METAL is acceptable.",
+              "redFlag": "Vinyl/plastic dryer vent duct (fire hazard)"
+            },
+            {
+              "label": "Exterior termination hood -- NOT screened",
+              "tip": "Screen catches lint and clogs. Should have flap/damper only, no screen."
+            },
+            {
+              "label": "Duct length within limits -- max 35 ft equivalent",
+              "tip": "Each 90-degree elbow = 5 ft deduction. Each 45-degree elbow = 2.5 ft deduction. Excessive length reduces airflow and increases lint buildup."
+            },
+            {
+              "label": "Washer supply hoses -- rubber or braided stainless?",
+              "tip": "Rubber = burst risk (leading cause of residential water damage claims). Braided stainless = recommended."
+            },
+            {
+              "label": "Washer supply hoses -- no swelling, cracking, or bulging",
+              "tip": "Swollen/cracked rubber hose = imminent burst risk. Check both hot and cold lines.",
+              "redFlag": "Swollen or cracked washer supply hose (imminent burst risk)"
+            },
+            {
+              "label": "Supply valves operate",
+              "tip": "Turn valves to verify they turn. Gate valves may be seized -- note but do not force."
+            },
+            {
+              "label": "Drain standpipe present with P-trap",
+              "tip": "Standpipe should be 18-30\" above floor. Proper P-trap prevents sewer gas."
+            },
+            {
+              "label": "Walls/ceiling/floor -- water damage?",
+              "tip": "Check especially behind and under washer. Stains on ceiling below (if upper floor laundry) are especially concerning."
+            },
+            {
+              "label": "HVAC source present in laundry area",
+              "tip": "Register or vent should serve the laundry area."
+            },
+            {
+              "label": "Electrical receptacles functional",
+              "tip": "Test with 3-light tester."
+            },
+            {
+              "label": "Laundry sink (if present) -- run water, check drain",
+              "tip": "Check for leaks under sink."
             }
           ],
           "safeLanguage": [
@@ -23617,7 +23679,23 @@ var INSPECTION_DATA = {
             "Washer supply hoses appeared to be [stainless steel braided/rubber] construction.",
             "Recommend evaluation and correction by a qualified contractor.",
             "Lint accumulation in dryer vent systems is a leading cause of residential fires.",
-            "The dryer vent system should be cleaned and inspected periodically."
+            "The dryer vent system should be cleaned and inspected periodically.",
+            {
+              "instead": "The dryer vent is clogged",
+              "say": "Dryer vent appeared to have restricted airflow. Recommend cleaning and inspection of the full duct run."
+            },
+            {
+              "instead": "The washer hoses will burst",
+              "say": "Rubber washer supply hoses were present. These have a higher burst risk than braided stainless steel hoses. Recommend replacement."
+            },
+            {
+              "instead": "The dryer vent is not up to code",
+              "say": "Dryer vent material does not appear to be metal as recommended by manufacturer guidelines and common safety standards."
+            },
+            {
+              "instead": "The laundry area is fine",
+              "say": "Laundry area was inspected visually. Dryer vent, washer connections, and surrounding surfaces were assessed for readily visible deficiencies."
+            }
           ],
           "interactiveLogic": [
             {
@@ -23867,6 +23945,55 @@ var INSPECTION_DATA = {
                 "Cannot determine",
                 "N/A"
               ]
+            },
+            {
+              "id": "laundry-location",
+              "label": "Laundry Location",
+              "type": "select",
+              "options": [
+                "Basement",
+                "Main Floor",
+                "Upper Floor",
+                "Garage",
+                "Closet",
+                "Other"
+              ]
+            },
+            {
+              "id": "dryer-vent-material",
+              "label": "Dryer Vent Material",
+              "type": "select",
+              "options": [
+                "Rigid Metal",
+                "Semi-Rigid Metal",
+                "Foil/Flex (Corrugated)",
+                "Vinyl/Plastic",
+                "Not Visible",
+                "N/A"
+              ]
+            },
+            {
+              "id": "washer-hose-type",
+              "label": "Washer Supply Hose Type",
+              "type": "select",
+              "options": [
+                "Braided Stainless Steel",
+                "Rubber",
+                "Not Visible",
+                "N/A"
+              ]
+            },
+            {
+              "id": "dryer-vent-terminates",
+              "label": "Dryer Vent Terminates",
+              "type": "select",
+              "options": [
+                "Exterior Wall",
+                "Roof",
+                "Interior Space",
+                "Not Determined",
+                "N/A"
+              ]
             }
           ],
           "crossReferences": [
@@ -23874,7 +24001,8 @@ var INSPECTION_DATA = {
             "plumb-supply",
             "plumb-dwv",
             "attic-insulation",
-            "int-smoke-co"
+            "int-smoke-co",
+            "elec-branch"
           ],
           "findings": [
             {
@@ -23904,6 +24032,353 @@ var INSPECTION_DATA = {
               "define": "Rubber washer supply hoses were observed. These hoses are under constant water pressure.",
               "direct": "Recommend replacement with stainless steel braided supply hoses as a preventive measure.",
               "defer": "Refer to a qualified contractor for further evaluation."
+            },
+            {
+              "id": "dryer-not-vented",
+              "chipLabel": "Not Vented to Exterior",
+              "define": "Dryer does not appear to be vented to the exterior. Vent terminates in [crawlspace / attic / interior space].",
+              "direct": "This is a fire and moisture concern. Lint accumulation in confined spaces is a fire hazard, and moisture will cause mold and structural damage. Recommend venting to the exterior.",
+              "defer": "Refer to a qualified HVAC contractor."
+            },
+            {
+              "id": "dryer-vinyl-duct",
+              "chipLabel": "Vinyl/Plastic Duct",
+              "define": "Plastic/vinyl dryer vent duct observed at [location]. Only metal vents should be used for clothes dryers.",
+              "direct": "This is a fire safety concern. Vinyl/plastic duct is flammable and traps lint. Recommend replacement with rigid or semi-rigid metal duct.",
+              "defer": "Refer to a qualified HVAC contractor."
+            },
+            {
+              "id": "dryer-foil-flex",
+              "chipLabel": "Foil/Flex Duct",
+              "define": "Corrugated foil/flex dryer vent duct observed at [location].",
+              "direct": "Foil flex duct sags, collects lint, and creates airflow restriction. Recommend replacement with rigid or semi-rigid metal duct, especially for longer runs.",
+              "defer": "Homeowner or HVAC contractor can replace."
+            },
+            {
+              "id": "dryer-vent-screened",
+              "chipLabel": "Screened Termination",
+              "define": "Dryer vent exterior termination at [location] has a screen, which will catch lint and clog over time.",
+              "direct": "Recommend removing screen and verifying flap/damper operates. Screen-free hood with gravity damper is correct.",
+              "defer": "Homeowner can correct."
+            },
+            {
+              "id": "rubber-hoses",
+              "chipLabel": "Rubber Supply Hoses",
+              "define": "Rubber washer supply hoses observed at [location].",
+              "direct": "Rubber hoses are the leading cause of residential water damage claims due to burst risk. Recommend replacement with braided stainless steel hoses.",
+              "defer": "Homeowner can replace -- available at hardware stores."
+            },
+            {
+              "id": "hose-deteriorated",
+              "chipLabel": "Deteriorated Supply Hoses",
+              "define": "Washer supply hose at [location] appeared [swollen / cracked / bulging], indicating imminent burst risk.",
+              "direct": "Recommend immediate replacement. Consider shutting off supply valves until replaced.",
+              "defer": "Consider shutting off supply valves and notifying homeowner."
+            },
+            {
+              "id": "no-standpipe-trap",
+              "chipLabel": "Standpipe/Trap Issue",
+              "define": "Washer drain at [location] [lacked visible P-trap / standpipe was improper height / was missing standpipe].",
+              "direct": "Proper standpipe (18-30\" above floor) with P-trap prevents sewer gas and drain overflow. Recommend correction.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "laundry-water-damage",
+              "chipLabel": "Water Damage",
+              "define": "Evidence of water damage observed in laundry area at [location] on [walls / ceiling / floor].",
+              "direct": "Recommend further evaluation to determine source and extent of damage.",
+              "defer": "Refer to a qualified general contractor."
+            }
+          ],
+          "typeSelect": {
+            "question": "What type of dryer setup?",
+            "idHelper": [
+              {
+                "name": "Electric Dryer",
+                "clues": "240V outlet behind dryer (large receptacle, either 4-prong NEMA 14-30 or older 3-prong NEMA 10-30), no gas line, thick power cord"
+              },
+              {
+                "name": "Gas Dryer",
+                "clues": "Standard 120V outlet (for motor/controls) PLUS a gas supply line with shutoff valve near the dryer, gas flex connector visible"
+              },
+              {
+                "name": "No Dryer / Hookups Only",
+                "clues": "Empty laundry area with utility connections visible but no appliance present. May see outlet, gas valve, and/or vent cap."
+              }
+            ],
+            "options": [
+              {
+                "id": "electric-dryer",
+                "label": "Electric Dryer",
+                "checks": [
+                  {
+                    "label": "240V outlet present -- check type",
+                    "tip": "4-prong NEMA 14-30 (newer standard with separate ground) or 3-prong NEMA 10-30 (older, acceptable when installed). Note which type."
+                  },
+                  {
+                    "label": "Outlet condition -- no scorch marks, secure to wall",
+                    "tip": "Scorching or melting around outlet indicates overheating. 240V connections carry significant current."
+                  },
+                  {
+                    "label": "Dryer produces heat when turned on briefly",
+                    "tip": "Turn on and verify it heats. If it tumbles but does not heat, one leg of the 240V circuit may be dead."
+                  }
+                ],
+                "ilNote": "Electric dryers use 240V, 30-amp circuits. 4-prong outlets (NEMA 14-30) are current standard and include separate equipment ground. 3-prong (NEMA 10-30) was standard before 1996 and is acceptable where already installed.",
+                "rating": {
+                  "acceptable": "240V outlet present and secure, dryer produces heat, no scorch marks.",
+                  "fair": "Outlet functional but 3-prong (older standard), or outlet loose but not damaged.",
+                  "poor": "Outlet scorched/damaged, dryer does not heat, no 240V outlet present."
+                },
+                "findings": [
+                  {
+                    "id": "outlet-scorched",
+                    "chipLabel": "Scorched 240V Outlet",
+                    "define": "240V dryer outlet at [location] exhibited scorch marks or melting, indicating overheating.",
+                    "direct": "This is a fire safety concern. Recommend evaluation and replacement by a qualified electrician.",
+                    "defer": "Refer to a qualified electrician."
+                  },
+                  {
+                    "id": "no-heat",
+                    "chipLabel": "Dryer No Heat",
+                    "define": "Electric dryer at [location] tumbled but did not produce heat when tested. One leg of the 240V circuit may not be functioning.",
+                    "direct": "Recommend evaluation by a qualified electrician.",
+                    "defer": "Refer to a qualified electrician."
+                  }
+                ]
+              },
+              {
+                "id": "gas-dryer",
+                "label": "Gas Dryer",
+                "checks": [
+                  {
+                    "label": "Standard 120V outlet present",
+                    "tip": "Gas dryers use standard 120V outlet for controls and drum motor only."
+                  },
+                  {
+                    "label": "Gas shutoff valve present and accessible",
+                    "tip": "Should be within reach near the dryer. Verify it operates (quarter-turn ball valve typical)."
+                  },
+                  {
+                    "label": "Gas flex connector -- good condition, no kinks",
+                    "tip": "Check for corrosion, kinks, or damage on the flexible gas connector."
+                  },
+                  {
+                    "label": "Dryer produces heat when turned on briefly",
+                    "tip": "Turn on and verify it heats."
+                  },
+                  {
+                    "label": "No gas smell at connections",
+                    "tip": "Smell around the gas connection and shutoff valve. Any gas odor is a safety concern.",
+                    "redFlag": "Gas odor detected at dryer connection"
+                  }
+                ],
+                "ilNote": "Gas dryers require an accessible shutoff valve near the appliance. Illinois SOP 1410.200(j): Inspector shall describe fuel storage and fuel distribution systems and location of main fuel shut-off valves.",
+                "rating": {
+                  "acceptable": "120V outlet present, gas shutoff accessible and operable, flex connector in good condition, dryer produces heat, no gas odor.",
+                  "fair": "Shutoff valve present but difficult to access (behind dryer), flex connector showing age.",
+                  "poor": "No gas shutoff valve, damaged flex connector, gas odor detected, dryer does not heat."
+                },
+                "findings": [
+                  {
+                    "id": "no-gas-shutoff",
+                    "chipLabel": "No Gas Shutoff",
+                    "define": "Gas shutoff valve was not visible or accessible near the gas dryer at [location].",
+                    "direct": "An accessible gas shutoff valve should be present near each gas appliance. Recommend installation by a qualified plumber.",
+                    "defer": "Refer to a qualified plumber."
+                  },
+                  {
+                    "id": "gas-connector-damaged",
+                    "chipLabel": "Gas Connector Issue",
+                    "define": "Gas flex connector at dryer at [location] appeared [corroded / kinked / damaged].",
+                    "direct": "Recommend replacement by a qualified plumber.",
+                    "defer": "Refer to a qualified plumber."
+                  },
+                  {
+                    "id": "gas-odor-dryer",
+                    "chipLabel": "Gas Odor Detected",
+                    "define": "Gas odor was detected at or near the dryer gas connection at [location].",
+                    "direct": "This is a safety concern. Recommend immediate evaluation by the gas utility or a qualified plumber.",
+                    "defer": "Notify homeowner. Contact gas utility or qualified plumber."
+                  }
+                ]
+              },
+              {
+                "id": "hookups-only",
+                "label": "No Dryer / Hookups Only",
+                "checks": [
+                  {
+                    "label": "Note available connections",
+                    "tip": "Document what is present: 240V outlet, 120V outlet, gas valve, dryer vent termination. This tells the buyer what type of dryer the space supports."
+                  },
+                  {
+                    "label": "Gas valve capped (if present)",
+                    "tip": "If gas line is present with no dryer connected, the valve should be closed and the line should be capped."
+                  },
+                  {
+                    "label": "Dryer vent terminates to exterior",
+                    "tip": "Check vent cap even when dryer is not present."
+                  }
+                ],
+                "ilNote": "When no dryer is present, document available hookups. Cannot test function without the appliance. Note this as a limitation.",
+                "rating": {
+                  "acceptable": "Hookups appear properly installed, gas line capped if present, vent to exterior.",
+                  "fair": "Hookups present but cannot fully verify without appliance.",
+                  "poor": "Gas line not capped, vent terminates in interior space."
+                },
+                "findings": [
+                  {
+                    "id": "gas-not-capped",
+                    "chipLabel": "Gas Line Not Capped",
+                    "define": "Gas supply line at laundry hookup at [location] did not appear to be capped with no dryer connected.",
+                    "direct": "Open gas line should be capped when not connected to an appliance. Recommend correction by a qualified plumber.",
+                    "defer": "Refer to a qualified plumber."
+                  }
+                ]
+              }
+            ]
+          },
+          "refTables": [
+            {
+              "title": "Dryer Vent Material Reference",
+              "columns": [
+                "Material",
+                "Rating",
+                "Notes"
+              ],
+              "rows": [
+                [
+                  "Rigid metal (smooth interior)",
+                  "Best",
+                  "Least lint buildup, best airflow. Required for concealed runs."
+                ],
+                [
+                  "Semi-rigid metal",
+                  "Acceptable",
+                  "Flexible but metal. OK for short, accessible runs behind the dryer."
+                ],
+                [
+                  "Foil/flex (corrugated)",
+                  "Not Recommended",
+                  "Sags, collects lint, creates restriction. Replace with metal when practical."
+                ],
+                [
+                  "Vinyl/plastic",
+                  "FIRE HAZARD",
+                  "Flammable, traps lint, melts. Replace immediately."
+                ]
+              ]
+            },
+            {
+              "title": "Dryer Vent Length Limits",
+              "columns": [
+                "Item",
+                "Equivalent Length"
+              ],
+              "rows": [
+                [
+                  "Maximum total equivalent length",
+                  "35 ft"
+                ],
+                [
+                  "Each 90-degree elbow deduction",
+                  "5 ft"
+                ],
+                [
+                  "Each 45-degree elbow deduction",
+                  "2.5 ft"
+                ],
+                [
+                  "Example: 20 ft run + two 90s",
+                  "20 + 5 + 5 = 30 ft equivalent (within limit)"
+                ],
+                [
+                  "Example: 25 ft run + three 90s",
+                  "25 + 5 + 5 + 5 = 40 ft equivalent (EXCEEDS limit)"
+                ]
+              ]
+            },
+            {
+              "title": "Washer Hose Comparison",
+              "columns": [
+                "Type",
+                "Risk Level",
+                "Expected Life",
+                "Recommendation"
+              ],
+              "rows": [
+                [
+                  "Braided stainless steel",
+                  "Low",
+                  "8-10 years",
+                  "Recommended"
+                ],
+                [
+                  "Reinforced rubber",
+                  "Moderate",
+                  "3-5 years",
+                  "Replace sooner, inspect frequently"
+                ],
+                [
+                  "Standard rubber",
+                  "High",
+                  "3-5 years",
+                  "Replace with braided stainless"
+                ],
+                [
+                  "Any hose showing swelling/cracking",
+                  "IMMINENT FAILURE",
+                  "Replace NOW",
+                  "Shut off supply valves until replaced"
+                ]
+              ]
+            },
+            {
+              "title": "Dryer Outlet Types",
+              "columns": [
+                "Type",
+                "Voltage",
+                "Standard"
+              ],
+              "rows": [
+                [
+                  "NEMA 14-30 (4-prong)",
+                  "240V / 30A",
+                  "Current standard (since 1996). Separate equipment ground wire."
+                ],
+                [
+                  "NEMA 10-30 (3-prong)",
+                  "240V / 30A",
+                  "Pre-1996 standard. No separate equipment ground. Acceptable where already installed."
+                ],
+                [
+                  "Standard 120V (gas dryer)",
+                  "120V / 15-20A",
+                  "For gas dryer motor and controls only. Gas provides the heat."
+                ]
+              ]
+            }
+          ],
+          "confusedMaterials": [
+            {
+              "a": "Rigid metal duct",
+              "b": "Foil flex duct",
+              "howToTell": "Rigid metal is smooth inside and holds its shape. Foil flex is corrugated (ridged) and collapses/sags. Rigid is silver and sturdy. Foil flex is thin and crinkly. Both are metallic colored but foil flex has visible ridges that trap lint."
+            },
+            {
+              "a": "Semi-rigid metal",
+              "b": "Vinyl/plastic flex",
+              "howToTell": "Semi-rigid metal is aluminum or steel, holds its shape when bent, and feels metallic. Vinyl/plastic is white or clear, feels like plastic, and is often thinner and lighter. Vinyl is a fire hazard -- semi-rigid metal is not."
+            },
+            {
+              "a": "4-prong dryer outlet (NEMA 14-30)",
+              "b": "3-prong dryer outlet (NEMA 10-30)",
+              "howToTell": "Count the slots. 4-prong has an L-shaped hot, a straight hot, a neutral, and a ground. 3-prong has two angled hots and one straight neutral, no separate ground. 4-prong is current standard (since 1996). Both are large 240V outlets much bigger than standard wall outlets."
+            },
+            {
+              "a": "Braided stainless steel hose",
+              "b": "Rubber hose",
+              "howToTell": "Braided stainless has a woven metal exterior. Rubber hose has a smooth rubber exterior, often black or red/blue color-coded. Braided stainless is recommended due to lower burst risk."
             }
           ]
         },
@@ -26216,7 +26691,18 @@ var INSPECTION_DATA = {
               "Smoke detectors: replace every 10 years. CO detectors: replace every 5-7 years.",
               "Combination smoke/CO detectors count for both requirements.",
               "DETECTOR TYPES: Ionization (fast fires), Photoelectric (slow fires), Dual-sensor (both).",
-              "TESTING LIMITATIONS: Test button confirms alarm circuit and horn, NOT that sensor is functional."
+              "TESTING LIMITATIONS: Test button confirms alarm circuit and horn, NOT that sensor is functional.",
+              "ILLINOIS SMOKE DETECTOR ACT [425 ILCS 60]: Within 15 ft of every sleeping room, on each level including basement.",
+              "ILLINOIS CO ALARM ACT [430 ILCS 135]: Within 15 ft of every sleeping room in dwellings with fuel-burning appliances or attached garages. Covers virtually all IL homes.",
+              "ILLINOIS SOP 1410.200(k)(3): Report on the absence of carbon monoxide and smoke detectors.",
+              "InterNACHI SOP 2.7.I.N: Report the absence of smoke detectors.",
+              "ASHI SOP Section 8 (Electrical): Report on the absence of smoke detectors. Illinois adds CO requirement.",
+              "Smoke detectors: replace every 10 years. CO detectors: replace every 5-7 years. Sensors degrade regardless of battery condition.",
+              "Combination smoke/CO detectors satisfy BOTH Illinois requirements. Replace at shorter CO sensor lifespan.",
+              "DETECTOR TYPES: Ionization (fast fires), Photoelectric (slow/smoldering fires), Dual-sensor (both).",
+              "TESTING LIMITATIONS: Test button confirms alarm circuit and horn, NOT that the sensor accurately detects smoke or CO.",
+              "PLACEMENT: Smoke detectors should be on ceiling or high on wall within 12\" of ceiling. Keep 3+ ft from corners, windows, HVAC vents. CO detectors can be at any height since CO mixes evenly with air.",
+              "DO NOT PLACE: In kitchens (cooking causes false alarms), in garages (exhaust causes false alarms), near bathrooms (steam can trigger)."
             ],
             "ashiSop": "ASHI SOP Section 12: Report on non-compliance with CO Alarm [430 ILCS 135] and Smoke Detector [425 ILCS 60] Acts."
           },
@@ -26270,6 +26756,28 @@ var INSPECTION_DATA = {
               "id": "isc-co-age",
               "label": "CO detectors less than 5-7 years old (check manufacture date)",
               "type": "pass-fail"
+            },
+            {
+              "label": "Smoke detector within 15 ft of EACH bedroom door",
+              "tip": "Illinois law [425 ILCS 60]. In multi-story homes, one per floor is NOT enough -- need one near each bedroom.",
+              "redFlag": "Missing smoke detector near sleeping room (Illinois law violation)"
+            },
+            {
+              "label": "At least one smoke detector on EVERY level including basement",
+              "tip": "Illinois law requires coverage on every level."
+            },
+            {
+              "label": "CO detector within 15 ft of EACH bedroom door (if fuel-burning appliances or attached garage)",
+              "tip": "Illinois law [430 ILCS 135]. Covers virtually all IL homes since most have gas furnace, gas water heater, or attached garage.",
+              "redFlag": "Missing CO detector near sleeping room with fuel-burning appliances present"
+            },
+            {
+              "label": "Placement correct -- ceiling or high on wall (smoke), any height (CO)",
+              "tip": "Smoke: within 12\" of ceiling, 3+ ft from corners, windows, HVAC vents. CO: any height works since CO mixes evenly with air."
+            },
+            {
+              "label": "Check for detectors in kitchen/garage/unfinished spaces",
+              "tip": "Detectors should NOT be in kitchens (false alarms) or garages (exhaust fumes). Should be NEAR but not IN these spaces."
             }
           ],
           "safeLanguage": [
@@ -26279,7 +26787,23 @@ var INSPECTION_DATA = {
             "Smoke detectors should be replaced every 10 years. CO detectors should be replaced every 5-7 years.",
             "The absence of [smoke/carbon monoxide] detectors is a safety concern. Recommend immediate installation.",
             "The inspector tested detectors using the test button only. This verifies the alarm sounds but does not test sensor sensitivity.",
-            "Painted-over detectors may not function properly. Paint clogs the sensors and can prevent detection."
+            "Painted-over detectors may not function properly. Paint clogs the sensors and can prevent detection.",
+            {
+              "instead": "The smoke detectors are code compliant",
+              "say": "Smoke detectors were observed in the locations required by Illinois law [425 ILCS 60]."
+            },
+            {
+              "instead": "The detectors work",
+              "say": "Accessible detectors responded to the test button at the time of inspection. The test button confirms the alarm circuit and horn but does not verify sensor accuracy."
+            },
+            {
+              "instead": "You need more smoke detectors",
+              "say": "Smoke detectors were not observed within 15 feet of the sleeping room at [location] as required by Illinois statute."
+            },
+            {
+              "instead": "The CO detectors are fine",
+              "say": "CO detectors responded to test at the time of inspection. CO sensors degrade over time and units should be replaced per manufacturer recommendations (typically every 5-7 years)."
+            }
           ],
           "interactiveLogic": [
             {
@@ -26499,6 +27023,40 @@ var INSPECTION_DATA = {
                 "No",
                 "Cannot determine"
               ]
+            },
+            {
+              "id": "smoke-count",
+              "label": "Smoke Detectors Observed",
+              "type": "number",
+              "placeholder": "Total count"
+            },
+            {
+              "id": "co-count",
+              "label": "CO Detectors Observed",
+              "type": "number",
+              "placeholder": "Total count"
+            },
+            {
+              "id": "combo-count",
+              "label": "Combination Smoke/CO Units",
+              "type": "number",
+              "placeholder": "Count (these satisfy both requirements)"
+            },
+            {
+              "id": "detector-locations-missing",
+              "label": "Locations Missing Detectors",
+              "type": "text",
+              "placeholder": "e.g., Basement, 2nd floor hallway, near bedroom 3"
+            },
+            {
+              "id": "fuel-burning-present",
+              "label": "Fuel-Burning Appliances or Attached Garage",
+              "type": "select",
+              "options": [
+                "Yes",
+                "No",
+                "Unknown"
+              ]
             }
           ],
           "crossReferences": [
@@ -26530,6 +27088,292 @@ var INSPECTION_DATA = {
               "define": "One or more smoke or CO detectors appear to be past their manufacturer-recommended replacement age.",
               "direct": "Recommend replacement of all expired detectors with new units.",
               "defer": "Refer to a qualified contractor for further evaluation."
+            },
+            {
+              "id": "no-smoke-detector",
+              "chipLabel": "Smoke Not Present",
+              "define": "Smoke detectors were not present within 15 feet of sleeping room at [location].",
+              "direct": "Illinois law [425 ILCS 60] requires smoke detectors within 15 feet of all sleeping rooms. Recommend installation.",
+              "defer": "Homeowner or electrician can install."
+            },
+            {
+              "id": "smoke-inop",
+              "chipLabel": "Smoke Not Operable",
+              "define": "Smoke detector at [location] did not respond to test.",
+              "direct": "Recommend replacement.",
+              "defer": "Homeowner can replace."
+            },
+            {
+              "id": "smoke-old",
+              "chipLabel": "Smoke Over 10 Years",
+              "define": "Smoke detector at [location] appears to be more than 10 years old based on manufacturing date.",
+              "direct": "Sensors degrade over time. Recommend replacement regardless of test results.",
+              "defer": "Homeowner can replace."
+            },
+            {
+              "id": "no-co-detector",
+              "chipLabel": "CO Not Present",
+              "define": "CO detectors were not observed within 15 feet of sleeping room at [location]. Fuel-burning appliances [and/or attached garage] were present.",
+              "direct": "Illinois law [430 ILCS 135] requires CO detectors within 15 feet of sleeping rooms in dwellings with fuel-burning appliances or attached garages. Recommend installation.",
+              "defer": "Homeowner or electrician can install."
+            },
+            {
+              "id": "co-inop",
+              "chipLabel": "CO Not Operable",
+              "define": "CO detector at [location] did not respond to test.",
+              "direct": "Recommend replacement.",
+              "defer": "Homeowner can replace."
+            },
+            {
+              "id": "co-old",
+              "chipLabel": "CO Over 5-7 Years",
+              "define": "CO detector at [location] appears to be past its recommended lifespan based on manufacturing date. CO sensors degrade faster than smoke sensors.",
+              "direct": "Recommend replacement regardless of test results.",
+              "defer": "Homeowner can replace."
+            },
+            {
+              "id": "wrong-placement",
+              "chipLabel": "Improper Placement",
+              "define": "Detector at [location] appeared improperly placed -- [too far from sleeping rooms / in kitchen / in garage / too close to HVAC vent or corner].",
+              "direct": "Recommend relocation to proper position per manufacturer instructions and Illinois statutes.",
+              "defer": "Homeowner or electrician can relocate."
+            }
+          ],
+          "typeSelect": {
+            "question": "What type of detectors are present?",
+            "idHelper": [
+              {
+                "name": "Hardwired (AC with battery backup)",
+                "clues": "Wires going into ceiling/wall behind the unit, typically interconnected (one alarms and they all alarm), battery backup compartment, usually round white units mounted flush to ceiling"
+              },
+              {
+                "name": "Battery-Only",
+                "clues": "No wires -- unit mounts to ceiling with screws/bracket, battery compartment, often round and slightly thicker than hardwired, 9V or sealed lithium battery"
+              },
+              {
+                "name": "Combination Smoke/CO",
+                "clues": "Single unit with both SMOKE and CO labels, voice alarm announces which hazard is detected, satisfies both Illinois requirements"
+              },
+              {
+                "name": "10-Year Sealed Lithium",
+                "clues": "Sealed battery compartment (battery not replaceable), manufacturing date on back, entire unit is replaced when battery dies. Common in newer construction."
+              }
+            ],
+            "options": [
+              {
+                "id": "hardwired",
+                "label": "Hardwired (AC with battery backup)",
+                "checks": [
+                  {
+                    "label": "Test button -- unit alarms",
+                    "tip": "Press and hold test button. Confirms alarm circuit and horn. Does NOT confirm sensor is functional."
+                  },
+                  {
+                    "label": "Check if interconnected -- do other units alarm?",
+                    "tip": "When one hardwired unit alarms, all connected units should alarm. If only one sounds, interconnection may be faulty."
+                  },
+                  {
+                    "label": "Check manufacturing date (on back of unit)",
+                    "tip": "Smoke detectors: replace every 10 years. CO detectors: replace every 5-7 years. Sensors degrade regardless of test results."
+                  },
+                  {
+                    "label": "Battery backup present",
+                    "tip": "Check for low-battery chirp or missing battery. Battery backup essential for power outages."
+                  }
+                ],
+                "ilNote": "Hardwired, interconnected smoke detectors are required in new construction and significant remodels in Illinois. Older homes may have battery-only units which is acceptable for existing homes.",
+                "rating": {
+                  "acceptable": "Present in all required locations, all tested and operable, interconnected, within manufacture date range.",
+                  "fair": "Present but some not tested, or one or two locations missing coverage, or approaching replacement age.",
+                  "poor": "Multiple locations missing, inoperable units, expired units (past manufacture date + lifespan)."
+                },
+                "findings": [
+                  {
+                    "id": "interconnect-fail",
+                    "chipLabel": "Interconnection Issue",
+                    "define": "Hardwired smoke detectors did not appear to be interconnected -- only the tested unit alarmed while others remained silent.",
+                    "direct": "Recommend evaluation and correction by a qualified electrician.",
+                    "defer": "Refer to a qualified electrician."
+                  }
+                ]
+              },
+              {
+                "id": "battery-only",
+                "label": "Battery-Only",
+                "checks": [
+                  {
+                    "label": "Test button -- unit alarms",
+                    "tip": "Press and hold test button. Confirms alarm circuit and horn."
+                  },
+                  {
+                    "label": "Check manufacturing date (on back of unit)",
+                    "tip": "Smoke detectors: replace every 10 years. CO detectors: replace every 5-7 years."
+                  },
+                  {
+                    "label": "Verify battery is present and not dead",
+                    "tip": "Listen for low-battery chirp. Missing battery = nonfunctional unit."
+                  }
+                ],
+                "ilNote": "Battery-only detectors are acceptable in existing homes. They are not interconnected -- each unit operates independently. Recommend upgrading to hardwired interconnected units when practical.",
+                "rating": {
+                  "acceptable": "Present in all required locations, all tested and operable, within manufacture date range.",
+                  "fair": "Present but some not tested, or approaching replacement age.",
+                  "poor": "Multiple locations missing, inoperable units, dead batteries, expired units."
+                },
+                "findings": []
+              },
+              {
+                "id": "combo",
+                "label": "Combination Smoke/CO",
+                "checks": [
+                  {
+                    "label": "Test button -- unit alarms",
+                    "tip": "Voice alarm should announce which hazard it detects (FIRE vs. CARBON MONOXIDE)."
+                  },
+                  {
+                    "label": "Check manufacturing date",
+                    "tip": "Combination units: replace based on shorter of the two sensor lifespans. CO sensors degrade faster (5-7 years vs. 10 years for smoke)."
+                  },
+                  {
+                    "label": "Confirm unit covers BOTH smoke and CO",
+                    "tip": "Look for both SMOKE and CO labels on the unit. Some look similar but only detect one hazard."
+                  }
+                ],
+                "ilNote": "Combination smoke/CO detectors satisfy BOTH the Illinois Smoke Detector Act [425 ILCS 60] and the Illinois Carbon Monoxide Alarm Detector Act [430 ILCS 135]. Replace based on CO sensor lifespan (5-7 years) since it degrades faster.",
+                "rating": {
+                  "acceptable": "Present in all required locations, tested operable, within CO sensor lifespan.",
+                  "fair": "Present but approaching CO sensor replacement age, or minor coverage gaps.",
+                  "poor": "Missing from required locations, inoperable, past CO sensor lifespan."
+                },
+                "findings": []
+              },
+              {
+                "id": "none-present",
+                "label": "No Detectors Present",
+                "checks": [],
+                "ilNote": "Absence of any smoke or CO detectors is a safety deficiency and an Illinois statutory violation. Smoke Detector Act [425 ILCS 60] and CO Alarm Act [430 ILCS 135] both mandate detectors in dwellings. Report as a safety concern.",
+                "rating": {
+                  "poor": "No smoke or CO detectors observed. Illinois statutory requirement not met."
+                },
+                "findings": [
+                  {
+                    "id": "no-detectors",
+                    "chipLabel": "No Detectors",
+                    "define": "No smoke or CO detectors were observed in the dwelling at the time of inspection.",
+                    "direct": "Illinois law requires smoke detectors [425 ILCS 60] within 15 feet of all sleeping rooms and on every level. CO detectors [430 ILCS 135] are required within 15 feet of all sleeping rooms in dwellings with fuel-burning appliances or attached garages. Recommend immediate installation.",
+                    "defer": "Homeowner or electrician can install."
+                  }
+                ]
+              }
+            ]
+          },
+          "refTables": [
+            {
+              "title": "Illinois Detector Requirements",
+              "columns": [
+                "Requirement",
+                "Smoke Detectors",
+                "CO Detectors"
+              ],
+              "rows": [
+                [
+                  "Illinois Statute",
+                  "425 ILCS 60",
+                  "430 ILCS 135"
+                ],
+                [
+                  "Where required",
+                  "All dwellings",
+                  "Dwellings with fuel-burning appliances or attached garages"
+                ],
+                [
+                  "Placement",
+                  "Within 15 ft of each bedroom, every level including basement",
+                  "Within 15 ft of each bedroom"
+                ],
+                [
+                  "Mounting",
+                  "Ceiling or high on wall (within 12\" of ceiling)",
+                  "Any height (CO mixes evenly with air)"
+                ],
+                [
+                  "Avoid placing",
+                  "Inside kitchens, garages, near HVAC vents, within 3 ft of corners",
+                  "Inside garages (exhaust fumes cause false alarms)"
+                ],
+                [
+                  "Replace smoke sensors",
+                  "Every 10 years",
+                  "--"
+                ],
+                [
+                  "Replace CO sensors",
+                  "--",
+                  "Every 5-7 years"
+                ],
+                [
+                  "Combination units",
+                  "Satisfy both requirements",
+                  "Satisfy both requirements -- replace at shorter CO lifespan"
+                ],
+                [
+                  "Inspector duty (IL SOP)",
+                  "Report absence [1410.200(k)(3)]",
+                  "Report absence [1410.200(k)(3)]"
+                ],
+                [
+                  "Inspector duty (InterNACHI)",
+                  "Report absence [2.7.I.N]",
+                  "Report absence [2.7.I.N]"
+                ]
+              ]
+            },
+            {
+              "title": "Detector Types",
+              "columns": [
+                "Type",
+                "Detects Best",
+                "Notes"
+              ],
+              "rows": [
+                [
+                  "Ionization",
+                  "Fast, flaming fires",
+                  "Contains small radioactive element. Responds faster to open flame fires."
+                ],
+                [
+                  "Photoelectric",
+                  "Slow, smoldering fires",
+                  "Uses light beam. Responds faster to smoldering fires with lots of smoke."
+                ],
+                [
+                  "Dual-sensor",
+                  "Both fire types",
+                  "Contains both ionization and photoelectric sensors. Best overall coverage."
+                ],
+                [
+                  "10-Year Sealed Lithium",
+                  "Depends on sensor type",
+                  "Non-replaceable battery. Replace entire unit when battery dies or at 10 years."
+                ]
+              ]
+            }
+          ],
+          "confusedMaterials": [
+            {
+              "a": "Smoke detector",
+              "b": "CO detector",
+              "howToTell": "Check the label on the unit. Smoke detectors say SMOKE. CO detectors say CARBON MONOXIDE or CO. They detect completely different hazards. Some combination units detect both -- look for both labels."
+            },
+            {
+              "a": "Hardwired detector",
+              "b": "Battery-only detector",
+              "howToTell": "Look behind the unit (if accessible). Hardwired units have wires going into the ceiling/wall and typically have a twist-lock mount connected to wiring. Battery-only units mount with screws or adhesive with no wires."
+            },
+            {
+              "a": "Heat detector",
+              "b": "Smoke detector",
+              "howToTell": "Heat detectors are often found in kitchens and garages where smoke detectors would false alarm. They look similar but say HEAT on the label. Heat detectors are NOT a substitute for smoke detectors in sleeping areas."
             }
           ]
         },
@@ -26786,6 +27630,36 @@ var INSPECTION_DATA = {
                 "label": "No Fireplace",
                 "checks": []
               }
+            ],
+            "idHelper": [
+              {
+                "name": "Masonry",
+                "clues": "Full brick or stone firebox, brick chimney visible on exterior, firebrick lining (lighter colored than regular brick), steel lintel above opening, ash dump in floor of firebox"
+              },
+              {
+                "name": "Factory-Built / Prefab",
+                "clues": "Metal firebox with refractory panels, manufacturer nameplate on unit, metal chimney inside a wood-framed chase on exterior (chase looks like a bump-out with siding, not brick)"
+              },
+              {
+                "name": "Gas Logs in Masonry",
+                "clues": "Ceramic logs sitting on a gas burner inside a masonry firebox, gas supply line visible, key valve or wall switch for gas control, damper clamp preventing full closure"
+              },
+              {
+                "name": "Gas Insert (Direct Vent)",
+                "clues": "Sealed glass front, metal unit inserted into existing fireplace opening, draws outside air through coaxial vent pipe, blower fan, no open firebox"
+              },
+              {
+                "name": "Vent-Free / Ventless Gas",
+                "clues": "No chimney connection, no vent pipe, decorative logs with gas burner, ODS pilot assembly visible, often mounted in wall or freestanding"
+              },
+              {
+                "name": "Wood Stove",
+                "clues": "Freestanding metal stove, stovepipe (single-wall connector) to chimney, floor pad underneath, door with gasket seal, often cast iron or steel"
+              },
+              {
+                "name": "Electric",
+                "clues": "Plug-in unit, LED or bulb-based flame effect, no real combustion, no chimney connection, often decorative mantel surround"
+              }
             ]
           },
           "fields": [
@@ -26881,6 +27755,13 @@ var INSPECTION_DATA = {
               "define": "Heavy black, tar-like creosote buildup was visible when looking up into the chimney flue from the firebox.",
               "direct": "Recommend professional chimney cleaning by a certified chimney sweep before any further use of the fireplace.",
               "defer": "Refer to a qualified contractor for further evaluation."
+            },
+            {
+              "id": "smoke-staining",
+              "chipLabel": "Smoke Staining",
+              "define": "Evidence of smoke staining observed on [wall / ceiling / mantel] above fireplace at [location], indicating possible drafting concerns.",
+              "direct": "Recommend evaluation by a qualified chimney sweep to determine cause of improper drafting.",
+              "defer": "Refer to a qualified chimney sweep."
             }
           ],
           "refTable": {
@@ -26914,7 +27795,16 @@ var INSPECTION_DATA = {
               "VENTLESS: Legal in IL but controversial. Burns gas into living space. ODS sensor required.",
               "CREOSOTE: Stage 1 (soft) = clean annually. Stage 2 (hard) = incomplete combustion. Stage 3 (glazed) = FIRE HAZARD.",
               "WOOD STOVE: 36\" clearance, 18\" stovepipe clearance, Class A chimney at penetrations.",
-              "YOU CANNOT SAY: 'Fireplace is safe to use' or 'chimney is in good condition' — always recommend chimney sweep evaluation."
+              "YOU CANNOT SAY: 'Fireplace is safe to use' or 'chimney is in good condition' — always recommend chimney sweep evaluation.",
+              "SCOPE: ASHI SOP Section 9 / InterNACHI 2.8: Inspect the fireplace, open and close damper if readily accessible/operable, inspect hearth extensions and permanently installed components, report deficiencies in lintel, hearth, and clearances from combustible materials.",
+              "ILLINOIS SOP 1410.200(p): Inspect system components, vent systems, flues, and chimneys. Describe fireplaces, solid fuel burning appliances, and chimneys.",
+              "NOT REQUIRED: InterNACHI 2.8 II -- not required to inspect flue/vent system interiors, fire doors/screens/seals/gaskets/mantels, determine need for chimney sweep, operate gas inserts, light pilot flames, ignite or extinguish fires, perform NFPA-style or Phase I inspection.",
+              "GAS LOGS IN MASONRY: Damper must be clamped partially open (even when not in use) to vent CO. Missing clamp = CO hazard.",
+              "DIRECT VENT INSERT: Sealed combustion. No damper clamp needed because system is sealed from room air.",
+              "VENTLESS: Legal in IL but controversial. Burns gas into living space. ODS sensor required. Not for bedrooms/bathrooms per most manufacturers.",
+              "WOOD STOVE: 36\" clearance, 18\" stovepipe clearance, Class A chimney at penetrations, noncombustible floor pad.",
+              "LEVEL II RECOMMENDATION: NFPA 211 recommends Level II chimney inspection at property transfer. Always recommend this -- it exceeds your scope and protects you.",
+              "YOU CANNOT SAY: 'Fireplace is safe to use' or 'chimney is in good condition.' Always recommend chimney sweep evaluation."
             ],
             "ashiSop": "ASHI SOP Sections 21-22: Inspect system components, vent system, flues, chimneys."
           },
@@ -26968,6 +27858,23 @@ var INSPECTION_DATA = {
               "id": "if-spark-screen",
               "label": "Spark screen or glass doors present (wood-burning)",
               "type": "pass-fail"
+            },
+            {
+              "label": "Check combustible clearances around firebox opening",
+              "tip": "Combustible materials (wood mantel, trim, built-in shelving) must maintain minimum clearances from firebox opening.",
+              "redFlag": "Combustible material in contact with or too close to firebox"
+            },
+            {
+              "label": "Evidence of smoke staining above fireplace or on ceiling",
+              "tip": "Smoke staining on the wall or ceiling above the fireplace indicates drafting problems (smoke comes into room instead of going up chimney)."
+            },
+            {
+              "label": "Ash dump and cleanout (if present) -- door closes securely",
+              "tip": "Ash dump in floor of masonry firebox leads to cleanout below. Door should close tightly."
+            },
+            {
+              "label": "IF fireplace will be used -- recommend Level II chimney inspection",
+              "tip": "NFPA 211 recommends Level II inspection at property transfer. You cannot fully assess flue condition from below."
             }
           ],
           "safeLanguage": [
@@ -26978,7 +27885,23 @@ var INSPECTION_DATA = {
             "Recommend evaluation by a qualified chimney sweep or fireplace contractor.",
             "A Level 2 chimney inspection by a certified chimney sweep is recommended when purchasing a home (NFPA 211).",
             "The gas shutoff valve [was/was not] accessible near the fireplace.",
-            "The inspector does not light fires, pilot lights, or operate gas fireplace inserts per the standard of practice."
+            "The inspector does not light fires, pilot lights, or operate gas fireplace inserts per the standard of practice.",
+            {
+              "instead": "The fireplace is safe to use",
+              "say": "The fireplace appeared functional at the time of inspection. Recommend Level II chimney inspection before use, especially at property transfer."
+            },
+            {
+              "instead": "The chimney is in good condition",
+              "say": "The chimney appeared intact from visible areas. Interior flue condition could not be fully assessed from below."
+            },
+            {
+              "instead": "The fireplace passed inspection",
+              "say": "The fireplace was inspected visually from the firebox. No significant deficiencies were observed in readily accessible areas."
+            },
+            {
+              "instead": "There is no creosote",
+              "say": "No significant creosote buildup was visible from the firebox opening at the time of inspection."
+            }
           ],
           "confusedMaterials": [
             {
@@ -26998,6 +27921,21 @@ var INSPECTION_DATA = {
               "distinguishing": "Vented gas logs are a set of artificial logs placed in an existing masonry fireplace with the damper fixed open. A gas insert is a sealed unit installed into the fireplace opening with its own glass front, combustion air supply, and exhaust vent.",
               "whyItMatters": "Vented gas logs require the damper to be permanently fixed open (damper clamp). Gas inserts are sealed combustion and should NOT have their glass front opened. Different safety checks apply to each.",
               "fieldTest": "If you can see the damper above and it must remain open, it is vented gas logs. If there is a sealed glass front with no visible damper access, it is likely a gas insert or direct-vent unit."
+            },
+            {
+              "a": "Masonry fireplace",
+              "b": "Factory-built (prefab) fireplace",
+              "howToTell": "Look at the firebox walls. Masonry has individual firebricks with mortar joints. Prefab has large refractory panels (usually 2-4 pieces) in a metal shell. Look at the chimney from outside: masonry = brick/stone chimney; prefab = wood-framed chase with siding."
+            },
+            {
+              "a": "Firebrick",
+              "b": "Regular brick",
+              "howToTell": "Firebrick is lighter in color (tan/yellow/white), denser, and rated for direct flame contact. Regular brick is typically darker red and is NOT rated for direct flame."
+            },
+            {
+              "a": "Direct vent gas insert",
+              "b": "Gas logs in masonry",
+              "howToTell": "Direct vent insert has a sealed glass front and draws outside air through a coaxial vent. Gas logs sit in an open firebox with the damper clamped partially open. If you can feel room air being drawn into the fireplace, it is gas logs, not a sealed insert."
             }
           ],
           "interactiveLogic": [
@@ -27294,6 +28232,42 @@ var INSPECTION_DATA = {
                 "No - undersized",
                 "N/A"
               ]
+            },
+            {
+              "id": "fp-location",
+              "label": "Location",
+              "type": "text",
+              "placeholder": "e.g., Living room, family room"
+            },
+            {
+              "id": "fp-manufacturer",
+              "label": "Manufacturer / Nameplate",
+              "type": "text",
+              "placeholder": "e.g., Heatilator, Majestic, Superior (if visible)"
+            },
+            {
+              "id": "fp-fuel",
+              "label": "Fuel Source",
+              "type": "select",
+              "options": [
+                "Wood",
+                "Natural Gas",
+                "Propane",
+                "Electric",
+                "N/A"
+              ]
+            },
+            {
+              "id": "fp-damper-type",
+              "label": "Damper Type",
+              "type": "select",
+              "options": [
+                "Throat Damper",
+                "Top-Seal Damper",
+                "Clamped Open (gas logs)",
+                "None / Not Accessible",
+                "N/A"
+              ]
             }
           ],
           "crossReferences": [
@@ -27302,6 +28276,82 @@ var INSPECTION_DATA = {
             "plumb-gas",
             "heat-system",
             "ext-siding"
+          ],
+          "refTables": [
+            {
+              "title": "Hearth Extension Minimums",
+              "columns": [
+                "Opening Size",
+                "Front Extension",
+                "Side Extension"
+              ],
+              "rows": [
+                [
+                  "< 6 sq ft",
+                  "16 inches",
+                  "8 inches"
+                ],
+                [
+                  ">= 6 sq ft",
+                  "20 inches",
+                  "12 inches"
+                ]
+              ]
+            },
+            {
+              "title": "Combustible Clearances",
+              "columns": [
+                "Item",
+                "Minimum Clearance"
+              ],
+              "rows": [
+                [
+                  "Mantel above firebox opening",
+                  "12 inches"
+                ],
+                [
+                  "Combustibles at sides of opening",
+                  "6 inches"
+                ],
+                [
+                  "Wood stove to combustibles (no shield)",
+                  "36 inches"
+                ],
+                [
+                  "Wood stove to combustibles (with approved shield)",
+                  "18 inches"
+                ],
+                [
+                  "Stovepipe (single-wall) to combustibles",
+                  "18 inches"
+                ]
+              ]
+            },
+            {
+              "title": "Creosote Stages",
+              "columns": [
+                "Stage",
+                "Appearance",
+                "Action"
+              ],
+              "rows": [
+                [
+                  "Stage 1",
+                  "Soft, flaky, sooty",
+                  "Normal -- clean annually"
+                ],
+                [
+                  "Stage 2",
+                  "Hard, shiny, tar-like",
+                  "Incomplete combustion -- professional cleaning needed"
+                ],
+                [
+                  "Stage 3",
+                  "Glazed, thick, concentrated",
+                  "FIRE HAZARD -- professional removal required before any use"
+                ]
+              ]
+            }
           ]
         }
       ]
