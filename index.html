@@ -3980,7 +3980,294 @@ var INSPECTION_DATA = {
               }
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect eaves, soffits, and fascia. InterNACHI SOP 2.2.I.B: Inspector shall inspect eaves, soffits and fascias."
-          }
+          },
+          "confusedMaterials": [
+            {
+              "pair": "Vinyl Soffit vs Aluminum Soffit",
+              "why": "Both can look similar when painted, especially on older homes. Material identification matters because aluminum can oxidize and corrode while vinyl can crack in cold, and their ventilation perforation patterns differ.",
+              "tests": [
+                "MAGNET TEST: Aluminum is non-magnetic (magnet will not stick). Steel is magnetic (magnet sticks). Vinyl is non-magnetic AND lighter/more flexible than aluminum. If the magnet sticks, it is steel soffit, not aluminum or vinyl.",
+                "TAP TEST: Vinyl produces a hollow, plastic sound when tapped. Aluminum produces a metallic ring. This is often the quickest test in the field.",
+                "FLEXIBILITY: Press on the panel gently. Vinyl flexes more readily and feels plastic. Aluminum has a stiffer, metallic feel -- it dents rather than flexes.",
+                "SCRATCH TEST (hidden edge): At a concealed edge or behind a downspout, lightly scratch the surface. Vinyl shows white plastic material underneath any paint. Aluminum shows bare metal (silver/gray).",
+                "WEIGHT: Lift a loose edge if accessible. Vinyl is noticeably lighter than aluminum. Aluminum has a heavier, more substantial feel.",
+                "TEMPERATURE: On a warm day, vinyl feels warm to the touch. Aluminum conducts heat and may feel hotter (in sun) or cooler (in shade) than vinyl."
+              ]
+            },
+            {
+              "pair": "Wood Soffit vs Hardboard (Masonite) Soffit",
+              "why": "Hardboard soffits were very common in the 1980s-1990s and are often mistaken for wood or plywood. Hardboard has a documented history of moisture failure and class-action lawsuits. Correct identification changes the severity assessment.",
+              "tests": [
+                "GRAIN: Real wood (including plywood) shows visible wood grain on the face. Hardboard has a very smooth, uniform face with NO visible grain pattern.",
+                "EDGE EXAMINATION: At any visible edge -- plywood shows alternating thin wood layers (veneers). Hardboard shows uniform, tightly compressed wood fibers with no layers or chips. Solid wood shows growth rings.",
+                "CONSISTENCY: Hardboard is perfectly uniform in density and thickness. Real wood varies slightly. Plywood may show slight delamination at edges where layers separate.",
+                "BACK SIDE: Hardboard has a very smooth, almost glossy back surface. Plywood and real wood backs are rougher with visible grain.",
+                "MOISTURE RESPONSE: Hardboard soffits swell and delaminate when exposed to moisture. The swelling is uniform and the surface peels in sheets. Wood soffits rot with visible fiber degradation. Plywood delaminates along its veneer layers.",
+                "THICKNESS: Hardboard soffit panels are typically 7/16 inch thick. Plywood soffits are commonly 3/8 inch or 1/2 inch. The consistent thinness of hardboard is a clue."
+              ]
+            },
+            {
+              "pair": "Solid Soffit Panels vs Vented Soffit Panels",
+              "why": "Some soffit panels APPEAR solid but have tiny perforations that provide attic intake ventilation. Misidentifying vented panels as solid (or vice versa) affects the attic ventilation assessment. Reporting no soffit ventilation when it exists is an error; missing actual lack of ventilation is a missed deficiency.",
+              "tests": [
+                "FLASHLIGHT TEST (from attic): If attic access is available, hold a flashlight against the soffit from inside. If light shows through to the exterior, the panels are vented (perforated).",
+                "VISUAL CLOSE INSPECTION: Get close to the soffit panel. Some perforations are very small (pinhole-sized) and only visible up close. Run your fingers across the surface -- you may feel the perforations before you see them.",
+                "AIRFLOW TEST: On a windy day, hold your hand near the soffit surface. Vented panels allow air through. You may feel air movement near perforated panels.",
+                "PANEL TYPES: Fully perforated panels have perforations across the entire panel width. Center-vented panels have a perforated strip down the center third only. Individual vents are separate round or rectangular grilles cut into solid panels. Continuous strip vents are a separate narrow strip installed between solid panels.",
+                "PAINT CHECK: Painted-over soffits may have had their perforations sealed by paint. Run a finger across the surface to feel for filled holes. This is a very common defect -- report it."
+              ]
+            }
+          ],
+          "safeLanguage": [
+            {
+              "id": "general-serviceable",
+              "context": "Overall soffit condition acceptable",
+              "language": "Soffits appeared in serviceable condition with no significant deterioration observed at the time of inspection."
+            },
+            {
+              "id": "ventilation-adequate",
+              "context": "Soffit ventilation observed and appears adequate",
+              "language": "Soffit ventilation appeared adequate with perforated/vented panels observed, providing intake airflow for the attic ventilation system."
+            },
+            {
+              "id": "no-animal-entry",
+              "context": "No evidence of animal intrusion at soffits",
+              "language": "No evidence of animal entry, gnaw marks, or pest damage was observed at soffit panels or soffit-to-wall junctions."
+            },
+            {
+              "id": "no-water-staining",
+              "context": "No water staining observed",
+              "language": "No evidence of water staining or moisture damage observed on soffit undersides."
+            },
+            {
+              "id": "vinyl-acceptable",
+              "context": "Vinyl soffit in serviceable condition",
+              "language": "Vinyl soffits appeared in serviceable condition with panels intact, properly attached, and vent perforations open and functional."
+            },
+            {
+              "id": "aluminum-acceptable",
+              "context": "Aluminum soffit in serviceable condition",
+              "language": "Aluminum soffits appeared in serviceable condition with no significant corrosion, denting, or missing panels. Ventilation perforations appeared unobstructed."
+            },
+            {
+              "id": "wood-acceptable",
+              "context": "Wood soffit in serviceable condition",
+              "language": "Wood soffits appeared in serviceable condition with paint/finish intact. No evidence of rot, soft spots, or moisture damage observed when probed."
+            },
+            {
+              "id": "single-layer-confirmed",
+              "context": "No evidence of multiple soffit layers",
+              "language": "Soffits appeared to be a single layer of material with no evidence of additional layers installed over original soffit panels."
+            }
+          ],
+          "interactiveLogic": [
+            {
+              "id": "soffit-ventilation-assessment",
+              "title": "Soffit Ventilation Assessment",
+              "description": "Systematic assessment of soffit ventilation. Determines whether soffits are present, whether they are vented, and whether alternate roof ventilation exists if soffit venting is absent.",
+              "inputs": [
+                {
+                  "id": "soffits-present",
+                  "label": "Are soffits present?",
+                  "type": "chips",
+                  "options": [
+                    "Yes - all eaves enclosed",
+                    "Partial - some eaves enclosed, some open",
+                    "No - open eave construction (exposed rafter tails)"
+                  ]
+                },
+                {
+                  "id": "soffit-vented",
+                  "label": "Are the soffits vented?",
+                  "type": "chips",
+                  "options": [
+                    "Perforated panels (full or center-vent)",
+                    "Individual round/rectangular vents cut in",
+                    "Continuous strip vent between panels",
+                    "No visible venting",
+                    "Painted over / blocked",
+                    "Cannot determine"
+                  ],
+                  "conditional": {
+                    "showWhen": "soffits-present",
+                    "notEquals": "No - open eave construction (exposed rafter tails)"
+                  }
+                },
+                {
+                  "id": "alternate-ventilation",
+                  "label": "Is there alternate roof ventilation visible?",
+                  "type": "chips",
+                  "options": [
+                    "Ridge vent",
+                    "Gable vents",
+                    "Turbine vents (whirlybirds)",
+                    "Power vent (fan)",
+                    "Roof louvers/box vents",
+                    "None visible",
+                    "Cannot determine"
+                  ],
+                  "conditional": {
+                    "showWhen": "soffit-vented",
+                    "equals": ["No visible venting", "Painted over / blocked"]
+                  }
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": {
+                    "soffits-present": "Yes - all eaves enclosed",
+                    "soffit-vented": "Perforated panels (full or center-vent)"
+                  },
+                  "result": "acceptable",
+                  "define": "Soffits are present with perforated panels providing attic intake ventilation.",
+                  "direct": "No action needed. Verify perforations are not painted over or obstructed.",
+                  "reportLanguage": "Soffits are present with perforated ventilation panels providing attic intake air. Perforations appeared open and unobstructed."
+                },
+                {
+                  "when": {
+                    "soffits-present": "Yes - all eaves enclosed",
+                    "soffit-vented": "Individual round/rectangular vents cut in"
+                  },
+                  "result": "acceptable",
+                  "define": "Soffits are present with individual vents cut into soffit panels providing attic intake ventilation.",
+                  "direct": "No action needed. Verify vents are not obstructed by insulation from attic side.",
+                  "reportLanguage": "Soffits are present with individual vents providing attic intake air."
+                },
+                {
+                  "when": {
+                    "soffits-present": "Yes - all eaves enclosed",
+                    "soffit-vented": "Continuous strip vent between panels"
+                  },
+                  "result": "acceptable",
+                  "define": "Soffits are present with continuous strip vents providing attic intake ventilation.",
+                  "direct": "No action needed. Continuous strip vents generally provide excellent intake volume.",
+                  "reportLanguage": "Soffits are present with continuous strip ventilation providing attic intake air."
+                },
+                {
+                  "when": {
+                    "soffits-present": "Yes - all eaves enclosed",
+                    "soffit-vented": "No visible venting",
+                    "alternate-ventilation": "None visible"
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "no-ventilation",
+                    "chipLabel": "No Attic Ventilation",
+                    "define": "Soffits are present but have no visible ventilation. No alternate roof ventilation (ridge vent, gable vents, turbine vents, or power vents) was observed. Without intake and exhaust ventilation, the attic cannot ventilate properly, leading to moisture buildup, ice dam formation in winter, and excessive heat in summer.",
+                    "direct": "Recommend evaluation by a qualified roofing or ventilation contractor to install soffit ventilation or an alternate intake ventilation system."
+                  },
+                  "reportLanguage": "Soffit panels are solid with no visible ventilation. No alternate roof ventilation was observed. The attic ventilation system lacks both intake and exhaust ventilation. Recommend installation of soffit ventilation and/or roof exhaust ventilation by a qualified contractor."
+                },
+                {
+                  "when": {
+                    "soffits-present": "Yes - all eaves enclosed",
+                    "soffit-vented": "No visible venting",
+                    "alternate-ventilation": ["Ridge vent", "Gable vents", "Turbine vents (whirlybirds)", "Power vent (fan)", "Roof louvers/box vents"]
+                  },
+                  "result": "monitor",
+                  "finding": {
+                    "id": "no-soffit-venting-alternate-present",
+                    "chipLabel": "No Soffit Venting",
+                    "define": "Soffits are present but have no visible ventilation. Alternate roof ventilation is present. While alternate exhaust ventilation exists, the lack of soffit intake air reduces the effectiveness of the overall attic ventilation system.",
+                    "direct": "Recommend adding soffit ventilation to complement the existing exhaust ventilation."
+                  },
+                  "reportLanguage": "Soffit panels are solid with no visible ventilation. Alternate roof ventilation was observed. Recommend adding soffit ventilation to improve attic ventilation system effectiveness."
+                },
+                {
+                  "when": {
+                    "soffits-present": "Yes - all eaves enclosed",
+                    "soffit-vented": "Painted over / blocked"
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "painted-blocked-vents",
+                    "chipLabel": "Blocked Soffit Vents",
+                    "define": "Soffit vent perforations appear painted over or otherwise obstructed at [location]. Blocked soffit vents prevent attic intake ventilation.",
+                    "direct": "Recommend clearing paint or obstructions from soffit vent perforations to restore attic intake ventilation."
+                  },
+                  "reportLanguage": "Soffit vent perforations appeared painted over or blocked at [location], obstructing attic intake ventilation. Recommend clearing obstructions to restore airflow."
+                },
+                {
+                  "when": {
+                    "soffits-present": "Partial - some eaves enclosed, some open"
+                  },
+                  "result": "monitor",
+                  "define": "Some eaves have enclosed soffits while others have open eave construction. This is not necessarily a defect -- some home designs incorporate both.",
+                  "direct": "Assess enclosed soffits for ventilation. Assess open eaves for rafter tail and sheathing condition.",
+                  "reportLanguage": "Home has a combination of enclosed soffits and open eave construction."
+                },
+                {
+                  "when": {
+                    "soffits-present": "No - open eave construction (exposed rafter tails)"
+                  },
+                  "result": "acceptable",
+                  "define": "Open eave construction -- no soffits present. Rafter tails and roof sheathing underside are exposed. This is a design choice, not a defect.",
+                  "direct": "Inspect exposed rafter tails for rot and sheathing underside for water staining or deterioration.",
+                  "reportLanguage": "Open eave construction observed. No soffits present. Exposed rafter tails and roof sheathing underside were inspected for condition."
+                }
+              ]
+            }
+          ],
+          "dataCapture": [
+            {
+              "id": "soffit-material",
+              "label": "Soffit material",
+              "type": "chips",
+              "options": ["Vinyl", "Aluminum", "Wood", "Plywood", "Hardboard/Masonite", "Fiber Cement", "EIFS", "Open Eave (no soffit)", "Other"],
+              "required": true
+            },
+            {
+              "id": "soffit-condition",
+              "label": "Soffit condition",
+              "type": "chips",
+              "options": ["Good", "Fair", "Poor"],
+              "required": true
+            },
+            {
+              "id": "ventilation-type",
+              "label": "Ventilation type observed",
+              "type": "chips",
+              "options": ["Perforated Panels", "Individual Vents", "Continuous Strip", "Not Vented", "Painted Over/Blocked", "Cannot Determine", "Open Eave (N/A)"],
+              "required": true
+            },
+            {
+              "id": "multiple-layers",
+              "label": "Multiple soffit layers?",
+              "type": "chips",
+              "options": ["Yes", "No", "Cannot Determine"],
+              "required": false
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-fascia",
+              "relationship": "Soffits attach to the fascia board at the eave edge. Fascia rot can cause soffit panels to detach or sag. Assess both together."
+            },
+            {
+              "componentId": "ext-siding",
+              "relationship": "Soffits meet siding at the wall junction. Gaps at this junction are common animal and water entry points. Check the soffit-to-wall junction on all sides."
+            },
+            {
+              "componentId": "ext-gutters",
+              "relationship": "Gutter overflow or ice dam backup causes water staining on soffit undersides. Brown stains on soffits near gutters indicate gutter or ice dam issues."
+            },
+            {
+              "componentId": "roof-ventilation",
+              "relationship": "Soffit ventilation provides the INTAKE side of the attic ventilation system. Without soffit intake, exhaust vents (ridge, turbine, power) cannot function properly and pull conditioned air from the house instead. (ICA Module 6)"
+            },
+            {
+              "componentId": "attic-insulation",
+              "relationship": "Insulation pushed against soffit vents from inside the attic blocks intake airflow. If soffit vents appear open from outside but attic has poor ventilation, check for insulation blockage. Baffles should be installed to maintain airflow channel."
+            },
+            {
+              "componentId": "ext-trim",
+              "relationship": "Soffit F-channel and J-channel are trim components that seal the soffit-to-siding and soffit-to-fascia junctions. Missing or damaged channels create weather and pest entry points."
+            },
+            {
+              "componentId": "ext-close-access",
+              "relationship": "High soffits, overhangs at upper stories, and areas behind vegetation may limit soffit inspection. Document any areas where soffits could not be fully assessed."
+            }
+          ]
         },
         {
           "id": "ext-fascia",
@@ -4110,6 +4397,98 @@ var INSPECTION_DATA = {
                     "direct": "Recommend repair by a qualified contractor."
                   }
                 ]
+              },
+              {
+                "id": "fiber-cement",
+                "label": "Fiber Cement",
+                "idHelper": {
+                  "name": "Fiber Cement",
+                  "clues": "Smooth, dense, heavy painted board. Looks like painted wood but heavier and more uniform with no visible grain. Tap test: denser and harder-sounding than wood. Gray cement-like interior visible at cut ends. Does not rot. Must be kept painted to prevent moisture absorption. Premium fascia material. Rare compared to wood or aluminum-wrapped but found on higher-end homes and renovations."
+                },
+                "checks": [
+                  {
+                    "label": "Paint condition",
+                    "tip": "Fiber cement fascia must be kept painted. Exposed substrate absorbs moisture, leading to freeze-thaw damage in IL. Check at gutter attachment points where paint is most likely damaged."
+                  },
+                  {
+                    "label": "Cracking or chipping",
+                    "tip": "Fiber cement is brittle and can crack from impact (ladder placement, hail, tree branches). Check areas near ladders and below branches."
+                  },
+                  {
+                    "label": "Gaps at joints or butt ends",
+                    "tip": "Butt joints should be caulked or flashed. Raw cut edges absorb moisture rapidly."
+                  },
+                  {
+                    "label": "Gutter attachment secure",
+                    "tip": "Fiber cement holds fasteners well but screws should be used (not nails through fiber cement). Check for loose gutter hangers."
+                  }
+                ],
+                "ilNote": "Excellent durability in IL climate. Primary concern: maintaining paint finish. Exposed substrate absorbs moisture and freeze-thaw cycling will eventually cause cracking if left unprotected. Much heavier than wood -- requires secure attachment.",
+                "rating": {
+                  "acceptable": "Paint intact, no cracking or chipping, securely attached, gutters stable",
+                  "fair": "Minor paint wear at gutter line, no cracking, still functional",
+                  "poor": "Cracking, chipping, exposed substrate absorbing moisture, loose sections"
+                },
+                "findings": [
+                  {
+                    "id": "cracking",
+                    "chipLabel": "Cracking",
+                    "define": "Fiber cement fascia observed with cracking at [location].",
+                    "direct": "Recommend repair and repainting by a qualified contractor. Exposed substrate on fiber cement absorbs moisture and is susceptible to freeze-thaw damage."
+                  },
+                  {
+                    "id": "exposed-substrate",
+                    "chipLabel": "Exposed Substrate",
+                    "define": "Fiber cement fascia with exposed unpainted substrate at [location], particularly at gutter attachment points.",
+                    "direct": "Recommend sealing and painting exposed areas to prevent moisture absorption."
+                  }
+                ]
+              },
+              {
+                "id": "composite-pvc",
+                "label": "Composite/PVC",
+                "idHelper": {
+                  "name": "Composite/PVC",
+                  "clues": "Plastic/synthetic board that looks like painted wood but will not rot. Consistent color throughout (no wood grain visible at edges or cuts). Lighter than fiber cement. Flexible compared to wood -- PVC bends rather than breaking. May yellow over time from UV exposure. Often bright white. Premium low-maintenance fascia option. Cellular PVC brands include Azek, KOMA, Versatex."
+                },
+                "checks": [
+                  {
+                    "label": "UV yellowing or discoloration",
+                    "tip": "White PVC can yellow over time from UV exposure. Not a structural concern but may be cosmetic issue. Paintable if desired."
+                  },
+                  {
+                    "label": "Warping or distortion from heat",
+                    "tip": "PVC can warp near heat sources or in extreme heat if dark-colored. Check for waviness or distortion."
+                  },
+                  {
+                    "label": "Secure attachment at all points",
+                    "tip": "PVC expands and contracts more than wood. Check that fasteners allow for thermal movement. Over-driven fasteners can cause buckling."
+                  },
+                  {
+                    "label": "Joint gaps or separation",
+                    "tip": "PVC joints should accommodate thermal expansion. Check for gaps opening or edges pushing together."
+                  }
+                ],
+                "ilNote": "Will not rot -- excellent for IL moisture exposure. Primary concern is thermal expansion/contraction in IL temperature swings (can be 100+ degrees F annual range). UV yellowing is cosmetic only. No paint maintenance required but can be painted.",
+                "rating": {
+                  "acceptable": "Intact, no warping, securely attached, joints properly spaced",
+                  "fair": "Minor yellowing, slight joint gaps, all functional",
+                  "poor": "Warped or distorted, loose sections, significant joint separation"
+                },
+                "findings": [
+                  {
+                    "id": "warping",
+                    "chipLabel": "Warping/Distortion",
+                    "define": "Composite/PVC fascia observed with warping or distortion at [location], likely from heat exposure or improper fastening.",
+                    "direct": "Recommend evaluation and repair by a qualified contractor."
+                  },
+                  {
+                    "id": "yellowing",
+                    "chipLabel": "UV Yellowing",
+                    "define": "Composite/PVC fascia showing UV yellowing/discoloration at [location].",
+                    "direct": "Cosmetic condition. Can be painted if desired. Not a structural or functional concern."
+                  }
+                ]
               }
             ]
           },
@@ -4128,6 +4507,36 @@ var INSPECTION_DATA = {
               "label": "Gutters present at all eaves?",
               "tip": "Always recommend gutters at all eaves, even slab-on-grade.",
               "redFlag": "Missing fascia sections"
+            },
+            {
+              "label": "Check for rot at gutter attachment points",
+              "tip": "Water becomes trapped between the back of the gutter and the face of the fascia. When gutters overflow or leak at joints, water sits against fascia continuously. This is the #1 location for fascia rot. Press on fascia behind and beside each gutter hanger. (ICA M7: fascia rot behind gutters is the most common fascia defect)",
+              "redFlag": "Soft spots behind gutter attachment (hidden rot)"
+            },
+            {
+              "label": "Check fascia board ends and joints for moisture intrusion",
+              "tip": "Where two fascia boards butt together or where fascia terminates at a corner, exposed end grain absorbs moisture rapidly. Look for swelling, darkening, or paint failure at joints.",
+              "redFlag": "Rot or swelling at fascia board joints"
+            },
+            {
+              "label": "Check behind downspouts",
+              "tip": "Downspout straps/brackets trap moisture against the fascia behind them. Remove or look behind downspout straps when accessible. This is a hidden rot location that is easy to miss.",
+              "redFlag": "Hidden rot behind downspout straps"
+            },
+            {
+              "label": "Check paint/coating condition on all fascia",
+              "tip": "Paint is the primary moisture protection for wood fascia. Peeling, cracking, or missing paint exposes wood to moisture absorption. South and west elevations get the most UV damage to paint. Pre-1978 homes: potential lead paint -- follow EPA RRP guidelines if scraping/sanding is recommended.",
+              "redFlag": "Significant paint failure exposing wood substrate"
+            },
+            {
+              "label": "Check for animal damage and entry points",
+              "tip": "Squirrels commonly chew through wood fascia boards to access the attic. Look for gnaw marks at corners and where fascia meets soffit. Raccoons can pry loose fascia boards. Woodpeckers drill holes in wood fascia. Any opening in fascia provides a direct path into the attic/eave space. (ICA M7: animal entry through fascia)",
+              "redFlag": "Animal gnaw marks or holes in fascia (potential attic entry)"
+            },
+            {
+              "label": "Check for proper drip edge installation above fascia",
+              "tip": "Metal drip edge should extend from roof sheathing edge, over the top of the fascia, and into the gutter. Without drip edge, water runs down the face of the fascia instead of dripping into the gutter. Missing drip edge is a primary cause of fascia rot. Look for exposed sheathing edge at the eave -- if you can see the plywood/OSB edge, drip edge is missing. (ICA M4 S13.10-13.11)",
+              "redFlag": "Missing drip edge allowing water to run down fascia face"
             }
           ],
           "redFlags": [],
@@ -4142,7 +4551,256 @@ var INSPECTION_DATA = {
               "ROTTED EAVES: May not look bad from front edge but look much worse from underneath. Be thorough."
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect fascia."
-          }
+          },
+          "confusedMaterials": [
+            {
+              "pair": "Wood Fascia vs Aluminum-Wrapped Wood Fascia",
+              "why": "Aluminum-wrapped wood fascia STILL rots underneath. The wrap hides the condition of the wood, which can be severely deteriorated. Identifying aluminum-wrapped fascia and testing the wood underneath is critical -- a fascia that looks fine on the surface may be completely rotted behind the metal.",
+              "tests": [
+                "PRESS TEST: Press on the surface firmly with your thumb or the heel of your hand. If the surface gives or feels soft/spongy, the wood behind the aluminum is rotted. This is the most important test.",
+                "NAIL POPS: Look for nails or screws pushing through the aluminum surface from behind. Swelling rotted wood pushes fasteners outward.",
+                "SWELLING AT JOINTS: Look at joints where two sections of aluminum wrap meet. Swollen bumps or bulges at these points indicate rotted wood expanding behind the wrap.",
+                "PAINT PEELING AT EDGES: Look at the bottom and top edges of the aluminum wrap. If you can see paint peeling at the very edge revealing metal underneath, this is a wrapped piece. Bare wood fascia has paint directly on wood.",
+                "BOTTOM EDGE: Look at the very bottom edge of the fascia board. If the aluminum wrap does not fully cover the bottom, you may see exposed wood. This bottom edge is often the first place rot begins because water drips off and sits there.",
+                "DENTS AND WAVES: Aluminum wrap shows dents and waves that wood alone would not. The metal skin can be pushed in and stays dented.",
+                "GUTTER PULL: If gutters are pulling away from wrapped fascia, the wood behind is almost certainly rotted. The aluminum wrap cannot hold gutter weight -- only the wood can."
+              ]
+            },
+            {
+              "pair": "Wood Fascia vs Composite/PVC Fascia",
+              "why": "Composite/PVC will never rot while wood will. Correctly identifying PVC means you skip rot-probing and focus on thermal expansion and UV issues instead. Incorrectly calling PVC 'wood' means you might report rot concerns that do not apply.",
+              "tests": [
+                "KNOCK TEST: Knock with knuckles. PVC produces a hollow, plastic sound. Wood produces a more solid, denser sound. This is the quickest field test.",
+                "FLEXIBILITY: Press on the board or try to flex a projecting end. PVC has some give and flexes. Wood is rigid -- it breaks rather than bending.",
+                "EDGE EXAMINATION: Look at any visible end or cut. PVC shows uniform color throughout with no grain, no growth rings, and no fiber. Wood shows grain pattern and growth rings at the end grain.",
+                "WEIGHT: PVC is lighter than wood of the same dimensions. Pick up or press on a loose section -- PVC feels lighter.",
+                "NAIL/SCREW TEST: PVC does not split when fastened. Wood can show splits radiating from fastener points, especially near ends.",
+                "TEMPERATURE: PVC feels warmer than wood in cool weather and conducts heat differently.",
+                "SURFACE TEXTURE: High-quality PVC has a very consistent, uniform texture. Wood shows natural grain variation even when painted."
+              ]
+            }
+          ],
+          "safeLanguage": [
+            {
+              "id": "general-serviceable",
+              "context": "Overall fascia condition acceptable",
+              "language": "Fascia boards appeared in serviceable condition with no significant deterioration observed at the time of inspection."
+            },
+            {
+              "id": "attachment-proper",
+              "context": "Fascia properly attached to rafter tails",
+              "language": "Fascia material appeared properly installed with secure attachment to rafter tails. Gutters appeared securely mounted to fascia."
+            },
+            {
+              "id": "wood-acceptable",
+              "context": "Wood fascia in serviceable condition",
+              "language": "Wood fascia boards appeared in serviceable condition with paint intact and no evidence of rot when probed at accessible locations."
+            },
+            {
+              "id": "wrapped-acceptable",
+              "context": "Aluminum-wrapped fascia in serviceable condition",
+              "language": "Aluminum-wrapped fascia appeared in serviceable condition. Surface was firm when pressed, indicating wood beneath appears intact. Wrap was secure with no visible openings."
+            },
+            {
+              "id": "composite-acceptable",
+              "context": "Composite/PVC fascia in serviceable condition",
+              "language": "Composite fascia appeared in serviceable condition with no significant warping, cracking, or attachment issues."
+            },
+            {
+              "id": "no-animal-damage",
+              "context": "No animal damage observed on fascia",
+              "language": "No evidence of animal damage or gnaw marks was observed on fascia boards."
+            }
+          ],
+          "interactiveLogic": [
+            {
+              "id": "fascia-condition-assessment",
+              "title": "Fascia Condition Assessment",
+              "description": "Systematic assessment of fascia board condition. Identifies material, assesses condition, checks for moisture damage and animal intrusion.",
+              "inputs": [
+                {
+                  "id": "fascia-material",
+                  "label": "What fascia material is present?",
+                  "type": "chips",
+                  "options": [
+                    "Wood",
+                    "Aluminum-Wrapped Wood",
+                    "Vinyl",
+                    "Composite/PVC",
+                    "Fiber Cement",
+                    "Cannot Determine"
+                  ]
+                },
+                {
+                  "id": "fascia-condition",
+                  "label": "What is the overall condition?",
+                  "type": "chips",
+                  "options": [
+                    "Good - paint intact, firm, no damage",
+                    "Fair - paint wearing, minor issues, still functional",
+                    "Poor - rot, damage, missing sections, gutters pulling away"
+                  ]
+                },
+                {
+                  "id": "moisture-evidence",
+                  "label": "Evidence of moisture damage?",
+                  "type": "chips",
+                  "options": [
+                    "No moisture evidence",
+                    "Paint peeling/blistering",
+                    "Soft spots when pressed",
+                    "Visible rot or deterioration",
+                    "Water staining",
+                    "Swelling at joints/ends"
+                  ]
+                },
+                {
+                  "id": "animal-evidence",
+                  "label": "Evidence of animal damage?",
+                  "type": "chips",
+                  "options": [
+                    "No animal evidence",
+                    "Gnaw marks visible",
+                    "Holes chewed through",
+                    "Fascia pried loose/bent",
+                    "Woodpecker holes"
+                  ]
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": {
+                    "fascia-condition": "Good - paint intact, firm, no damage",
+                    "moisture-evidence": "No moisture evidence",
+                    "animal-evidence": "No animal evidence"
+                  },
+                  "result": "acceptable",
+                  "define": "Fascia boards are in serviceable condition with no evidence of moisture damage or animal intrusion.",
+                  "direct": "No action needed.",
+                  "reportLanguage": "Fascia boards appeared in serviceable condition. No significant deterioration, moisture damage, or animal damage observed."
+                },
+                {
+                  "when": {
+                    "fascia-condition": "Fair - paint wearing, minor issues, still functional",
+                    "moisture-evidence": "Paint peeling/blistering",
+                    "animal-evidence": "No animal evidence"
+                  },
+                  "result": "monitor",
+                  "define": "Fascia boards are functional but paint is deteriorating. Paint failure on wood fascia exposes the substrate to moisture absorption.",
+                  "direct": "Recommend scraping, priming, and repainting fascia boards to restore moisture protection. Pre-1978 homes: follow EPA RRP lead paint guidelines.",
+                  "reportLanguage": "Fascia board paint is deteriorating at [location]. Recommend repainting to maintain moisture protection. Boards appeared structurally sound."
+                },
+                {
+                  "when": {
+                    "moisture-evidence": ["Soft spots when pressed", "Visible rot or deterioration"]
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "fascia-rot-moisture",
+                    "chipLabel": "Fascia Rot",
+                    "define": "Fascia board deterioration observed at [location]. Soft spots or visible rot indicating moisture damage. Rotted fascia cannot adequately support gutter weight and provides entry points for water and animals into the eave assembly.",
+                    "direct": "Recommend repair or replacement of affected fascia boards by a qualified carpenter. Gutter attachment should be re-evaluated at repaired locations."
+                  },
+                  "reportLanguage": "Fascia board deterioration (rot) observed at [location]. Wood is soft when probed, indicating moisture damage. Recommend repair or replacement by a qualified contractor."
+                },
+                {
+                  "when": {
+                    "fascia-material": "Aluminum-Wrapped Wood",
+                    "moisture-evidence": "Soft spots when pressed"
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "wrapped-hidden-rot",
+                    "chipLabel": "Hidden Rot (Wrapped)",
+                    "define": "Aluminum-wrapped fascia at [location] is soft when pressed, indicating the wood underneath is rotted. The aluminum wrap conceals the deterioration.",
+                    "direct": "Recommend removal of aluminum wrap and evaluation/repair of wood fascia by a qualified carpenter."
+                  },
+                  "reportLanguage": "Aluminum-wrapped fascia at [location] is soft when pressed, indicating deteriorated wood behind the wrap. Recommend removal of wrap and evaluation of wood condition by a qualified contractor."
+                },
+                {
+                  "when": {
+                    "animal-evidence": ["Gnaw marks visible", "Holes chewed through"]
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "animal-entry-fascia",
+                    "chipLabel": "Animal Damage/Entry",
+                    "define": "Animal damage observed on fascia at [location]. Damage provides entry points for squirrels, raccoons, birds, and bats into the attic and eave assembly.",
+                    "direct": "Recommend repair of fascia by a qualified carpenter and evaluation of attic for animal activity."
+                  },
+                  "reportLanguage": "Animal damage (gnaw marks/holes) observed on fascia at [location], creating potential entry point to the attic/eave space. Recommend repair and evaluation of attic for animal activity."
+                },
+                {
+                  "when": {
+                    "animal-evidence": "Woodpecker holes"
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "woodpecker-damage",
+                    "chipLabel": "Woodpecker Damage",
+                    "define": "Woodpecker holes observed in fascia at [location]. Woodpecker activity may indicate insect infestation in the wood. The holes also allow water entry.",
+                    "direct": "Recommend repair of fascia. Evaluate for wood-boring insect activity."
+                  },
+                  "reportLanguage": "Woodpecker holes observed in fascia at [location]. Recommend repair and evaluation for possible insect activity in the fascia boards."
+                },
+                {
+                  "when": {
+                    "fascia-condition": "Poor - rot, damage, missing sections, gutters pulling away"
+                  },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "fascia-poor-overall",
+                    "chipLabel": "Fascia - Poor Condition",
+                    "define": "Fascia boards are in poor overall condition at [location]. Rot, damage, missing sections, or gutters pulling away observed.",
+                    "direct": "Recommend evaluation and repair or replacement of fascia by a qualified contractor. Gutter system should be re-evaluated and re-attached to sound fascia."
+                  },
+                  "reportLanguage": "Fascia boards are in poor condition at [location]. Recommend comprehensive evaluation and repair by a qualified contractor."
+                }
+              ]
+            }
+          ],
+          "dataCapture": [
+            {
+              "id": "fascia-material",
+              "label": "Fascia material",
+              "type": "chips",
+              "options": ["Wood", "Aluminum-Wrapped", "Vinyl", "Composite/PVC", "Fiber Cement", "Cannot Determine"],
+              "required": true
+            },
+            {
+              "id": "fascia-condition",
+              "label": "Fascia condition",
+              "type": "chips",
+              "options": ["Good", "Fair", "Poor"],
+              "required": true
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-soffit",
+              "relationship": "Soffits attach to the fascia board. Fascia rot or detachment destabilizes soffit panels. Assess both together at each eave section."
+            },
+            {
+              "componentId": "ext-gutters",
+              "relationship": "Gutters mount directly to fascia boards. Fascia rot is the #1 reason gutters sag and pull away. Sagging gutters are the primary indicator of hidden fascia rot. (ICA M7)"
+            },
+            {
+              "componentId": "ext-siding",
+              "relationship": "Fascia meets siding at gable ends and rakes. Check transitions for proper flashing and sealing at these junctions."
+            },
+            {
+              "componentId": "ext-trim",
+              "relationship": "Fascia is technically an exterior trim component. It functions as the termination board for the roof framing at the eave. Rake boards are the equivalent of fascia on gable ends."
+            },
+            {
+              "componentId": "roof-flashing",
+              "relationship": "Drip edge flashing should extend from roof sheathing over the top of the fascia and into the gutter. Missing drip edge is a primary cause of fascia rot. (ICA M4 S13.10-13.11)"
+            },
+            {
+              "componentId": "ext-close-access",
+              "relationship": "High fascia on upper stories, areas behind vegetation, and sections above porches/additions may limit inspection. Document any areas where fascia could not be assessed."
+            }
+          ]
         },
         {
           "id": "ext-gutters",
@@ -5252,6 +5910,19 @@ var INSPECTION_DATA = {
                 "MORTAR JOINTS: MSV mortar joints are often too uniform and regular. Real stone mortar follows irregular stone shapes.",
                 "FOUNDATION: MSV does not need foundation support (lightweight). Real stone requires structural foundation support extending below."
               ]
+            },
+            {
+              "pair": "Clay/Concrete Tile Shingles (Painted) vs Wood Shakes",
+              "why": "Clay or concrete tile shingles are sometimes painted to closely resemble wood shakes. Misidentifying them affects the checks performed and the defects you look for -- tile has freeze-thaw concerns while wood has rot/insect concerns.",
+              "tests": [
+                "WEIGHT: Pick up a loose piece if available or press on one. Clay/concrete tile shingles are significantly heavier than wood shakes. A single tile may weigh 2-4 lbs; a wood shake of similar size weighs a fraction of that.",
+                "TAP TEST: Tap with knuckles or screwdriver handle. Clay/concrete produces a sharp, hard, ceramic or stone sound. Wood produces a dull, fibrous thud. This is the most reliable field test.",
+                "EDGE EXAMINATION: Look at the edges of the shingles. Clay/concrete has hard, uniform, sharp edges -- often with a slight molding line. Wood shakes have fibrous, irregular edges with visible grain running along the edge.",
+                "LOOK UNDERNEATH: If you can see the underside (at an eave, at a gap, or where one has lifted), clay/concrete shows the natural clay/concrete texture and color. Wood shows grain on the back side.",
+                "FLEXIBILITY: Try to flex a piece gently (if accessible without damage). Wood shakes have some give/flex. Clay/concrete tiles are rigid and will snap/crack rather than flex.",
+                "PAINT DRIPS/RUNS: On painted tile, look for paint drips or runs covering what is clearly a hard, non-porous surface underneath. Paint on tile sits on top rather than absorbing in. Paint on wood absorbs into the grain.",
+                "BROKEN PIECES: At any broken or chipped area, the interior will immediately reveal the material. Clay shows terra cotta/red-brown fired clay. Concrete shows gray aggregate. Wood shows grain and fiber."
+              ]
             }
           ],
           "universalChecks": [
@@ -5455,7 +6126,123 @@ var INSPECTION_DATA = {
               "BRICK VENEER DETACHMENT: Brick veneer is attached to wood framing by corrugated metal brick ties nailed to studs, spaced approximately 24 inches vertically and 32 inches horizontally. When veneer detaches, it is pulling away from these ties. Signs: bulging or bowing wall, stepped cracking at corners, visible gap at top where brick meets soffit. The 1 inch air gap behind veneer is a drainage plane -- if compromised, moisture damages the sheathing. Ties can fail from rust, insufficient nailing, or not enough ties installed."
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect wall cladding, flashing, and trim. Shall describe the exterior wall covering."
-          }
+          },
+          "safeLanguage": [
+            {
+              "id": "general-serviceable",
+              "context": "Overall siding condition acceptable",
+              "language": "Siding appeared to be in serviceable condition with no significant defects observed at the time of inspection."
+            },
+            {
+              "id": "bottom-clearance-ok",
+              "context": "Bottom course has proper grade clearance",
+              "language": "Bottom of siding maintained appropriate clearance above grade. Foundation wall was visible between siding and grade."
+            },
+            {
+              "id": "installation-proper",
+              "context": "Siding installation appears correct",
+              "language": "Cladding appeared properly installed with appropriate overlap, fastening, and trim at transitions."
+            },
+            {
+              "id": "vinyl-acceptable",
+              "context": "Vinyl siding in serviceable condition",
+              "language": "Vinyl siding appeared in serviceable condition with no cracking, warping, buckling, or holes observed. Panels appeared properly overlapped and fastened."
+            },
+            {
+              "id": "wood-acceptable",
+              "context": "Wood siding in serviceable condition",
+              "language": "Wood siding appeared in serviceable condition with protective coating intact. No evidence of rot, insect damage, or significant deterioration was observed."
+            },
+            {
+              "id": "fiber-cement-acceptable",
+              "context": "Fiber cement siding in serviceable condition",
+              "language": "Fiber cement siding appeared in serviceable condition with paint finish intact. No cracking, chipping, or exposed substrate observed."
+            },
+            {
+              "id": "brick-acceptable",
+              "context": "Brick veneer/masonry in serviceable condition",
+              "language": "Brick appeared in serviceable condition with mortar joints intact. No significant cracking, spalling, efflorescence, or lintel deterioration observed. Weep holes appeared unobstructed where present."
+            },
+            {
+              "id": "stucco-acceptable",
+              "context": "Stucco in serviceable condition",
+              "language": "Stucco appeared in serviceable condition with no significant cracking, staining, or evidence of moisture behind the surface."
+            },
+            {
+              "id": "metal-acceptable",
+              "context": "Metal siding in serviceable condition",
+              "language": "Metal siding appeared in serviceable condition with no significant corrosion, denting, or missing panels observed."
+            },
+            {
+              "id": "multiple-materials",
+              "context": "Multiple siding materials present, all acceptable",
+              "language": "Multiple siding materials were observed. Each material appeared in serviceable condition with appropriate transitions and flashing between materials."
+            }
+          ],
+          "dataCapture": [
+            {
+              "id": "primary-siding-material",
+              "label": "Primary siding material observed",
+              "type": "chips",
+              "options": ["Vinyl", "Wood", "Fiber Cement", "Brick Veneer", "Solid Masonry", "Stucco", "EIFS", "Aluminum", "Steel", "Engineered Wood", "Hardboard/Masonite", "Manufactured Stone Veneer", "Clay/Concrete Tile", "Asbestos Cement", "Other"],
+              "required": true
+            },
+            {
+              "id": "secondary-siding-material",
+              "label": "Secondary siding material (if present)",
+              "type": "chips",
+              "options": ["None", "Vinyl", "Wood", "Fiber Cement", "Brick Veneer", "Solid Masonry", "Stucco", "EIFS", "Aluminum", "Steel", "Engineered Wood", "Hardboard/Masonite", "Manufactured Stone Veneer", "Clay/Concrete Tile", "Asbestos Cement", "Other"],
+              "required": false
+            },
+            {
+              "id": "siding-age-condition",
+              "label": "Approximate siding age/condition",
+              "type": "chips",
+              "options": ["New/Good", "Aging/Fair", "Deteriorating/Poor"],
+              "required": true
+            },
+            {
+              "id": "stories-with-siding",
+              "label": "Number of stories with this siding",
+              "type": "chips",
+              "options": ["1", "1.5", "2", "2.5", "3"],
+              "required": true
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-soffit",
+              "relationship": "Siding terminates at soffit. Check J-channel/F-channel connection. Moisture behind siding can migrate to soffit junction."
+            },
+            {
+              "componentId": "ext-fascia",
+              "relationship": "Siding may terminate at or near fascia on gable ends. Check transition and flashing at these junctions."
+            },
+            {
+              "componentId": "ext-trim",
+              "relationship": "Trim pieces (corner posts, J-channel, window/door casings) are integral to siding weather barrier. Failed trim = failed siding seal."
+            },
+            {
+              "componentId": "ext-flashing",
+              "relationship": "All siding-to-roof, siding-to-foundation, and siding material transitions require proper flashing. Missing flashing causes concealed damage behind siding. (ICA M5, M7)"
+            },
+            {
+              "componentId": "ext-caulking",
+              "relationship": "Caulk at all siding penetrations (windows, doors, pipes, vents, wires) is part of the weather barrier. Failed caulk = direct water entry behind siding."
+            },
+            {
+              "componentId": "ext-foundation",
+              "relationship": "Minimum 6 inches of visible foundation between siding and grade. Siding-to-foundation junction is critical for moisture and pest management. (68 Ill. Admin. Code 1410)"
+            },
+            {
+              "componentId": "ext-windows",
+              "relationship": "Window-to-siding interface requires proper head flashing, J-channel (vinyl/metal), and caulk. Failed window transitions cause concealed moisture damage in wall assembly."
+            },
+            {
+              "componentId": "ext-close-access",
+              "relationship": "Areas where siding could not be fully inspected due to access limitations (height, vegetation, attached structures) should be documented."
+            }
+          ]
         },
         {
           "id": "ext-flashing",
@@ -5488,9 +6275,25 @@ var INSPECTION_DATA = {
             ],
             "options": [
               {
-                "id": "metal",
-                "label": "Metal Flashing (Aluminum/Steel/Copper)",
+                "id": "aluminum-flashing",
+                "label": "Aluminum Flashing",
                 "checks": [
+                  {
+                    "label": "Corrosion (white powdery oxidation)",
+                    "tip": "Aluminum does not rust like steel but it does oxidize. White powdery residue on the surface indicates corrosion. Common in areas with salt exposure (near roads treated with road salt in IL winters)."
+                  },
+                  {
+                    "label": "Galvanic corrosion at dissimilar metal contact",
+                    "tip": "Aluminum in contact with copper, steel, or other metals causes galvanic corrosion. The aluminum deteriorates rapidly where the two metals touch."
+                  },
+                  {
+                    "label": "Proper overlap and lapping direction",
+                    "tip": "Upper piece must overlap lower piece. Water flows downhill -- the lap must shed water, not trap it. Check that each step flashing piece overlaps the one below by at least 2 inches."
+                  },
+                  {
+                    "label": "Secure fastening and lifted edges",
+                    "tip": "Aluminum is lightweight and can be lifted by wind. Check for lifted edges, especially at roof-to-wall step flashing and at drip edges."
+                  },
                   {
                     "label": "Step flashing at roof-to-wall junctions",
                     "tip": "L-shaped metal woven into shingle courses. Caulk smeared at junction instead = improper."
@@ -5502,27 +6305,27 @@ var INSPECTION_DATA = {
                   {
                     "label": "Head flashing (drip cap) above windows/doors",
                     "tip": "Often missing on replacement windows. Z-flashing or drip cap required."
-                  },
-                  {
-                    "label": "Z-flashing at material transitions",
-                    "tip": "Where siding types change. Directs water over lower material."
-                  },
-                  {
-                    "label": "Counter flashing at masonry (chimney)",
-                    "tip": "Two-piece system required (base + counter embedded in mortar). One piece only = improper."
-                  },
-                  {
-                    "label": "Rust, gaps, or lifted edges",
-                    "tip": "Check all visible flashing for deterioration."
                   }
                 ],
-                "ilNote": "Freeze-thaw stresses all flashing joints. Temperature swings cause expansion/contraction at metal junctions.",
+                "ilNote": "Aluminum is the most common flashing material in IL residential construction. Lightweight, does not rust, affordable. However, IL road salt can accelerate aluminum oxidation on homes near heavily salted roads.",
                 "rating": {
-                  "acceptable": "Present at all transitions, no gaps/rust, properly lapped (upper over lower)",
-                  "fair": "Present but showing age, minor rust, may need re-sealing",
-                  "poor": "Missing at critical locations, rusted through, gaps allowing water entry"
+                  "acceptable": "No corrosion, properly lapped and sealed, edges tight, no galvanic reaction visible",
+                  "fair": "Minor surface oxidation, edges tight, functional but aging",
+                  "poor": "Significant corrosion, lifted edges, galvanic deterioration at metal contacts, gaps allowing water entry"
                 },
                 "findings": [
+                  {
+                    "id": "aluminum-corrosion",
+                    "chipLabel": "Aluminum Corrosion",
+                    "define": "Aluminum flashing at [location] shows white powdery oxidation or galvanic corrosion at contact with dissimilar metal.",
+                    "direct": "Recommend replacement of corroded flashing sections by a qualified contractor."
+                  },
+                  {
+                    "id": "aluminum-lifted",
+                    "chipLabel": "Lifted Aluminum Flashing",
+                    "define": "Aluminum flashing at [location] has lifted or bent edges allowing water entry behind the flashing.",
+                    "direct": "Recommend re-securing or replacing lifted flashing by a qualified contractor."
+                  },
                   {
                     "id": "missing-kickout",
                     "chipLabel": "Missing Kick-out",
@@ -5542,18 +6345,162 @@ var INSPECTION_DATA = {
                     "direct": "Recommend proper flashing installation by a qualified roofing contractor."
                   },
                   {
-                    "id": "deteriorated",
-                    "chipLabel": "Deteriorated",
-                    "define": "Flashing at [location] appears [rusted/deteriorated/improperly installed].",
-                    "direct": "Recommend repair by a qualified contractor."
-                  },
-                  {
                     "id": "tar-mastic-flashing",
                     "chipLabel": "Tar/Mastic as Flashing",
-                    "define": "Roofing mastic/tar sealant observed as the primary waterproofing at the roof-wall transition at [location]. Tar and mastic are temporary sealants that dry, crack, and fail -- they are not substitutes for proper metal step flashing and counter flashing.",
-                    "describe_report": "Roof-to-wall junction at [location] relies on roofing mastic/sealant rather than proper metal step flashing. This is a temporary measure that deteriorates over time and does not provide reliable long-term waterproofing.",
-                    "describe_client": "They used tar or roof cement instead of metal flashing where the roof meets the wall. Tar is a temporary fix that dries out and cracks over time -- sometimes within a few years. Proper metal flashing should be installed here to permanently direct water away from the wall. This is especially common where additions or bump-outs were connected to the main house.",
+                    "define": "Roofing mastic/tar sealant observed as the primary waterproofing at the roof-wall transition at [location]. Tar and mastic are temporary sealants that dry, crack, and fail.",
                     "direct": "Recommend proper metal step flashing and counter flashing installation by a qualified roofing contractor."
+                  }
+                ]
+              },
+              {
+                "id": "galvanized-steel-flashing",
+                "label": "Galvanized Steel Flashing",
+                "checks": [
+                  {
+                    "label": "Rust (galvanizing failure)",
+                    "tip": "Galvanized coating protects the steel underneath. When the galvanizing fails, the steel rusts rapidly. Look for white rust spots (early galvanizing failure) and red/orange rust (steel corrosion)."
+                  },
+                  {
+                    "label": "Integrity at bends and folds",
+                    "tip": "The galvanizing coating can crack at sharp bends, exposing steel to corrosion. Check all bends, folds, and crimps for rust initiation."
+                  },
+                  {
+                    "label": "Proper overlap and lapping",
+                    "tip": "Steel flashing should overlap by at least 2 inches with upper piece over lower piece."
+                  },
+                  {
+                    "label": "Fastener rust spreading to flashing",
+                    "tip": "Non-galvanized or rusting fasteners in contact with galvanized steel cause localized corrosion."
+                  }
+                ],
+                "ilNote": "Galvanized steel is heavier and more rigid than aluminum, making it better at holding shape at wind-exposed locations. However, IL road salt, acid rain, and freeze-thaw cycling degrade the galvanized coating over time.",
+                "rating": {
+                  "acceptable": "Galvanized coating intact, no rust, properly lapped, edges tight",
+                  "fair": "Minor white rust spots (early galvanizing failure), otherwise intact and functional",
+                  "poor": "Red/orange rust visible, rusted through at sections, galvanizing failed"
+                },
+                "findings": [
+                  {
+                    "id": "steel-rust",
+                    "chipLabel": "Steel Flashing Rust",
+                    "define": "Galvanized steel flashing at [location] shows rust. Once galvanizing fails, steel corrosion progresses rapidly in IL climate.",
+                    "direct": "Recommend replacement of rusted flashing by a qualified contractor."
+                  }
+                ]
+              },
+              {
+                "id": "copper-flashing",
+                "label": "Copper Flashing",
+                "checks": [
+                  {
+                    "label": "Patina condition (expected green)",
+                    "tip": "Copper develops a green patina (verdigris) over time. This is normal and protects the copper. All stages are functional."
+                  },
+                  {
+                    "label": "Galvanic corrosion at contact with aluminum or steel",
+                    "tip": "Copper is noble (cathodic) and causes galvanic corrosion in less noble metals (aluminum, steel) that it contacts. Check adjacent metals for accelerated corrosion."
+                  },
+                  {
+                    "label": "Theft risk (note presence)",
+                    "tip": "Copper has significant scrap value. Note the presence of copper flashing for the client's awareness."
+                  },
+                  {
+                    "label": "Solder joint integrity",
+                    "tip": "Copper flashing joints are often soldered. Check solder joints for cracks, separation, or deterioration."
+                  }
+                ],
+                "ilNote": "Copper flashing is a premium, long-lasting material (75+ year lifespan). Common on higher-end homes and historic buildings in IL.",
+                "rating": {
+                  "acceptable": "Copper intact, joints sound, no perforations, patina consistent",
+                  "fair": "Minor solder joint deterioration, copper intact",
+                  "poor": "Failed solder joints, perforations, or sections missing"
+                },
+                "findings": [
+                  {
+                    "id": "copper-joint-failure",
+                    "chipLabel": "Copper Joint Failure",
+                    "define": "Copper flashing at [location] has failed solder joint or seam allowing water entry.",
+                    "direct": "Recommend repair of copper flashing joints by a qualified contractor experienced with copper work."
+                  },
+                  {
+                    "id": "galvanic-at-copper",
+                    "chipLabel": "Galvanic Corrosion Near Copper",
+                    "define": "Accelerated corrosion observed on adjacent metals near copper flashing at [location].",
+                    "direct": "Recommend replacement of corroded components with dielectric barrier installed between copper and dissimilar metals."
+                  }
+                ]
+              },
+              {
+                "id": "rubber-membrane-flashing",
+                "label": "Rubber/Membrane Flashing",
+                "checks": [
+                  {
+                    "label": "Cracking or splitting",
+                    "tip": "Rubber deteriorates with UV exposure and temperature cycling. Check for cracks, splits, or brittle areas. IL temperature extremes accelerate deterioration."
+                  },
+                  {
+                    "label": "Seal around penetration (pipe boots)",
+                    "tip": "Rubber boot flashing around plumbing vents must maintain a tight seal against the pipe. Hardened rubber loses its grip. Per ICA M4 S13.12-13.13: rubber boots fail before the roof does."
+                  },
+                  {
+                    "label": "Adhesion to substrate",
+                    "tip": "Peel-and-stick membrane flashings can lose adhesion over time. Check edges for lifting."
+                  },
+                  {
+                    "label": "UV exposure at exposed surfaces",
+                    "tip": "Most membrane flashings are not designed for long-term UV exposure. Check for chalking, cracking, or brittleness at sun-exposed edges."
+                  }
+                ],
+                "ilNote": "Rubber pipe boots and membrane flashings are vulnerable to IL temperature extremes. The wide temperature range (-10F to 100F+) causes repeated expansion and contraction that cracks rubber over 10-15 years.",
+                "rating": {
+                  "acceptable": "Rubber/membrane flexible, sealed, no cracking or UV degradation",
+                  "fair": "Minor surface cracking, still sealed, showing age",
+                  "poor": "Cracked, split, hardened, or separated from substrate -- water entry likely"
+                },
+                "findings": [
+                  {
+                    "id": "rubber-boot-failed",
+                    "chipLabel": "Failed Rubber Boot",
+                    "define": "Rubber flashing boot at plumbing vent penetration at [location] is cracked, split, hardened, or separated from pipe. Water can enter directly along the vent pipe.",
+                    "direct": "Recommend replacement of rubber boot by a qualified roofing contractor. Priority repair -- direct water entry path."
+                  },
+                  {
+                    "id": "membrane-lifting",
+                    "chipLabel": "Membrane Flashing Lifting",
+                    "define": "Peel-and-stick membrane flashing at [location] is lifting from the substrate.",
+                    "direct": "Recommend re-adhering or replacing the membrane flashing by a qualified contractor."
+                  }
+                ]
+              },
+              {
+                "id": "lead-flashing",
+                "label": "Lead Flashing",
+                "checks": [
+                  {
+                    "label": "Cracking from fatigue",
+                    "tip": "Lead is soft and malleable but fatigues over decades of thermal cycling. Older lead flashing may show fatigue cracking, especially at bends."
+                  },
+                  {
+                    "label": "Environmental concern (note presence)",
+                    "tip": "Lead is a toxic material. Note the presence of lead flashing for the client's awareness. Lead in good condition is not an immediate health hazard."
+                  },
+                  {
+                    "label": "Lifting or displacement",
+                    "tip": "Lead is heavy and generally stays in place, but it is very soft and can be displaced by foot traffic, maintenance activity, or animal activity."
+                  }
+                ],
+                "ilNote": "Lead flashing is found on older IL homes and historic buildings. Lead was commonly used at chimney flashings and complex roof-to-wall transitions because of its malleability.",
+                "rating": {
+                  "acceptable": "Lead intact, properly positioned, no cracking",
+                  "fair": "Minor surface weathering, still sealed, no cracking",
+                  "poor": "Fatigue cracking, displaced, or damaged -- water entry likely"
+                },
+                "findings": [
+                  {
+                    "id": "lead-cracking",
+                    "chipLabel": "Lead Flashing Cracked",
+                    "define": "Lead flashing at [location] has fatigue cracking. Cracked lead flashing cannot be reliably repaired and should be replaced. Note: lead is a toxic material -- proper handling and disposal required.",
+                    "direct": "Recommend replacement of lead flashing by a qualified roofing contractor. Ensure proper lead handling and disposal per EPA guidelines."
                   }
                 ]
               }
@@ -5639,6 +6586,81 @@ var INSPECTION_DATA = {
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect flashing and trim."
           },
+          "confusedMaterials": [
+            {
+              "id": "aluminum-vs-galvanized-steel",
+              "pair": ["Aluminum Flashing", "Galvanized Steel Flashing"],
+              "why": "Both are silver/gray metals used in the same flashing applications. At a distance, they look identical. The distinction matters because they have different failure modes and different galvanic reactions with other metals.",
+              "tests": [
+                "MAGNET TEST (definitive): Aluminum = magnet does NOT stick. Galvanized steel = magnet STICKS firmly.",
+                "COLOR OVER TIME: Aluminum = stays silver/gray, white powdery oxidation. Steel = develops white rust spots then red/orange rust.",
+                "WEIGHT: Aluminum = lightweight, easy to bend by hand. Steel = heavier, holds shape better, harder to bend.",
+                "SHAPE RETENTION: Aluminum = softer, more prone to being bent by wind. Steel = holds formed shape well, more rigid."
+              ]
+            },
+            {
+              "id": "step-vs-continuous",
+              "pair": ["Step Flashing", "Continuous Flashing"],
+              "why": "Both are used at roof-to-wall junctions but are fundamentally different installation methods. Using continuous flashing where step flashing is required is a common installation defect.",
+              "tests": [
+                "VISUAL PATTERN: Step = individual L-shaped pieces, one per shingle course, each overlapping the one below. Continuous = one long piece running the full length.",
+                "WHERE USED: Step = CORRECT for sloped roof-to-sidewall junctions. Continuous = CORRECT for headwall flashing only. INCORRECT for sidewalls.",
+                "WATER MANAGEMENT: Step = water cascades piece to piece. Continuous = water can get behind at ANY point and run the entire length."
+              ]
+            },
+            {
+              "id": "flashing-vs-caulk-only",
+              "pair": ["Proper Flashing", "Caulk-Only (No Flashing)"],
+              "why": "Some installers use thick beads of caulk, sealant, or roofing mastic where mechanical flashing should be installed. Caulk is not flashing. This is the most common and most consequential flashing-related defect.",
+              "tests": [
+                "MATERIAL: Proper flashing = metal L-shaped pieces visible at the transition. Caulk-only = thick beads or smears of caulk, tar, or mastic with no metal visible.",
+                "LIFESPAN: Metal flashing = 30-50+ years. Caulk/sealant = 5-15 years. Tar/mastic = dries, cracks, and fails within years.",
+                "LOCATION CHECK: If you see ONLY caulk at roof-to-wall junctions, window/door heads, chimney base, material transitions, or deck ledgers -- that is a deficiency."
+              ]
+            }
+          ],
+          "safeLanguage": [
+            {
+              "id": "flashing-serviceable-roof-wall",
+              "text": "Flashing appeared properly installed at roof-to-wall junctions with no evidence of moisture intrusion.",
+              "use": "When roof-to-wall flashing is present and in acceptable condition."
+            },
+            {
+              "id": "step-flashing-present",
+              "text": "Step flashing observed at roof-to-wall transitions, properly interwoven with roofing courses, appeared in serviceable condition.",
+              "use": "When step flashing is properly installed at sidewall junctions."
+            },
+            {
+              "id": "kickout-present",
+              "text": "Kick-out (diverter) flashing present where roof terminates at wall, properly diverting water away from wall assembly and into gutter.",
+              "use": "When kick-out flashing is present and functional."
+            },
+            {
+              "id": "counter-flashing-intact",
+              "text": "Counter flashing at chimney/masonry appeared properly installed with tabs set into mortar reglets and sealant intact.",
+              "use": "When chimney counter flashing is properly installed."
+            },
+            {
+              "id": "head-flashing-present",
+              "text": "Head flashing (drip cap) observed above windows and doors where visible. Not all head flashing is visible on existing homes -- this is a normal limitation of the visual inspection.",
+              "use": "When head flashing is visible and in acceptable condition."
+            },
+            {
+              "id": "drip-edge-present",
+              "text": "Drip edge flashing appeared present and intact at eaves and rakes, properly directing water into gutters.",
+              "use": "When drip edge is present and functional."
+            },
+            {
+              "id": "pipe-boots-serviceable",
+              "text": "Plumbing vent flashing boots appeared intact with no visible cracking or separation from the vent pipe at the time of inspection.",
+              "use": "When rubber pipe boots are in acceptable condition."
+            },
+            {
+              "id": "flashing-not-visible-limitation",
+              "text": "Flashing at window and door heads is typically concealed behind the exterior wall covering on existing homes and could not be verified. This is a normal limitation of the visual inspection per ICA Module 6.",
+              "use": "Standard limitation language when head flashing is not visible. Use on every inspection."
+            }
+          ],
           "interactiveLogic": [
             {
               "id": "flashing-critical-point-assessment",
@@ -6246,7 +7268,106 @@ var INSPECTION_DATA = {
                 "why": "Door casings and jambs are trim. Rotted door jambs and casings are very common, especially at bottom corners near grade."
               }
             ]
-          }
+          },
+          "confusedMaterials": [
+            {
+              "id": "wood-vs-composite",
+              "pair": ["Wood", "Composite (e.g., Azek, KOMA, Versatex, MiraTEC)"],
+              "why": "Composite trim is designed to look like painted wood. When painted, composite and wood trim are nearly indistinguishable at a glance. The distinction matters because composite will not rot but has different failure modes (thermal movement, delamination).",
+              "tests": [
+                "SCRATCH TEST: Scratch an inconspicuous area. Wood = wood grain and fibers underneath paint. Composite = uniform material, no grain or fiber direction.",
+                "WEIGHT: Cellular PVC is typically lighter than wood. Fiber cement trim is noticeably heavier than wood.",
+                "WATER RESPONSE: Wood absorbs water at exposed surfaces and darkens. Cellular PVC does not absorb water at all.",
+                "EDGE UNIFORMITY: Wood edges show natural grain. Composite edges are perfectly uniform.",
+                "THERMAL EXPANSION: PVC composites expand significantly with temperature. Joints may show gaps that open and close with seasons."
+              ]
+            },
+            {
+              "id": "wood-vs-fiber-cement",
+              "pair": ["Wood", "Fiber Cement Trim"],
+              "why": "Fiber cement trim (HardieTrim, Allura) is painted to look like wood trim. Both are flat, painted boards used in the same applications. From a distance they appear identical.",
+              "tests": [
+                "TAP TEST: Wood = hollow or resonant sound. Fiber cement = dense, hard, almost stone-like, flat and dead sound.",
+                "WEIGHT/FEEL: Wood = medium weight, has some flex. Fiber cement = very heavy for its size, rigid, will crack before it bends.",
+                "EDGE EXAMINATION: Wood = wood grain and fibers at cut edges. Fiber cement = gray, compressed fiber material, uniform, no grain.",
+                "ROT TEST: Wood = softness if rotted, probe sinks in. Fiber cement = will not rot, crumbles or cracks rather than going soft.",
+                "PAINT ADHESION: Wood = paint peels in sheets from moisture. Fiber cement = paint chalks and wears, exposed substrate absorbs moisture rapidly."
+              ]
+            },
+            {
+              "id": "aluminum-wrap-vs-vinyl-trim",
+              "pair": ["Aluminum Trim Wrap", "Vinyl Trim"],
+              "why": "Both are non-wood exterior trim coverings that can appear similar, especially in white or light colors. The distinction matters because aluminum hides wood that may be rotted underneath; vinyl is solid PVC with no wood core.",
+              "tests": [
+                "PRESS/FLEX TEST: Aluminum = metal surface dents under pressure, may reveal soft rotted wood behind. Vinyl = PVC surface flexes but springs back, no wood behind it to rot.",
+                "SOUND TEST: Aluminum = metallic, tinny ping. Vinyl = duller, plastic sound.",
+                "CORNER EXAMINATION: Aluminum = bent/formed from sheet metal, overlapping seams, rivets, or caulk. Vinyl = welded, mitered with adhesive, or snap-together corner pieces.",
+                "HIDDEN ROT CONCERN: Aluminum wrap covers wood underneath -- ALWAYS press-test for hidden rot. Cellular PVC trim is solid synthetic with no wood core."
+              ]
+            }
+          ],
+          "safeLanguage": [
+            {
+              "id": "trim-serviceable",
+              "text": "Exterior trim appeared in serviceable condition with intact paint/coating and proper caulking at transitions.",
+              "use": "General positive finding when all trim is in acceptable condition."
+            },
+            {
+              "id": "trim-transitions-sealed",
+              "text": "Trim-to-siding transitions appeared properly sealed with no visible gaps or failed caulking.",
+              "use": "When trim-to-siding joints are sealed."
+            },
+            {
+              "id": "no-moisture-damage",
+              "text": "No evidence of moisture damage or rot observed at exterior trim components at the time of inspection.",
+              "use": "When no rot or moisture damage is found on trim."
+            },
+            {
+              "id": "aluminum-wrap-firm",
+              "text": "Aluminum-wrapped trim was press-tested at accessible locations and felt firm, suggesting the wood underneath is intact.",
+              "use": "When aluminum-wrapped trim passes the press test."
+            },
+            {
+              "id": "z-flashing-present",
+              "text": "Z-flashing and drip caps appeared present and intact at horizontal trim transitions where visible.",
+              "use": "When Z-flashing is observed at horizontal trim joints."
+            },
+            {
+              "id": "kickout-flashing-present",
+              "text": "Kickout (diverter) flashing observed where roof step flashing terminates at the bottom of the wall, properly diverting water away from the wall assembly.",
+              "use": "When kickout flashing is present at roof-to-wall terminations."
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-siding",
+              "relationship": "Trim seals gaps in siding. Failed trim exposes siding substrate and wall cavity to moisture. J-channel, corner posts, and transition pieces are siding accessories that function as trim."
+            },
+            {
+              "componentId": "ext-fascia",
+              "relationship": "Fascia is a specific trim board at rafter ends. Aluminum-wrapped fascia uses the same press-test inspection technique as aluminum-wrapped trim."
+            },
+            {
+              "componentId": "ext-soffit",
+              "relationship": "Soffit meets trim at the eave. Failed trim at soffit transitions allows water and pests into the soffit and potentially the attic."
+            },
+            {
+              "componentId": "ext-flashing",
+              "relationship": "Z-flashing, drip caps, and kickout flashings protect trim transitions. Missing flashing is the primary cause of trim rot at horizontal joints."
+            },
+            {
+              "componentId": "ext-windows",
+              "relationship": "Window casings are trim. Rotted window trim is one of the most common exterior defects, especially on post-1970s homes."
+            },
+            {
+              "componentId": "ext-caulking",
+              "relationship": "Caulk at trim-to-siding, trim-to-window, and trim-to-door transitions prevents water entry into the wall cavity."
+            },
+            {
+              "componentId": "ext-close-access",
+              "relationship": "Close-access assessment includes trim checks on each elevation. Trim deterioration patterns across multiple elevations should be documented in the close-access summary."
+            }
+          ]
         },
         {
           "id": "ext-caulking",
@@ -6565,6 +7686,204 @@ var INSPECTION_DATA = {
                       "Flexible seal, should contact threshold. Missing = drafts and pests"
                     ]
                   ]
+                }
+              ],
+              "confusedMaterials": [
+                {
+                  "id": "wood-vs-fiberglass-doors",
+                  "pair": ["Wood", "Fiberglass"],
+                  "why": "Fiberglass doors often have wood-grain texture molded into the surface that closely mimics real wood grain. From a distance, a stained fiberglass door and a stained wood door are virtually identical.",
+                  "tests": [
+                    "TAP/KNOCK TEST: Wood = solid thud, full and dense. Fiberglass = slightly hollow or synthetic sound.",
+                    "EDGE EXAMINATION: Wood = cross-section shows solid wood grain. Fiberglass = cross-section shows fiberglass skin over foam core.",
+                    "SURFACE GRAIN: Wood = natural, irregular grain. Fiberglass = embossed/molded pattern that repeats at regular intervals.",
+                    "WEIGHT AND FEEL: Wood = heavy and solid throughout. Fiberglass = lighter than solid wood.",
+                    "DAMAGE ASSESSMENT: Wood damage reveals wood underneath. Fiberglass damage reveals composite material or foam core."
+                  ]
+                },
+                {
+                  "id": "steel-vs-fiberglass-doors",
+                  "pair": ["Steel", "Fiberglass"],
+                  "why": "Both are common exterior door materials with smooth or textured surfaces, insulated cores, and similar profiles.",
+                  "tests": [
+                    "MAGNET TEST (definitive): Steel = magnet sticks firmly. Fiberglass = magnet does NOT stick.",
+                    "DAMAGE TYPE: Steel = dents from impact, rusts where paint is chipped. Fiberglass = cracks from impact, does NOT rust.",
+                    "BOTTOM EDGE: Steel = may show rust. Fiberglass = composite material, no rust possible.",
+                    "TAP SOUND: Steel = metallic ring or resonance. Fiberglass = duller, more solid sound without metallic quality."
+                  ]
+                }
+              ],
+              "safeLanguage": [
+                {
+                  "id": "doors-serviceable",
+                  "text": "Exterior doors appeared in serviceable condition and operated as intended at the time of inspection.",
+                  "use": "General positive finding when all exterior doors are in acceptable condition."
+                },
+                {
+                  "id": "hardware-functional",
+                  "text": "Door hardware appeared functional with secure latching and deadbolt operation where tested.",
+                  "use": "When locks and hardware operate correctly."
+                },
+                {
+                  "id": "weatherstripping-adequate",
+                  "text": "Weatherstripping appeared adequate with no visible gaps or daylight passing through when doors were closed.",
+                  "use": "When weatherstripping is in acceptable condition."
+                },
+                {
+                  "id": "threshold-serviceable",
+                  "text": "Door thresholds and sills appeared in serviceable condition with no evidence of rot or deterioration.",
+                  "use": "When thresholds/sills are in acceptable condition."
+                },
+                {
+                  "id": "sliding-door-serviceable",
+                  "text": "Sliding glass door operated smoothly on its track. Lock engaged properly. Safety glazing markings were observed.",
+                  "use": "When sliding glass door is in acceptable condition."
+                },
+                {
+                  "id": "storm-door-functional",
+                  "text": "Storm door appeared functional with closer mechanism operating properly and glass/screen panels intact.",
+                  "use": "When storm door is in acceptable condition."
+                },
+                {
+                  "id": "safety-glazing-doors",
+                  "text": "Safety glazing markings were observed in glass within and adjacent to exterior doors where accessible for verification.",
+                  "use": "When safety glass bug marks are confirmed in/near doors."
+                },
+                {
+                  "id": "door-frames-intact",
+                  "text": "Exterior door frames appeared intact and square with no evidence of structural movement, rot, or damage.",
+                  "use": "When door frames are in acceptable condition."
+                }
+              ],
+              "interactiveLogic": [
+                {
+                  "id": "door-assessment-wizard",
+                  "title": "Exterior Door Assessment Wizard",
+                  "description": "Systematic evaluation of individual exterior door condition.",
+                  "inputs": [
+                    {
+                      "id": "door-type",
+                      "label": "What type of door?",
+                      "type": "chips",
+                      "options": ["Hinged (Standard)", "Sliding Glass", "French (Double)", "Storm Door"]
+                    },
+                    {
+                      "id": "door-operation",
+                      "label": "How does it operate?",
+                      "type": "chips",
+                      "options": ["Opens/closes/latches freely", "Stiff but operable", "Doesn't latch", "Won't close properly", "Damaged"]
+                    },
+                    {
+                      "id": "security-hardware",
+                      "label": "Security hardware?",
+                      "type": "chips",
+                      "options": ["Deadbolt present (thumb-turn interior)", "No deadbolt", "Keyed deadbolt on interior side"],
+                      "conditional": { "showWhen": "door-type", "equals": ["Hinged (Standard)", "French (Double)"] }
+                    },
+                    {
+                      "id": "weatherstripping-condition",
+                      "label": "Weatherstripping condition?",
+                      "type": "chips",
+                      "options": ["Good seal - no gaps", "Gaps visible", "Missing sections", "Daylight visible around door"]
+                    }
+                  ],
+                  "outcomes": [
+                    {
+                      "when": { "door-operation": "Opens/closes/latches freely", "weatherstripping-condition": "Good seal - no gaps" },
+                      "result": "acceptable",
+                      "define": "Door at [location] operated freely, latched securely, and weatherstripping appeared intact.",
+                      "direct": "No action needed.",
+                      "reportLanguage": "Exterior door at [location] appeared in serviceable condition."
+                    },
+                    {
+                      "when": { "door-operation": "Stiff but operable" },
+                      "result": "monitor",
+                      "define": "Door at [location] was stiff to operate but functional.",
+                      "direct": "Monitor. May need hinge adjustment, weatherstripping replacement, or frame realignment.",
+                      "reportLanguage": "Exterior door at [location] was stiff to operate but functional. Monitor for worsening condition."
+                    },
+                    {
+                      "when": { "door-operation": "Doesn't latch" },
+                      "result": "deficiency",
+                      "severity": "repair",
+                      "define": "Door at [location] does not latch securely.",
+                      "direct": "Recommend repair by a qualified contractor. An exterior door that does not latch is a security concern.",
+                      "reportLanguage": "Exterior door at [location] does not latch securely. Recommend repair."
+                    },
+                    {
+                      "when": { "door-operation": "Won't close properly" },
+                      "result": "deficiency",
+                      "severity": "repair",
+                      "define": "Door at [location] will not close properly.",
+                      "direct": "Recommend evaluation and repair by a qualified contractor.",
+                      "reportLanguage": "Exterior door at [location] will not close properly. Recommend evaluation and repair."
+                    },
+                    {
+                      "when": { "door-operation": "Damaged" },
+                      "result": "deficiency",
+                      "severity": "repair",
+                      "define": "Door at [location] is damaged.",
+                      "direct": "Recommend repair or replacement by a qualified contractor.",
+                      "reportLanguage": "Exterior door at [location] is damaged. Recommend repair or replacement."
+                    },
+                    {
+                      "when": { "security-hardware": "Keyed deadbolt on interior side" },
+                      "result": "safety",
+                      "severity": "immediate",
+                      "define": "Deadbolt at exterior door at [location] requires a key to operate from the INTERIOR side. This is a fire safety concern.",
+                      "direct": "Recommend immediate replacement with a thumb-turn deadbolt on the interior side. This is a life-safety issue.",
+                      "reportLanguage": "SAFETY CONCERN: Deadbolt at [location] requires a key to open from inside. Recommend replacement with a thumb-turn interior deadbolt."
+                    },
+                    {
+                      "when": { "security-hardware": "No deadbolt" },
+                      "result": "info",
+                      "define": "No deadbolt observed on exterior door at [location].",
+                      "direct": "Recommend installation of a deadbolt for improved security. This is a recommendation, not a deficiency.",
+                      "reportLanguage": "No deadbolt observed on exterior door at [location]. Recommend installation for improved security."
+                    },
+                    {
+                      "when": { "weatherstripping-condition": "Gaps visible" },
+                      "result": "deficiency",
+                      "severity": "repair",
+                      "define": "Weatherstripping at exterior door at [location] shows visible gaps when closed.",
+                      "direct": "Recommend replacement of weatherstripping.",
+                      "reportLanguage": "Weatherstripping at exterior door at [location] shows gaps when closed. Recommend replacement."
+                    },
+                    {
+                      "when": { "weatherstripping-condition": "Daylight visible around door" },
+                      "result": "deficiency",
+                      "severity": "repair",
+                      "define": "Daylight visible around exterior door at [location] when closed. Significant gap between door and frame.",
+                      "direct": "Recommend evaluation and repair by a qualified contractor.",
+                      "reportLanguage": "Daylight visible around exterior door at [location] when closed. Recommend evaluation and repair."
+                    }
+                  ]
+                }
+              ],
+              "crossReferences": [
+                {
+                  "componentId": "ext-caulking",
+                  "relationship": "Door perimeter caulking is inspected under the caulking component. Failed caulk at the door head is the most critical location."
+                },
+                {
+                  "componentId": "ext-trim",
+                  "relationship": "Door casings and jambs are trim. Rotted door jambs and casings are very common, especially at bottom corners near grade."
+                },
+                {
+                  "componentId": "ext-flashing",
+                  "relationship": "Head flashing above doors prevents water from running behind the door frame. Missing head flashing at doors is common on replacement installations."
+                },
+                {
+                  "componentId": "ext-siding",
+                  "relationship": "Siding-to-door transitions are potential water entry points. Check J-channel and trim at door perimeters."
+                },
+                {
+                  "componentId": "int-rooms",
+                  "relationship": "Interior door inspection should cross-reference exterior door findings. Binding doors may indicate structural movement visible from both sides."
+                },
+                {
+                  "componentId": "ext-close-access",
+                  "relationship": "Close-access assessment includes door checks on each elevation."
                 }
               ]
             }
@@ -6972,6 +8291,64 @@ var INSPECTION_DATA = {
                     "direct": "Recommend replacing failed insulated glass unit."
                   }
                 ]
+              },
+              {
+                "id": "clad-windows",
+                "label": "Clad (Wood w/ Aluminum or Vinyl Exterior)",
+                "checks": [
+                  {
+                    "label": "Cladding seam and joint integrity",
+                    "tip": "Check all seams where cladding pieces meet. Gaps, separating seams, or lifted edges allow water behind the cladding and against the wood core. Use a thin blade or fingernail to test seam tightness. Common failure point at corner joints."
+                  },
+                  {
+                    "label": "Corner joint condition",
+                    "tip": "Corners are the most vulnerable point on clad windows. Metal or vinyl corners are formed, bent, or capped. Check for gaps opening at corners, sealant failure at corner joints, or any evidence of moisture wicking from corners into the wood frame beneath."
+                  },
+                  {
+                    "label": "Weep holes present and unobstructed",
+                    "tip": "Weep holes in the sill track allow trapped water to drain. Must be present and clear. Clogged weep holes trap water inside the frame where it contacts the wood core, causing concealed rot."
+                  },
+                  {
+                    "label": "Check for wood rot underneath at sill",
+                    "tip": "The sill is where water sits longest. If the cladding has any gaps or the sill drain is blocked, the wood underneath rots while the exterior looks fine. Press firmly on the sill -- any softness or give indicates rot behind the cladding."
+                  },
+                  {
+                    "label": "Verify proper head flashing",
+                    "tip": "Head flashing (drip cap) is critical on clad windows. Without it, water runs down the wall and enters behind the cladding at the top of the window, reaching the concealed wood frame."
+                  }
+                ],
+                "ilNote": "Clad windows are premium products common in mid-to-high-end IL homes. The wood core provides excellent insulation and interior aesthetics while the cladding protects against IL weather extremes. However, if the cladding seal is compromised, the concealed wood core can rot without any visible exterior signs. Illinois freeze-thaw cycles stress cladding seams and corner joints.",
+                "rating": {
+                  "acceptable": "Cladding intact and sealed at all seams and corners, weep holes clear, no evidence of concealed rot, head flashing present",
+                  "fair": "Minor sealant deterioration at seams, cladding intact, no evidence of rot on probing",
+                  "poor": "Gaps at cladding seams or corners, soft sill indicating concealed rot, missing head flashing, failed sealant at multiple locations"
+                },
+                "findings": [
+                  {
+                    "id": "cladding-seam-failure",
+                    "chipLabel": "Cladding Seam Failure",
+                    "define": "Cladding seam separation observed at clad window(s) at [location]. Gap allows water entry behind the cladding and against the concealed wood frame.",
+                    "direct": "Recommend repair and resealing of cladding seams by a qualified window contractor."
+                  },
+                  {
+                    "id": "concealed-rot",
+                    "chipLabel": "Concealed Rot (Behind Cladding)",
+                    "define": "Clad window at [location] exhibits softness at sill when pressed or evidence of moisture at cladding-to-wood transition, suggesting wood rot behind the intact exterior cladding.",
+                    "defer": "Recommend evaluation by a qualified window contractor. Cladding may need to be partially removed to assess the extent of wood deterioration."
+                  },
+                  {
+                    "id": "missing-head-flashing-clad",
+                    "chipLabel": "Missing Head Flashing (Clad Window)",
+                    "define": "Head flashing (drip cap) appears absent above clad window at [location]. Without head flashing, water enters above the window and behind the cladding, reaching the concealed wood frame.",
+                    "direct": "Recommend installation of head flashing above this window by a qualified contractor. Priority repair -- concealed rot risk."
+                  },
+                  {
+                    "id": "weep-holes-blocked",
+                    "chipLabel": "Weep Holes Blocked",
+                    "define": "Weep holes in clad window frame at [location] are blocked, painted over, or not present. Blocked drainage traps water inside the frame against the wood core.",
+                    "direct": "Recommend clearing weep holes to allow proper drainage."
+                  }
+                ]
               }
             ]
           },
@@ -7223,7 +8600,248 @@ var INSPECTION_DATA = {
               "WINDOW ANATOMY — SCREENS: ASHI SOP requires noting the absence of screens. Screens are NOT a structural component and their absence is NOT a safety defect (except in certain jurisdictions with pest/mosquito ordinances). Report as: 'Window screens were missing at [count] window(s) at [locations].' Do NOT defer to a specialist for missing screens."
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect a representative number of windows."
-          }
+          },
+          "confusedMaterials": [
+            {
+              "pair": "Vinyl vs Fiberglass",
+              "why": "Both commonly appear in white or beige finishes with smooth profiles. At a glance, a white fiberglass window and a white vinyl window are nearly identical.",
+              "tests": [
+                "TAP TEST: Tap the frame firmly with a knuckle. Vinyl = higher-pitched, slightly hollow. Fiberglass = lower-pitched, denser, more solid.",
+                "FLEX TEST: Press on a flat section of the frame. Vinyl = slightly flexible, gives a little. Fiberglass = rigid, does not flex.",
+                "WEIGHT: Lift or push on the sash. Vinyl = lighter. Fiberglass = heavier, similar weight feel to wood.",
+                "SURFACE FINISH: Vinyl = slightly glossy, smooth plastic. Fiberglass = more matte finish, may show subtle fiber texture.",
+                "EDGE/CORNER: Vinyl corners show a visible weld bead (melted PVC). Fiberglass corners are typically mitered and bonded, not welded.",
+                "PAINTABILITY: Vinyl typically cannot be painted (dark paint causes thermal warping). Fiberglass can be painted any color."
+              ]
+            },
+            {
+              "pair": "Wood vs Clad (Aluminum or Vinyl Clad Wood)",
+              "why": "Clad windows have real wood on the interior and metal or vinyl cladding on the exterior. From the outside they look like aluminum or vinyl. From the inside they look like wood.",
+              "tests": [
+                "INTERIOR VS EXTERIOR: Wood = same material (wood) visible on both sides. Clad = interior shows real wood grain, exterior shows smooth metal or vinyl cladding.",
+                "FRAME-TO-SASH TRANSITION: Wood may be visible at transition points where the cladding does not fully cover the frame-to-sash junction.",
+                "EXTERIOR SURFACE: Wood shows grain even under paint. Clad has smooth, uniform exterior surface with no grain, formed edges and seams.",
+                "CORNER CONSTRUCTION: Wood has mitered or butted wood joints. Clad has metal corners that are bent/formed or have separate corner pieces."
+              ]
+            },
+            {
+              "pair": "Single-Pane Glass vs Insulated Glass Unit (IGU / Double-Pane)",
+              "why": "From a distance, single-pane and double-pane windows look identical. The distinction matters enormously for energy performance (R-1 vs R-3) and for determining whether fogging between panes is possible.",
+              "tests": [
+                "GLASS EDGE: Single = one pane edge visible. IGU = visible spacer bar between two panes (typically silver or black aluminum).",
+                "REFLECTION COUNT: Hold a pen close to the glass. Single = reflections appear as one. IGU = two distinct reflections with a visible gap.",
+                "THICKNESS: Single = 1/8 to 3/16 inch. IGU = 5/8 to 1 inch total including air space.",
+                "TOUCH TEST (cool weather): Single = feels very cold (~R-1). IGU = feels noticeably warmer (~R-3).",
+                "CONDENSATION: Single = condensation on interior surface. IGU = condensation BETWEEN panes means failed seal."
+              ]
+            }
+          ],
+          "safeLanguage": [
+            {
+              "id": "windows-serviceable",
+              "text": "Windows appeared in serviceable condition and operated as intended where tested.",
+              "use": "General positive finding when windows are in acceptable condition."
+            },
+            {
+              "id": "glazing-intact",
+              "text": "Window glazing appeared intact with no evidence of failed sealed units at the time of inspection.",
+              "use": "When no fogged/failed IGUs are observed."
+            },
+            {
+              "id": "frames-serviceable",
+              "text": "Window frames appeared in serviceable condition with no significant deterioration observed.",
+              "use": "When frames are in acceptable condition regardless of material."
+            },
+            {
+              "id": "egress-appears-met",
+              "text": "Bedroom windows appeared to meet egress requirements based on visual observation. Window dimensions were not measured as part of this inspection.",
+              "use": "When bedroom windows appear to meet egress but exact measurements were not taken."
+            },
+            {
+              "id": "egress-not-measured",
+              "text": "Bedroom window egress compliance was not verified by measurement. Windows appeared operable at the time of inspection.",
+              "use": "When egress was not specifically measured."
+            },
+            {
+              "id": "representative-sample",
+              "text": "A representative number of windows were operated during the inspection per the Standards of Practice. Not every window was individually tested.",
+              "use": "Standard SOP limitation language."
+            },
+            {
+              "id": "storm-windows-serviceable",
+              "text": "Storm windows appeared in serviceable condition where present. Weep holes at the bottom of storm window frames appeared open.",
+              "use": "When storm windows are present and in acceptable condition."
+            },
+            {
+              "id": "weatherstripping-functional",
+              "text": "Window weatherstripping appeared functional with sashes making contact when closed at windows tested.",
+              "use": "When weatherstripping is in acceptable condition."
+            },
+            {
+              "id": "lintels-serviceable",
+              "text": "Steel lintels above window openings appeared in serviceable condition with no significant rust, sagging, or displaced masonry observed.",
+              "use": "When lintels above windows are in acceptable condition on masonry exteriors."
+            },
+            {
+              "id": "safety-glazing-confirmed",
+              "text": "Safety glazing markings were observed in required locations (within 24 inches of doors, in bathrooms, below 18 inches from floor) where accessible for verification.",
+              "use": "When safety glazing bug marks are confirmed in required locations."
+            }
+          ],
+          "interactiveLogic": [
+            {
+              "id": "window-assessment-wizard",
+              "title": "Window Assessment Wizard",
+              "description": "Systematic evaluation of individual window condition. Determines operation, glazing condition, egress compliance, and generates findings.",
+              "inputs": [
+                {
+                  "id": "window-operation",
+                  "label": "Can the window be operated?",
+                  "type": "chips",
+                  "options": ["Opens freely", "Stiff but operable", "Painted/nailed shut", "Won't open", "Not tested"]
+                },
+                {
+                  "id": "glazing-condition",
+                  "label": "Glazing condition?",
+                  "type": "chips",
+                  "options": ["Clear (no defects)", "Fogged/failed seal (haze between panes)", "Cracked", "Broken"]
+                },
+                {
+                  "id": "is-bedroom",
+                  "label": "Is this a bedroom window?",
+                  "type": "chips",
+                  "options": ["Yes", "No", "Unsure"]
+                },
+                {
+                  "id": "egress-compliance",
+                  "label": "Does it appear to meet egress requirements?",
+                  "type": "chips",
+                  "options": ["Yes - appears adequate", "Appears undersized", "Below grade without compliant well", "Cannot determine"],
+                  "conditional": { "showWhen": "is-bedroom", "equals": ["Yes", "Unsure"] }
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": { "window-operation": "Opens freely", "glazing-condition": "Clear (no defects)" },
+                  "result": "acceptable",
+                  "define": "Window at [location] operated freely and glazing appeared intact.",
+                  "direct": "No action needed.",
+                  "reportLanguage": "Window at [location] appeared in serviceable condition."
+                },
+                {
+                  "when": { "window-operation": "Stiff but operable", "glazing-condition": "Clear (no defects)" },
+                  "result": "monitor",
+                  "define": "Window at [location] was stiff to operate but functional. Glazing appeared intact.",
+                  "direct": "Monitor. May need hardware lubrication, track cleaning, or balance mechanism adjustment.",
+                  "reportLanguage": "Window at [location] was stiff to operate but functional. Monitor for worsening condition."
+                },
+                {
+                  "when": { "window-operation": "Painted/nailed shut", "is-bedroom": "Yes" },
+                  "result": "safety",
+                  "severity": "immediate",
+                  "define": "Bedroom window at [location] is painted/nailed shut. This is a life-safety concern. Occupants cannot use this window for emergency egress.",
+                  "direct": "Recommend freeing this window for operation immediately. All bedroom windows must be operable for emergency escape. This is a life-safety issue.",
+                  "reportLanguage": "SAFETY CONCERN: Bedroom window at [location] is painted/nailed shut and cannot be used for emergency egress. Recommend freeing this window for operation."
+                },
+                {
+                  "when": { "window-operation": "Painted/nailed shut", "is-bedroom": "No" },
+                  "result": "deficiency",
+                  "severity": "repair",
+                  "define": "Window at [location] is painted/nailed shut and cannot be operated.",
+                  "direct": "Recommend freeing this window for operation by a qualified contractor.",
+                  "reportLanguage": "Window at [location] is painted/nailed shut and inoperable. Recommend freeing for operation."
+                },
+                {
+                  "when": { "window-operation": "Won't open" },
+                  "result": "deficiency",
+                  "severity": "repair",
+                  "define": "Window at [location] would not open at the time of inspection.",
+                  "direct": "Recommend evaluation and repair by a qualified window contractor.",
+                  "reportLanguage": "Window at [location] would not open at the time of inspection. Recommend evaluation and repair."
+                },
+                {
+                  "when": { "window-operation": "Not tested" },
+                  "result": "limitation",
+                  "define": "Window at [location] was not tested for operation due to inaccessibility.",
+                  "direct": "Document as limitation per IL SOP 1410.200(e)(2)(C).",
+                  "reportLanguage": "Window at [location] was not tested for operation. This is a limitation of the inspection."
+                },
+                {
+                  "when": { "glazing-condition": "Fogged/failed seal (haze between panes)" },
+                  "result": "deficiency",
+                  "severity": "repair",
+                  "define": "Failed insulated glass unit (IGU) seal observed at window at [location]. Condensation, haze, or mineral deposits visible between the panes.",
+                  "direct": "Recommend replacement of the failed insulated glass unit.",
+                  "reportLanguage": "Failed insulated glass seal (fogged between panes) observed at [location]. Recommend replacement of the sealed glass unit."
+                },
+                {
+                  "when": { "glazing-condition": "Cracked" },
+                  "result": "deficiency",
+                  "severity": "repair",
+                  "define": "Cracked glass observed at window at [location].",
+                  "direct": "Recommend replacement of cracked glass by a qualified window contractor.",
+                  "reportLanguage": "Cracked glass at window at [location]. Recommend replacement."
+                },
+                {
+                  "when": { "glazing-condition": "Broken" },
+                  "result": "safety",
+                  "severity": "immediate",
+                  "define": "Broken glass observed at window at [location]. Safety hazard and security concern.",
+                  "direct": "Recommend immediate boarding or replacement.",
+                  "reportLanguage": "SAFETY CONCERN: Broken glass at window at [location]. Immediate repair recommended."
+                },
+                {
+                  "when": { "is-bedroom": "Yes", "egress-compliance": "Appears undersized" },
+                  "result": "deficiency",
+                  "severity": "safety",
+                  "define": "Bedroom window at [location] appears undersized for egress compliance. Per IRC R310, bedroom emergency escape openings require minimum 5.7 sq ft clear opening.",
+                  "direct": "Recommend measurement by a qualified contractor to confirm egress compliance.",
+                  "reportLanguage": "Bedroom window at [location] appears undersized for egress requirements. Recommend verification by a qualified contractor."
+                },
+                {
+                  "when": { "is-bedroom": "Yes", "egress-compliance": "Below grade without compliant well" },
+                  "result": "deficiency",
+                  "severity": "safety",
+                  "define": "Below-grade bedroom window at [location] does not appear to have a compliant window well.",
+                  "direct": "Recommend evaluation and installation of a code-compliant window well by a qualified contractor.",
+                  "reportLanguage": "Below-grade bedroom window at [location] lacks a compliant window well for emergency egress. Recommend installation."
+                },
+                {
+                  "when": { "is-bedroom": "Yes", "egress-compliance": "Cannot determine" },
+                  "result": "limitation",
+                  "define": "Egress compliance for bedroom window at [location] could not be determined during the inspection.",
+                  "direct": "Recommend verification of egress compliance by a qualified contractor if there is any concern.",
+                  "reportLanguage": "Egress compliance for bedroom window at [location] was not verified. This is a limitation of the inspection."
+                }
+              ]
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-caulking",
+              "relationship": "Window perimeter caulking is inspected under caulking component. Failed caulk at window heads allows water behind the window frame."
+            },
+            {
+              "componentId": "ext-flashing",
+              "relationship": "Head flashing (drip cap) above windows is inspected under flashing component. Missing head flashing is the #1 window installation defect."
+            },
+            {
+              "componentId": "ext-trim",
+              "relationship": "Window casings are trim. Rotted window trim is one of the most common exterior defects, especially on post-1970s homes."
+            },
+            {
+              "componentId": "ext-siding",
+              "relationship": "Siding-to-window transitions are potential water entry points. Failed siding or J-channel at windows allows water behind the wall covering."
+            },
+            {
+              "componentId": "int-rooms",
+              "relationship": "Interior inspection should check walls below windows for water staining, mold, or damage indicating exterior window or flashing failure."
+            },
+            {
+              "componentId": "ext-close-access",
+              "relationship": "Close-access assessment includes window checks on each elevation. Pattern findings should be documented in close-access summary."
+            }
+          ]
         },
         {
           "id": "ext-foundation",
@@ -7597,7 +9215,335 @@ var INSPECTION_DATA = {
               "IL SPECIFIC: 42\" frost line. Clay soil exerts significant lateral pressure when saturated. Freeze-thaw widens existing cracks annually."
             ],
             "ashiSop": "ASHI SOP Section 1: Inspector shall inspect the foundation."
-          }
+          },
+          "confusedMaterials": [
+            {
+              "pair": "Poured Concrete vs Concrete Block (CMU) -- When Parged",
+              "why": "Parging (a cement stucco coating applied over foundation walls) can make poured concrete and concrete block look identical from the exterior. Correct identification matters because their failure modes are different: poured concrete primarily develops vertical shrinkage cracks, while block walls are susceptible to horizontal cracking from lateral soil pressure (which is the most serious foundation defect).",
+              "tests": [
+                "FORM TIE HOLES: Poured concrete foundations have small round plugs or holes (form tie holes) in a regular grid pattern across the wall surface. If you can see these through the parging or where parging has failed, it is poured concrete.",
+                "MORTAR JOINT PATTERN: Concrete block walls have horizontal mortar joints approximately every 8 inches vertically. If you can see any hint of a horizontal joint pattern through the parging, it is block.",
+                "CRACK PATTERN ANALYSIS: When parging is intact and you cannot see the underlying material, analyze crack patterns. Horizontal cracks (especially at a consistent height across the wall) strongly suggest block. Vertical or diagonal cracks are more typical of poured concrete.",
+                "EXPOSED AREAS: Check the garage interior, crawlspace, basement interior, and any area where parging has failed or was never applied. One clear view of the actual foundation material settles the identification.",
+                "TAP TEST: Tap on the parging surface. Poured concrete behind parging produces a solid, dense sound. Block behind parging may produce a slightly more hollow sound, especially if the tap lands over a hollow block core.",
+                "PARGING FAILURE POINTS: Where parging is cracking or falling off, the underlying material is revealed. Look at edges, corners, and at grade level where moisture causes parging to delaminate.",
+                "AGE AND REGION: In IL, poured concrete foundations became the standard from roughly the 1970s onward. Block (CMU) was very common from the 1940s through the 1970s. Pre-1920s may be stone or brick. Age of the home is a strong clue."
+              ]
+            },
+            {
+              "pair": "Real Stone Foundation vs Faux/Cultured Stone on Foundation",
+              "why": "Cultured stone (manufactured stone veneer) is sometimes applied to foundation walls for aesthetic reasons. It is a decorative covering, not a structural foundation material. Real stone foundations are structural and found on pre-1920s homes. The inspection approach, defect patterns, and structural implications are completely different.",
+              "tests": [
+                "DEPTH AND IRREGULARITY: Real foundation stone has irregular depth and thickness. Each stone is a different thickness and projects differently from the wall. Cultured stone is uniform thickness (approximately 1-2 inches) with a flat back surface.",
+                "WEIGHT AND TAP TEST: Real stone sounds heavy and dense when tapped. Cultured stone sounds lighter and slightly hollow -- it is lightweight concrete, not solid stone.",
+                "AGE OF HOME: Real stone foundations are found on homes built before approximately 1920. If the home is post-1950 and has 'stone' on the foundation, it is almost certainly cultured stone applied over a poured concrete or block foundation.",
+                "LOOK FOR REPEATING PATTERNS: Cultured stone is cast from molds. Look for identical 'stone' faces repeating on the wall. Real stone is always unique.",
+                "MORTAR JOINTS: Real stone foundation mortar joints are deeply set between irregular stones and may show considerable deterioration on older homes. Cultured stone mortar joints are more uniform and consistent.",
+                "HEIGHT OF APPLICATION: Cultured stone is usually applied only to the visible portion of the foundation above grade (decorative). Real stone foundations typically extend from the footing to the sill plate -- they ARE the structural wall.",
+                "CHECK UNEXPOSED AREAS: Look at the foundation in the garage, basement, or crawlspace. If it is poured concrete or block inside but 'stone' outside, the exterior stone is cultured/applied."
+              ]
+            }
+          ],
+          "interactiveLogic": [
+            {
+              "id": "foundation-crack-assessment",
+              "title": "Foundation Crack Assessment",
+              "description": "Systematic assessment of foundation cracks observed during the exterior inspection. Determines crack pattern, width, evidence of movement, and severity.",
+              "inputs": [
+                {
+                  "id": "cracks-visible",
+                  "label": "Are cracks visible in the foundation?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No",
+                    "Cannot determine (parging/covering obscures foundation)"
+                  ]
+                },
+                {
+                  "id": "crack-pattern",
+                  "label": "What is the crack pattern?",
+                  "type": "chips",
+                  "options": [
+                    "Vertical",
+                    "Horizontal",
+                    "Step (stair-step through mortar joints)",
+                    "Diagonal",
+                    "Multiple patterns present"
+                  ],
+                  "conditional": {
+                    "showWhen": "cracks-visible",
+                    "equals": "Yes"
+                  }
+                },
+                {
+                  "id": "crack-width",
+                  "label": "Approximate crack width?",
+                  "type": "chips",
+                  "options": [
+                    "Hairline (less than 1/16 inch)",
+                    "Narrow (1/16 to 1/4 inch)",
+                    "Moderate (1/4 to 1/2 inch)",
+                    "Wide (greater than 1/2 inch)"
+                  ],
+                  "conditional": {
+                    "showWhen": "cracks-visible",
+                    "equals": "Yes"
+                  }
+                },
+                {
+                  "id": "movement-evidence",
+                  "label": "Evidence of movement at the crack?",
+                  "type": "chips",
+                  "options": [
+                    "Fresh/clean crack edges (recent movement)",
+                    "Staining/weathered edges (older crack, stable)",
+                    "Active water seepage through crack",
+                    "Efflorescence (white mineral deposits) at crack",
+                    "No evidence either way"
+                  ],
+                  "conditional": {
+                    "showWhen": "cracks-visible",
+                    "equals": "Yes"
+                  }
+                },
+                {
+                  "id": "displacement",
+                  "label": "Is there displacement (offset) across the crack?",
+                  "type": "chips",
+                  "options": [
+                    "Yes - one side is offset from the other",
+                    "No - edges are flush/aligned"
+                  ],
+                  "conditional": {
+                    "showWhen": "cracks-visible",
+                    "equals": "Yes"
+                  }
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": { "cracks-visible": "No" },
+                  "result": "acceptable",
+                  "define": "No cracks observed in the visible foundation walls during the exterior inspection.",
+                  "direct": "No action needed. Foundation appeared in serviceable condition from the exterior.",
+                  "reportLanguage": "No significant cracking observed in the visible exterior foundation walls at the time of inspection."
+                },
+                {
+                  "when": { "cracks-visible": "Cannot determine (parging/covering obscures foundation)" },
+                  "result": "limitation",
+                  "define": "Foundation wall surface is obscured by parging, coating, or other covering. Foundation crack assessment is limited.",
+                  "direct": "Document limitation. Check interior (basement/crawlspace) for the actual foundation condition.",
+                  "reportLanguage": "Foundation wall surface was obscured by parging/coating. Visual assessment of the foundation was limited at this location."
+                },
+                {
+                  "when": { "crack-pattern": "Vertical", "crack-width": "Hairline (less than 1/16 inch)", "displacement": "No - edges are flush/aligned" },
+                  "result": "acceptable",
+                  "finding": {
+                    "id": "hairline-vertical",
+                    "chipLabel": "Hairline Vertical Crack",
+                    "define": "Hairline vertical crack (less than 1/16 inch) observed in foundation at [location]. No displacement. Typically normal curing shrinkage.",
+                    "direct": "Monitor. Seal with appropriate sealant to prevent moisture entry if desired. No structural concern at this width and pattern."
+                  },
+                  "reportLanguage": "Minor hairline vertical cracking observed in foundation at [location], consistent with normal curing shrinkage. No displacement. Monitor."
+                },
+                {
+                  "when": { "crack-pattern": "Vertical", "crack-width": "Narrow (1/16 to 1/4 inch)", "displacement": "No - edges are flush/aligned" },
+                  "result": "monitor",
+                  "finding": {
+                    "id": "narrow-vertical",
+                    "chipLabel": "Vertical Crack (Narrow)",
+                    "define": "Vertical crack approximately 1/16 to 1/4 inch in width observed in foundation at [location]. No displacement. May be shrinkage or may indicate minor settlement.",
+                    "direct": "Recommend sealing the crack with appropriate foundation sealant. Monitor for widening."
+                  },
+                  "reportLanguage": "Vertical crack approximately [width] observed in foundation at [location]. No displacement. Recommend sealing and monitoring."
+                },
+                {
+                  "when": { "crack-pattern": "Vertical", "crack-width": ["Moderate (1/4 to 1/2 inch)", "Wide (greater than 1/2 inch)"] },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "wide-vertical",
+                    "chipLabel": "Vertical Crack (Wide)",
+                    "define": "Vertical crack approximately [width] observed in foundation at [location]. Cracks of this width exceed normal shrinkage and indicate foundation movement or settlement.",
+                    "direct": "Recommend evaluation by a qualified foundation contractor or structural engineer.",
+                    "defer": "Structural engineer evaluation recommended to determine cause and appropriate repair."
+                  },
+                  "reportLanguage": "Vertical foundation crack approximately [width] observed at [location]. This width exceeds normal shrinkage cracking. Recommend evaluation by a qualified foundation contractor or structural engineer."
+                },
+                {
+                  "when": { "crack-pattern": "Horizontal" },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "horizontal-crack",
+                    "chipLabel": "Horizontal Crack",
+                    "define": "Horizontal cracking observed in the foundation wall at [location]. Horizontal cracks indicate lateral soil pressure pushing the wall inward. In concrete block (CMU) walls, horizontal cracking is the MOST SERIOUS foundation defect.",
+                    "direct": "Recommend evaluation by a qualified foundation contractor or structural engineer. Do not delay -- lateral pressure cracks can indicate ongoing movement.",
+                    "defer": "Structural engineer evaluation is strongly recommended for horizontal foundation cracks.",
+                    "urgent": true
+                  },
+                  "reportLanguage": "Horizontal cracking observed in foundation wall at [location]. Horizontal cracks typically indicate lateral soil pressure. This is considered the most serious foundation crack pattern, particularly in concrete block walls. Recommend evaluation by a qualified structural engineer."
+                },
+                {
+                  "when": { "crack-pattern": "Step (stair-step through mortar joints)" },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "step-crack",
+                    "chipLabel": "Step Cracking",
+                    "define": "Step cracking (stair-step pattern following mortar joints) observed in the foundation at [location]. Step cracks indicate differential settlement.",
+                    "direct": "Recommend evaluation by a qualified foundation contractor.",
+                    "defer": "Foundation contractor or structural engineer evaluation recommended to assess settlement."
+                  },
+                  "reportLanguage": "Step cracking observed in foundation at [location], following mortar joints in a stair-step pattern. Step cracks indicate differential settlement. Recommend evaluation by a qualified foundation contractor or structural engineer."
+                },
+                {
+                  "when": { "crack-pattern": "Diagonal" },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "diagonal-crack",
+                    "chipLabel": "Diagonal Crack",
+                    "define": "Diagonal cracking observed in foundation wall at [location]. Diagonal cracks indicate foundation movement, typically settlement.",
+                    "direct": "Recommend evaluation by a qualified foundation contractor or structural engineer."
+                  },
+                  "reportLanguage": "Diagonal crack observed in foundation at [location], indicating foundation movement. Recommend evaluation by a qualified foundation contractor or structural engineer."
+                },
+                {
+                  "when": { "displacement": "Yes - one side is offset from the other" },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "displaced-crack",
+                    "chipLabel": "Displaced Crack",
+                    "define": "Foundation crack with displacement (offset) observed at [location]. Displacement confirms active structural movement.",
+                    "direct": "Recommend evaluation by a structural engineer. Displacement indicates active movement that may be ongoing.",
+                    "defer": "Structural engineer evaluation is strongly recommended.",
+                    "urgent": true
+                  },
+                  "reportLanguage": "Foundation crack with displacement (offset across the crack) observed at [location]. Displacement indicates active structural movement. Recommend evaluation by a qualified structural engineer."
+                },
+                {
+                  "when": { "movement-evidence": "Active water seepage through crack" },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "active-seepage",
+                    "chipLabel": "Active Seepage",
+                    "define": "Active water seepage observed through a foundation crack at [location]. Water is entering through the crack at the time of inspection.",
+                    "direct": "Recommend evaluation by a qualified foundation contractor. Address exterior drainage (grading, gutter discharge) to reduce hydrostatic pressure."
+                  },
+                  "reportLanguage": "Active water seepage observed through foundation crack at [location] at the time of inspection. Recommend evaluation by a qualified foundation contractor."
+                },
+                {
+                  "when": { "crack-pattern": "Multiple patterns present" },
+                  "result": "deficiency",
+                  "finding": {
+                    "id": "multiple-crack-patterns",
+                    "chipLabel": "Multiple Crack Patterns",
+                    "define": "Multiple crack patterns observed in the foundation at [location]. Multiple patterns indicate complex foundation movement.",
+                    "direct": "Recommend evaluation by a structural engineer. Multiple crack patterns suggest complex foundation issues.",
+                    "defer": "Structural engineer evaluation is strongly recommended.",
+                    "urgent": true
+                  },
+                  "reportLanguage": "Multiple crack patterns observed in the foundation. Multiple patterns indicate complex foundation issues. Recommend evaluation by a qualified structural engineer."
+                }
+              ]
+            }
+          ],
+          "safeLanguage": [
+            {
+              "id": "general-serviceable",
+              "context": "Overall foundation condition acceptable from exterior",
+              "language": "Foundation walls appeared in serviceable condition with no significant cracking or displacement observed at the time of inspection."
+            },
+            {
+              "id": "hairline-shrinkage",
+              "context": "Minor hairline cracks only, poured concrete",
+              "language": "Minor hairline shrinkage cracks observed in poured concrete foundation, typical of normal curing process. No displacement. No structural concern."
+            },
+            {
+              "id": "grade-clearance-ok",
+              "context": "Adequate foundation height above grade",
+              "language": "Foundation wall appeared to maintain adequate clearance above grade. Minimum 6 inches of foundation was visible between siding/cladding and finish grade."
+            },
+            {
+              "id": "block-acceptable",
+              "context": "Concrete block foundation acceptable",
+              "language": "Concrete block foundation walls appeared in serviceable condition with mortar joints intact. No horizontal cracking, step cracking, bowing, or significant efflorescence observed."
+            },
+            {
+              "id": "stone-acceptable",
+              "context": "Stone foundation acceptable for age",
+              "language": "Stone foundation appeared in serviceable condition for its age. Mortar appeared intact with no significant displacement of stones or bulging of walls."
+            },
+            {
+              "id": "no-efflorescence",
+              "context": "No moisture migration through foundation",
+              "language": "No efflorescence (white mineral deposits) observed on exterior foundation walls, indicating no significant moisture migration through the masonry at the time of inspection."
+            },
+            {
+              "id": "grade-slopes-away",
+              "context": "Grade properly slopes away from foundation",
+              "language": "Finish grade appeared to slope away from the foundation on all sides. Positive drainage away from the structure was observed."
+            },
+            {
+              "id": "slab-acceptable",
+              "context": "Slab-on-grade acceptable",
+              "language": "Slab-on-grade foundation appeared in serviceable condition where visible. No significant cracking, heaving, or settlement observed at the slab edge."
+            }
+          ],
+          "dataCapture": [
+            {
+              "id": "foundation-type",
+              "label": "Foundation type",
+              "type": "chips",
+              "options": ["Poured Concrete", "Concrete Block (CMU)", "Stone", "Brick", "Slab-on-Grade", "Cannot Determine (Parged/Covered)"],
+              "required": true
+            },
+            {
+              "id": "foundation-condition",
+              "label": "Foundation condition",
+              "type": "chips",
+              "options": ["Good", "Fair", "Poor"],
+              "required": true
+            },
+            {
+              "id": "visible-foundation-height",
+              "label": "Visible foundation height above grade",
+              "type": "chips",
+              "options": ["6 inches or more", "Less than 6 inches", "Not visible (covered by siding/grade)"],
+              "required": true
+            },
+            {
+              "id": "previous-repair-evidence",
+              "label": "Evidence of previous foundation repair?",
+              "type": "chips",
+              "options": ["Yes", "No"],
+              "required": false
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "basement-foundation",
+              "relationship": "Exterior foundation cracks should be confirmed from the interior. The same crack visible from both sides confirms severity. (ICA Module 3)"
+            },
+            {
+              "componentId": "basement-moisture",
+              "relationship": "Foundation cracks are a primary entry point for water into the basement. Efflorescence on the exterior indicates moisture migrating through the wall."
+            },
+            {
+              "componentId": "grounds-grading",
+              "relationship": "Per ICA instruction, 90% of foundation moisture problems are caused by surface drainage issues (grading, gutters), not groundwater. Grade must slope away from foundation at minimum 1 inch per foot for 6 feet."
+            },
+            {
+              "componentId": "ext-siding",
+              "relationship": "Minimum 6 inches of visible foundation between siding and grade is required to inspect for cracks, water intrusion, and termite shelter tubes. (68 Ill. Admin. Code 1410)"
+            },
+            {
+              "componentId": "ext-caulking",
+              "relationship": "Foundation-to-siding junction may rely on caulk for weather sealing. Failed caulk at this junction can allow water behind the siding at the foundation line."
+            },
+            {
+              "componentId": "ext-close-access",
+              "relationship": "Decks, porches, additions, vegetation, and landscaping can obscure foundation walls. Document any areas where the foundation could not be inspected."
+            }
+          ]
         },
         {
           "id": "ext-hosebibs",
@@ -9411,6 +11357,88 @@ var INSPECTION_DATA = {
               "chipLabel": "Sealant / Caulk Failure",
               "define": "Sealant/caulk was observed to be [cracked/peeling/missing/deteriorated] at [location/penetrations/transitions]. [Isolated areas / Widespread deterioration observed].",
               "direct": "Recommend recaulking at [affected areas] by a qualified contractor or capable homeowner. Failing sealant allows moisture behind the cladding and into the wall assembly."
+            },
+            {
+              "id": "limited-access-finding",
+              "chipLabel": "Limited Access - Area Not Inspected",
+              "define": "Exterior wall surfaces at [elevation/location] were not accessible for close examination due to [height / dense vegetation / stored items / weather conditions / safety concern] at the time of inspection.",
+              "describe_report": "The following areas of the exterior were not accessible for close examination: [specific areas and reasons]. Per IL SOP 1410.200(e)(2)(C), the report shall disclose systems not inspected with a reason why they were not inspected. Per ASHI SOP and InterNACHI SOP, a home inspection is a non-invasive, visual examination of readily accessible systems and components.",
+              "describe_client": "There were areas of the exterior that could not be closely examined during the inspection because of [reason in plain language]. This means there could be conditions in those areas that were not identified. The inspector is not responsible for defects in areas that could not be reached, but you should be aware that those areas were not fully evaluated.",
+              "direct": "Per IL SOP 1410.200(e)(2)(C), this limitation is disclosed. Recommend evaluation of inaccessible areas by a qualified contractor when access conditions improve.",
+              "evidence": "CAPTURE: Photograph the area showing why access was limited. Document the specific limitation (height, vegetation, items, weather, safety)."
+            },
+            {
+              "id": "water-intrusion-evidence-close-access",
+              "chipLabel": "Water Intrusion Evidence (Exterior)",
+              "define": "Evidence of moisture intrusion observed during close-access assessment at [location] on the [elevation]. Indicators include: [staining below windows or penetrations / efflorescence on masonry / biological growth (moss, algae, mildew) / bubbling or peeling paint / damaged sealant with moisture staining / rotted siding or trim]. These indicators suggest water is penetrating the wall assembly at or above this location.",
+              "describe_report": "Exterior evidence of moisture intrusion was observed at [location] on the [elevation]. Indicators: [list specific observations]. These signs suggest water is entering the wall assembly. The source may be [failed flashing / failed caulking / missing kick-out flashing / deteriorated siding / damaged trim] based on the observed indicators. Further evaluation is recommended to determine the extent of concealed damage.",
+              "describe_client": "There are signs on the outside of the house at [location] that water has been getting into the wall. [Plain language description of what was observed]. Water getting into walls causes rot, mold, and structural damage that you usually cannot see from the outside until it gets severe. A qualified contractor should evaluate this area to determine where the water is coming from and how far the damage extends.",
+              "direct": "Recommend evaluation by a qualified contractor to determine the source and extent of moisture intrusion. Interior walls at corresponding locations should be evaluated for damage. Cross-reference with interior observations at this location.",
+              "cascades": [
+                {
+                  "check": "int-rooms.walls-ceilings",
+                  "reason": "Exterior water intrusion evidence at [location] -- check interior walls and ceilings at corresponding location for staining, mold, or damage."
+                },
+                {
+                  "check": "ext-flashing",
+                  "reason": "Water intrusion evidence on exterior -- verify flashing is present and intact at this location. Missing or failed flashing is the most common cause of wall assembly moisture intrusion."
+                },
+                {
+                  "check": "ext-caulking",
+                  "reason": "Water intrusion evidence -- verify caulking is intact at windows, doors, and penetrations at this location."
+                },
+                {
+                  "check": "attic.insulation",
+                  "reason": "If water intrusion is near the roofline, check attic insulation for moisture at corresponding location."
+                }
+              ]
+            },
+            {
+              "id": "pattern-of-deterioration",
+              "chipLabel": "Pattern of Deterioration",
+              "define": "A pattern of deterioration was observed affecting multiple exterior systems on the [elevation]. Systems affected include: [siding / trim / windows / doors / caulking / flashing]. The pattern suggests a common cause, likely [chronic moisture exposure from prevailing weather / missing or failed flashing at [location] / failed drainage at [location] / grade or landscaping directing water toward the wall].",
+              "describe_report": "Multiple exterior systems on the [elevation] exhibit deterioration in a pattern consistent with [identified cause]. Affected systems: [list]. The concentration of defects on one elevation suggests a systemic issue rather than isolated component failures. This pattern warrants further investigation to identify and correct the root cause before individual repairs are made.",
+              "describe_client": "Multiple things on the [side] of the house are showing wear or damage in the same area -- the [siding, trim, window frames, caulking, etc.] are all deteriorating in the same spot. When you see this kind of pattern, it usually means there is one underlying cause (like water getting in from a missing piece of flashing or a gutter problem) that is damaging everything around it. Fixing each individual item without fixing the root cause means the damage will come back.",
+              "direct": "Recommend evaluation by a qualified contractor to identify the root cause of the deterioration pattern before making individual repairs. Addressing symptoms without correcting the underlying cause will result in recurring damage.",
+              "cascades": [
+                {
+                  "check": "ext-flashing",
+                  "reason": "Pattern of deterioration on [elevation] -- primary suspect is missing or failed flashing. Verify all flashing at this elevation."
+                },
+                {
+                  "check": "ext-caulking",
+                  "reason": "Pattern of deterioration -- verify caulking at all penetrations and transitions on affected elevation."
+                },
+                {
+                  "check": "ext-siding",
+                  "reason": "Pattern of deterioration -- evaluate siding condition on affected elevation for moisture damage."
+                },
+                {
+                  "check": "ext-trim",
+                  "reason": "Pattern of deterioration -- evaluate trim condition on affected elevation for moisture damage."
+                },
+                {
+                  "check": "grounds-grading",
+                  "reason": "Pattern of deterioration may be caused by grade directing water toward the wall. Check grading at this elevation."
+                }
+              ]
+            },
+            {
+              "id": "elevation-specific-damage",
+              "chipLabel": "Elevation-Specific Damage",
+              "define": "Damage concentrated on the [elevation] of the building, affecting [list affected components]. The [south/west] exposure receives the most UV radiation and wind-driven rain in Illinois. The [north] exposure retains moisture longest and promotes biological growth. The [east/west] exposure is subject to prevailing storm patterns.",
+              "describe_report": "Exterior deterioration is concentrated on the [elevation]. This is consistent with [south/west exposure receiving maximum UV and weather exposure / north exposure retaining moisture / storm-driven damage on [elevation]]. Components affected: [list]. The directional nature of the damage supports a weather-exposure cause rather than a systemic building defect.",
+              "describe_client": "The [side] of the house is showing more wear than the other sides. This is normal for that direction -- [the south and west sides get the most sun and rain / the north side stays damp longer because it gets less sun / etc.]. It does not necessarily mean something is wrong with the house -- it means that side needs more frequent maintenance.",
+              "direct": "Individual component repairs as noted in their respective sections. The client should be aware that this elevation will continue to weather faster than other elevations and will need more frequent maintenance. This is a characteristic of the exposure, not a defect.",
+              "evidence": "CAPTURE: Photograph the affected elevation showing the pattern of damage. Photograph the other elevations for comparison to demonstrate the directional pattern."
+            },
+            {
+              "id": "deferred-maintenance-accumulation",
+              "chipLabel": "Deferred Maintenance Accumulation",
+              "define": "Multiple maintenance items observed across the exterior during the close-access assessment, including [list: failed caulking at multiple locations / paint deterioration / minor trim damage / aging sealants / etc.]. While no single item represents a significant deficiency, the accumulation of deferred maintenance items increases the risk of moisture intrusion and accelerated deterioration.",
+              "describe_report": "The exterior exhibits an accumulation of deferred maintenance items. While individual items are minor, their combined effect reduces the weather resistance of the exterior envelope. Continued deferral will result in more costly repairs as minor items progress to system failures.",
+              "describe_client": "The outside of the house has a number of small maintenance items that have been put off -- things like dried-out caulking, paint starting to peel, minor trim issues, aging sealants. None of these is a big deal on its own, but when they all add up, the house becomes more vulnerable to water getting in. Taking care of these items now is much cheaper than dealing with the water damage that results from ignoring them.",
+              "direct": "Recommend a comprehensive exterior maintenance program addressing all identified items. Prioritize items that directly affect moisture management: caulking, flashing, and trim at window/door openings."
             }
           ],
           "redFlags": [
@@ -9437,7 +11465,77 @@ var INSPECTION_DATA = {
               "EVIDENCE CAPTURE FOR DEFENSIBILITY: Photograph areas where access was limited. Photograph the reasons for limitation (dense vegetation, stored items, height). Per ICA Module 24, write the report as if the client was not present at the inspection. The report stands alone. Your limitation documentation with supporting photos is your proof that you were thorough within the access available."
             ],
             "ashiSop": "ASHI SOP Section 4 (Exterior): The inspector shall inspect wall coverings, flashing and trim; exterior doors; eaves, soffits, and fascias where accessible from ground level. Shall describe wall coverings. The inspector is NOT required to inspect screening, shutters, awnings, fences, outbuildings, seawalls, or erosion control."
-          }
+          },
+          "safeLanguage": [
+            {
+              "id": "full-access-examined",
+              "text": "All accessible exterior surfaces were inspected. Approximately [X]% of exterior wall area was closely examined from ground level.",
+              "use": "Opening statement documenting the scope of the close-access examination. Always specify the percentage."
+            },
+            {
+              "id": "upper-stories-limitation",
+              "text": "Areas above the first story were visually observed from ground level using binoculars where appropriate. Conditions at upper elevations could not be closely examined and may differ from what was observed at grade level.",
+              "use": "Standard limitation language for multi-story homes where upper portions are not closely accessible."
+            },
+            {
+              "id": "all-elevations-examined",
+              "text": "All four elevations (north, south, east, and west) were examined during the close-access assessment. No elevations were precluded from examination.",
+              "use": "When all elevations were accessible and examined."
+            },
+            {
+              "id": "vegetation-limitation",
+              "text": "Dense vegetation at [location] prevented close access to the exterior wall surface at that area. Conditions behind the vegetation could not be assessed. Recommend trimming vegetation to maintain a minimum 6-inch clearance from the exterior wall.",
+              "use": "When vegetation blocks close access. Common in IL with overgrown shrubs against foundation walls."
+            },
+            {
+              "id": "stored-items-limitation",
+              "text": "Stored items against the exterior wall at [location] prevented close examination of the wall surface and foundation in that area. Items were not moved as part of the inspection per the Standards of Practice.",
+              "use": "When stored items block access. Per ASHI SOP: inspector is not required to move personal items."
+            },
+            {
+              "id": "no-defects-summary",
+              "text": "No significant defects were observed on the accessible exterior surfaces during the close-access assessment. Minor maintenance items, if any, are noted in the individual component sections of this report.",
+              "use": "Summary closing statement when the exterior is in generally acceptable condition."
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-siding",
+              "relationship": "Close-access cladding checks evaluate siding condition at each elevation. Siding deficiencies found during close-access should be documented in the siding component with location reference."
+            },
+            {
+              "componentId": "ext-soffit",
+              "relationship": "Soffit checks during close-access evaluate holes, loose panels, and ventilation. Soffit deficiencies cascade to attic ventilation assessment."
+            },
+            {
+              "componentId": "ext-fascia",
+              "relationship": "Fascia checks during close-access include press-testing for hidden rot behind aluminum wrap. Fascia deficiencies cascade to gutter evaluation (rotted fascia is the #1 cause of gutter sag)."
+            },
+            {
+              "componentId": "ext-windows",
+              "relationship": "Window checks during close-access evaluate sill condition, glazing, and watertight appearance at head. Pattern findings (multiple seal failures, multiple painted-shut windows) should trigger systemic assessment."
+            },
+            {
+              "componentId": "ext-doors",
+              "relationship": "Door checks during close-access evaluate frame and threshold condition, weatherstripping, and watertight appearance at head."
+            },
+            {
+              "componentId": "ext-trim",
+              "relationship": "Trim checks during close-access evaluate rot, paint condition, and sealant at transitions. Trim deterioration patterns on one elevation may indicate missing flashing."
+            },
+            {
+              "componentId": "ext-flashing",
+              "relationship": "Flashing checks during close-access evaluate kick-out, step, head, Z-flashing, and counter flashing at each elevation. Missing kick-out flashing is the most commonly omitted piece -- check at every roof-to-wall termination."
+            },
+            {
+              "componentId": "ext-caulking",
+              "relationship": "Caulking checks during close-access evaluate sealant at penetrations, joints, and transitions. Caulk failure patterns (uniformly deteriorated vs. localized) help determine age-related vs. installation-related issues."
+            },
+            {
+              "componentId": "ext-foundation",
+              "relationship": "Structural concerns observed from exterior during close-access (step cracking, horizontal cracking, bulging walls, rusting lintels) cascade to foundation evaluation. Per ICA Module 7: masonry cracking almost always traces back to the foundation."
+            }
+          ]
         }
       ]
     },
@@ -32276,11 +34374,11 @@ var searchIndex = [];
 var searchTimeout = null;
 
 var CROSS_REFS = {
-  "ext-caulking":["ext-windows","ext-foundation","ext-flashing","ext-siding","ext-hosebibs","roof-flashing","ext-trim","ext-close-access"],
-  "ext-flashing":["roof-flashing","ext-caulking","ext-windows","ext-siding","roof-chimney","roof-vents","ext-trim","ext-close-access"],
+  "ext-caulking":["ext-windows","ext-foundation","ext-flashing","ext-siding","ext-hosebibs","roof-flashing","ext-trim","ext-close-access","ext-doors"],
+  "ext-flashing":["roof-flashing","ext-caulking","ext-windows","ext-siding","roof-chimney","roof-vents","ext-trim","ext-close-access","ext-doors"],
   "roof-flashing":["ext-flashing","ext-caulking","roof-chimney","roof-vents","roof-valleys","roof-skylights"],
-  "ext-windows":["ext-caulking","ext-flashing","ext-siding","int-rooms","ext-trim","ext-close-access"],
-  "ext-foundation":["basement-foundation","ext-caulking","grounds-grading","basement-moisture"],
+  "ext-windows":["ext-caulking","ext-flashing","ext-siding","int-rooms","ext-trim","ext-close-access","ext-doors"],
+  "ext-foundation":["basement-foundation","ext-caulking","grounds-grading","basement-moisture","ext-siding","ext-close-access","int-rooms"],
   "basement-foundation":["ext-foundation","basement-structure","basement-moisture","grounds-grading"],
   "plumb-water-heater":["plumb-gas","plumb-supply","plumb-dwv","elec-branch","heat-system"],
   "elec-main":["elec-sub","elec-branch","elec-gfci","ext-service-entry","plumb-supply"],
@@ -32313,10 +34411,10 @@ var CROSS_REFS = {
   "grounds-grading":["ext-foundation","basement-moisture","grounds-retaining","ext-gutters"],
   "grounds-fence":["grounds-retaining","grounds-grading"],
   "grounds-retaining":["grounds-grading","ext-foundation","basement-moisture","grounds-fence"],
-  "ext-soffit":["ext-fascia","ext-gutters","roof-ventilation","attic-insulation","ext-trim","ext-close-access"],
-  "ext-fascia":["ext-soffit","ext-gutters","roof-flashing","ext-trim","ext-close-access"],
+  "ext-soffit":["ext-fascia","ext-gutters","roof-ventilation","attic-insulation","ext-trim","ext-close-access","ext-siding"],
+  "ext-fascia":["ext-soffit","ext-gutters","roof-flashing","ext-trim","ext-close-access","ext-siding"],
   "ext-gutters":["ext-soffit","ext-fascia","ext-foundation","grounds-grading","basement-moisture"],
-  "ext-siding":["ext-caulking","ext-flashing","ext-windows","ext-foundation","ext-trim","ext-close-access"],
+  "ext-siding":["ext-caulking","ext-flashing","ext-windows","ext-foundation","ext-trim","ext-close-access","ext-soffit","ext-fascia"],
   "ext-hosebibs":["plumb-supply","ext-caulking"],
   "ext-service-entry":["elec-main","ext-receptacles"],
   "ext-receptacles":["elec-gfci","ext-service-entry","garage-service"],
@@ -32327,17 +34425,18 @@ var CROSS_REFS = {
   "int-kitchen":["plumb-supply","plumb-dwv","elec-gfci","elec-branch"],
   "int-bathroom":["plumb-supply","plumb-dwv","elec-gfci","roof-vents"],
   "int-laundry":["plumb-supply","plumb-dwv","elec-gfci","elec-branch"],
-  "int-rooms":["int-stairs","ext-windows","elec-branch"],
+  "int-rooms":["int-stairs","ext-windows","elec-branch","ext-foundation","ext-doors"],
   "int-fireplace":["roof-chimney","plumb-gas","heat-system"],
   "int-stairs":["grounds-steps","grounds-deck","int-rooms"],
   "int-smoke-co":["elec-smoke-co","int-fireplace","heat-system","plumb-gas"],
   "basement-structure":["basement-foundation","attic-structure","grounds-deck"],
-  "basement-moisture":["basement-foundation","grounds-grading","plumb-supply","ext-gutters"],
+  "basement-moisture":["basement-foundation","grounds-grading","plumb-supply","ext-gutters","ext-foundation"],
   "elec-smoke-co":["int-smoke-co","elec-branch","heat-system","plumb-gas"],
   "elec-afci":["elec-main","elec-branch","elec-gfci"],
   "plumb-water-softener":["plumb-supply","plumb-water-heater"],
-  "ext-trim":["ext-siding","ext-flashing","ext-windows","ext-caulking","ext-fascia","ext-soffit"],
-  "ext-close-access":["ext-siding","ext-soffit","ext-fascia","ext-windows","ext-doors","ext-trim","ext-flashing","ext-caulking"]
+  "ext-trim":["ext-siding","ext-flashing","ext-windows","ext-caulking","ext-fascia","ext-soffit","ext-close-access","ext-doors"],
+  "ext-doors":["ext-caulking","ext-flashing","ext-windows","ext-close-access","int-rooms","ext-trim"],
+  "ext-close-access":["ext-siding","ext-soffit","ext-fascia","ext-windows","ext-doors","ext-trim","ext-flashing","ext-caulking","ext-foundation"]
 };
 
 function buildSearchIndex() {
