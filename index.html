@@ -33233,10 +33233,12 @@ function renderComponent(comp) {
   html += '<div class="card-header"><span class="icon">' + (comp.icon || '') + '</span><h2>' + esc(comp.title || '') + '</h2></div>';
   html += '<div class="card-body" id="card-body-' + comp.id + '">';
 
-  // 1. Data Capture
-  if (comp.dataCapture && comp.dataCapture.length) {
+  // 1. Data Capture (with integrated decoder if decoderRef exists)
+  // Support fillIn and fields as aliases for dataCapture
+  var dcFields = comp.dataCapture || comp.fillIn || comp.fields || null;
+  if (dcFields && dcFields.length) {
     html += '<div class="section-label accent">Data Capture</div>';
-    html += renderDataCapture(comp.id, comp.dataCapture, state);
+    html += renderDataCapture(comp.id, dcFields, state, comp.decoderRef ? comp : null);
   }
 
   // 2. Type Select
@@ -33328,7 +33330,21 @@ function renderComponent(comp) {
 /* ============================================
    RENDER: Data Capture Fields
    ============================================ */
-function renderDataCapture(compId, fields, state) {
+function renderDataCapture(compId, fields, state, decoderComp) {
+  // Decoder brand options for mechanical components
+  var decoderBrands = [
+    { id: 'carrier', label: 'Carrier / Bryant / Payne' },
+    { id: 'lennox', label: 'Lennox / Armstrong / AirEase / Ducane' },
+    { id: 'trane', label: 'Trane / American Standard' },
+    { id: 'rheem', label: 'Rheem / Ruud' },
+    { id: 'goodman', label: 'Goodman / Amana / Daikin' },
+    { id: 'york', label: 'York / Coleman / Luxaire' },
+    { id: 'icp', label: 'Heil / Tempstar / Comfortmaker / ICP' },
+    { id: 'aoSmith', label: 'A.O. Smith / State / American / Reliance' },
+    { id: 'bradfordWhite', label: 'Bradford White' }
+  ];
+  var hasDecoder = !!decoderComp;
+
   var html = '<div class="fill-grid">';
   fields.forEach(function(field) {
     var val = (state.dataCapture && state.dataCapture[field.id]) || '';
@@ -33336,7 +33352,22 @@ function renderDataCapture(compId, fields, state) {
     html += '<div class="fill-item' + wideClass + '">';
     html += '<label>' + esc(field.label) + '</label>';
 
-    if (field.type === 'chips' && field.options) {
+    // If this is the Brand field and we have a decoder, render as dropdown
+    if (hasDecoder && (field.id === 'brand' || field.id === 'wh-brand')) {
+      html += '<select id="dc-brand-' + compId + '" onchange="setDataCapture(\'' + compId + '\',\'' + field.id + '\',this.value);_decoderFromDataCapture(\'' + compId + '\')">';
+      html += '<option value="">-- Select Brand --</option>';
+      decoderBrands.forEach(function(b) {
+        var sel = (val === b.id || val === b.label) ? ' selected' : '';
+        html += '<option value="' + b.id + '"' + sel + '>' + b.label + '</option>';
+      });
+      html += '<option value="other"' + (val === 'other' ? ' selected' : '') + '>Other / Not Listed</option>';
+      html += '</select>';
+    }
+    // If this is the Serial field and we have a decoder, add decode trigger
+    else if (hasDecoder && (field.id === 'serial' || field.id === 'wh-serial')) {
+      html += '<input type="text" id="dc-serial-' + compId + '" placeholder="' + esc(field.placeholder || 'Enter serial number') + '" value="' + esc(val) + '" oninput="setDataCapture(\'' + compId + '\',\'' + field.id + '\',this.value);_decoderFromDataCapture(\'' + compId + '\')" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">';
+    }
+    else if (field.type === 'chips' && field.options) {
       // Multi-select chips or single-select chips
       var selectedVals = field.multi ? (Array.isArray(val) ? val : (val ? [val] : [])) : [];
       html += '<div class="toggle-row" style="flex-wrap:wrap;gap:6px">';
@@ -33383,7 +33414,26 @@ function renderDataCapture(compId, fields, state) {
     }
     html += '</div>';
   });
+
+  // Add Model Number field if decoder and not already present
+  if (hasDecoder) {
+    var hasModel = fields.some(function(f) { return f.id === 'model' || f.id === 'wh-model'; });
+    if (!hasModel) {
+      var modelVal = (state.dataCapture && state.dataCapture['model']) || '';
+      html += '<div class="fill-item">';
+      html += '<label>Model #</label>';
+      html += '<input type="text" id="dc-model-' + compId + '" placeholder="Enter model number" value="' + esc(modelVal) + '" oninput="setDataCapture(\'' + compId + '\',\'model\',this.value);_decoderFromDataCapture(\'' + compId + '\')" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">';
+      html += '</div>';
+    }
+  }
+
   html += '</div>';
+
+  // Decoder results area (inline, below the data capture grid)
+  if (hasDecoder) {
+    html += '<div id="dc-results-' + compId + '" style="margin-top:10px"></div>';
+  }
+
   return html;
 }
 
@@ -33425,6 +33475,166 @@ function setDataCaptureChip(compId, fieldId, isMulti, value, btnEl) {
   }
   updateComponentSummary(compId);
 }
+
+/* ============================================
+   DECODER: Integrated into Data Capture
+   ============================================ */
+window._decoderFromDataCapture = function(compId) {
+  var brandEl = document.getElementById('dc-brand-' + compId);
+  var serialEl = document.getElementById('dc-serial-' + compId);
+  var modelEl = document.getElementById('dc-model-' + compId);
+  var resultsEl = document.getElementById('dc-results-' + compId);
+  if (!brandEl || !serialEl || !resultsEl) return;
+
+  var brandId = brandEl.value;
+  var serialNum = serialEl.value.trim();
+  var modelNum = modelEl ? modelEl.value.trim() : '';
+
+  // Need brand and at least 4 chars of serial
+  if (!brandId || brandId === 'other' || serialNum.length < 4) {
+    resultsEl.innerHTML = '';
+    return;
+  }
+
+  // Decode
+  var serialResult = decodeSerial(brandId, serialNum);
+  var modelResult = modelNum ? decodeModel(brandId, modelNum) : { capacityBTU: null, capacityTons: null, efficiency: null, fuelType: null, refrigerant: null };
+  var ageResult = calculateAge(serialResult.year, serialResult.month);
+
+  // Determine equipment type from the component's typeSelect state
+  var state = getComponentState(compId);
+  var equipType = '';
+  if (state.selectedType) {
+    // Map type IDs to equipment type keys
+    var typeMap = {
+      'forced-air': 'gasFurnace', 'gas-furnace': 'gasFurnace', 'furnace': 'gasFurnace',
+      'boiler': 'gasBoiler', 'hydronic': 'gasBoiler',
+      'heat-pump': 'heatPump', 'heat-pump-sys': 'heatPump',
+      'electric-baseboard': 'electricFurnace', 'electric': 'electricFurnace',
+      'gas-tank': 'gasWaterHeater', 'electric-tank': 'electricWaterHeater',
+      'tankless': 'tanklessWaterHeater', 'tankless-gas': 'tanklessWaterHeater',
+      'central-ac': 'centralAC', 'central': 'centralAC',
+      'mini-split': 'miniSplit', 'ductless': 'miniSplit'
+    };
+    equipType = typeMap[state.selectedType] || '';
+  }
+
+  var lifeResult = null;
+  if (equipType && serialResult.year) {
+    lifeResult = assessLifeStatus(equipType, ageResult.ageYears);
+  }
+
+  // Auto-fill Age field
+  if (serialResult.year && ageResult.ageYears !== null) {
+    var ageStr = ageResult.ageYears + ' yrs';
+    setDataCapture(compId, 'age', ageStr);
+    // Update the age input if visible
+    var fields = document.querySelectorAll('#card-body-' + compId + ' .fill-item input');
+    for (var i = 0; i < fields.length; i++) {
+      if (fields[i].value === '' || fields[i].placeholder.indexOf('age') > -1 || fields[i].placeholder.indexOf('Age') > -1 || fields[i].placeholder.indexOf('~') === 0) {
+        // Check if this is the age field by checking the label
+        var label = fields[i].previousElementSibling || fields[i].parentElement.querySelector('label');
+        if (label && label.textContent && label.textContent.toLowerCase().indexOf('age') > -1) {
+          fields[i].value = ageStr;
+        }
+      }
+    }
+  }
+
+  // Auto-fill BTU/Capacity from model decode
+  if (modelResult.capacityBTU) {
+    var btuStr = modelResult.capacityBTU.toLocaleString() + ' BTU';
+    setDataCapture(compId, 'btu', btuStr);
+    setDataCapture(compId, 'tonnage', modelResult.capacityTons ? modelResult.capacityTons + ' ton' : btuStr);
+  }
+
+  // Build results HTML using the app's design system
+  var rHtml = '';
+  rHtml += '<div class="card" style="margin-top:8px;border:2px solid var(--accent)">';
+  rHtml += '<div class="card-header" style="padding:10px 14px"><h2 style="font-size:0.95rem;margin:0">Decoded Results</h2></div>';
+  rHtml += '<div class="card-body" style="padding:12px 14px">';
+
+  // Manufacture Date
+  if (serialResult.year) {
+    var monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var dateStr = serialResult.month ? monthNames[serialResult.month] + ' ' + serialResult.year : '~' + serialResult.year;
+    rHtml += '<div class="fill-grid" style="margin-bottom:10px">';
+    rHtml += '<div class="fill-item"><label>Manufactured</label><div style="font-size:1.1rem;font-weight:700;color:var(--ink);padding:6px 0">' + dateStr + '</div></div>';
+    rHtml += '<div class="fill-item"><label>Current Age</label><div style="font-size:1.1rem;font-weight:700;color:var(--ink);padding:6px 0">' + ageResult.ageYears + ' years' + (serialResult.month ? ', ' + ageResult.ageMonths + ' mo' : '') + '</div></div>';
+    rHtml += '</div>';
+  } else {
+    rHtml += '<div style="padding:10px;background:var(--accent-soft);border-radius:var(--radius-sm);margin-bottom:10px">';
+    rHtml += '<div style="font-size:0.9rem;font-weight:600;color:var(--accent)">Could not determine date</div>';
+    rHtml += '<div style="font-size:0.82rem;color:var(--muted);margin-top:2px">' + esc(serialResult.notes) + '</div>';
+    rHtml += '</div>';
+  }
+
+  // Confidence
+  var confColors = { high: '#2d8a4e', medium: '#b8860b', low: '#c0392b' };
+  var confLabels = { high: 'HIGH CONFIDENCE', medium: 'MEDIUM', low: 'LOW CONFIDENCE' };
+  rHtml += '<div style="margin-bottom:10px"><span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:700;letter-spacing:0.05em;background:' + (confColors[serialResult.confidence] || '#666') + '18;color:' + (confColors[serialResult.confidence] || '#666') + ';border:1.5px solid ' + (confColors[serialResult.confidence] || '#666') + '44">' + (confLabels[serialResult.confidence] || 'UNKNOWN') + '</span></div>';
+
+  // Life Status Traffic Light
+  if (lifeResult && lifeResult.expected) {
+    var sColors = { green: '#2d8a4e', yellow: '#b8860b', orange: '#d35400', red: '#c0392b' };
+    var sBg = { green: '#2d8a4e12', yellow: '#b8860b12', orange: '#d3540012', red: '#c0392b12' };
+    var sLabels = { good: 'GOOD', aging: 'AGING', 'near-end': 'NEAR END OF LIFE', 'past-life': 'PAST EXPECTED LIFE' };
+
+    rHtml += '<div style="padding:14px;background:' + (sBg[lifeResult.color] || '#f5f5f5') + ';border-radius:var(--radius-sm);border:2px solid ' + (sColors[lifeResult.color] || '#ccc') + '33;margin-bottom:10px">';
+
+    // Status with circle
+    rHtml += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
+    rHtml += '<div style="width:28px;height:28px;border-radius:50%;background:' + (sColors[lifeResult.color] || '#999') + ';flex-shrink:0"></div>';
+    rHtml += '<div>';
+    rHtml += '<div style="font-size:0.95rem;font-weight:700;color:' + (sColors[lifeResult.color] || '#333') + '">' + (sLabels[lifeResult.status] || 'UNKNOWN') + '</div>';
+    rHtml += '<div style="font-size:0.82rem;color:var(--muted)">' + lifeResult.percentUsed + '% of expected life used</div>';
+    rHtml += '</div></div>';
+
+    // Progress bar
+    var barPct = Math.min(lifeResult.percentUsed, 150);
+    rHtml += '<div style="background:var(--line);border-radius:8px;height:10px;overflow:hidden;margin-bottom:8px">';
+    rHtml += '<div style="background:' + (sColors[lifeResult.color] || '#999') + ';width:' + Math.min(barPct, 100) + '%;height:100%;border-radius:8px"></div>';
+    rHtml += '</div>';
+
+    rHtml += '<div style="font-size:0.8rem;color:var(--muted)">Expected: ' + lifeResult.expectedRange + ' (avg ' + lifeResult.expected + ' yrs)</div>';
+    if (lifeResult.remaining > 0) {
+      rHtml += '<div style="font-size:0.8rem;color:var(--muted)">Remaining: ~' + lifeResult.remaining + ' years</div>';
+    }
+
+    if (lifeResult.finding) {
+      rHtml += '<div style="margin-top:8px;padding:10px;background:var(--bg);border-radius:var(--radius-sm);font-size:0.85rem;color:var(--ink);line-height:1.5">' + lifeResult.finding + '</div>';
+    }
+    rHtml += '</div>';
+  } else if (serialResult.year && !equipType) {
+    rHtml += '<div style="padding:10px;background:var(--accent-soft);border-radius:var(--radius-sm);margin-bottom:10px;font-size:0.85rem;color:var(--muted)">Select a heating/equipment type above to see life expectancy assessment.</div>';
+  }
+
+  // Model decode results
+  if (modelNum && (modelResult.capacityBTU || modelResult.capacityTons || modelResult.efficiency || modelResult.fuelType || modelResult.refrigerant)) {
+    rHtml += '<div class="fill-grid" style="margin-top:6px">';
+    if (modelResult.capacityBTU) {
+      rHtml += '<div class="fill-item"><label>Capacity</label><div style="font-size:0.95rem;font-weight:600;color:var(--ink);padding:4px 0">' + modelResult.capacityBTU.toLocaleString() + ' BTU</div></div>';
+    }
+    if (modelResult.capacityTons) {
+      rHtml += '<div class="fill-item"><label>Tonnage</label><div style="font-size:0.95rem;font-weight:600;color:var(--ink);padding:4px 0">' + modelResult.capacityTons + ' Ton</div></div>';
+    }
+    if (modelResult.efficiency) {
+      rHtml += '<div class="fill-item"><label>Efficiency</label><div style="font-size:0.95rem;font-weight:600;color:var(--ink);padding:4px 0">' + modelResult.efficiency + '</div></div>';
+    }
+    if (modelResult.refrigerant) {
+      rHtml += '<div class="fill-item"><label>Refrigerant</label><div style="font-size:0.95rem;font-weight:600;color:var(--ink);padding:4px 0">' + modelResult.refrigerant + '</div></div>';
+    }
+    rHtml += '</div>';
+  }
+
+  // Notes
+  if (serialResult.notes) {
+    rHtml += '<div style="margin-top:8px;font-size:0.8rem;color:var(--muted);line-height:1.4"><strong>Note:</strong> ' + esc(serialResult.notes) + '</div>';
+  }
+
+  rHtml += '</div></div>';
+  resultsEl.innerHTML = rHtml;
+};
 
 /* ============================================
    RENDER: Type Select
