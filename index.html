@@ -40768,7 +40768,8 @@ var INSPECTION_DATA = {
                 "Max Breaker (CU)",
                 "Max Breaker (AL)",
                 "Common Use",
-                "NM Jacket Color (post-2001)"
+                "NM Jacket Color (post-2001)",
+                "Color Note"
               ],
               "rows": [
                 {
@@ -50936,6 +50937,13 @@ function renderRefTable(rt) {
         row.forEach(function(cell) { html += '<td>' + esc(String(cell)) + '</td>'; });
       } else if (row.key !== undefined) {
         html += '<td>' + esc(String(row.key)) + '</td><td>' + esc(String(row.value)) + '</td>';
+      } else if (typeof row === 'object') {
+        // Named-property objects: output values in key order, skip meta keys
+        Object.keys(row).forEach(function(k) {
+          if (k !== 'highlightKey' && k !== 'showWhen' && k !== 'conditional') {
+            html += '<td>' + esc(String(row[k])) + '</td>';
+          }
+        });
       }
       html += '</tr>';
     });
