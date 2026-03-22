@@ -21406,6 +21406,55 @@ var INSPECTION_DATA = {
               "define": "Exposed, damaged, or improperly secured wiring was observed in the garage.",
               "direct": "Recommend evaluation and correction by a qualified licensed electrician.",
               "defer": "Refer to a qualified contractor for further evaluation."
+            },
+            {
+              "id": "gfci-failed-test",
+              "chipLabel": "GFCI Failed Test",
+              "define": "GFCI at [location] in the garage did not trip when tested. A GFCI that does not trip on demand cannot provide shock protection and must be replaced.",
+              "direct": "Recommend replacement by a qualified electrician.",
+              "defer": "Refer to a qualified electrician."
+            },
+            {
+              "id": "gfci-wont-reset",
+              "chipLabel": "GFCI Won't Reset",
+              "define": "GFCI at [location] in the garage tripped but would not reset at the time of inspection. This may indicate a ground fault on the circuit or a defective GFCI.",
+              "direct": "Recommend evaluation and repair by a qualified electrician.",
+              "defer": "Refer to a qualified electrician."
+            },
+            {
+              "id": "door-weatherstrip-damaged",
+              "chipLabel": "Weatherstripping Damaged",
+              "define": "Weatherstripping on the garage service door is [missing / deteriorated / damaged] at [location]. This allows air, moisture, and pest infiltration.",
+              "direct": "Recommend replacement of weatherstripping.",
+              "defer": "Homeowner maintenance item. Weatherstripping is available at hardware stores."
+            },
+            {
+              "id": "door-threshold-damaged",
+              "chipLabel": "Threshold Damaged",
+              "define": "Threshold at the garage service door is [damaged / worn / missing], which may allow water intrusion and pest entry.",
+              "direct": "Recommend repair or replacement.",
+              "defer": "Refer to a qualified general contractor."
+            },
+            {
+              "id": "extension-cord-permanent",
+              "chipLabel": "Extension Cord as Permanent Wiring",
+              "define": "Extension cord(s) observed being used as permanent wiring in the garage at [location]. Extension cords are designed for temporary use only. In a garage environment with vehicles and tools, this presents an increased risk.",
+              "direct": "Recommend installation of permanent receptacle outlet(s) by a qualified electrician.",
+              "defer": "Refer to a qualified electrician."
+            },
+            {
+              "id": "receptacle-wiring-defect",
+              "chipLabel": "Receptacle Wiring Defect",
+              "define": "Receptacle at [location] in the garage tested with [reverse polarity / open ground / open neutral / open hot] on the 3-light tester.",
+              "direct": "Recommend correction by a qualified electrician.",
+              "defer": "Refer to a qualified electrician."
+            },
+            {
+              "id": "receptacle-damaged",
+              "chipLabel": "Damaged Receptacle",
+              "define": "Receptacle at [location] in the garage appeared [cracked / broken / loose / damaged]. A damaged receptacle in a garage environment with moisture and concrete floors presents an increased shock hazard.",
+              "direct": "Recommend replacement by a qualified electrician.",
+              "defer": "Refer to a qualified electrician."
             }
           ],
           "ilNote": "GFCI cascading: tripping a garage GFCI may kill power to the garage door opener, exterior outlets, or a garage refrigerator. Always reset before leaving.",
@@ -21417,7 +21466,12 @@ var INSPECTION_DATA = {
               "GFCI CASCADING: Tripping garage GFCI may kill power to opener, exterior outlets, or garage refrigerator/freezer.",
               "SERVICE DOOR: Check operates, locks, weatherstripping. Also a security entry point.",
               "GARAGE-TO-HOUSE DOOR: Must be solid core, self-closing, elevated 4\" above garage floor (gas curb).",
-              "GFCI DECISION TREE: (1) Has TEST/RESET buttons? Yes = GFCI receptacle, test it. No = may be protected upstream. (2) Use 3-light tester, press TEST. Something trips = protection exists upstream. Nothing trips = NO GFCI = DEFECT."
+              "GFCI DECISION TREE: (1) Has TEST/RESET buttons? Yes = GFCI receptacle, test it. No = may be protected upstream. (2) Use 3-light tester, press TEST. Something trips = protection exists upstream. Nothing trips = NO GFCI = DEFECT.",
+              "GFCI PROTECTION: All garage receptacles require GFCI per NEC 210.8(A)(2). GFCI can be at the receptacle (TEST/RESET buttons on the face), at an upstream GFCI receptacle (elsewhere on the circuit), or at the breaker (TEST button on the breaker at the panel).",
+              "GFCI CASCADING: Tripping garage GFCI may kill power to opener, exterior outlets, or garage refrigerator/freezer. Always reset GFCIs and verify power is restored before leaving.",
+              "SERVICE DOOR: The walk-through door from the garage to the exterior. Check that it operates, locks, and weatherstripping is intact. Also a security entry point.",
+              "GARAGE-TO-HOUSE DOOR: This is inspected under the garage-type component (fire separation). The service door here refers to the exterior walk-through door.",
+              "A GFCI protects people by comparing current leaving on the hot with current returning on the neutral. If there is an imbalance (as small as 4-6 milliamps — indicating current is flowing through a person to ground), it trips in 1/40th of a second. (ASHI Quick Field Guide)"
             ],
             "ashiSop": "ASHI SOP: Inspector shall inspect ground fault circuit interrupters."
           },
@@ -21466,6 +21520,29 @@ var INSPECTION_DATA = {
               "id": "gs-lighting",
               "label": "Garage lighting present and functional",
               "type": "pass-fail"
+            },
+            {
+              "label": "Test each accessible receptacle with 3-light tester — read pattern",
+              "tip": "Two amber lights = correct wiring. Any other pattern = wiring defect. Report the pattern and location.",
+              "redFlag": "3-light tester shows incorrect wiring pattern at garage receptacle"
+            },
+            {
+              "label": "Press GFCI TEST button on tester at each receptacle",
+              "tip": "Even receptacles without TEST/RESET buttons may be protected upstream. Press GFCI TEST — if something trips, protection exists. If nothing trips, NO GFCI.",
+              "redFlag": "No GFCI protection confirmed on garage receptacle — required per NEC 210.8(A)(2)"
+            },
+            {
+              "label": "Check for extension cords used as permanent wiring",
+              "tip": "Very common in garages — extension cords powering freezers, refrigerators, power strips. Extension cords are for temporary use only.",
+              "redFlag": "Extension cords used as permanent wiring in garage — fire hazard"
+            },
+            {
+              "label": "Service door to exterior — operates, locks, weatherstripping intact",
+              "tip": "Check the walk-through door (not the vehicle door). Operates smoothly, latch engages, lock functions, weatherstripping seals."
+            },
+            {
+              "label": "Reset all GFCIs after testing before leaving the garage",
+              "tip": "GFCI cascading: tripping a garage GFCI may kill the opener, exterior outlets, or a garage refrigerator/freezer. Always reset and verify."
             }
           ],
           "safeLanguage": [
@@ -21475,7 +21552,23 @@ var INSPECTION_DATA = {
             "Garage receptacles [were/were not] GFCI-protected at the time of inspection.",
             "Recommend correction by a qualified [electrician/carpenter/contractor].",
             "Visible wiring defects were observed in the garage. Recommend evaluation by a qualified electrician.",
-            "The service door frame shows deterioration. Recommend repair or replacement."
+            "The service door frame shows deterioration. Recommend repair or replacement.",
+            {
+              "instead": "There's no GFCI which is a code violation",
+              "say": "GFCI protection was not confirmed at the garage receptacle(s) at the time of inspection. GFCI protection is a safety concern in locations with concrete floors and moisture."
+            },
+            {
+              "instead": "The door is broken",
+              "say": "The exterior service door at the garage did not [latch securely / lock / close fully] at the time of inspection."
+            },
+            {
+              "instead": "The outlet is wired wrong",
+              "say": "Receptacle at [location] tested with [condition] on the 3-light tester. Recommend evaluation by a qualified electrician."
+            },
+            {
+              "instead": "The GFCI is bad",
+              "say": "The GFCI at [location] did not trip when tested. A GFCI that does not trip on demand should be replaced."
+            }
           ],
           "interactiveLogic": [
             {
@@ -21632,13 +21725,310 @@ var INSPECTION_DATA = {
               "label": "Number of Receptacles Tested",
               "type": "number",
               "placeholder": "e.g. 3"
+            },
+            {
+              "id": "service-door-condition",
+              "label": "Service Door Condition",
+              "type": "text",
+              "placeholder": "e.g., operates, locks, weatherstrip OK"
+            },
+            {
+              "id": "receptacle-count-tested",
+              "label": "Number of Receptacles Tested",
+              "type": "text",
+              "placeholder": "e.g., 3"
+            },
+            {
+              "id": "gfci-type-observed",
+              "label": "GFCI Protection Type",
+              "type": "chips",
+              "options": [
+                "GFCI receptacle",
+                "GFCI breaker",
+                "Upstream GFCI",
+                "None detected"
+              ]
+            },
+            {
+              "id": "gfci-test-result",
+              "label": "GFCI Test Result",
+              "type": "chips",
+              "options": [
+                "Tripped/Reset OK",
+                "Did not trip",
+                "Tripped but won't reset",
+                "Not tested"
+              ]
+            },
+            {
+              "id": "receptacle-tester-results",
+              "label": "3-Light Tester Results",
+              "type": "chips",
+              "options": [
+                "All correct",
+                "Defect(s) found",
+                "Not all tested"
+              ]
+            },
+            {
+              "id": "inaccessible-outlets",
+              "label": "Inaccessible Receptacles",
+              "type": "text",
+              "placeholder": "e.g., 1 behind stored items on east wall"
             }
           ],
           "crossReferences": [
             "garage-type",
             "elec-gfci",
             "elec-receptacles",
-            "ext-doors"
+            "ext-doors",
+            "garage-circuit",
+            "garage-outlets",
+            "garage-overhead",
+            "ext-receptacles"
+          ],
+          "typeSelect": {
+            "question": "What type of GFCI protection is present for the garage receptacles?",
+            "idHelper": [
+              {
+                "name": "GFCI Receptacle(s)",
+                "clues": "Receptacle with TEST and RESET buttons on the face. Located in the garage itself. May protect downstream (non-GFCI) receptacles."
+              },
+              {
+                "name": "GFCI Breaker at Panel",
+                "clues": "Breaker with a TEST button at the electrical panel. Protects all receptacles on that circuit. No TEST/RESET buttons visible on the garage receptacles themselves."
+              },
+              {
+                "name": "Upstream GFCI (Not in Garage)",
+                "clues": "No GFCI receptacle visible in the garage, but pressing the GFCI TEST button on the 3-light tester trips something upstream (often in the basement or exterior). The garage is daisy-chained downstream from a GFCI elsewhere."
+              },
+              {
+                "name": "No GFCI Protection Detected",
+                "clues": "No TEST/RESET buttons on garage receptacles. 3-light tester GFCI TEST button does not trip anything. No GFCI breaker at the panel for this circuit."
+              }
+            ],
+            "options": [
+              {
+                "id": "gfci-receptacle",
+                "label": "GFCI Receptacle(s) in Garage",
+                "checks": [
+                  {
+                    "label": "Press TEST button — power should cut",
+                    "tip": "The TEST button creates an intentional ground fault. The GFCI should trip immediately and power should go dead. If it does not trip, the GFCI has failed."
+                  },
+                  {
+                    "label": "Press RESET — power should restore",
+                    "tip": "After testing, press RESET firmly. Power should return. If it does not reset, the GFCI may be defective or there may be a wiring problem."
+                  },
+                  {
+                    "label": "Check if GFCI protects downstream receptacles",
+                    "tip": "A GFCI receptacle can protect non-GFCI receptacles wired downstream of it. When the GFCI trips, check if other garage outlets also lose power."
+                  },
+                  {
+                    "label": "Check GFCI age — older units should be tested more frequently",
+                    "tip": "GFCIs can wear out. Units older than 10-15 years should be tested regularly. If the GFCI does not trip on TEST, it must be replaced."
+                  }
+                ],
+                "ilNote": "GFCI receptacles are the most common protection method in Illinois garages. The first GFCI receptacle in the garage often protects all downstream receptacles on the same circuit.",
+                "rating": {
+                  "acceptable": "GFCI receptacle(s) present, tested successfully (tripped on TEST, reset properly), protecting all garage receptacles.",
+                  "fair": "GFCI receptacle present and functional, but not all garage receptacles confirmed as protected.",
+                  "poor": "GFCI receptacle present but failed TEST (did not trip), or some garage receptacles are unprotected."
+                },
+                "findings": [
+                  {
+                    "id": "gfci-recep-failed",
+                    "chipLabel": "GFCI Failed Test",
+                    "define": "GFCI receptacle in the garage did not trip when the TEST button was pressed at the time of inspection. A GFCI that does not trip on demand cannot provide shock protection.",
+                    "direct": "Recommend replacement of the defective GFCI receptacle by a qualified electrician.",
+                    "defer": "Refer to a qualified electrician for replacement."
+                  }
+                ]
+              },
+              {
+                "id": "gfci-breaker",
+                "label": "GFCI Breaker at Panel",
+                "checks": [
+                  {
+                    "label": "Identify the GFCI breaker at the panel",
+                    "tip": "GFCI breakers have a TEST button on the breaker face. The breaker should be labeled for the garage circuit."
+                  },
+                  {
+                    "label": "Press TEST on the GFCI breaker — should trip",
+                    "tip": "Press the TEST button on the breaker. The breaker should trip and all garage receptacles should lose power."
+                  },
+                  {
+                    "label": "Reset the GFCI breaker",
+                    "tip": "Flip the breaker fully OFF, then back ON. Verify garage power is restored."
+                  },
+                  {
+                    "label": "Verify all garage receptacles are on this GFCI breaker",
+                    "tip": "With the GFCI breaker tripped, check that all garage receptacles are dead. If some are still live, they are on a different (possibly unprotected) circuit."
+                  }
+                ],
+                "ilNote": "GFCI breakers are common in newer Illinois construction (post-2000). They protect the entire circuit at the source. One GFCI breaker can protect multiple garage and exterior outlets on the same circuit.",
+                "rating": {
+                  "acceptable": "GFCI breaker present, tested successfully, all garage receptacles confirmed protected.",
+                  "fair": "GFCI breaker present and functional, but not all garage receptacles confirmed on this circuit.",
+                  "poor": "GFCI breaker did not trip on TEST, or some garage receptacles are on a different unprotected circuit."
+                },
+                "findings": [
+                  {
+                    "id": "gfci-breaker-failed",
+                    "chipLabel": "GFCI Breaker Failed Test",
+                    "define": "GFCI breaker at the panel serving the garage circuit did not trip when the TEST button was pressed. A GFCI breaker that does not trip on demand cannot provide shock protection.",
+                    "direct": "Recommend replacement of the defective GFCI breaker by a qualified electrician.",
+                    "defer": "Refer to a qualified electrician for replacement."
+                  }
+                ]
+              },
+              {
+                "id": "upstream-gfci",
+                "label": "Upstream GFCI (Not in Garage)",
+                "checks": [
+                  {
+                    "label": "Identify the upstream GFCI location",
+                    "tip": "Press the GFCI TEST button on your 3-light tester at a garage receptacle. If it trips, follow the dead circuit — the GFCI that tripped may be in the basement, exterior, or another location."
+                  },
+                  {
+                    "label": "Verify all garage receptacles are protected by the upstream GFCI",
+                    "tip": "With the upstream GFCI tripped, check all garage receptacles. They should all be dead. If some are still live, those are on a different circuit."
+                  },
+                  {
+                    "label": "Note the GFCI location for the report",
+                    "tip": "Document where the controlling GFCI is located. The homeowner needs to know where to find it if it trips."
+                  }
+                ],
+                "ilNote": "Upstream GFCI protection is common when garage and exterior outlets are on the same circuit. The GFCI is often in the basement at the first receptacle on the circuit. GFCI cascading: tripping this GFCI may also kill exterior outlets and the garage door opener.",
+                "rating": {
+                  "acceptable": "Upstream GFCI identified, tested successfully, all garage receptacles confirmed protected.",
+                  "fair": "Upstream GFCI trips on test, but location is inconvenient or not all garage receptacles confirmed on the protected circuit.",
+                  "poor": "Upstream GFCI location cannot be identified, or GFCI does not trip on test."
+                },
+                "findings": [
+                  {
+                    "id": "upstream-gfci-cascading",
+                    "chipLabel": "GFCI Cascading Noted",
+                    "define": "Garage receptacles are GFCI-protected by an upstream GFCI located at [location]. Tripping this GFCI also de-energized [exterior outlets / garage door opener / other]. This is normal for this configuration but the homeowner should be aware.",
+                    "direct": "Informational note — no repair needed. Homeowner should know the GFCI location and what it controls.",
+                    "defer": "No referral needed unless client wants circuits separated."
+                  }
+                ]
+              },
+              {
+                "id": "no-gfci",
+                "label": "No GFCI Protection Detected",
+                "checks": [
+                  {
+                    "label": "Confirm no GFCI protection — test at each receptacle",
+                    "tip": "Plug in 3-light tester, press GFCI TEST button. If nothing trips at any garage receptacle, there is no GFCI protection. Check the panel for GFCI breakers labeled for the garage."
+                  },
+                  {
+                    "label": "Check if there is a GFCI breaker at the panel that may serve this circuit",
+                    "tip": "Sometimes the GFCI breaker exists but the circuit is mislabeled. Look for any GFCI breaker at the panel."
+                  }
+                ],
+                "ilNote": "GFCI protection has been required on all garage receptacles since the 1978 NEC. Absence of GFCI in a garage is a reportable deficiency regardless of the home's age. This is a safety upgrade, not a code compliance call.",
+                "rating": {
+                  "acceptable": "N/A — no GFCI protection is not acceptable.",
+                  "fair": "N/A — no GFCI protection is not acceptable.",
+                  "poor": "No GFCI protection detected on garage receptacles. This is a shock hazard in a location with concrete floors and moisture."
+                },
+                "findings": [
+                  {
+                    "id": "no-gfci-garage",
+                    "chipLabel": "No GFCI",
+                    "define": "Garage receptacle(s) at [location] do not appear to have GFCI protection at the time of inspection. Garages have concrete floors and are subject to moisture, creating a higher risk of electrical shock.",
+                    "direct": "All garage receptacles require GFCI protection for shock safety. Recommend correction by a qualified electrician.",
+                    "defer": "Refer to a licensed electrician."
+                  }
+                ]
+              }
+            ]
+          },
+          "refTables": [
+            {
+              "id": "gfci-decision-tree",
+              "title": "Garage GFCI Decision Tree",
+              "columns": [
+                "Step",
+                "Action",
+                "Result"
+              ],
+              "rows": [
+                [
+                  "1",
+                  "Look at the receptacle — does it have TEST/RESET buttons?",
+                  "YES = GFCI receptacle. Test it directly. NO = go to step 2."
+                ],
+                [
+                  "2",
+                  "Plug in 3-light tester. Press GFCI TEST button on the tester.",
+                  "Something trips (light goes out, click heard) = protected upstream. Go to step 3. Nothing trips = NO GFCI = DEFECT."
+                ],
+                [
+                  "3",
+                  "Find the upstream GFCI that tripped.",
+                  "Check basement, exterior, or panel for tripped GFCI. Note location. This is the controlling GFCI for the garage."
+                ],
+                [
+                  "4",
+                  "Reset the GFCI (wherever it is). Verify garage power restored.",
+                  "If it resets and power returns = protection confirmed. If it will not reset = possible ground fault or defective GFCI."
+                ]
+              ]
+            },
+            {
+              "id": "gfci-locations-required",
+              "title": "GFCI Protection Required Locations (Residential)",
+              "columns": [
+                "Location",
+                "NEC Section",
+                "Since"
+              ],
+              "rows": [
+                [
+                  "Bathrooms",
+                  "210.8(A)(1)",
+                  "1975"
+                ],
+                [
+                  "Garages",
+                  "210.8(A)(2)",
+                  "1978"
+                ],
+                [
+                  "Outdoors",
+                  "210.8(A)(3)",
+                  "1973"
+                ],
+                [
+                  "Crawl spaces (at or below grade)",
+                  "210.8(A)(4)",
+                  "1990"
+                ],
+                [
+                  "Unfinished basements",
+                  "210.8(A)(5)",
+                  "1990"
+                ],
+                [
+                  "Kitchens (within 6 ft of sink)",
+                  "210.8(A)(6)",
+                  "1987"
+                ],
+                [
+                  "Laundry areas",
+                  "210.8(A)(10)",
+                  "2014"
+                ],
+                [
+                  "Boathouses",
+                  "210.8(A)(8)",
+                  "2008"
+                ]
+              ]
+            }
           ]
         }
       ]
