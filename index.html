@@ -5314,75 +5314,121 @@ var INSPECTION_DATA = {
                   "id": "bottom-visible",
                   "label": "Is the bottom course of siding visible?",
                   "type": "chips",
-                  "options": ["Yes - fully visible", "Partially visible", "No - covered by soil/mulch/landscaping"]
+                  "options": [
+                    "Yes - fully visible",
+                    "Partially visible",
+                    "No - covered by soil/mulch/landscaping"
+                  ]
                 },
                 {
                   "id": "clearance-ok",
                   "label": "Is there 6\"+ clearance from grade to bottom of siding?",
                   "type": "chips",
-                  "options": ["Yes", "No - siding near/touching soil", "Cannot determine"],
-                  "conditional": { "showWhen": "bottom-visible", "notEquals": "No - covered by soil/mulch/landscaping" }
+                  "options": [
+                    "Yes",
+                    "No - siding near/touching soil",
+                    "Cannot determine"
+                  ],
+                  "conditional": {
+                    "showWhen": "bottom-visible",
+                    "notEquals": "No - covered by soil/mulch/landscaping"
+                  }
                 },
                 {
                   "id": "foundation-visible",
                   "label": "Is foundation wall visible between siding and grade?",
                   "type": "chips",
-                  "options": ["Yes - 4\"+ exposed", "Barely visible", "No - siding goes to grade"],
-                  "conditional": { "showWhen": "bottom-visible", "notEquals": "No - covered by soil/mulch/landscaping" }
+                  "options": [
+                    "Yes - 4\"+ exposed",
+                    "Barely visible",
+                    "No - siding goes to grade"
+                  ],
+                  "conditional": {
+                    "showWhen": "bottom-visible",
+                    "notEquals": "No - covered by soil/mulch/landscaping"
+                  }
                 }
               ],
               "outcomes": [
                 {
-                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "Yes", "foundation-visible": "Yes - 4\"+ exposed" },
+                  "when": {
+                    "bottom-visible": "Yes - fully visible",
+                    "clearance-ok": "Yes",
+                    "foundation-visible": "Yes - 4\"+ exposed"
+                  },
                   "result": "acceptable",
                   "define": "Bottom course of siding is visible with adequate clearance from grade. Foundation wall is exposed and available for inspection.",
                   "direct": "No action needed. Proceed with siding type-specific checks.",
                   "reportLanguage": "Siding-to-grade clearance is adequate. Foundation wall is visible for inspection."
                 },
                 {
-                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "No - siding near/touching soil", "foundation-visible": "Yes - 4\"+ exposed" },
+                  "when": {
+                    "bottom-visible": "Yes - fully visible",
+                    "clearance-ok": "No - siding near/touching soil",
+                    "foundation-visible": "Yes - 4\"+ exposed"
+                  },
                   "result": "deficiency",
                   "define": "Siding is in contact with or near soil at [location]. Soil contact provides a moisture wicking path and concealed termite entry point.",
                   "direct": "Recommend correcting grade or trimming siding to maintain minimum 6-inch clearance between finish grade and bottom of siding. Recommend evaluation for moisture damage and wood-destroying organism activity.",
                   "reportLanguage": "Siding at [location] does not maintain the recommended minimum 6-inch clearance from grade. Soil contact creates conditions conducive to moisture damage and wood-destroying organism entry."
                 },
                 {
-                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "No - siding near/touching soil", "foundation-visible": "No - siding goes to grade" },
+                  "when": {
+                    "bottom-visible": "Yes - fully visible",
+                    "clearance-ok": "No - siding near/touching soil",
+                    "foundation-visible": "No - siding goes to grade"
+                  },
                   "result": "deficiency",
                   "define": "Siding extends to grade level at [location] with no visible foundation wall. Both siding-to-grade clearance and foundation inspection are compromised.",
                   "direct": "Recommend correcting grade to expose minimum 4-6 inches of foundation wall and maintain minimum 6-inch clearance to bottom of siding. Recommend evaluation for moisture damage, foundation condition, and wood-destroying organism activity.",
                   "reportLanguage": "Siding at [location] extends to grade level. No foundation wall is visible between siding and grade. Cannot inspect for foundation cracks, water intrusion evidence, or termite shelter tubes at this location. Recommend correcting grade to expose foundation wall."
                 },
                 {
-                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "Yes", "foundation-visible": "No - siding goes to grade" },
+                  "when": {
+                    "bottom-visible": "Yes - fully visible",
+                    "clearance-ok": "Yes",
+                    "foundation-visible": "No - siding goes to grade"
+                  },
                   "result": "limitation",
                   "define": "Siding has adequate height clearance from grade but foundation wall is not visible at [location].",
                   "direct": "Note limitation: foundation wall concealed behind siding at [location]. Cannot inspect for foundation cracks, water intrusion, or termite evidence at this location.",
                   "reportLanguage": "Foundation wall is not visible between siding and grade at [location]. Inspection of the foundation wall for cracks, water intrusion evidence, and termite shelter tubes was limited at this location."
                 },
                 {
-                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "Yes", "foundation-visible": "Barely visible" },
+                  "when": {
+                    "bottom-visible": "Yes - fully visible",
+                    "clearance-ok": "Yes",
+                    "foundation-visible": "Barely visible"
+                  },
                   "result": "monitor",
                   "define": "Foundation wall is barely visible between siding and grade at [location]. Less than recommended 4-6 inches of foundation is exposed.",
                   "direct": "Monitor grade level. Consider lowering grade to expose additional foundation wall for future inspections.",
                   "reportLanguage": "Foundation wall is minimally visible between siding and grade at [location]. Less than the recommended 4-6 inches is exposed. Foundation inspection is limited at this location."
                 },
                 {
-                  "when": { "bottom-visible": "Yes - fully visible", "clearance-ok": "No - siding near/touching soil", "foundation-visible": "Barely visible" },
+                  "when": {
+                    "bottom-visible": "Yes - fully visible",
+                    "clearance-ok": "No - siding near/touching soil",
+                    "foundation-visible": "Barely visible"
+                  },
                   "result": "deficiency",
                   "define": "Siding is near or touching soil at [location] with minimal foundation wall visible.",
                   "direct": "Recommend correcting grade to maintain minimum 6-inch clearance from siding to grade and to expose minimum 4-6 inches of foundation wall. Recommend evaluation for moisture damage and wood-destroying organism activity.",
                   "reportLanguage": "Siding at [location] is near or in contact with soil. Foundation wall exposure is minimal. Recommend grade correction to maintain proper clearance and allow foundation inspection."
                 },
                 {
-                  "when": { "bottom-visible": "Partially visible" },
+                  "when": {
+                    "bottom-visible": "Partially visible"
+                  },
                   "result": "limitation",
                   "define": "Bottom course of siding is partially obscured by [soil/mulch/landscaping/other] at [location].",
                   "direct": "Note limitation in report. Evaluate visible portions for damage. Check for evidence of moisture damage at lowest visible course (staining, warping, bulging). Recommend clearing obstructions for full evaluation.",
                   "reportLanguage": "Bottom course of siding was partially obscured at [location]. Inspection of siding-to-grade clearance, foundation condition, and bottom course condition was limited. Visible portions were evaluated. [Note any damage observed at lowest visible course.]"
                 },
                 {
-                  "when": { "bottom-visible": "No - covered by soil/mulch/landscaping" },
+                  "when": {
+                    "bottom-visible": "No - covered by soil/mulch/landscaping"
+                  },
                   "result": "limitation",
                   "define": "Bottom course of siding is not visible at [location] due to [soil/mulch/landscaping]. Cannot verify siding-to-grade clearance, foundation condition, or bottom course condition.",
                   "direct": "Document limitation. Evaluate lowest visible course for evidence of hidden damage (staining, warping, bulging from below). Recommend clearing soil/mulch/landscaping away from siding to verify clearance and allow inspection of foundation wall.",
@@ -5516,23 +5562,53 @@ var INSPECTION_DATA = {
           "universalChecks": [
             {
               "label": "Check every roof-to-wall junction",
-              "tip": "Step flashing should be woven into shingles. Caulk-only = improper.",
-              "redFlag": "Missing flashing at transitions"
+              "tip": "Step flashing should be woven into shingles, one piece per course. Top edges of step flashing should be under siding. Caulk-only = improper. (ICA M4 S13.1-13.2, M5 S3.1-3.2)",
+              "redFlag": "Missing step flashing at roof-to-wall junction"
             },
             {
               "label": "Check every window/door head",
-              "tip": "Most hidden behind siding. Note limitation. Look for water staining inside.",
-              "redFlag": "Caulk used instead of proper flashing"
+              "tip": "Head flashing (drip cap) is often hidden behind siding on existing homes -- note limitation. Look for water staining on interior walls below windows as indirect evidence. (ICA M6: flashing not visible on existing homes, look inside for leakage signs)",
+              "redFlag": "Caulk used instead of proper head flashing"
             },
             {
-              "label": "Check material transitions",
-              "tip": "Where siding type changes. Z-flashing required.",
-              "redFlag": "Rusted or deteriorated flashing"
+              "label": "Check material transitions (siding changes)",
+              "tip": "Z-flashing required where siding type changes horizontally. Top leg goes up under upper siding, bottom leg extends over lower material. (ICA M7: Z-flashing at material transitions)",
+              "redFlag": "Missing Z-flashing at material transition"
             },
             {
               "label": "Check deck ledger flashing",
-              "tip": "Above ledger board. Missing = #1 cause of deck-related structural damage.",
+              "tip": "Flashing above ledger board is critical. Missing = #1 cause of deck-related structural damage. Water enters behind ledger, rots band joist.",
+              "redFlag": "Missing flashing at deck ledger board"
+            },
+            {
+              "label": "Check kick-out (diverter) flashing at roof-to-wall terminations",
+              "tip": "MOST COMMONLY OMITTED piece of flashing. Required where step flashing terminates at eave/gutter. Without it, water runs down the wall behind siding causing hidden rot. (ICA M5 S3.3, M7)",
               "redFlag": "Missing kick-out flashing (most commonly omitted)"
+            },
+            {
+              "label": "Check counter flashing at masonry walls/chimney",
+              "tip": "Two-piece system: step/base flashing under roofing, counter flashing embedded in mortar reglets with high-quality sealant. One-piece without reglets = relies on sealant only, less durable. Check sealant condition at reglets. (ICA M4 S13.3-13.6)",
+              "redFlag": "Counter flashing loose, pulling from mortar joints, or sealant failed at reglets"
+            },
+            {
+              "label": "Check plumbing vent flashing (pipe boots)",
+              "tip": "Cast iron vents need lead shields/jacks covering entire vent above roof. PVC/ABS vents use rubber boots providing tight seal. Check rubber for cracking/deterioration -- rubber boots fail before the roof does. (ICA M4 S13.12-13.13)",
+              "redFlag": "Cracked or deteriorated plumbing vent boot"
+            },
+            {
+              "label": "Check skylight flashing",
+              "tip": "Head (top) flashing should be single solid piece under roofing but over top row of step flashing. Step flashing at sides. Bottom flashing with apron extending over roofing below. Water should always divert down to next flashing piece. (ICA M4 S13.14-13.15)",
+              "redFlag": "Improper or deteriorated skylight flashing"
+            },
+            {
+              "label": "Check drip edge flashing at eaves and rakes",
+              "tip": "Along rake: protects exposed edge of roof sheathing. Along eaves: protects sheathing AND directs water into gutter (prevents water getting behind gutter). Upper leg should be under shingles/underlayment at eaves. (ICA M4 S13.10-13.11)",
+              "redFlag": "Missing drip edge flashing"
+            },
+            {
+              "label": "Look for tar/mastic used as flashing substitute",
+              "tip": "Tar, roofing cement, or mastic used as primary waterproofing at any roof-wall junction is NOT proper flashing. It dries, cracks, and fails -- expansion and contraction breaks it within a few years. Especially common where additions connect to main house. (ICA M5 S3.1, S3.5)",
+              "redFlag": "Tar/mastic used instead of proper metal flashing"
             }
           ],
           "redFlags": [],
@@ -5546,9 +5622,630 @@ var INSPECTION_DATA = {
               "HEAD FLASHING: Above windows/doors. Often missing on replacement windows.",
               "COUNTER FLASHING: At masonry (chimney). Two-piece system required. Base under roofing, counter embedded in mortar.",
               "CAULK IS NOT FLASHING: Caulk fails in 3-7 years. Metal flashing outlasts the roof.",
-              "TAR/MASTIC AT ROOF-WALL CONNECTIONS: Tar, roofing cement, or mastic used as a flashing substitute at roof-wall intersections is NOT proper flashing -- it is a temporary sealant that dries, cracks, and fails. Proper step flashing with counter flashing should be used. Especially common where additions connect to the main house. If you see tar/sealant as the PRIMARY waterproofing at a roof-wall transition, flag it. Report language: 'Roofing mastic/sealant observed as the primary waterproofing at the roof-wall transition at [location]. Proper metal step flashing is recommended.' Client language: 'They used tar instead of metal flashing where the roof meets the wall. Tar is a temporary fix that cracks and fails over time. Proper metal flashing should be installed here.'"
+              "TAR/MASTIC AT ROOF-WALL CONNECTIONS: Tar, roofing cement, or mastic used as a flashing substitute at roof-wall intersections is NOT proper flashing -- it is a temporary sealant that dries, cracks, and fails. Proper step flashing with counter flashing should be used. Especially common where additions connect to the main house. If you see tar/sealant as the PRIMARY waterproofing at a roof-wall transition, flag it. Report language: 'Roofing mastic/sealant observed as the primary waterproofing at the roof-wall transition at [location]. Proper metal step flashing is recommended.' Client language: 'They used tar instead of metal flashing where the roof meets the wall. Tar is a temporary fix that cracks and fails over time. Proper metal flashing should be installed here.'",
+              "STEP FLASHING (M4 S13.1-13.2): L-shaped metal pieces interwoven with each course of roofing material at roof-to-wall junctions, starting at the eaves and working up. At walls covered by siding, the siding covers the top edges of the step flashing. Step flashing and roofing are installed BEFORE the siding. Each piece overlaps the one below. Water flows down the siding, onto the step flashing, and cascades from one piece to the next until it reaches the eave and drips into the gutter.",
+              "COUNTER FLASHING (M4 S13.3-13.6): At masonry walls or chimneys, counter flashing covers the top edges of step flashing. Proper installation: tabs inserted into REGLETS (slots cut into mortar joints) and sealed with high-quality sealant. Counter flashing is often installed as a single solid piece WITHOUT reglets -- this is common but not best practice because protection relies on sealant alone. If you see this, at minimum verify the sealant is intact.",
+              "HEAD WALL FLASHING (M4 S13.7-13.9): At any location where the top edge of a roof meets a wall. Solid horizontal flashing with the top edge protected by counter flashing. The counter flashing is in turn either covered by siding or inserted into reglets. Diagram: sheathing > roofing material > flashing > counter flashing > head wall with siding on top.",
+              "DRIP EDGE FLASHING (M4 S13.10-13.11): Installed along roof edges. Along the RAKE (gable edge): protects exposed sheathing edge. Along the EAVES (bottom edge): protects sheathing AND keeps water from getting behind the gutter. The upper leg goes under the shingles/underlayment.",
+              "PLUMBING VENT FLASHING / PIPE BOOTS (M4 S13.12-13.13): Cast iron vents (usually older homes, rough exterior surface) need lead flashing shields or jacks covering the entire vent above roof level. PVC or ABS vents (smooth surface) use rubber flashing boots providing a tight seal against the outer wall of the pipe. Types: lead shield (cast iron), rubber boot (PVC), galvanized steel with rubber (hybrid), two-piece lead. Rubber boots FAIL BEFORE THE ROOF -- inspect every boot even on newer roofs.",
+              "SKYLIGHT FLASHING (M4 S13.14-13.15): Three components -- head (top) flashing as a single solid piece installed under roofing but over the top row of step flashing; step flashing at the sides; bottom flashing as a single solid piece with an apron extending over the roofing material below. Skylight flashing should ALWAYS divert water down and onto the next flashing piece or roof material at the bottom.",
+              "KICK-OUT / DIVERTER FLASHING (M5 S3.3, M7): One of the MOST COMMONLY OMITTED pieces of flashing. Required where step flashing at a roof-to-sidewall junction terminates at the eave. Without it, water running down the step flashing path goes behind the siding at the bottom of the wall instead of into the gutter. Causes hidden rot behind the lower wall section that may not be visible until severe.",
+              "CAULK/TAR IS NOT FLASHING (M5 S3.1-3.2, 3.5): If you see no flashing at all -- just sealant pushed against a wall -- that is NOT acceptable. Even if the sealant is repelling water now, it cannot possibly last more than a couple of years. Expansion and contraction of the building, sheathing, roofing material, and masonry will tear the caulking loose. Tar smeared over counter flashing that has started to leak makes the problem worse and is difficult to clean off brick.",
+              "OPEN FLASHING, EXPOSED FELT OVER FLASHING (M5 S3.4, 3.6-3.8): Open top edges of step flashing = water goes right behind the flashing. Exposed felt (underlayment) installed OVER flashing = water drips down siding, hits flashing, then goes behind the underlayment onto the sheathing -- defeating the purpose. Gaps in flashing with exposed wood = direct path for water behind the flashing to the sheathing. These are small details that are easy to miss on an actual inspection -- take your time.",
+              "COUNTER FLASHING LOOSE (M5 S3.8): Counter flashing loose or flapping in the wind exposes the top edges of step flashing, allowing water behind it. Does not matter if it was done professionally or by amateur -- it is wrong and needs further evaluation by a professional roofer.",
+              "CRICKETS / SADDLES (M4 S12): A raised or ridged structure diverting water around obstructions like chimneys. Required on high side of any chimney wider than 30 inches (recommended over 24 inches). Smaller crickets are covered with metal flashing; larger ones covered with same roofing material. Same pitch as rest of roof typically. Also called saddles or diverters.",
+              "FLASHING INSPECTION LIMITATION (M6): On existing homes, window and door flashing (head flashing / drip caps) is typically NOT visible from the exterior. You cannot confirm presence or absence. Note this limitation in the report. Look inside the home below windows for water staining as indirect evidence of missing or failed head flashing.",
+              "ROOFING INSPECTION PROCESS - FLASHING CHECKLIST (M5 S2-3): Check specifically: all valleys, all rake wall / head wall / miscellaneous flashings, all penetrations including plumbing vents / roof vents (condition AND quantity) / skylights / masts. Look at each item individually and carefully."
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect flashing and trim."
+          },
+          "interactiveLogic": [
+            {
+              "id": "flashing-critical-point-assessment",
+              "title": "Flashing Assessment at Critical Points",
+              "description": "Systematic walkthrough of flashing at each critical transition point. Identifies the location, determines what type of flashing should be present, assesses condition, and generates location-specific findings.",
+              "inputs": [
+                {
+                  "id": "flashing-location",
+                  "label": "Where are you assessing flashing?",
+                  "type": "chips",
+                  "options": [
+                    "Roof-to-sidewall (step flashing)",
+                    "Roof-to-headwall",
+                    "Chimney/masonry wall",
+                    "Roof-to-wall termination at eave (kick-out)",
+                    "Plumbing vent penetration",
+                    "Skylight",
+                    "Material transition (siding change)",
+                    "Window/door head",
+                    "Deck ledger",
+                    "Other penetration"
+                  ]
+                },
+                {
+                  "id": "flashing-present",
+                  "label": "Is proper flashing visible?",
+                  "type": "chips",
+                  "options": [
+                    "Yes - proper flashing installed",
+                    "Partial - some flashing but incomplete",
+                    "No - caulk/sealant used instead",
+                    "No - tar/mastic used instead",
+                    "No - nothing present",
+                    "Cannot determine (hidden by siding)"
+                  ]
+                },
+                {
+                  "id": "flashing-condition",
+                  "label": "What is the condition?",
+                  "type": "chips",
+                  "options": [
+                    "Good - intact, properly lapped",
+                    "Fair - aging but functional",
+                    "Rusted or corroded",
+                    "Lifted/open edges",
+                    "Gaps visible",
+                    "Physically damaged"
+                  ],
+                  "conditional": {
+                    "showWhen": "flashing-present",
+                    "equals": [
+                      "Yes - proper flashing installed",
+                      "Partial - some flashing but incomplete"
+                    ]
+                  }
+                },
+                {
+                  "id": "evidence-of-leakage",
+                  "label": "Any evidence of water intrusion at this location?",
+                  "type": "chips",
+                  "options": [
+                    "No visible evidence",
+                    "Staining on interior wall below",
+                    "Rotted siding/trim adjacent",
+                    "Active moisture/dripping observed",
+                    "Rotted sheathing visible"
+                  ]
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": {
+                    "flashing-present": "Yes - proper flashing installed",
+                    "flashing-condition": "Good - intact, properly lapped",
+                    "evidence-of-leakage": "No visible evidence"
+                  },
+                  "result": "acceptable",
+                  "define": "Flashing at [location] is properly installed and in serviceable condition. No evidence of water intrusion observed.",
+                  "direct": "No action needed.",
+                  "reportLanguage": "Flashing at [location] is intact and properly installed."
+                },
+                {
+                  "when": {
+                    "flashing-present": "Yes - proper flashing installed",
+                    "flashing-condition": "Fair - aging but functional",
+                    "evidence-of-leakage": "No visible evidence"
+                  },
+                  "result": "monitor",
+                  "define": "Flashing at [location] is present and functional but showing age. No current evidence of water intrusion.",
+                  "direct": "Monitor. Plan for maintenance or replacement within normal roof maintenance cycle.",
+                  "reportLanguage": "Flashing at [location] is present but aging. Monitor for deterioration. No evidence of current leakage."
+                },
+                {
+                  "when": {
+                    "flashing-present": "Yes - proper flashing installed",
+                    "flashing-condition": [
+                      "Rusted or corroded",
+                      "Lifted/open edges",
+                      "Gaps visible",
+                      "Physically damaged"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Flashing at [location] is present but compromised. Condition: [rusted/corroded / lifted or open edges / gaps visible / physically damaged]. Water entry is likely or imminent at this location.",
+                  "direct": "Recommend repair or replacement of flashing at [location] by a qualified roofing contractor.",
+                  "reportLanguage": "Flashing at [location] is [rusted/corroded / open / damaged]. This condition compromises the weather seal at this transition point and allows potential water entry. Recommend repair by a qualified roofing contractor."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Roof-to-sidewall (step flashing)",
+                    "flashing-present": [
+                      "No - caulk/sealant used instead",
+                      "No - tar/mastic used instead"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Step flashing is absent at the roof-to-sidewall junction at [location]. [Caulk / tar/mastic] has been applied as a substitute. Caulk and mastic are temporary sealants that dry, crack, and fail -- they are not substitutes for proper metal step flashing. The building will undergo expansion and contraction, breaking the sealant bond, typically within a few years. (ICA M5 S3.1)",
+                  "direct": "Recommend proper metal step flashing installation by a qualified roofing contractor. Siding at this area will need to be removed and reinstalled to properly interweave the step flashing.",
+                  "reportLanguage": "Roof-to-sidewall junction at [location] relies on [caulk / roofing mastic] rather than proper metal step flashing. This is a temporary measure that deteriorates with thermal expansion and contraction. Proper step flashing should be interwoven with each shingle course and covered by the siding. Recommend installation by a qualified roofing contractor."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Roof-to-wall termination at eave (kick-out)",
+                    "flashing-present": [
+                      "No - caulk/sealant used instead",
+                      "No - tar/mastic used instead",
+                      "No - nothing present"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Kick-out (diverter) flashing is absent where step flashing terminates at the eave at [location]. This is one of the most commonly omitted pieces of flashing. Without kick-out flashing, water running down the step flashing path is directed behind the siding at the bottom of the wall rather than into the gutter. This causes hidden moisture damage behind the siding that may not be visible until significant rot has occurred. (ICA M5 S3.3, M7)",
+                  "direct": "Recommend installation of kick-out flashing by a qualified contractor to direct water into the gutter instead of behind the siding.",
+                  "reportLanguage": "Kick-out (diverter) flashing is absent where the roof meets the sidewall at [location]. Without this flashing, water following the roof-to-wall junction is directed behind the wall cladding at the eave rather than into the gutter, risking concealed moisture damage. Recommend installation by a qualified contractor."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Chimney/masonry wall",
+                    "flashing-present": [
+                      "No - caulk/sealant used instead",
+                      "No - tar/mastic used instead"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Proper step and counter flashing is absent at the chimney/masonry wall at [location]. [Caulk / tar/mastic] has been applied instead. At masonry walls, proper installation requires step flashing under the roofing material and counter flashing with tabs inserted into reglets (slots cut into mortar joints) and sealed with high-quality sealant. A single piece of counter flashing installed without reglets relies solely on surface-applied sealant which is less durable. (ICA M4 S13.3-13.6, M5 S3.5)",
+                  "direct": "Recommend proper step and counter flashing installation by a qualified roofing contractor. Counter flashing should be cut into mortar joint reglets and sealed.",
+                  "reportLanguage": "Chimney/masonry wall flashing at [location] is [missing / replaced by caulk or mastic]. Proper two-piece flashing system (step flashing under roofing, counter flashing embedded in mortar reglets) is recommended. Current condition allows water entry at the roof-to-masonry junction. Recommend installation by a qualified roofing contractor."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Window/door head",
+                    "flashing-present": "Cannot determine (hidden by siding)"
+                  },
+                  "result": "limitation",
+                  "define": "Head flashing (drip cap) above the [window/door] at [location] is not visible because it is concealed behind the exterior wall covering. This is a limitation of the visual inspection. On existing homes, window and door head flashing is typically not visible from the exterior. (ICA M6: flashing not visible on existing homes)",
+                  "direct": "Note limitation. Check interior below this opening for evidence of water staining or damage which may indicate missing or failed head flashing.",
+                  "reportLanguage": "Head flashing above [window/door] at [location] is not visible (concealed by wall covering). This is a normal limitation of the visual inspection. No evidence of water intrusion was observed on the interior below this opening at the time of inspection."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Window/door head",
+                    "flashing-present": [
+                      "No - caulk/sealant used instead",
+                      "No - nothing present"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Head flashing (drip cap) appears absent above the [window/door] at [location]. This is commonly missing on replacement windows where the new window was installed without proper head flashing. Without head flashing, water running down the wall enters above the window frame. (ICA M6, M7)",
+                  "direct": "Recommend installation of head flashing (Z-flashing or drip cap) above this opening by a qualified contractor to prevent water entry.",
+                  "reportLanguage": "Head flashing appears absent above the [window/door] at [location]. Without head flashing, water running down the wall surface can enter above the window/door frame. Recommend installation of a drip cap or Z-flashing by a qualified contractor."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Material transition (siding change)",
+                    "flashing-present": [
+                      "No - caulk/sealant used instead",
+                      "No - nothing present"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Z-flashing is absent at the horizontal material transition at [location] where [upper material] meets [lower material]. Without Z-flashing, water running down the upper material enters behind the lower material at the transition. The top leg of Z-flashing should extend up under the upper siding; the bottom leg should lap over the top of the lower material. (ICA M7: Z-flashing at material transitions)",
+                  "direct": "Recommend installation of Z-flashing at this material transition by a qualified contractor.",
+                  "reportLanguage": "Z-flashing is absent at the material transition at [location]. Water can penetrate behind the lower wall covering at this junction. Recommend Z-flashing installation by a qualified contractor."
+                },
+                {
+                  "when": {
+                    "flashing-location": "Plumbing vent penetration",
+                    "flashing-present": "Yes - proper flashing installed",
+                    "flashing-condition": [
+                      "Rusted or corroded",
+                      "Physically damaged"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Plumbing vent flashing (pipe boot) at [location] is [rusted/corroded / physically damaged / rubber boot cracked or deteriorated]. Rubber flashing boots have a shorter lifespan than the roof and commonly fail before the roofing material needs replacement. A failed boot allows water to enter directly along the vent pipe into the building interior. (ICA M4 S13.12-13.13)",
+                  "direct": "Recommend replacement of plumbing vent flashing boot by a qualified roofing contractor.",
+                  "reportLanguage": "Plumbing vent flashing at [location] shows [cracked rubber boot / corrosion / damage]. This allows water entry along the vent pipe into the structure. Recommend replacement by a qualified roofing contractor."
+                },
+                {
+                  "when": {
+                    "evidence-of-leakage": [
+                      "Staining on interior wall below",
+                      "Rotted siding/trim adjacent",
+                      "Active moisture/dripping observed",
+                      "Rotted sheathing visible"
+                    ]
+                  },
+                  "result": "deficiency",
+                  "define": "Evidence of water intrusion observed at [location]: [interior wall staining / rotted adjacent siding or trim / active moisture / rotted sheathing visible]. This strongly suggests flashing at this location is missing, failed, or improperly installed. Water has been entering the building assembly. (ICA M5 S3.4, S3.7: open flashing leads to rotted siding and active leaks)",
+                  "direct": "Recommend further evaluation and repair by a qualified roofing contractor. Interior damage should be evaluated by a qualified contractor after the source of water entry is corrected.",
+                  "reportLanguage": "Evidence of water intrusion at [location]: [describe evidence]. Flashing at this location appears [missing / failed / improperly installed]. Recommend repair by a qualified roofing contractor and evaluation of resulting damage."
+                }
+              ]
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-siding",
+              "relationship": "Step flashing top edges should be under siding. Siding rot adjacent to roof-to-wall junctions suggests failed or missing flashing. (M5 S3.4)"
+            },
+            {
+              "componentId": "ext-caulking",
+              "relationship": "Caulk is NOT a substitute for flashing. If caulk is the only waterproofing at a roof-wall junction, flag as missing flashing, not as a caulking issue."
+            },
+            {
+              "componentId": "ext-trim",
+              "relationship": "Rotted trim at windows and near roof-wall junctions may indicate missing or failed flashing behind the trim. Very common on homes built since the 1970s. (M7)"
+            },
+            {
+              "componentId": "roof-covering",
+              "relationship": "All flashing should be checked during roof inspection per all three SOPs. ASHI 2.1.I.D, InterNACHI 2.1.I.D, Illinois 1410.200(i)(1)."
+            },
+            {
+              "componentId": "chimney",
+              "relationship": "Chimney flashing requires step + counter flashing with reglets. Cricket/saddle required on high side of chimneys wider than 30 inches. (M4 S12-13)"
+            },
+            {
+              "componentId": "int-windows",
+              "relationship": "Interior water staining below windows may indicate missing head flashing on exterior that is not visible. (M6)"
+            }
+          ]
+        },
+        {
+          "id": "ext-trim",
+          "title": "Exterior Trim",
+          "icon": "📐",
+          "sectionId": "ext-building",
+          "typeSelect": {
+            "question": "What trim material?",
+            "idHelper": [
+              {
+                "name": "Wood",
+                "clues": "Painted or stained boards around windows, doors, corners, and siding transitions. Grain visible at cut ends. Probe with screwdriver for soft spots. Very common on homes of all ages."
+              },
+              {
+                "name": "Vinyl/PVC",
+                "clues": "White or light-colored synthetic boards. Smooth, uniform surface. No grain. Will not rot. Cellular PVC (e.g. Azek, KOMA) is rigid and dense. May yellow or warp from heat exposure."
+              },
+              {
+                "name": "Aluminum",
+                "clues": "Thin metal wrapping over wood trim or standalone coil stock bent to shape. Metallic ring when tapped. Magnet test: sticks = steel, does not stick = aluminum. May ripple from poor installation (cosmetic)."
+              },
+              {
+                "name": "Fiber Cement",
+                "clues": "Dense, heavy boards. Tap: solid sound. Always painted. Gray cement interior visible at cut edges. Smooth or wood-grain texture. Common brands: HardieTrim, Allura."
+              },
+              {
+                "name": "Composite",
+                "clues": "Engineered wood or wood-plastic composite trim boards. Uniform appearance. Lighter than fiber cement. Edges show compressed fibers or mixed material. Brands: MiraTEC, LP SmartTrim."
+              }
+            ],
+            "options": [
+              {
+                "id": "wood",
+                "label": "Wood",
+                "checks": [
+                  {
+                    "label": "Rot at window and door trim",
+                    "tip": "Rotted trim is very common at doors and windows, especially on homes built since the 1970s. Newer-growth wood (harvested at 30-35 years) is softer, wicks moisture easily, and rots readily. Check bottom corners of window casings first.",
+                    "redFlag": "Rotted trim boards"
+                  },
+                  {
+                    "label": "Paint/stain condition",
+                    "tip": "Peeling, cracking, or alligatoring paint exposes wood to moisture. Pre-1978: potential lead paint. Owners may paint over rotted wood to hide it."
+                  },
+                  {
+                    "label": "Probe discolored or rough wood",
+                    "tip": "Do not be afraid to probe discolored or rough-looking trim. Use finger pressure or screwdriver. Rotted wood may not look bad from paint surface but can be completely soft underneath."
+                  },
+                  {
+                    "label": "Back-priming and end-sealing",
+                    "tip": "Unprimed back surfaces and raw cut ends wick moisture readily. Very common shortcut on subdivision homes. Open grain at cuts absorbs water like a sponge."
+                  },
+                  {
+                    "label": "Caulk condition at joints and penetrations",
+                    "tip": "Check caulk at all trim-to-siding, trim-to-window, and trim-to-door transitions. Failed caulk allows water behind trim and into wall cavity."
+                  },
+                  {
+                    "label": "Insect damage",
+                    "tip": "Look for bore holes, frass, or soft channels. Carpenter ants, termites, and wood-boring beetles target moisture-damaged trim."
+                  }
+                ],
+                "ilNote": "Wood trim rot is extremely common in Illinois, especially on post-1970s homes. Newer-growth wood is softer and less moisture-resistant than old-growth lumber. Freeze-thaw cycles, high summer humidity, and wind-driven rain accelerate deterioration. Bottom trim at windows and doors fails first.",
+                "rating": {
+                  "acceptable": "Protective coating intact, no rot or soft spots, caulk intact at transitions, secure attachment",
+                  "fair": "Paint deterioration in limited areas, minor caulk gaps, wood structurally sound",
+                  "poor": "Visible rot, soft spots when probed, missing sections, failed caulk with exposed substrate"
+                },
+                "findings": [
+                  {
+                    "id": "rot",
+                    "chipLabel": "Trim Rot",
+                    "define": "Wood trim deterioration (rot) observed at [location]. Trim was [soft when probed / visibly deteriorated / missing sections].",
+                    "direct": "Recommend further evaluation and repair by a qualified carpenter."
+                  },
+                  {
+                    "id": "paint-failure",
+                    "chipLabel": "Paint Failure",
+                    "define": "Paint/stain significantly deteriorated on exterior trim at [location], exposing wood substrate to moisture.",
+                    "direct": "Recommend scraping, priming, and repainting. Pre-1978 homes: follow EPA RRP lead paint guidelines."
+                  },
+                  {
+                    "id": "insect-damage",
+                    "chipLabel": "Insect Damage",
+                    "define": "Evidence of insect damage observed on exterior trim at [location].",
+                    "defer": "Recommend evaluation by a qualified pest control professional and repair by a qualified carpenter."
+                  },
+                  {
+                    "id": "failed-caulk",
+                    "chipLabel": "Failed Caulk",
+                    "define": "Caulk failure at trim joints/transitions at [location], creating pathway for moisture entry into wall cavity.",
+                    "direct": "Recommend removing old caulk and resealing with exterior-grade caulk."
+                  }
+                ]
+              },
+              {
+                "id": "vinyl-pvc",
+                "label": "Vinyl/PVC",
+                "checks": [
+                  {
+                    "label": "Secure attachment",
+                    "tip": "Check for loose or detached sections. PVC trim is typically face-nailed or adhesive-mounted."
+                  },
+                  {
+                    "label": "Heat damage or warping",
+                    "tip": "Dark-colored surfaces or reflected sun from nearby low-E windows can warp PVC trim. Check south and west exposures."
+                  },
+                  {
+                    "label": "Joint gaps from thermal movement",
+                    "tip": "PVC expands and contracts significantly. Check joints for gaps that open in cold weather."
+                  },
+                  {
+                    "label": "Impact damage or cracking",
+                    "tip": "PVC can crack from impact, especially in cold weather when material is more brittle."
+                  },
+                  {
+                    "label": "Caulk condition at transitions",
+                    "tip": "Caulk at trim-to-siding and trim-to-window transitions. Flexible caulk needed to accommodate thermal movement."
+                  }
+                ],
+                "ilNote": "PVC trim handles Illinois moisture well (no rot) but thermal expansion is significant with Illinois temperature extremes. Check joints in cold weather for gaps.",
+                "rating": {
+                  "acceptable": "Intact, no warping or cracking, joints tight, caulk intact",
+                  "fair": "Minor joint gaps, cosmetic discoloration",
+                  "poor": "Warped, cracked, detached sections, or significant joint gaps"
+                },
+                "findings": [
+                  {
+                    "id": "warping",
+                    "chipLabel": "Warping",
+                    "define": "PVC trim warped/distorted at [location], likely from heat exposure.",
+                    "direct": "Recommend replacement by a qualified contractor. Evaluate heat source (reflected sunlight, etc.)."
+                  },
+                  {
+                    "id": "damage",
+                    "chipLabel": "Damage",
+                    "define": "PVC trim [cracked / broken / detached] at [location].",
+                    "direct": "Recommend repair or replacement by a qualified contractor."
+                  }
+                ]
+              },
+              {
+                "id": "aluminum",
+                "label": "Aluminum",
+                "checks": [
+                  {
+                    "label": "Press on wrapped surfaces to check for soft wood behind",
+                    "tip": "Aluminum trim wrap hides wood condition underneath. If surface gives when pressed, wood behind is likely rotted. Same technique as aluminum-wrapped fascia."
+                  },
+                  {
+                    "label": "Check edges and nail holes for water entry",
+                    "tip": "Water enters at fastener points, seams, and edges. Once behind the wrap, moisture is trapped against wood."
+                  },
+                  {
+                    "label": "Rippling from poor installation",
+                    "tip": "Rippled aluminum trim is typically a cosmetic issue caused by installation that did not allow for thermal expansion. The trim is still functional."
+                  },
+                  {
+                    "label": "Denting or physical damage",
+                    "tip": "Dents from impact. Minor dents are cosmetic. Severe dents or punctures allow water behind the wrap."
+                  },
+                  {
+                    "label": "Secure attachment at all edges",
+                    "tip": "Loose aluminum wrap allows wind-driven rain behind it. Check bottom edges especially."
+                  }
+                ],
+                "ilNote": "Very common in Illinois. Aluminum wrap hides the condition of wood underneath. Always press-test to check for hidden rot. Rippling from thermal expansion is cosmetic, not structural.",
+                "rating": {
+                  "acceptable": "Firm when pressed, wrap intact and secure at all edges, no gaps",
+                  "fair": "Minor rippling (cosmetic), edges tight, wood firm behind wrap",
+                  "poor": "Soft when pressed (rotted wood behind), wrap separating, gaps allowing water entry"
+                },
+                "findings": [
+                  {
+                    "id": "hidden-rot",
+                    "chipLabel": "Hidden Rot",
+                    "define": "Aluminum-wrapped trim at [location] is soft when pressed, indicating deteriorated wood underneath the wrap.",
+                    "direct": "Recommend removal of aluminum wrap and evaluation/repair of wood trim by a qualified carpenter."
+                  },
+                  {
+                    "id": "wrap-damage",
+                    "chipLabel": "Wrap Damage",
+                    "define": "Aluminum trim wrap [dented / punctured / separating] at [location], allowing potential moisture entry behind wrap.",
+                    "direct": "Recommend repair by a qualified contractor."
+                  }
+                ]
+              },
+              {
+                "id": "fiber-cement",
+                "label": "Fiber Cement",
+                "checks": [
+                  {
+                    "label": "Paint condition",
+                    "tip": "Fiber cement requires paint to protect against moisture absorption. Bare fiber cement wicks water."
+                  },
+                  {
+                    "label": "Cracking or chipping",
+                    "tip": "Fiber cement can crack from impact or improper installation (over-driven fasteners). Cracks allow moisture into material."
+                  },
+                  {
+                    "label": "Caulk at joints and transitions",
+                    "tip": "Fiber cement joints need caulk to prevent water entry. Check at window/door casings and corner transitions."
+                  },
+                  {
+                    "label": "Proper fastening",
+                    "tip": "Should be face-nailed with corrosion-resistant nails. Over-driven nails crack the material."
+                  },
+                  {
+                    "label": "Bottom edge clearance from grade",
+                    "tip": "Minimum 6 inches from soil to prevent wicking. Fiber cement absorbs moisture from ground contact."
+                  }
+                ],
+                "ilNote": "Durable in Illinois climate. Freeze-thaw can cause cracking if paint fails and moisture enters the material. Maintain paint coating.",
+                "rating": {
+                  "acceptable": "Paint intact, no cracks or chips, caulk intact, proper clearance from grade",
+                  "fair": "Minor paint wear, hairline cracks, small caulk gaps",
+                  "poor": "Significant cracking, chipping, exposed substrate, failed caulk"
+                },
+                "findings": [
+                  {
+                    "id": "cracking",
+                    "chipLabel": "Cracking",
+                    "define": "Fiber cement trim cracked at [location].",
+                    "direct": "Recommend repair or replacement by a qualified contractor. Seal exposed edges to prevent moisture absorption."
+                  },
+                  {
+                    "id": "paint-failure",
+                    "chipLabel": "Paint Failure",
+                    "define": "Paint coating on fiber cement trim deteriorated at [location], exposing substrate to moisture absorption.",
+                    "direct": "Recommend priming and repainting to prevent moisture damage."
+                  }
+                ]
+              },
+              {
+                "id": "composite",
+                "label": "Composite",
+                "checks": [
+                  {
+                    "label": "Swelling at edges or cut ends",
+                    "tip": "Engineered wood composites can absorb moisture at unprotected edges and swell. Check bottom edges and cut ends."
+                  },
+                  {
+                    "label": "Paint or coating condition",
+                    "tip": "Most composite trim requires paint or factory coating. Failed coating exposes wood fiber content to moisture."
+                  },
+                  {
+                    "label": "Delamination",
+                    "tip": "Layers separating at edges indicates moisture infiltration into the composite material."
+                  },
+                  {
+                    "label": "Secure attachment",
+                    "tip": "Check for loose sections. Swollen composite becomes harder to keep fastened."
+                  },
+                  {
+                    "label": "Caulk at transitions",
+                    "tip": "Joints at windows, doors, and siding transitions need intact caulk to prevent moisture from reaching composite edges."
+                  }
+                ],
+                "ilNote": "Composite trim performance varies by product. Engineered wood types are susceptible to edge swelling from Illinois moisture. Wood-plastic composites perform better against moisture.",
+                "rating": {
+                  "acceptable": "Coating intact, no swelling or delamination, joints sealed",
+                  "fair": "Minor coating wear, early edge swelling in limited areas",
+                  "poor": "Swelling, delamination, or deterioration affecting function"
+                },
+                "findings": [
+                  {
+                    "id": "swelling",
+                    "chipLabel": "Swelling",
+                    "define": "Composite trim swelling observed at [location], indicating moisture absorption at edges.",
+                    "direct": "Recommend replacement of affected sections by a qualified contractor. Seal all cut ends at replacement."
+                  },
+                  {
+                    "id": "delamination",
+                    "chipLabel": "Delamination",
+                    "define": "Composite trim delaminating at [location].",
+                    "direct": "Recommend replacement by a qualified contractor."
+                  }
+                ]
+              }
+            ]
+          },
+          "universalChecks": [
+            {
+              "label": "Paint/coating condition on all trim",
+              "tip": "Paint protects trim from moisture. Check for peeling, cracking, blistering, or bare areas. Pre-1978 homes: potential lead paint.",
+              "redFlag": "Extensive paint failure exposing bare substrate"
+            },
+            {
+              "label": "Caulk at all trim-to-siding transitions",
+              "tip": "Every joint between trim and siding, trim and window, trim and door needs intact, flexible caulk. Failed caulk = water entry into wall cavity.",
+              "redFlag": "Failed or missing caulk at trim transitions"
+            },
+            {
+              "label": "Secure attachment of all trim",
+              "tip": "Loose or detached trim allows wind-driven rain and pests behind the weather barrier. Check corners, window heads, and door casings.",
+              "redFlag": "Detached or missing trim sections"
+            },
+            {
+              "label": "Water damage / rot at trim boards",
+              "tip": "Trim closes gaps in the siding/cladding material. When trim fails, water enters the wall cavity. Check bottom edges of window trim, door jamb bottoms, and corner boards at ground level.",
+              "redFlag": "Visible rot or deterioration at trim boards"
+            },
+            {
+              "label": "Z-flashing / drip cap at horizontal trim joints",
+              "tip": "Z-flashing should be installed where horizontal trim meets siding: top leg up and under the siding, bottom leg over the trim board. Missing Z-flashing or drip cap causes rot in trim boards and the siding above.",
+              "redFlag": "Missing Z-flashing or drip cap at horizontal trim transitions"
+            },
+            {
+              "label": "Flashing at trim-to-masonry transitions",
+              "tip": "Where siding and trim meet the top of masonry (brick, stone), there must be visible flashing to stop rainwater and snowmelt from getting into the wall cavity behind the masonry. A gap with no flashing is very much incorrect.",
+              "redFlag": "Missing flashing at siding/trim-to-masonry intersection"
+            },
+            {
+              "label": "Kickout (diverter) flashing where trim meets roof",
+              "tip": "Where step flashing meets the bottom of a wall/trim, a kickout flashing diverts water into the gutter or away from the siding. Missing kickout flashing allows water under the siding.",
+              "redFlag": "Missing kickout/diverter flashing at roof-to-wall transition"
+            }
+          ],
+          "redFlags": [
+            "Rotted trim boards at windows or doors",
+            "Missing Z-flashing or drip cap at horizontal trim joints",
+            "Missing flashing at siding/trim-to-masonry transitions",
+            "Missing kickout/diverter flashing at roof-to-wall transitions",
+            "Soft wood behind aluminum wrap (hidden rot)",
+            "Detached or missing trim creating exposed wall cavity"
+          ],
+          "study": {
+            "whatItIs": "Exterior trim closes holes and gaps in the siding/cladding material at windows, doors, corners, and material transitions. Trim has two functions: shed moisture and resist weather, and provide a finished appearance where siding materials meet other surfaces. Common trim locations include window and door casings, corner boards, frieze boards, rake boards, and transition strips.",
+            "howToInspect": "Walk all four elevations. Check trim at every window, door, and corner. Look for paint failure, rot, detachment, and caulk condition. At wood trim, probe discolored or rough areas -- do not be afraid to press-test even painted surfaces. At aluminum-wrapped trim, press on surfaces to check for soft wood behind. Check for Z-flashing/drip caps at horizontal joints. Look at trim-to-masonry transitions for flashing. Note kickout flashings where roofs meet walls.",
+            "details": [
+              "TRIM FUNCTION: Trim works to close holes and gaps in the siding/cladding material. Without trim, water, wind, and pests have direct access to the wall cavity and sheathing. (ICA Module 7, Section 6)",
+              "TYPICAL TRIM DEFECTS: Loose or open, Missing, Poor installation, Physical damage. Trim defects should be referred to a qualified carpenter. (ICA Module 7, Section 6.10)",
+              "ROTTED WINDOW TRIM: Very common at doors and windows, especially on homes built since the 1970s. Newer-growth wood (harvested at 30-35 years) is softer and wicks moisture readily. Unprimed back surfaces and unsealed cut ends absorb water. (ICA Module 7, Section 6.13)",
+              "PROBING: ASHI removed the requirement to probe wood in the March 2014 edition, but if wood is obviously rotted, probing is acceptable and makes a compelling photo for the report. Use professional judgment on when to probe. (ICA Module 7, Section 6.12)",
+              "Z-FLASHING: Top leg goes up and under the siding, bottom leg goes over the trim board. Missing Z-flashing or drip cap causes rot in trim boards and in the siding above. (ICA Module 7, Section 6.4)",
+              "FLASHING AT MASONRY: Where siding/trim meets the top of masonry, there must be visible flashing. A gap with no flashing allows rainwater, snowmelt, and ice behind the masonry. Recommend a siding contractor, as it is more of a siding issue than a masonry issue. (ICA Module 7, Section 6.5)",
+              "KICKOUT FLASHING: Also called diverter flashing. Needed where step flashing meets the bottom of a wall to divert storm water into the gutter or away from the siding. Missing kickout flashing allows water under the siding. (ICA Module 7, Section 6.6-6.7)",
+              "ALUMINUM TRIM WRAP: Rippled aluminum trim is typically a cosmetic issue -- the installer did not allow for thermal expansion. The trim is still doing its job, it just does not look right. Optionally report as cosmetic. (ICA Module 7, Section 6.15)",
+              "FLASHING TOO SHORT: Flashing that does not extend far enough over trim or masonry allows wind-driven rain behind the material. Even an inch and a half more material would have prevented the problem. This is bad workmanship. (ICA Module 7, Section 6.8)",
+              "DAMAGED EIFS FLASHING: EIFS (Exterior Insulation Finishing System) has a tendency to trap water. Damaged flashing at EIFS trim is a very big issue because it gives water an open path into or behind the EIFS. (ICA Module 7, Section 6.9)"
+            ],
+            "ashiSop": "ASHI SOP Section 4.1.A.1: Inspector shall inspect wall coverings, flashing and trim. InterNACHI SOP 2.2.I.A: Inspector shall inspect the siding, flashing and trim. Illinois SOP 1410.200(h)(1): Inspect the exterior wall covering; flashing and trim.",
+            "crossReferences": [
+              {
+                "component": "ext-siding",
+                "why": "Trim seals gaps in siding. Failed trim exposes siding substrate and wall cavity to moisture. J-channel, corner posts, and transition pieces are siding accessories that function as trim."
+              },
+              {
+                "component": "ext-fascia",
+                "why": "Fascia is a specific trim board at rafter ends. Aluminum-wrapped fascia uses the same press-test inspection technique as aluminum-wrapped trim."
+              },
+              {
+                "component": "ext-soffit",
+                "why": "Soffit meets trim at the eave. Failed trim at soffit transitions allows water and pests into the soffit and potentially the attic."
+              },
+              {
+                "component": "ext-flashing",
+                "why": "Z-flashing, drip caps, and kickout flashings protect trim transitions. Missing flashing is the primary cause of trim rot at horizontal joints."
+              },
+              {
+                "component": "ext-windows",
+                "why": "Window casings are trim. Rotted window trim is one of the most common exterior defects, especially on post-1970s homes."
+              },
+              {
+                "component": "ext-doors",
+                "why": "Door casings and jambs are trim. Rotted door jambs and casings are very common, especially at bottom corners near grade."
+              }
+            ]
           }
         },
         {
@@ -5604,6 +6301,54 @@ var INSPECTION_DATA = {
                   "describe_report": "Sealant at the foundation-to-framing junction at [location] exhibits [separation / cracking / displacement]. Gap appears [uniform / wider on one side]. [No additional signs of movement observed / Additional indicators of possible settlement noted at nearby areas].",
                   "describe_client": "The sealant where the wood framing sits on top of the foundation is pulling away. This can happen from normal expansion and contraction with temperature changes, or it can mean the foundation is moving slightly. If the gap is the same width all the way around, it is probably just the sealant reaching end of life. If it is wider on one side or follows a crack pattern, that could indicate settlement and should be looked at more closely.",
                   "direct": "If gap is uniform: recommend resealing as routine maintenance. If gap is wider on one side or accompanies crack patterns: recommend evaluation by a qualified foundation contractor to rule out settlement."
+                },
+                {
+                  "id": "failed-caulk-windows",
+                  "chipLabel": "Failed Caulk - Windows",
+                  "define": "Deteriorated or cracked caulking observed at windows on the [front / left / right / rear] elevation(s). Caulk is [dried and brittle / cracked / pulling away from substrate / missing entirely].",
+                  "describe_report": "Exterior caulking at windows on the [elevation(s)] is [deteriorated / cracked / missing]. The sealant has lost flexibility and is no longer providing an effective weather seal at these openings. [Count] windows affected.",
+                  "describe_client": "The caulking around the windows on the [side(s)] of the house has dried out and cracked. Caulking is supposed to be flexible so it can expand and contract with temperature changes. When it gets old and brittle, it cracks and lets water get behind the siding and window frame. The fix is straightforward -- remove the old caulk and apply new exterior-grade caulk.",
+                  "direct": "Recommend removal of failed caulking and resealing with appropriate exterior-grade sealant at affected window locations."
+                },
+                {
+                  "id": "failed-caulk-doors",
+                  "chipLabel": "Failed Caulk - Doors",
+                  "define": "Deteriorated or cracked caulking observed at exterior door frame(s) at [location(s)].",
+                  "describe_report": "Exterior caulking at door frame(s) at [location(s)] is [deteriorated / cracked / missing]. The head (top) of the frame is most critical as water is gravity-driven at this point.",
+                  "describe_client": "The caulking around the door frame at [location] has failed. The top of the door frame is the most important part to seal because water runs down the wall and hits the top of the frame first. Without a good seal there, water gets behind the frame and into the wall.",
+                  "direct": "Recommend removal of failed caulking and resealing with appropriate exterior-grade sealant. Prioritize the head (top) of each door frame."
+                },
+                {
+                  "id": "unsealed-penetrations",
+                  "chipLabel": "Unsealed Penetrations",
+                  "define": "One or more utility penetrations through the exterior wall are not sealed: [list specific penetrations -- e.g., A/C line set at right side, cable entry at rear, hose bib at left side]. Each unsealed penetration is a direct water entry path into the wall assembly.",
+                  "describe_report": "The following exterior wall penetrations lack adequate sealant: [list]. Unsealed penetrations allow direct water entry into the wall assembly and may also allow pest/insect entry.",
+                  "describe_client": "There are [number] spots where pipes, wires, or vents go through the exterior wall that are not sealed. Each one of these is basically an open hole that lets water, air, and bugs directly into the wall. Sealing these with exterior caulk is one of the simplest and cheapest maintenance items you can do.",
+                  "direct": "Recommend sealing all identified penetrations with appropriate exterior-grade sealant."
+                },
+                {
+                  "id": "wrong-caulk-type",
+                  "chipLabel": "Wrong Caulk Type",
+                  "define": "Caulk type at [location] does not appear appropriate for the application. [Latex/acrylic caulk observed in a location requiring silicone / interior caulk used on exterior / etc.]. Wrong caulk type leads to premature failure.",
+                  "describe_report": "Caulking at [location] appears to be [type observed], which is not the recommended sealant type for this application. [Explain why -- e.g., latex caulk used at a location requiring silicone for moisture resistance].",
+                  "describe_client": "The caulk used at [location] is not the right type for that spot. Different types of caulk are made for different jobs, and using the wrong one means it will fail sooner than it should. For example, latex caulk is paintable but it dries out faster than silicone, so it should not be used in areas that get a lot of water exposure.",
+                  "direct": "Recommend removal and replacement with appropriate sealant type for this application."
+                },
+                {
+                  "id": "foundation-sealant-uniform",
+                  "chipLabel": "Foundation Sealant - Age/Thermal",
+                  "define": "Sealant at the foundation/sill plate junction is separating uniformly around the perimeter. The gap is consistent in width. This pattern is consistent with normal thermal expansion/contraction cycling or sealant reaching end of life, rather than foundation movement.",
+                  "describe_report": "Sealant at the foundation-to-framing junction exhibits uniform separation around the perimeter. Gap width is consistent. Pattern is consistent with thermal cycling or sealant age rather than differential settlement. No other indicators of foundation movement observed.",
+                  "describe_client": "The sealant where the wood framing sits on the foundation is pulling away, but it is doing so evenly all the way around. This usually means the sealant has just reached end of life or it is expanding and contracting with temperature changes. Since the gap is the same width everywhere, it is not likely a foundation problem -- just time for new sealant.",
+                  "direct": "Recommend resealing as routine maintenance. No structural concern indicated by this pattern."
+                },
+                {
+                  "id": "foundation-sealant-differential",
+                  "chipLabel": "Foundation Sealant - Possible Settlement",
+                  "define": "Sealant at the foundation/sill plate junction is separating with a gap that is noticeably wider on one side than the other, or follows a crack pattern. This differential pattern may indicate foundation movement or settlement.",
+                  "describe_report": "Sealant at the foundation-to-framing junction at [location] exhibits differential separation -- gap is wider at [direction/side] and narrower at [direction/side]. This pattern may indicate foundation movement. [Note any additional indicators: stepped cracks in masonry, out-of-square door frames, floor slopes in adjacent areas.]",
+                  "describe_client": "The sealant where the framing meets the foundation is pulling away more on one side than the other. When the gap is uneven like this -- wider on one side -- it can mean the foundation is shifting or settling unevenly. This does not necessarily mean something catastrophic, but it should be looked at by someone who specializes in foundations to determine if it is active movement or an old settled condition.",
+                  "direct": "Recommend evaluation by a qualified foundation contractor to determine if the differential separation indicates active settlement."
                 }
               ]
             },
@@ -5661,35 +6406,47 @@ var INSPECTION_DATA = {
               ],
               "checks": [
                 {
-                  "label": "Operate each exterior door",
-                  "tip": "Open, close, check for sticking or binding."
+                  "label": "Door material identification",
+                  "tip": "Wood = heavy, visible grain, solid thud on knock. Steel = magnet sticks, smooth surface, metallic ring on knock, can dent and rust. Fiberglass = magnet does NOT stick, may have embossed grain, solid knock, won't rot or rust. Vinyl = PVC material, lightweight, smooth, no rust/rot. Identify material for each exterior door to note material-specific defects."
                 },
                 {
-                  "label": "Weatherstripping condition",
-                  "tip": "Should make contact when closed. Look for daylight around frame.",
-                  "redFlag": "Daylight visible around door frame"
+                  "label": "Operate each exterior door",
+                  "tip": "Open, close, check for sticking or binding. Door should latch securely. Sticking or binding may indicate frame out of square (settlement), swollen wood (moisture), or shifted hinges."
                 },
                 {
                   "label": "Lock and deadbolt function",
-                  "tip": "Test each lock. Check for keyed deadbolt on interior (fire hazard)."
+                  "tip": "Test each lock. Check for keyed deadbolt on interior (fire hazard). Deadbolt should engage and retract smoothly. Strike plate should be secure with full-depth screws."
                 },
                 {
-                  "label": "Safety glass in/adjacent to doors",
-                  "tip": "Look for etched 'bug mark' in corner. Required since 1960s.",
-                  "redFlag": "No safety glazing in/near doors"
+                  "label": "Weatherstripping condition",
+                  "tip": "Should make contact when closed. Look for daylight around frame. Feel for drafts. Compression weatherstripping should spring back when door opens. Magnetic weatherstripping (steel doors) should pull door tight.",
+                  "redFlag": "Daylight visible around door frame"
                 },
                 {
                   "label": "Door sill/threshold condition",
-                  "tip": "Press with foot. Soft = rotted. Water collects here.",
+                  "tip": "Press with foot. Soft = rotted. Water collects here. This is the most common failure point on exterior doors. Check for separation between threshold and floor/subfloor beneath.",
                   "redFlag": "Rotted door sill/threshold"
                 },
                 {
                   "label": "Rotted or rusted door/frame",
-                  "tip": "Probe wood with screwdriver at bottom of frame."
+                  "tip": "Probe wood with screwdriver at bottom of frame. Steel doors: check for rust at bottom edge and any area where paint is chipped. Wood doors: check bottom rail and bottom of frame jambs. Fiberglass doors: check for hairline cracks."
                 },
                 {
-                  "label": "Sliding glass doors",
-                  "tip": "Check operation, lock, safety glazing, track condition."
+                  "label": "Safety glass in/adjacent to doors",
+                  "tip": "Look for etched 'bug mark' in corner. Required since 1960s. Applies to glass in doors, sidelights, and any glass within 24 inches of a door.",
+                  "redFlag": "No safety glazing in/near doors"
+                },
+                {
+                  "label": "Storm door condition (if present)",
+                  "tip": "Check operation, closer mechanism (should close fully without slamming), glass/screen panel condition and operation, weatherstripping at frame. Storm doors with full glass panel and no vent can cause excessive heat buildup between storm door and primary door, which can warp or damage vinyl/fiberglass primary doors and damage weatherstripping."
+                },
+                {
+                  "label": "Sidelights and transoms",
+                  "tip": "Glass panels beside (sidelights) or above (transoms) entry doors. Check glass condition, glazing/seal integrity, safety glazing markings (required within 24 inches of door). Check for moisture between panes (failed IGU seal). Sidelight frames are common leak points -- check caulk at exterior."
+                },
+                {
+                  "label": "Sliding glass door -- track, rollers, lock, screen",
+                  "tip": "Door should glide smoothly on track. Stiff or jumping = worn rollers or debris in track. Lock should engage fully. Safety glazing required (check for 'bug mark'). Screen door should slide freely. Check track for corrosion or damage. Weep holes in track must be clear. Check for adequate weather seal at meeting stile (where panels overlap)."
                 }
               ],
               "rating": {
@@ -5727,22 +6484,86 @@ var INSPECTION_DATA = {
                   "chipLabel": "Weatherstripping Failed",
                   "define": "Weatherstripping at exterior door [location] is [missing/deteriorated]. [Daylight visible / drafts felt] around door frame.",
                   "direct": "Recommend replacement of weatherstripping."
+                },
+                {
+                  "id": "storm-door-defect",
+                  "chipLabel": "Storm Door Defect",
+                  "define": "Storm door at [location] observed with [inoperable closer / broken glass or screen / failed weatherstripping / damaged frame]. [If full glass panel with no vent over vinyl/fiberglass door: excessive heat buildup risk noted.]",
+                  "direct": "Recommend repair or replacement of storm door by a qualified contractor."
+                },
+                {
+                  "id": "sidelight-transom-defect",
+                  "chipLabel": "Sidelight/Transom Defect",
+                  "define": "[Sidelight / Transom] at [location] observed with [failed seal (foggy between panes) / cracked glass / missing safety glazing markings / deteriorated caulk at exterior perimeter].",
+                  "direct": "Recommend [replacement of failed IGU / evaluation for safety glazing / resealing perimeter caulk] by a qualified contractor."
+                },
+                {
+                  "id": "sliding-door-defect",
+                  "chipLabel": "Sliding Door Defect",
+                  "define": "Sliding glass door at [location] observed with [worn/failed rollers / damaged track / inoperable lock / failed weatherstripping at meeting stile / no safety glazing markings visible].",
+                  "direct": "Recommend repair by a qualified contractor. [If lock inoperable: security concern. If safety glazing not confirmed: recommend evaluation.]"
+                },
+                {
+                  "id": "door-frame-rot",
+                  "chipLabel": "Door Frame Rot/Rust",
+                  "define": "Exterior door [frame / door panel] at [location] shows [rot / rust] at [bottom rail / jamb / hinge side]. [Wood: soft when probed with awl. Steel: surface rust or rust-through at bottom edge.]",
+                  "direct": "Recommend repair or replacement by a qualified contractor. [Wood: evaluate for water source causing rot. Steel: if rust-through, door replacement is needed as patching is not durable.]"
                 }
               ],
               "refTables": [
                 {
                   "title": "Door Anatomy Reference",
-                  "columns": ["Part", "Location", "What to Check"],
+                  "columns": [
+                    "Part",
+                    "Location",
+                    "What to Check"
+                  ],
                   "rows": [
-                    ["Head", "Top of frame", "Square with jambs, no sagging or separation"],
-                    ["Jamb", "Sides of frame", "Plumb, no splitting or rot, strike plate secure"],
-                    ["Threshold / Sill", "Bottom (exterior doors)", "Probe for rot -- water collects here. Most common failure point"],
-                    ["Weatherstripping", "Seal between door and frame", "Should compress when door closes. Daylight visible = failed"],
-                    ["Hinges", "Typically 3 per full-size door", "Tight screws, no sagging door (top hinge wears first)"],
-                    ["Lockset / Handle", "Mid-height", "Latches and releases smoothly"],
-                    ["Deadbolt", "Above lockset (exterior)", "Engages fully. Interior side must be thumb-turn, NOT keyed (fire safety)"],
-                    ["Strike plate", "In jamb where latch/bolt engages", "Secure, aligned with bolt, screws tight"],
-                    ["Door sweep", "Bottom of door", "Flexible seal, should contact threshold. Missing = drafts and pests"]
+                    [
+                      "Head",
+                      "Top of frame",
+                      "Square with jambs, no sagging or separation"
+                    ],
+                    [
+                      "Jamb",
+                      "Sides of frame",
+                      "Plumb, no splitting or rot, strike plate secure"
+                    ],
+                    [
+                      "Threshold / Sill",
+                      "Bottom (exterior doors)",
+                      "Probe for rot -- water collects here. Most common failure point"
+                    ],
+                    [
+                      "Weatherstripping",
+                      "Seal between door and frame",
+                      "Should compress when door closes. Daylight visible = failed"
+                    ],
+                    [
+                      "Hinges",
+                      "Typically 3 per full-size door",
+                      "Tight screws, no sagging door (top hinge wears first)"
+                    ],
+                    [
+                      "Lockset / Handle",
+                      "Mid-height",
+                      "Latches and releases smoothly"
+                    ],
+                    [
+                      "Deadbolt",
+                      "Above lockset (exterior)",
+                      "Engages fully. Interior side must be thumb-turn, NOT keyed (fire safety)"
+                    ],
+                    [
+                      "Strike plate",
+                      "In jamb where latch/bolt engages",
+                      "Secure, aligned with bolt, screws tight"
+                    ],
+                    [
+                      "Door sweep",
+                      "Bottom of door",
+                      "Flexible seal, should contact threshold. Missing = drafts and pests"
+                    ]
                   ]
                 }
               ]
@@ -5750,14 +6571,39 @@ var INSPECTION_DATA = {
           ],
           "universalChecks": [
             {
-              "label": "Walk perimeter checking caulk at every penetration",
-              "tip": "Windows, doors, pipes, wires, vents.",
-              "redFlag": "Missing caulking at window/door tops (water entry)"
+              "label": "Walk full perimeter checking caulk at EVERY window",
+              "tip": "Check TOP of each window first -- that is where water hits. Touch suspect caulk: if it crumbles, it has failed. Note which windows have failed/missing caulk by location (front, left, right, rear). (ICA M6, M7)",
+              "redFlag": "Failed or missing caulking at window head (top)"
+            },
+            {
+              "label": "Check caulk at EVERY door perimeter",
+              "tip": "Head (top) of door frame is most critical. Check both sides of frame at sill/threshold area. Sidelight and transom perimeters are common leak points.",
+              "redFlag": "Missing caulk at door frame head"
+            },
+            {
+              "label": "Check each utility penetration individually",
+              "tip": "Every pipe, wire, vent, A/C line set, hose bib, electrical meter base, dryer vent, and exhaust vent where it exits the wall. Each one should be sealed. Note specific penetrations that are unsealed.",
+              "redFlag": "Unsealed utility penetration (direct water entry path)"
+            },
+            {
+              "label": "Check siding-to-trim junctions",
+              "tip": "Where siding meets corner boards, window/door trim, fascia. Gaps here let water behind siding into the wall assembly.",
+              "redFlag": "Open gaps at siding-to-trim junctions"
+            },
+            {
+              "label": "Check foundation/sill plate sealant",
+              "tip": "Look at the junction where wood framing sits on the foundation. Sealant here separates from normal thermal cycling and from foundation movement. Uniform gap = thermal/age. Wider on one side = possible settlement. (ICA M7, M8)",
+              "redFlag": "Foundation sealant separation wider on one side (possible settlement)"
+            },
+            {
+              "label": "Identify caulk type and age appropriateness",
+              "tip": "Silicone = rubbery/flexible, glossy, does NOT accept paint, 20+ year lifespan. Latex/acrylic = harder, paintable, cracks/shrinks, 5-10 year lifespan. Polyurethane = very tough, paintable, used for concrete/masonry. Butyl = sticky/stringy, used for metal seams. Wrong type in wrong location = premature failure.",
+              "redFlag": "Wrong caulk type for location (e.g., latex in wet area)"
             },
             {
               "label": "Operate all exterior doors",
-              "tip": "Check from inside too. Can you see daylight around the frame?",
-              "redFlag": "Keyed deadbolt on interior side (fire safety)"
+              "tip": "Open, close, check for sticking/binding. Test locks and deadbolts. Check for daylight around frame. Feel for drafts. Interior keyed deadbolt = fire safety hazard -- report every time.",
+              "redFlag": "Keyed deadbolt on interior side (fire safety concern)"
             }
           ],
           "redFlags": [],
@@ -5773,10 +6619,123 @@ var INSPECTION_DATA = {
               "CAULK TYPE IDENTIFICATION BY SIGHT/TOUCH: Silicone = rubbery/flexible, glossy or translucent when clear, does NOT accept paint, very stretchy, peels in sheets when removing. Latex/acrylic = harder/drier feel, paintable, cracks and shrinks over time, water-based cleanup, most common DIY caulk. Polyurethane = very tough/adhesive, used for concrete/masonry/foundation, harder than silicone, paintable, difficult to remove. Butyl = sticky/stringy texture, used for gutters and metal joints, remains flexible for years.",
               "CAULK TYPES BY LOCATION -- WHICH BELONGS WHERE: Windows/doors = paintable siliconized latex or polyurethane. Bathrooms/wet areas = 100% silicone (mold-resistant). Foundation/concrete joints = polyurethane sealant. Gutters/metal seams = butyl or silicone. Exterior wood trim = polyurethane or siliconized latex. If you see the wrong type in the wrong location (e.g., latex caulk in a wet area), it will fail faster than expected.",
               "FOUNDATION SEALANT MOVEMENT: When sealant around the foundation/sill plate is separating, cracking, or popping out, it can indicate: (a) normal thermal expansion/contraction (most common), (b) foundation movement/settlement, or (c) sealant reached end of life. KEY DIAGNOSTIC: if the gap is uniform all around = likely thermal or age. If the gap is wider on one side or follows a crack pattern = possible settlement, recommend further evaluation by a qualified foundation contractor.",
-              "DOOR ANATOMY: Head = top of frame. Jamb = sides of frame. Threshold/sill = bottom (exterior doors -- where water collects, most common rot location). Weatherstripping = seal between door and frame. Hinges = typically 3 per full-size door. Lockset/handle = latching mechanism. Deadbolt = secondary lock (exterior doors). Strike plate = where latch/bolt engages frame. Door sweep = flexible seal at bottom of door."
+              "DOOR ANATOMY: Head = top of frame. Jamb = sides of frame. Threshold/sill = bottom (exterior doors -- where water collects, most common rot location). Weatherstripping = seal between door and frame. Hinges = typically 3 per full-size door. Lockset/handle = latching mechanism. Deadbolt = secondary lock (exterior doors). Strike plate = where latch/bolt engages frame. Door sweep = flexible seal at bottom of door.",
+              "CAULK TYPES AND LIFESPAN: Silicone = rubbery/flexible, glossy or translucent, does NOT accept paint, peels in sheets when removing, 20+ year lifespan. Latex/acrylic = harder/drier, paintable, cracks and shrinks over time, water-based cleanup, most common DIY caulk, 5-10 year lifespan. Polyurethane = very tough/adhesive, used for concrete/masonry/foundation, harder than silicone, paintable, difficult to remove. Butyl = sticky/stringy texture, used for gutters and metal joints, remains flexible for years.",
+              "CAULK BY LOCATION -- WHICH BELONGS WHERE: Windows/doors = paintable siliconized latex or polyurethane. Bathrooms/wet areas = 100% silicone (mold-resistant). Foundation/concrete joints = polyurethane sealant. Gutters/metal seams = butyl or silicone. Exterior wood trim = polyurethane or siliconized latex. Wrong type in wrong location fails faster than expected.",
+              "SYSTEMATIC CAULK INSPECTION: Work around the entire perimeter of the house. At EACH window and door: check head (top) first, then sides, then sill. At EACH utility penetration: look for a continuous bead of sealant around the pipe/wire/vent where it enters the wall. Touch suspect caulk -- if it crumbles when touched, it has failed. Note each specific location for the report.",
+              "FOUNDATION SEALANT DIAGNOSTICS: When sealant at the foundation/sill plate junction is separating: (a) UNIFORM gap all around = likely thermal expansion/contraction or sealant age -- routine maintenance. (b) DIFFERENTIAL gap (wider on one side) or following a crack pattern = possible settlement -- recommend foundation contractor evaluation. Always look for corroborating evidence: stepped cracks in masonry, out-of-square doors, floor slopes.",
+              "EXTERIOR DOORS - THRESHOLD ROT: The threshold/sill is where water collects and is the most common failure point on exterior doors. Press with foot -- soft means rotted. A rotted threshold allows water into the subfloor. Check the BOTTOM of the door frame jambs as well -- this is where wood rot starts. (ICA M7)",
+              "KEYED DEADBOLT FIRE HAZARD: A deadbolt that requires a key from the INSIDE is a fire safety concern. Occupants may not be able to find or use the key during an emergency. Report EVERY time. Recommend replacement with a thumb-turn deadbolt on the interior side.",
+              "SAFETY GLASS REQUIREMENT IN/NEAR DOORS: Required since the 1960s in doors, sidelights (glass panels beside doors), and any glass within 24 inches of a door. Look for the etched 'bug mark' in a corner of the glass. Sliding glass doors MUST be safety glazed.",
+              "STORM DOOR HEAT BUILDUP: A storm door with a full glass panel and no vent installed over a vinyl or fiberglass primary door can cause excessive heat buildup between the two doors. This heat can warp or damage the primary door and deteriorate the weatherstripping. Note this combination when observed.",
+              "SLIDING GLASS DOOR INSPECTION: Check operation (should glide smoothly -- stiff or jumping = worn rollers or debris in track). Check lock engagement. Verify safety glazing (bug mark). Check track for corrosion. Verify weep holes in track are clear. Check weather seal at meeting stile (where panels overlap). Screen door should slide freely."
             ],
             "ashiSop": "ASHI SOP Section 4: Inspector shall inspect doors."
-          }
+          },
+          "dataCapture": [
+            {
+              "id": "caulk-location-tracker",
+              "label": "Caulking Assessment by Location",
+              "type": "chips",
+              "multi": true,
+              "options": [
+                "Front windows - OK",
+                "Front windows - Failed/Missing",
+                "Left side windows - OK",
+                "Left side windows - Failed/Missing",
+                "Right side windows - OK",
+                "Right side windows - Failed/Missing",
+                "Rear windows - OK",
+                "Rear windows - Failed/Missing",
+                "Front door - OK",
+                "Front door - Failed/Missing",
+                "Rear/side doors - OK",
+                "Rear/side doors - Failed/Missing",
+                "Garage door perimeter - OK",
+                "Garage door perimeter - Failed/Missing"
+              ],
+              "idHelper": [
+                {
+                  "name": "Priority Assessment Order",
+                  "clues": "Check head (top) first at every opening -- that is where gravity drives water. Then check sides and sill. Move systematically around the perimeter: front, left side, rear, right side."
+                }
+              ]
+            },
+            {
+              "id": "utility-penetration-tracker",
+              "label": "Utility Penetration Sealing",
+              "type": "chips",
+              "multi": true,
+              "options": [
+                "Electrical meter base - Sealed",
+                "Electrical meter base - Unsealed",
+                "A/C line set - Sealed",
+                "A/C line set - Unsealed",
+                "Hose bibs - Sealed",
+                "Hose bibs - Unsealed",
+                "Gas line entry - Sealed",
+                "Gas line entry - Unsealed",
+                "Dryer vent - Sealed",
+                "Dryer vent - Unsealed",
+                "Exhaust vents - Sealed",
+                "Exhaust vents - Unsealed",
+                "Cable/phone/data lines - Sealed",
+                "Cable/phone/data lines - Unsealed",
+                "Other penetration - Unsealed"
+              ]
+            },
+            {
+              "id": "caulk-type-observed",
+              "label": "Predominant Caulk Type",
+              "type": "chips",
+              "multi": false,
+              "options": [
+                "Silicone (rubbery, flexible, glossy)",
+                "Latex/Acrylic (harder, paintable, cracks)",
+                "Polyurethane (tough, paintable)",
+                "Mixed types",
+                "Cannot determine"
+              ]
+            },
+            {
+              "id": "caulk-overall-condition",
+              "label": "Overall Caulk Condition",
+              "type": "chips",
+              "multi": false,
+              "options": [
+                "Good - intact and flexible throughout",
+                "Fair - some locations dried/cracked",
+                "Poor - failed at multiple locations",
+                "Mixed - varies significantly by elevation"
+              ]
+            }
+          ],
+          "crossReferences": [
+            {
+              "componentId": "ext-flashing",
+              "relationship": "Caulk is NOT a substitute for flashing. If caulk is the only waterproofing at a roof-wall junction, that is a FLASHING deficiency, not a caulking issue."
+            },
+            {
+              "componentId": "ext-siding",
+              "relationship": "Caulk at siding-to-trim junctions seals gaps in the wall covering system. Failed caulk at these junctions lets water behind the siding."
+            },
+            {
+              "componentId": "ext-windows",
+              "relationship": "Window perimeter caulking is the exterior weather seal. Failed caulk at window heads allows water behind the window frame -- check interior for staining below windows."
+            },
+            {
+              "componentId": "foundation",
+              "relationship": "Foundation/sill plate sealant separation may indicate either routine maintenance need (uniform) or possible settlement (differential). Cross-reference with any foundation cracks, stepped masonry cracks, or floor slopes."
+            },
+            {
+              "componentId": "int-doors",
+              "relationship": "Exterior door sticking/binding may correlate with foundation settlement or framing movement observed during interior door inspection."
+            },
+            {
+              "componentId": "electrical",
+              "relationship": "Electrical meter base penetration should be sealed. Cable/phone/data line entries through exterior wall should be sealed."
+            }
+          ]
         },
         {
           "id": "ext-windows",
@@ -6018,57 +6977,79 @@ var INSPECTION_DATA = {
           },
           "dataCapture": [
             {
-              "id": "window-style",
-              "label": "Window Style",
-              "type": "chips",
-              "multi": true,
+              "id": "window-styles",
+              "label": "Window Styles Present",
+              "type": "toggle",
               "options": [
-                "Double-Hung",
+                "Fixed",
                 "Single-Hung",
+                "Double-Hung",
                 "Casement",
                 "Awning",
                 "Hopper",
-                "Slider",
-                "Fixed",
-                "Jalousie"
-              ],
-              "idHelper": [
-                {
-                  "name": "Double-Hung",
-                  "clues": "Two sashes that both slide up and down. Most common residential window. Upper and lower sash both operable. Tilt-in feature on modern versions for cleaning."
-                },
-                {
-                  "name": "Single-Hung",
-                  "clues": "Looks like double-hung but ONLY the bottom sash moves. Top sash is fixed. Common in older homes and budget replacements. Less expensive than double-hung."
-                },
-                {
-                  "name": "Casement",
-                  "clues": "Hinged on one side, cranks outward like a door. Handle/crank operator at bottom of frame. Excellent seal when closed (sash presses against weatherstripping). Best egress -- full opening. Common in kitchens over sinks."
-                },
-                {
-                  "name": "Awning",
-                  "clues": "Hinged at TOP, opens outward from the bottom. Crank or push-out operator. Can stay open in light rain because the glass acts as an awning. Often used above or below fixed windows."
-                },
-                {
-                  "name": "Hopper",
-                  "clues": "Hinged at BOTTOM, opens inward from the top. Common in basements and bathrooms. Opens into the room. Collects debris on the sash when open."
-                },
-                {
-                  "name": "Slider",
-                  "clues": "One or both sashes slide horizontally on a track. Like a sliding glass door but window-sized. Common in mid-century and ranch homes. Simple mechanism, fewer parts to fail."
-                },
-                {
-                  "name": "Fixed",
-                  "clues": "Does not open. No moving parts. Used for views, light, and architectural features (picture windows, transoms, sidelights). Provides ZERO egress -- cannot be used as emergency escape. Must NOT be the only window in a bedroom."
-                },
-                {
-                  "name": "Jalousie",
-                  "clues": "Horizontal glass slats (louvers) that tilt open like blinds using a crank. Common in older porches, sunrooms, and Southern/tropical homes. Very poor insulation and air sealing. Rare in modern IL construction."
-                }
+                "Jalousie",
+                "Slider"
               ]
             }
           ],
+          "windowStyleHelper": [
+            {
+              "name": "Fixed",
+              "description": "Does not open. Glass only. No egress. Common: picture windows, transoms, sidelights. No moving parts means no hardware failures, but also means no ventilation and cannot be used for emergency escape. Often used in combination with operable windows. Must NOT be the only window in a bedroom."
+            },
+            {
+              "name": "Single-Hung",
+              "description": "Bottom sash slides up, top is fixed. Most common in older homes. Only bottom opens. Less expensive than double-hung. Top sash cannot tilt in for cleaning. Balance mechanism (spring or weight) on bottom sash only. Looks identical to double-hung when closed -- test by trying to move the upper sash."
+            },
+            {
+              "name": "Double-Hung",
+              "description": "Both sashes slide up and down. Most common window type. Both can tilt in for cleaning on modern units. Two balance mechanisms (one per sash). Check both upper and lower sash operation -- upper sash often painted shut because it is rarely used. When both sashes are at half-open position, maximum ventilation occurs (warm air exits top, cool air enters bottom)."
+            },
+            {
+              "name": "Casement",
+              "description": "Hinged on side, cranks outward. Excellent egress (full opening). Crank mechanism is the failure point -- gears strip over time, especially on larger/heavier windows. When open, the sash projects outward and can interfere with walkways, patios, or neighboring windows. Provides best seal when closed (sash compresses against weatherstripping). Common in kitchens over sinks and in newer construction."
+            },
+            {
+              "name": "Awning",
+              "description": "Hinged at top, opens outward from bottom. Can be left open in rain (water runs off the tilted glass). Common in basements and above doors. Crank or push-out operator. Often used above or below fixed windows. Check that crank mechanism and hinge arms operate smoothly."
+            },
+            {
+              "name": "Hopper",
+              "description": "Hinged at bottom, opens inward from top. Common in basements. Inverted awning. Opens into the room so nothing can block the interior space below the window. Can collect debris on sill when open. Check hinge condition and that window latches securely when closed."
+            },
+            {
+              "name": "Jalousie",
+              "description": "Horizontal glass slats that tilt open like blinds. Very poor insulation and security. Common in porches, older FL/warm climate homes. Rare in IL. Multiple moving parts mean multiple failure points. Individual slats can break. Cannot be made weather-tight. If found in a conditioned space in IL, recommend replacement for energy efficiency."
+            },
+            {
+              "name": "Slider",
+              "description": "Slides horizontally on track. Like a horizontal single-hung. One or both panels may slide. Track collects debris and can bind. Rollers wear out over time. Common in basements and contemporary homes. Weep holes in track must be clear for drainage. Less effective seal than casement or double-hung."
+            }
+          ],
           "universalChecks": [
+            {
+              "label": "Painted/nailed shut windows in bedrooms",
+              "tip": "Life safety egress issue. All bedroom windows must be operable for emergency escape. Check by attempting to open -- do not force. Painted-shut windows are extremely common in older homes. IRC R310 requires emergency escape openings in every sleeping room.",
+              "redFlag": "Bedroom window painted/nailed shut (egress violation)"
+            },
+            {
+              "label": "Glazing type -- single, double, or triple pane",
+              "tip": "Look at glass edge or count reflections. Single pane = one reflection. Double = two reflections with visible gap between panes. Triple = three reflections. Single-pane glass has almost no insulating value (~R-1). Double-pane IGU ~R-3. Triple-pane ~R-5. Note the glazing type for each window style present."
+            },
+            {
+              "label": "Storm windows present",
+              "tip": "Exterior-mounted supplemental windows over older single-pane windows. Check operation, condition, weep holes at bottom. Weep holes must be open -- if plugged, moisture is trapped between storm window and primary window, causing sill rot. Storm windows add approximately R-1 to the window assembly."
+            },
+            {
+              "label": "Window wells at below-grade windows",
+              "tip": "Required for egress from below-grade bedrooms. Must have ladder/steps if well is deeper than 44 inches. Well must extend at least 36 inches from the wall. Check for proper drainage at bottom of well (gravel, drain tile). Standing water in window well = foundation water intrusion risk.",
+              "redFlag": "Below-grade bedroom window without compliant window well"
+            },
+            {
+              "label": "Lintel/header above windows",
+              "tip": "Steel angle iron or masonry header supporting wall above window opening. Check for sagging, rust, missing mortar at bearing points. Rusting lintels expand and crack surrounding masonry. Common on brick and stone exteriors. Lintels should have at least 6 inches of bearing on each side of the opening (per ICA Module 7). If lintel is sagging, the masonry above the window is unsupported.",
+              "redFlag": "Sagging or rusted lintel above window (masonry support compromised)"
+            },
             {
               "label": "Operate representative windows in each room",
               "tip": "You don't need to open every window. Representative sample.",
@@ -6128,22 +7109,97 @@ var INSPECTION_DATA = {
             {
               "id": "window-anatomy",
               "title": "Window Anatomy Reference",
-              "columns": ["Part", "Location / Description", "What to Check", "Failure Mode"],
+              "columns": [
+                "Part",
+                "Location / Description",
+                "What to Check",
+                "Failure Mode"
+              ],
               "rows": [
-                ["Frame", "The entire outer structure that holds the window in the rough opening. Can be vinyl, wood, aluminum, fiberglass, or clad.", "Cracks, warping, rot (wood), corrosion (aluminum). Plumb and square? Tight to wall sheathing?", "Cracked/warped frame = air infiltration, water entry. Rotted wood frame = structural failure of window unit."],
-                ["Sash", "The movable (or fixed) panel that holds the glass. Double-hung has upper and lower sash. Casement has one sash on hinges.", "Operates smoothly? Locks securely? Tilts in for cleaning (modern double-hung)? Stays open on its own?", "Painted/nailed shut = egress issue in bedrooms. Won't stay open = failed balance mechanism. Binding = frame out of square (possible structural movement)."],
-                ["Glass / Glazing", "The glass pane(s). Single-pane, double-pane (IGU), or triple-pane. IGU = insulated glass unit with sealed air/gas space between panes.", "Foggy/hazy BETWEEN panes = failed IGU seal. Cracked or broken glass. Etched 'bug mark' for safety glazing where required (near doors, bathrooms, <18\" from floor).", "Failed IGU seal: insulating value drops from ~R-3 to ~R-1.5. No repair — entire IGU must be replaced. Broken glass = safety hazard + weather exposure."],
-                ["Muntins", "The small bars dividing a single sash into multiple panes (true divided light) or applied decorative grids (simulated divided light / grilles between glass).", "True divided light: glazing compound condition, individual pane integrity. SDL/GBG: secure attachment, not rattling or falling off.", "Deteriorated glazing compound on true divided light = water behind glass = rot. Missing/loose muntins on SDL = cosmetic only."],
-                ["Mullion", "The vertical or horizontal structural member between two separate window units joined together (not to be confused with muntins). A mullion separates independent windows.", "Secure connection between window units. No separation, cracking, or bowing. Caulk intact at joints.", "Failed mullion = structural separation between window units, water entry at joint."],
-                ["Sill", "The bottom horizontal member of the window frame. The interior sill (stool) is the shelf-like ledge. The exterior sill is sloped to shed water.", "Exterior sill: sloped away from glass? Rot (wood)? Caulk intact? Interior stool: water staining? Rot? Separation from wall?", "Flat or reverse-sloped exterior sill = water pools against glass and frame = rot, leaking. Most common wood window failure point. Probe with awl."],
-                ["Head", "The top horizontal member of the window frame. On the exterior, the head is where a drip cap or head flashing should be installed.", "Head flashing (drip cap) present above? Missing on replacement windows is extremely common. Gap between head and wall above?", "Missing head flashing = water runs behind window frame into wall cavity. #1 window installation defect. CYA: PHOTOGRAPH any window missing head flashing."],
-                ["Jamb", "The vertical side members of the window frame. Where the sash slides or seals against when closed.", "Plumb? Rot (wood)? Separation from wall? Caulk at exterior jamb-to-wall joint? Interior jamb trim tight?", "Out-of-plumb jambs = sash won't operate smoothly, won't seal properly. Rotted jambs = window not structurally supported."],
-                ["Weatherstripping", "Flexible seal material between the sash and frame that prevents air and water infiltration when the window is closed. May be compression, fin/leaf, bulb, or foam type.", "Makes contact when window is closed? Compressed flat (worn out)? Missing sections? Daylight visible around closed sash?", "Failed weatherstripping = air infiltration (drafts, energy loss) and potential water entry. Most common on older wood and aluminum windows."],
-                ["Balance Mechanism", "The counterbalance system that allows sashes to stay open at any position. Types: block-and-tackle (spiral spring in a tube), channel balance (spring balance in track), sash cord and weight (older homes — cast iron weights in wall cavity on cotton rope).", "Sash stays at any position when opened? Falls shut = failed balance. Broken sash cord = sash won't stay up (double-hung). Rattle in wall = loose weight from broken cord.", "Failed balance = sash won't stay open (nuisance and potential egress issue). Broken sash cords in older homes are very common — weights still in wall cavity, just need new rope."],
-                ["Hardware (Locks & Operators)", "Sash locks (cam locks on double-hung), crank operators (casement/awning), pull handles, tilt latches (for sash removal/cleaning).", "Lock engages fully? Draws sash tight to frame? Crank operates smoothly (casement)? Tilt latches release and sash tilts in (double-hung)?", "Lock won't engage = sash not pulled tight against weatherstripping = air infiltration. Failed crank on casement = window inoperable. Missing lock = security concern."],
-                ["Screen", "Mesh panel (fiberglass or aluminum) in a frame that allows ventilation while keeping insects out. May be full-screen, half-screen, or retractable.", "Present? Tears or holes in mesh? Frame bent or not seated in track? Missing screens noted per room.", "Missing/damaged screens are NOT a structural defect. ASHI SOP requires noting the absence of screens. Report as 'screens missing at [location]' — do not defer to a specialist."],
-                ["Flashing", "Metal or membrane material that directs water away from the window-to-wall junction. Head flashing (drip cap) above window. Sill pan flashing beneath window (rarely visible). Jamb flashing at sides (rarely visible).", "Head flashing (drip cap): VISIBLE — look for Z-shaped metal above window. Present or absent? Sill pan and jamb flashing: NOT visible on existing construction — note as limitation.", "Missing head flashing = water enters wall behind window. Sill pan and jamb flashing cannot be verified without destructive testing. If water staining observed below interior window, suspect flashing failure. CYA: PHOTOGRAPH any window where head flashing is absent, especially replacement windows."],
-                ["Egress (Bedrooms)", "All bedroom windows must provide emergency escape. Requirements: minimum 5.7 sq ft clear opening (5.0 sq ft at ground floor), minimum 24\" height opening, minimum 20\" width opening, maximum 44\" sill height from finished floor.", "Measure opening dimensions on any bedroom window that appears undersized. Window operable from inside without keys or tools? Painted/nailed shut = LIFE SAFETY ISSUE.", "Non-compliant egress = life safety concern. Painted shut, nailed shut, undersized, or sill too high = occupants cannot escape fire. CYA: PHOTOGRAPH any bedroom window that does not meet egress requirements. PHOTOGRAPH any window that is painted or nailed shut."]
+                [
+                  "Frame",
+                  "The entire outer structure that holds the window in the rough opening. Can be vinyl, wood, aluminum, fiberglass, or clad.",
+                  "Cracks, warping, rot (wood), corrosion (aluminum). Plumb and square? Tight to wall sheathing?",
+                  "Cracked/warped frame = air infiltration, water entry. Rotted wood frame = structural failure of window unit."
+                ],
+                [
+                  "Sash",
+                  "The movable (or fixed) panel that holds the glass. Double-hung has upper and lower sash. Casement has one sash on hinges.",
+                  "Operates smoothly? Locks securely? Tilts in for cleaning (modern double-hung)? Stays open on its own?",
+                  "Painted/nailed shut = egress issue in bedrooms. Won't stay open = failed balance mechanism. Binding = frame out of square (possible structural movement)."
+                ],
+                [
+                  "Glass / Glazing",
+                  "The glass pane(s). Single-pane, double-pane (IGU), or triple-pane. IGU = insulated glass unit with sealed air/gas space between panes.",
+                  "Foggy/hazy BETWEEN panes = failed IGU seal. Cracked or broken glass. Etched 'bug mark' for safety glazing where required (near doors, bathrooms, <18\" from floor).",
+                  "Failed IGU seal: insulating value drops from ~R-3 to ~R-1.5. No repair — entire IGU must be replaced. Broken glass = safety hazard + weather exposure."
+                ],
+                [
+                  "Muntins",
+                  "The small bars dividing a single sash into multiple panes (true divided light) or applied decorative grids (simulated divided light / grilles between glass).",
+                  "True divided light: glazing compound condition, individual pane integrity. SDL/GBG: secure attachment, not rattling or falling off.",
+                  "Deteriorated glazing compound on true divided light = water behind glass = rot. Missing/loose muntins on SDL = cosmetic only."
+                ],
+                [
+                  "Mullion",
+                  "The vertical or horizontal structural member between two separate window units joined together (not to be confused with muntins). A mullion separates independent windows.",
+                  "Secure connection between window units. No separation, cracking, or bowing. Caulk intact at joints.",
+                  "Failed mullion = structural separation between window units, water entry at joint."
+                ],
+                [
+                  "Sill",
+                  "The bottom horizontal member of the window frame. The interior sill (stool) is the shelf-like ledge. The exterior sill is sloped to shed water.",
+                  "Exterior sill: sloped away from glass? Rot (wood)? Caulk intact? Interior stool: water staining? Rot? Separation from wall?",
+                  "Flat or reverse-sloped exterior sill = water pools against glass and frame = rot, leaking. Most common wood window failure point. Probe with awl."
+                ],
+                [
+                  "Head",
+                  "The top horizontal member of the window frame. On the exterior, the head is where a drip cap or head flashing should be installed.",
+                  "Head flashing (drip cap) present above? Missing on replacement windows is extremely common. Gap between head and wall above?",
+                  "Missing head flashing = water runs behind window frame into wall cavity. #1 window installation defect. CYA: PHOTOGRAPH any window missing head flashing."
+                ],
+                [
+                  "Jamb",
+                  "The vertical side members of the window frame. Where the sash slides or seals against when closed.",
+                  "Plumb? Rot (wood)? Separation from wall? Caulk at exterior jamb-to-wall joint? Interior jamb trim tight?",
+                  "Out-of-plumb jambs = sash won't operate smoothly, won't seal properly. Rotted jambs = window not structurally supported."
+                ],
+                [
+                  "Weatherstripping",
+                  "Flexible seal material between the sash and frame that prevents air and water infiltration when the window is closed. May be compression, fin/leaf, bulb, or foam type.",
+                  "Makes contact when window is closed? Compressed flat (worn out)? Missing sections? Daylight visible around closed sash?",
+                  "Failed weatherstripping = air infiltration (drafts, energy loss) and potential water entry. Most common on older wood and aluminum windows."
+                ],
+                [
+                  "Balance Mechanism",
+                  "The counterbalance system that allows sashes to stay open at any position. Types: block-and-tackle (spiral spring in a tube), channel balance (spring balance in track), sash cord and weight (older homes — cast iron weights in wall cavity on cotton rope).",
+                  "Sash stays at any position when opened? Falls shut = failed balance. Broken sash cord = sash won't stay up (double-hung). Rattle in wall = loose weight from broken cord.",
+                  "Failed balance = sash won't stay open (nuisance and potential egress issue). Broken sash cords in older homes are very common — weights still in wall cavity, just need new rope."
+                ],
+                [
+                  "Hardware (Locks & Operators)",
+                  "Sash locks (cam locks on double-hung), crank operators (casement/awning), pull handles, tilt latches (for sash removal/cleaning).",
+                  "Lock engages fully? Draws sash tight to frame? Crank operates smoothly (casement)? Tilt latches release and sash tilts in (double-hung)?",
+                  "Lock won't engage = sash not pulled tight against weatherstripping = air infiltration. Failed crank on casement = window inoperable. Missing lock = security concern."
+                ],
+                [
+                  "Screen",
+                  "Mesh panel (fiberglass or aluminum) in a frame that allows ventilation while keeping insects out. May be full-screen, half-screen, or retractable.",
+                  "Present? Tears or holes in mesh? Frame bent or not seated in track? Missing screens noted per room.",
+                  "Missing/damaged screens are NOT a structural defect. ASHI SOP requires noting the absence of screens. Report as 'screens missing at [location]' — do not defer to a specialist."
+                ],
+                [
+                  "Flashing",
+                  "Metal or membrane material that directs water away from the window-to-wall junction. Head flashing (drip cap) above window. Sill pan flashing beneath window (rarely visible). Jamb flashing at sides (rarely visible).",
+                  "Head flashing (drip cap): VISIBLE — look for Z-shaped metal above window. Present or absent? Sill pan and jamb flashing: NOT visible on existing construction — note as limitation.",
+                  "Missing head flashing = water enters wall behind window. Sill pan and jamb flashing cannot be verified without destructive testing. If water staining observed below interior window, suspect flashing failure. CYA: PHOTOGRAPH any window where head flashing is absent, especially replacement windows."
+                ],
+                [
+                  "Egress (Bedrooms)",
+                  "All bedroom windows must provide emergency escape. Requirements: minimum 5.7 sq ft clear opening (5.0 sq ft at ground floor), minimum 24\" height opening, minimum 20\" width opening, maximum 44\" sill height from finished floor.",
+                  "Measure opening dimensions on any bedroom window that appears undersized. Window operable from inside without keys or tools? Painted/nailed shut = LIFE SAFETY ISSUE.",
+                  "Non-compliant egress = life safety concern. Painted shut, nailed shut, undersized, or sill too high = occupants cannot escape fire. CYA: PHOTOGRAPH any bedroom window that does not meet egress requirements. PHOTOGRAPH any window that is painted or nailed shut."
+                ]
               ]
             }
           ],
@@ -7282,6 +8338,550 @@ var INSPECTION_DATA = {
             ],
             "ashiSop": "ASHI SOP Section 9: Inspector shall inspect central and through-wall cooling equipment."
           }
+        },
+        {
+          "id": "ext-close-access",
+          "title": "Close-Access Assessment",
+          "icon": "🔍",
+          "sectionId": "ext-building",
+          "dataCapture": [
+            {
+              "id": "wall-percentage",
+              "label": "Percentage of wall area closely examined",
+              "type": "chips",
+              "options": [
+                "100%",
+                "75%+",
+                "50-75%",
+                "25-50%",
+                "<25%"
+              ]
+            },
+            {
+              "id": "limited-access-reason",
+              "label": "Reason for limited access (select all that apply)",
+              "type": "chips",
+              "multiSelect": true,
+              "options": [
+                "Height",
+                "Vegetation",
+                "Stored items",
+                "Weather",
+                "Safety",
+                "Other"
+              ],
+              "conditional": {
+                "showWhen": "wall-percentage",
+                "notEquals": "100%"
+              }
+            },
+            {
+              "id": "elevations-examined",
+              "label": "Elevations examined closely",
+              "type": "chips",
+              "multiSelect": true,
+              "options": [
+                "North",
+                "South",
+                "East",
+                "West"
+              ]
+            },
+            {
+              "id": "limited-elevation-notes",
+              "label": "Notes on elevations NOT examined closely",
+              "type": "text",
+              "placeholder": "e.g., West elevation — 2-story height, no ladder access above 8 ft",
+              "conditional": {
+                "showWhen": "elevations-examined",
+                "lessThan": 4
+              }
+            }
+          ],
+          "universalChecks": [
+            {
+              "id": "cladding-section",
+              "sectionLabel": "1. CLADDING / SIDING",
+              "checks": [
+                {
+                  "label": "Loose, missing, or displaced cladding sections",
+                  "tip": "Push gently on suspect areas. Loose siding allows water and animal entry behind weather barrier."
+                },
+                {
+                  "label": "Buckling or warping",
+                  "tip": "Indicates heat damage, improper nailing (no expansion gap), or moisture behind the cladding. Common with vinyl near dryer vents or grills."
+                },
+                {
+                  "label": "Rot, delamination, or deterioration",
+                  "tip": "Probe wood-based siding with screwdriver. Soft spots = rot. Bottom edges and soil-contact areas are worst. Hardboard siding is especially prone to moisture failure at bottom edges."
+                },
+                {
+                  "label": "Checking (wood) or cracking (masonry/stucco)",
+                  "tip": "Wood checking = starting to crack from moisture cycling. Rigid siding cracks from movement or shrinkage. Distinguish typical cracks (single, hairline, vertical, same width entire length, no displacement) from problematic cracks (paired, widening, horizontal, displacement visible)."
+                },
+                {
+                  "label": "Physical damage (impact, hail, holes)",
+                  "tip": "Any penetration of the cladding is a moisture entry point. Document size and location."
+                },
+                {
+                  "label": "Weathered or failing paint/stain",
+                  "tip": "Paint failure exposes substrate to moisture. On fiber cement, exposed substrate absorbs water leading to freeze-thaw damage. Pre-1978: potential lead paint — follow EPA RRP guidelines."
+                },
+                {
+                  "label": "Bottom course clearance from grade (minimum 6 inches)",
+                  "tip": "Siding in contact with soil creates a moisture wicking path and concealed termite entry. Per SOP, report wood in contact with or near soil."
+                }
+              ]
+            },
+            {
+              "id": "soffit-section",
+              "sectionLabel": "2. SOFFITS",
+              "checks": [
+                {
+                  "label": "Holes or missing sections",
+                  "tip": "Animal entry point for squirrels, raccoons, birds, bats into attic. Check corners and where soffit meets fascia."
+                },
+                {
+                  "label": "Loose or sagging panels",
+                  "tip": "Wind damage or failed fasteners. Creates gaps for weather and animal entry."
+                },
+                {
+                  "label": "Water staining on underside",
+                  "tip": "Indicates ice dam backup, gutter overflow, or roof leak dripping along sheathing. Cross-reference with attic and roof condition."
+                },
+                {
+                  "label": "Ventilation perforations open (not painted over or blocked)",
+                  "tip": "Run finger across panel. Paint-filled holes block attic intake ventilation. Very common defect."
+                },
+                {
+                  "label": "Rot or soft spots (wood soffits)",
+                  "tip": "Probe with screwdriver. Soft = rot. Indicates chronic moisture from above."
+                }
+              ]
+            },
+            {
+              "id": "fascia-section",
+              "sectionLabel": "3. FASCIA",
+              "checks": [
+                {
+                  "label": "Rot or soft spots (press on surface)",
+                  "tip": "The #1 reason gutters sag. When gutters overflow, water sits against the fascia board and rots it. Aluminum-wrapped fascia hides rot underneath — press to test."
+                },
+                {
+                  "label": "Paint failure or deterioration",
+                  "tip": "Exposed wood absorbs moisture and accelerates rot. Pre-1978: potential lead paint."
+                },
+                {
+                  "label": "Animal damage (gnaw marks)",
+                  "tip": "Squirrels commonly chew fascia boards to gain attic access. Look for gnaw marks at corners."
+                },
+                {
+                  "label": "Gutters pulling away from fascia",
+                  "tip": "Almost always means fascia behind is rotted. Weight of full gutters on rotted wood = progressive failure."
+                }
+              ]
+            },
+            {
+              "id": "windows-section",
+              "sectionLabel": "4. WINDOWS (representative number per InterNACHI SOP 2.2)",
+              "checks": [
+                {
+                  "label": "Window sill condition — rot, cracking, deterioration",
+                  "tip": "Sills take the most weather exposure. Probe wood sills for softness. Sloped sills shed water; flat or back-sloped sills trap it."
+                },
+                {
+                  "label": "Window appears watertight at top",
+                  "tip": "Per ICA Module 6: whether or not you see a drip cap, windows should at least appear to be watertight at the top. Sealant only at window head will fail and allow moisture into wall cavity."
+                },
+                {
+                  "label": "Glazing and seal condition",
+                  "tip": "Fogged glass between panes = failed thermal seal. Per InterNACHI SOP 2.10: report windows that are obviously fogged or display evidence of broken seals."
+                },
+                {
+                  "label": "Frame condition — warping, rot, damage",
+                  "tip": "Check bottom corners of frames where water collects. Wood frames need intact paint. Vinyl frames can warp from heat."
+                },
+                {
+                  "label": "Caulk/sealant condition at window perimeter",
+                  "tip": "Cracked, peeling, or missing caulk at window edges allows water behind cladding. Every window penetration needs intact sealant."
+                }
+              ]
+            },
+            {
+              "id": "doors-section",
+              "sectionLabel": "5. EXTERIOR DOORS",
+              "checks": [
+                {
+                  "label": "Door frame and threshold condition",
+                  "tip": "Check bottom of door frames and thresholds for rot, rust, or deterioration. Water pools at thresholds."
+                },
+                {
+                  "label": "Weatherstripping condition",
+                  "tip": "Daylight visible around closed door = failed weatherstripping. Energy loss and moisture entry."
+                },
+                {
+                  "label": "Door appears watertight at head (drip cap or flashing)",
+                  "tip": "Same principle as windows — water must be directed away from the top of the door opening."
+                },
+                {
+                  "label": "Caulk/sealant condition at door perimeter",
+                  "tip": "Cracked or missing caulk at door frame-to-siding transition allows water entry."
+                }
+              ]
+            },
+            {
+              "id": "trim-section",
+              "sectionLabel": "6. TRIM",
+              "checks": [
+                {
+                  "label": "Corner boards and trim boards — rot, splitting, deterioration",
+                  "tip": "Trim is typically wood even on vinyl-sided homes. Corner boards take significant weather exposure. Probe for soft spots."
+                },
+                {
+                  "label": "J-channel and trim pieces secure (vinyl/aluminum siding)",
+                  "tip": "Loose or missing J-channel at windows, doors, and corners exposes sheathing and wall assembly to water."
+                },
+                {
+                  "label": "Paint/stain condition on trim",
+                  "tip": "Trim often fails before siding because it has more exposed end grain. Pre-1978: potential lead paint."
+                },
+                {
+                  "label": "Trim-to-siding transitions sealed",
+                  "tip": "Every transition between trim and siding is a potential water entry point. Check for gaps."
+                }
+              ]
+            },
+            {
+              "id": "flashing-section",
+              "sectionLabel": "7. FLASHING",
+              "checks": [
+                {
+                  "label": "Kick-out flashing at roof edge/sidewall transitions",
+                  "tip": "Per ICA Module 6: the most commonly omitted flashing. Missing kick-out = water runs down wall behind siding = hidden rot. Look where lower roof meets a sidewall."
+                },
+                {
+                  "label": "Step flashing at roof-to-wall junctions",
+                  "tip": "L-shaped metal woven into shingle courses. If you see caulk smeared at the junction instead of metal step flashing = improper installation."
+                },
+                {
+                  "label": "Head flashing / drip caps above windows and doors",
+                  "tip": "Per ICA Module 6: most window/door flashing will not be visible on an existing home except for drip caps. Absence is not necessarily a defect if window appears watertight."
+                },
+                {
+                  "label": "Z-flashing at material transitions",
+                  "tip": "Where one siding type changes to another, or siding meets a horizontal surface. Directs water over the lower material."
+                },
+                {
+                  "label": "Counter flashing at chimney and masonry transitions",
+                  "tip": "Two-piece system required (base flashing + counter flashing embedded in mortar joint). One piece only = improper."
+                }
+              ]
+            },
+            {
+              "id": "caulking-section",
+              "sectionLabel": "8. CAULKING / SEALANT",
+              "checks": [
+                {
+                  "label": "Caulk condition at all penetrations (vents, pipes, wires, hose bibs)",
+                  "tip": "Every penetration through the cladding needs intact sealant. Cracked, peeling, or missing caulk = moisture entry path."
+                },
+                {
+                  "label": "Caulk at siding joints and butt joints",
+                  "tip": "Butt joints on fiber cement and wood siding must be caulked. Raw cut edges absorb moisture."
+                },
+                {
+                  "label": "Caulk at dissimilar material transitions",
+                  "tip": "Where siding meets masonry, concrete, or different materials. Different expansion rates require flexible sealant."
+                },
+                {
+                  "label": "Overall caulk age and flexibility",
+                  "tip": "Aged caulk becomes brittle and cracks. If caulk is uniformly deteriorated, full recaulking is needed."
+                }
+              ]
+            },
+            {
+              "id": "water-intrusion-section",
+              "sectionLabel": "WATER INTRUSION EVIDENCE (exterior indicators)",
+              "checks": [
+                {
+                  "label": "Staining patterns below windows, doors, or penetrations",
+                  "tip": "Staining below openings indicates moisture is migrating behind the cladding and exiting lower on the wall. Cross-reference with interior around these openings."
+                },
+                {
+                  "label": "Efflorescence on masonry (white salt deposits)",
+                  "tip": "Per ICA Module 7: efflorescence is a white chalky deposit from lime and calcium wicking out of brick due to moisture. Indicates a moisture situation."
+                },
+                {
+                  "label": "Moss, algae, or biological growth on siding",
+                  "tip": "Indicates chronic moisture on the surface. Often on north-facing or shaded walls. Check for underlying moisture source."
+                },
+                {
+                  "label": "Bubbling, peeling, or blistering paint",
+                  "tip": "Can indicate moisture escaping from inside the wall cavity through the siding. Cross-reference with interior wall condition."
+                }
+              ]
+            },
+            {
+              "id": "structural-section",
+              "sectionLabel": "STRUCTURAL CONCERNS VISIBLE FROM EXTERIOR",
+              "checks": [
+                {
+                  "label": "Step cracking in masonry (follows mortar joints)",
+                  "tip": "Per ICA Module 7: cracking could indicate a structural problem. Almost always traced back to the foundation. Step cracks in mortar = differential settlement."
+                },
+                {
+                  "label": "Horizontal cracking in masonry",
+                  "tip": "Per ICA Module 6: horizontal cracks indicate lateral pressure — this is more concerning than vertical or step cracks."
+                },
+                {
+                  "label": "Bulging, bowing, or leaning walls",
+                  "tip": "Visible deviation from plumb indicates structural movement. Brick veneer detachment signs: bulging wall, stepped cracking at corners, gap at top where brick meets soffit."
+                },
+                {
+                  "label": "Rusting or deflecting steel lintels above openings",
+                  "tip": "Per ICA Module 7: lintels are steel and tend to rust. When steel rusts it expands, pushing apart the masonry above and causing cracking. Rusting lintels lose structural capacity."
+                },
+                {
+                  "label": "Separation at additions or building joints",
+                  "tip": "Gaps opening between original structure and additions indicate differential settlement or inadequate connection."
+                }
+              ]
+            }
+          ],
+          "interactiveLogic": [
+            {
+              "id": "access-limitation-wizard",
+              "title": "Access Limitation Documentation",
+              "description": "Determines what percentage of the exterior was closely examined and generates appropriate limitation language for the report. Per IL SOP 1410.200(e)(2)(C): report shall disclose systems not inspected with a reason why they were not inspected.",
+              "inputs": [
+                {
+                  "id": "pct-examined",
+                  "label": "What percentage of exterior walls could you closely examine?",
+                  "type": "chips",
+                  "options": [
+                    "100%",
+                    "75%+",
+                    "50-75%",
+                    "25-50%",
+                    "<25%"
+                  ]
+                },
+                {
+                  "id": "reason-height",
+                  "label": "Height prevented close access?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "conditional": {
+                    "showWhen": "pct-examined",
+                    "notEquals": "100%"
+                  }
+                },
+                {
+                  "id": "reason-vegetation",
+                  "label": "Vegetation prevented close access?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "conditional": {
+                    "showWhen": "pct-examined",
+                    "notEquals": "100%"
+                  }
+                },
+                {
+                  "id": "reason-stored-items",
+                  "label": "Stored items prevented close access?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "conditional": {
+                    "showWhen": "pct-examined",
+                    "notEquals": "100%"
+                  }
+                },
+                {
+                  "id": "reason-weather",
+                  "label": "Weather conditions prevented close access?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "conditional": {
+                    "showWhen": "pct-examined",
+                    "notEquals": "100%"
+                  }
+                },
+                {
+                  "id": "reason-safety",
+                  "label": "Safety concern prevented close access?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "conditional": {
+                    "showWhen": "pct-examined",
+                    "notEquals": "100%"
+                  }
+                },
+                {
+                  "id": "binoculars-used",
+                  "label": "Were binoculars used for areas not closely accessible?",
+                  "type": "chips",
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "conditional": {
+                    "showWhen": "pct-examined",
+                    "notEquals": "100%"
+                  }
+                }
+              ],
+              "outcomes": [
+                {
+                  "when": {
+                    "pct-examined": "100%"
+                  },
+                  "result": "acceptable",
+                  "define": "All exterior wall surfaces were closely examined from ground level during the inspection.",
+                  "direct": "No limitation language needed. Proceed with system-by-system evaluation.",
+                  "reportLanguage": "All exterior wall surfaces were closely examined at the time of inspection."
+                },
+                {
+                  "when": {
+                    "pct-examined": "75%+"
+                  },
+                  "result": "minor-limitation",
+                  "define": "Approximately 75% or more of exterior wall surfaces were closely examined. Limited areas were not accessible for close examination.",
+                  "direct": "Document which elevations or areas were limited and why. This is a normal limitation for most two-story homes inspected from ground level.",
+                  "reportLanguage": "Approximately 75% or more of the exterior wall surfaces were closely examined at the time of inspection. [Areas not closely examined: ___] were evaluated from a distance [with/without binoculars] due to [height/vegetation/stored items/weather/safety]. Concealed defects in areas not closely examined are possible."
+                },
+                {
+                  "when": {
+                    "pct-examined": "50-75%"
+                  },
+                  "result": "moderate-limitation",
+                  "define": "Approximately 50-75% of exterior wall surfaces were closely examined. Significant areas could not be accessed for close examination.",
+                  "direct": "Document all limited areas with specific reasons. Recommend client be aware that defects may exist in unexamined areas. Consider recommending follow-up examination when conditions allow.",
+                  "reportLanguage": "Approximately 50-75% of the exterior wall surfaces were closely examined at the time of inspection. [Areas not closely examined: ___] could not be evaluated up close due to [height/vegetation/stored items/weather/safety]. [Binoculars were/were not used to evaluate inaccessible areas from a distance.] The inspector cannot be held responsible for defects in areas that were not accessible for close examination. Further evaluation may be warranted when access conditions improve."
+                },
+                {
+                  "when": {
+                    "pct-examined": "25-50%"
+                  },
+                  "result": "significant-limitation",
+                  "define": "Only approximately 25-50% of exterior wall surfaces were closely examined. The majority of the exterior could not be accessed for close examination.",
+                  "direct": "Clearly document all areas that were limited and why. Strongly recommend follow-up examination. This level of limitation should be prominently noted in the report summary.",
+                  "reportLanguage": "Only approximately 25-50% of the exterior wall surfaces were closely examined at the time of inspection. Access was limited at [areas: ___] due to [height/vegetation/stored items/weather/safety]. [Binoculars were/were not used to evaluate inaccessible areas from a distance.] Due to the extent of limited access, defects in unexamined areas are possible. The inspector recommends further evaluation of the exterior by a qualified contractor when access conditions allow. This limitation should be considered when evaluating the overall condition of the exterior."
+                },
+                {
+                  "when": {
+                    "pct-examined": "<25%"
+                  },
+                  "result": "severe-limitation",
+                  "define": "Less than 25% of exterior wall surfaces were closely examined. Nearly the entire exterior was inaccessible for close examination.",
+                  "direct": "This is a critical limitation. Document prominently in the report and summary. Strongly recommend a full exterior evaluation by a qualified contractor under better access conditions. Per ASHI SOP and IL SOP, inspections are limited visual examinations of readily accessible components — document that access prevented meaningful evaluation.",
+                  "reportLanguage": "Less than 25% of the exterior wall surfaces were closely examined at the time of inspection. Access was significantly limited due to [height/vegetation/stored items/weather/safety]. [Binoculars were/were not used to evaluate inaccessible areas from a distance.] Due to the severely limited access, a meaningful evaluation of the exterior was not possible for the majority of the structure. The inspector strongly recommends a full exterior evaluation by a qualified contractor when access conditions allow. Per the Standards of Practice, a home inspection is a limited visual examination of readily accessible systems and components. The inspector cannot be held responsible for conditions that were not accessible for inspection."
+                }
+              ]
+            }
+          ],
+          "findings": [
+            {
+              "id": "limited-access",
+              "chipLabel": "Limited Access - Areas Not Examined",
+              "define": "Exterior wall surfaces at [elevation/location] were not accessible for close examination due to [height/vegetation/stored items/weather/safety conditions] at the time of inspection.",
+              "direct": "Per IL SOP 1410.200(e)(2)(C), this limitation is disclosed. Areas not closely examined may contain defects not identified in this report. Recommend evaluation by a qualified contractor when access conditions improve.",
+              "reportLanguage": "The following areas of the exterior were not accessible for close examination: [list areas and reasons]. This is a limitation of the inspection as performed. Per the Standards of Practice, a home inspection is a non-invasive, visual examination of readily accessible systems and components."
+            },
+            {
+              "id": "water-intrusion-evidence",
+              "chipLabel": "Evidence of Water Intrusion",
+              "define": "Evidence of water intrusion was observed at [location] on the exterior, including [staining/efflorescence/peeling paint/moss growth/damaged sealant]. This suggests moisture is penetrating the wall assembly at this location.",
+              "defer": "Recommend evaluation by a qualified contractor to determine the source and extent of moisture intrusion. Cross-reference with interior observations at this location.",
+              "cascades": [
+                {
+                  "check": "interior > walls-ceilings",
+                  "reason": "Exterior water intrusion evidence at [location] — check interior walls and ceilings at corresponding location for staining, mold, or damage."
+                },
+                {
+                  "check": "structure > foundation",
+                  "reason": "Exterior moisture patterns may indicate water reaching the foundation — verify from interior."
+                },
+                {
+                  "check": "attic > insulation-moisture",
+                  "reason": "If water intrusion is near the roofline, check attic insulation for moisture at corresponding location."
+                }
+              ]
+            },
+            {
+              "id": "structural-concern-exterior",
+              "chipLabel": "Structural Concerns from Exterior",
+              "define": "Visible evidence of potential structural concern was observed from the exterior at [location], including [step cracking/horizontal cracking/bulging wall/leaning/rusting lintels/separation at joints].",
+              "defer": "Recommend evaluation by a licensed structural engineer or qualified foundation contractor. Per ICA Module 7: cracking in masonry could indicate a structural problem and almost always traces back to the foundation.",
+              "cascades": [
+                {
+                  "check": "structure > foundation",
+                  "reason": "Exterior structural indicators at [location] — verify foundation condition from interior for corresponding movement or cracking."
+                },
+                {
+                  "check": "interior > doors-windows",
+                  "reason": "Structural movement visible on exterior — check interior doors and windows for binding, out-of-square frames, or cracked drywall at corresponding location."
+                }
+              ]
+            },
+            {
+              "id": "flashing-deficiency",
+              "chipLabel": "Flashing Deficiency",
+              "define": "Flashing was observed to be [missing/improperly installed/deteriorated] at [location]. [Missing kick-out flashing at roof-to-wall transition / Sealant used instead of step flashing / Drip cap missing above window or door / Counter flashing missing at chimney].",
+              "direct": "Recommend evaluation and repair by a qualified contractor. Per ICA Module 6: flashing is critical to prevent leaks, mold, and rotting. Missing or improper flashing creates a concealed water intrusion path.",
+              "cascades": [
+                {
+                  "check": "interior > walls-ceilings",
+                  "reason": "Flashing deficiency at [location] — check interior walls at corresponding location for evidence of moisture intrusion."
+                }
+              ]
+            },
+            {
+              "id": "caulk-failure",
+              "chipLabel": "Sealant / Caulk Failure",
+              "define": "Sealant/caulk was observed to be [cracked/peeling/missing/deteriorated] at [location/penetrations/transitions]. [Isolated areas / Widespread deterioration observed].",
+              "direct": "Recommend recaulking at [affected areas] by a qualified contractor or capable homeowner. Failing sealant allows moisture behind the cladding and into the wall assembly."
+            }
+          ],
+          "redFlags": [
+            "Horizontal cracking in masonry (lateral pressure indicator)",
+            "Bulging or bowing walls (structural movement)",
+            "Missing kick-out flashing at roof-to-wall transitions",
+            "Siding in contact with soil (moisture and termite entry)",
+            "Holes in soffits allowing animal entry to attic",
+            "Active water staining or moisture on exterior surfaces",
+            "Rusting or deflecting steel lintels above openings",
+            "Evidence of concealed rot behind aluminum-wrapped fascia"
+          ],
+          "study": {
+            "whatItIs": "A systematic protocol for documenting how much of the exterior you could closely examine, what you found on each of the 8 exterior systems (cladding, soffits, fascia, windows, doors, trim, flashing, caulking), and what you could not access. This is your primary CYA tool for exterior inspection — it proves what you checked, what you could not check, and why.",
+            "howToInspect": "Walk the full perimeter at close range. For each elevation (North, South, East, West), note what you can and cannot access up close. Use binoculars for areas you cannot reach. Check all 8 systems at each accessible area before moving to the next. Photograph areas of limited access as documentation.",
+            "details": [
+              "WHY PERCENTAGE TRACKING MATTERS: Per IL SOP 1410.200(e)(2)(C), the report shall disclose any systems or components designated for inspection that were present but were not inspected, with a reason why they were not inspected. Per InterNACHI SOP 3.1, an inspection is not technically exhaustive and will not identify concealed or latent defects. Tracking what percentage you examined and documenting what you could not access is your primary defense if a defect is later found in an area you could not reach. You cannot be held responsible for what you documented you could not evaluate.",
+              "COMMUNICATING LIMITATIONS TO CLIENTS: Per ICA Module 24, the report is the final product. The client relies on it to make critical decisions. Every statement you make, including verbal statements, will influence the client's actions regarding the transaction. When you document limited access: (1) State what you could examine. (2) State what you could not examine. (3) State why you could not examine it. (4) State what you recommend. Be specific about locations — 'upper portions of the west and north elevations' not 'some areas were hard to reach.'",
+              "ASHI SOP (Section 4): The inspector shall inspect wall coverings, flashing and trim; exterior doors; eaves, soffits, and fascias where accessible from the ground level. The SOP explicitly states ground-level accessibility — you are not required to get on a ladder to access upper areas, but you must document what you could not see.",
+              "InterNACHI SOP (2.2): The inspector shall inspect the siding, flashing and trim; all exterior doors, decks, stoops, steps, stairs, porches, railings, eaves, soffits and fascias; a representative number of windows; and describe the exterior wall covering. The inspector is NOT required to inspect items not visible or readily accessible from the ground (2.2.II.B).",
+              "IL SOP 1410.200(h): The home inspector shall inspect the exterior wall covering; flashing and trim; all exterior doors; the eaves, soffits and fascias if accessible from the ground level. The report must describe the systems inspected AND disclose systems not inspected with reasons. This is the Illinois-specific mandate to document your limitations.",
+              "HOW EXTERIOR FINDINGS RELATE TO INTERIOR OBSERVATIONS: Per ICA Module 6, your inspection of windows is not complete until you get inside the home and look at finished walls around windows and exterior doors for signs of leakage — stains, mildew, water damage, or fresh paint. When you find exterior evidence of water intrusion (staining below windows, missing flashing, failed caulk), flag those locations so you check the corresponding interior areas carefully. The cascade between exterior and interior observations is the most important cross-reference in the entire inspection.",
+              "THE 8 EXTERIOR SYSTEMS — PERFORMANCE FOCUS: (1) CLADDING: Does it shed moisture? Is it intact? Per ICA Module 6, siding has two functions — look attractive and shed moisture. Typical defects: loose, buckled, rotted/delaminated, checking/cracking, warping/splitting, physical damage, weathered/failing paint or sealant, poor installation. (2) SOFFITS: Are they intact? Are vents open? Per ASHI SOP Section 4, inspect eaves, soffits, and fascias where accessible from ground level. (3) FASCIA: Is it solid behind gutters? Is paint intact? (4) WINDOWS: Do they appear watertight at top? Are sills intact? (5) DOORS: Are frames and thresholds sound? (6) TRIM: Is it sealed and in good condition? (7) FLASHING: Is it present and properly installed where visible? Per ICA Module 6, most flashing will not be visible on an existing home. (8) CAULKING: Is sealant intact at penetrations and transitions?",
+              "EVIDENCE CAPTURE FOR DEFENSIBILITY: Photograph areas where access was limited. Photograph the reasons for limitation (dense vegetation, stored items, height). Per ICA Module 24, write the report as if the client was not present at the inspection. The report stands alone. Your limitation documentation with supporting photos is your proof that you were thorough within the access available."
+            ],
+            "ashiSop": "ASHI SOP Section 4 (Exterior): The inspector shall inspect wall coverings, flashing and trim; exterior doors; eaves, soffits, and fascias where accessible from ground level. Shall describe wall coverings. The inspector is NOT required to inspect screening, shutters, awnings, fences, outbuildings, seawalls, or erosion control."
+          }
         }
       ]
     },
@@ -8324,6 +9924,59 @@ var INSPECTION_DATA = {
           },
           "refTables": [
             {
+              "title": "Ventilation System at a Glance",
+              "columns": [
+                "Component",
+                "Role",
+                "Location",
+                "What to Check"
+              ],
+              "rows": [
+                [
+                  "Soffit vents",
+                  "INTAKE (primary)",
+                  "Underside of roof overhang",
+                  "Present, open inside AND outside, baffles installed"
+                ],
+                [
+                  "Ridge vent",
+                  "EXHAUST (best)",
+                  "Peak of roof",
+                  "Continuous, intact, NOT mixed with gable/power"
+                ],
+                [
+                  "Gable vents",
+                  "EXHAUST (cross-ventilation)",
+                  "Gable end walls",
+                  "Both ends present, screened, NOT mixed with ridge"
+                ],
+                [
+                  "Turbine vents",
+                  "EXHAUST (wind-driven)",
+                  "Roof surface near ridge",
+                  "Spins freely, no wobble, flashing intact"
+                ],
+                [
+                  "Box/static vents",
+                  "EXHAUST (passive)",
+                  "Roof surface",
+                  "Screened, adequate quantity, flashing intact"
+                ],
+                [
+                  "Powered fans",
+                  "EXHAUST (active)",
+                  "Roof or gable wall",
+                  "Thermostat set, NOT mixed with ridge, no neg pressure"
+                ],
+                [
+                  "Baffles/chutes",
+                  "PROTECTS intake",
+                  "Between rafters at eaves",
+                  "Present, intact, holding insulation back"
+                ]
+              ]
+            },
+            {
               "title": "Ventilation Ratio",
               "columns": [
                 "Standard",
@@ -8343,8 +9996,8 @@ var INSPECTION_DATA = {
                 ],
                 [
                   "Intake/Exhaust split",
-                  "50/50",
-                  "Half at soffits (low), half at ridge/box (high)"
+                  "50/50 (60/40 ideal)",
+                  "Half at soffits (low), half at ridge/box (high). Slightly more intake is ideal."
                 ]
               ]
             },
@@ -8357,15 +10010,19 @@ var INSPECTION_DATA = {
               "rows": [
                 [
                   "Ridge vent + gable vents",
-                  "Air enters one gable, exits other — bypasses lower attic"
+                  "Air enters one gable, exits other — bypasses lower attic entirely"
                 ],
                 [
                   "Ridge vent + powered fan",
-                  "Fan pulls air from ridge instead of soffits"
+                  "Fan pulls air from ridge (easy path) instead of soffits — lower attic gets nothing"
                 ],
                 [
                   "Exhaust only (no intake)",
-                  "Cannot create airflow without intake at soffits"
+                  "Cannot create airflow without intake at soffits — exhaust vents just sit there"
+                ],
+                [
+                  "Multiple exhaust types",
+                  "Generally: pick ONE exhaust type and pair it with soffit intake. Mixing creates unpredictable airflow."
                 ]
               ]
             }
@@ -8592,111 +10249,6 @@ var INSPECTION_DATA = {
               }
             ]
           },
-          "refTables": [
-            {
-              "title": "Ventilation System at a Glance",
-              "columns": [
-                "Component",
-                "Role",
-                "Location",
-                "What to Check"
-              ],
-              "rows": [
-                [
-                  "Soffit vents",
-                  "INTAKE (primary)",
-                  "Underside of roof overhang",
-                  "Present, open inside AND outside, baffles installed"
-                ],
-                [
-                  "Ridge vent",
-                  "EXHAUST (best)",
-                  "Peak of roof",
-                  "Continuous, intact, NOT mixed with gable/power"
-                ],
-                [
-                  "Gable vents",
-                  "EXHAUST (cross-ventilation)",
-                  "Gable end walls",
-                  "Both ends present, screened, NOT mixed with ridge"
-                ],
-                [
-                  "Turbine vents",
-                  "EXHAUST (wind-driven)",
-                  "Roof surface near ridge",
-                  "Spins freely, no wobble, flashing intact"
-                ],
-                [
-                  "Box/static vents",
-                  "EXHAUST (passive)",
-                  "Roof surface",
-                  "Screened, adequate quantity, flashing intact"
-                ],
-                [
-                  "Powered fans",
-                  "EXHAUST (active)",
-                  "Roof or gable wall",
-                  "Thermostat set, NOT mixed with ridge, no neg pressure"
-                ],
-                [
-                  "Baffles/chutes",
-                  "PROTECTS intake",
-                  "Between rafters at eaves",
-                  "Present, intact, holding insulation back"
-                ]
-              ]
-            },
-            {
-              "title": "Ventilation Ratio",
-              "columns": [
-                "Standard",
-                "Ratio",
-                "Example"
-              ],
-              "rows": [
-                [
-                  "Without vapor barrier",
-                  "1:150",
-                  "1,500 sq ft attic = 10 sq ft net free vent area"
-                ],
-                [
-                  "With vapor barrier",
-                  "1:300",
-                  "1,500 sq ft attic = 5 sq ft net free vent area"
-                ],
-                [
-                  "Intake/Exhaust split",
-                  "50/50 (60/40 ideal)",
-                  "Half at soffits (low), half at ridge/box (high). Slightly more intake is ideal."
-                ]
-              ]
-            },
-            {
-              "title": "Incompatible Combinations",
-              "columns": [
-                "Combination",
-                "Problem"
-              ],
-              "rows": [
-                [
-                  "Ridge vent + gable vents",
-                  "Air enters one gable, exits other — bypasses lower attic entirely"
-                ],
-                [
-                  "Ridge vent + powered fan",
-                  "Fan pulls air from ridge (easy path) instead of soffits — lower attic gets nothing"
-                ],
-                [
-                  "Exhaust only (no intake)",
-                  "Cannot create airflow without intake at soffits — exhaust vents just sit there"
-                ],
-                [
-                  "Multiple exhaust types",
-                  "Generally: pick ONE exhaust type and pair it with soffit intake. Mixing creates unpredictable airflow."
-                ]
-              ]
-            }
-          ],
           "study": {
             "whatItIs": "The system that moves air through the attic to prevent moisture buildup and heat accumulation. It is a SYSTEM — intake + exhaust working together — not just individual vents.",
             "keyFact": "Goal is a 'cold attic' — attic temperature close to outside temperature. This requires BALANCED ventilation: intake (low) + exhaust (high). The system fails when intake and exhaust are not balanced or when incompatible vent types are mixed.",
@@ -10192,7 +11744,7 @@ var INSPECTION_DATA = {
               ]
             ]
           },
-                    "anatomyRef": {
+          "anatomyRef": {
             "title": "Garage Door Anatomy -- Parts Breakdown",
             "description": "The anatomy IS the checklist (Law 8). Each part is its own subtree with its own gate, standard, and failure modes. PHOTOGRAPH springs but NEVER touch or adjust them.",
             "parts": [
@@ -10372,7 +11924,10 @@ var INSPECTION_DATA = {
                 "on_fail": {
                   "severity": "immediate",
                   "cascades": [
-                    { "check": "pre-summary.safety-hazards", "reason": "Failed auto-reverse is a Summary Safety Hazard finding" }
+                    {
+                      "check": "pre-summary.safety-hazards",
+                      "reason": "Failed auto-reverse is a Summary Safety Hazard finding"
+                    }
                   ],
                   "describe_report": "Garage door opener did not reverse upon contacting a 1.5-inch obstruction (2x4 test) within the required 2-second threshold. Auto-reverse has been required since January 1, 1993 (UL 325). This presents an entrapment and injury hazard.",
                   "describe_client": "When I put a piece of wood on the floor and closed your garage door, the door [did not reverse / took too long to reverse]. A garage door weighs several hundred pounds. If it does not reverse when it hits something -- or someone -- it can cause serious injury or death, especially to children. This needs to be fixed or the opener replaced before anyone uses it.",
@@ -10428,7 +11983,10 @@ var INSPECTION_DATA = {
                 "on_fail": {
                   "severity": "safety",
                   "cascades": [
-                    { "check": "garage-type.fire-wall-damage", "reason": "Fire separation door issues relate to overall garage-to-house fire separation" }
+                    {
+                      "check": "garage-type.fire-wall-damage",
+                      "reason": "Fire separation door issues relate to overall garage-to-house fire separation"
+                    }
                   ],
                   "describe_report": "The door between the garage and living space [appears to be hollow-core / does not have a self-closing mechanism / has a pet door installed / lacks weatherstripping]. This compromises the fire separation between the garage and occupied living space.",
                   "describe_client": "The door from your garage into the house [is a hollow door with no fire resistance / does not close by itself / has a pet door cut through it]. This door is supposed to slow down a fire from reaching the house and keep car exhaust out of your living space. This should be corrected.",
@@ -19371,24 +20929,84 @@ var INSPECTION_DATA = {
             {
               "id": "receptacle-anatomy",
               "title": "Receptacle / Outlet Anatomy Reference",
-              "columns": ["Part / Concept", "Description", "What to Check", "Failure Mode / Significance"],
+              "columns": [
+                "Part / Concept",
+                "Description",
+                "What to Check",
+                "Failure Mode / Significance"
+              ],
               "rows": [
-                ["Hot Slot (narrow slot)", "The shorter/narrower vertical slot on the right side of a standard receptacle (NEMA 5-15R). Connected to the BLACK (hot) wire carrying 120V. This is the energized conductor.", "3-light tester verifies hot is on the correct terminal. If tester shows two lights with the right amber pattern = correct.", "Hot and neutral reversed (reverse polarity) = shock hazard. Appliance chassis can become energized."],
-                ["Neutral Slot (wide slot)", "The taller/wider vertical slot on the left side. Connected to the WHITE (neutral) wire. Carries current back to the panel. The wider slot is a safety feature — polarized plugs can only insert one way.", "3-light tester confirms neutral is correctly wired. Width ensures polarized plugs orient correctly.", "If neutral is interrupted (open neutral), current has no return path — can cause voltage fluctuations, equipment damage, and shock hazard."],
-                ["Ground Pin (round hole)", "The round hole below (or above) the two slots. Connected to the BARE COPPER or GREEN ground wire. Provides a safe fault current path back to the panel, allowing the breaker to trip on a ground fault.", "3-light tester: if only the center light is on (open ground pattern), ground is missing or not connected. Two-prong receptacles have no ground pin at all.", "Open ground = no equipment grounding path. Surge protectors will NOT function. Appliance faults will NOT trip the breaker quickly — shock and fire hazard."],
-                ["Cover Plate (faceplate)", "The decorative plate covering the electrical box and receptacle. Can be plastic, nylon, metal, or decorative material. MUST be present on every receptacle and switch box.", "Present and intact? Cracked, broken, or missing? Warm to touch? Discolored or melted? Tight against wall (no gaps)?", "Missing cover plate = exposed live wiring inside box = shock hazard. Warm/discolored plate = overheating connection behind it = FIRE HAZARD. CYA: PHOTOGRAPH any missing cover plate and any warm/discolored cover plate."],
-                ["Electrical Box", "The metal or plastic enclosure mounted in the wall that houses the receptacle and wire connections. Nailed or screwed to the wall stud. Must be flush with or slightly proud of the finished wall surface.", "Secure to wall? Flush with wall surface or recessed? Correct box type for location (weatherproof if exterior, listed for wet locations in bathrooms)? Box fill not exceeded (too many wires)?", "Recessed box = gap around cover plate = fire spread path into wall cavity. Loose box = strain on wire connections = arcing risk. Overfilled box = overheating."],
-                ["3-Light Tester Patterns", "A plug-in device with 3 neon lights (two amber, one red) that reads the wiring condition of a receptacle. The ONLY required electrical testing tool per ASHI SOP. Reading the light pattern tells you the wiring condition instantly.", "Correct: two amber lights (right and center) lit. Open Ground: center light only. Open Neutral: no lights (or right light only). Hot/Neutral Reversed: left and center lights. Hot/Ground Reversed: right light only. Open Hot: no lights.", "Any pattern other than 'correct' (two amber) is a wiring defect. ALWAYS report the tester reading and the receptacle location. CYA: PHOTOGRAPH the tester showing any incorrect pattern — this is your objective evidence of the wiring defect."],
-                ["Bootleg Ground", "A dangerous condition where someone connects the ground terminal to the neutral terminal at the receptacle (jumper wire from neutral screw to ground screw) to make a 3-light tester show 'correct' wiring. There is NO actual ground wire to the panel. The 3-light tester CANNOT detect this.", "Your 3-light tester will show CORRECT (two amber lights) even though no real ground exists. Detection: use your GFCI tester's TEST button — press it. If the circuit does NOT trip, suspect bootleg ground.", "Bootleg ground is MORE DANGEROUS than an open ground because: (1) it gives a false sense of safety, (2) surge protectors think they have a ground path but don't, (3) if the neutral fails, the appliance chassis becomes energized. FIRE and SHOCK hazard. CYA: PHOTOGRAPH any receptacle where GFCI tester does not trip AND 3-light shows correct."],
-                ["Reverse Polarity", "Hot and neutral wires are swapped at the receptacle terminals — black wire on the silver (neutral) screw, white wire on the brass (hot) screw. The receptacle will still 'work' but the safety orientation is wrong.", "3-light tester pattern: LEFT and CENTER lights lit (amber + red). This is an unambiguous reading — always a defect.", "With reverse polarity, the switch on a lamp controls the neutral instead of the hot — the socket remains energized even when 'off.' Touching the socket threads = shock. Report every instance. Report language: 'Receptacle at [location] tested with reverse polarity (hot and neutral reversed). Recommend correction by a qualified electrician.' Client language: 'The wires are backwards on this outlet — you could get shocked changing a light bulb.'"],
-                ["Open Ground", "The ground wire is either missing (pre-1962 home with 2-wire cable) or not connected at the receptacle. A 3-prong receptacle is installed but no ground wire runs to the panel.", "3-light tester pattern: CENTER light only. Hot and neutral are correct, but no ground path exists.", "No equipment grounding conductor means: (1) surge protectors will NOT provide protection, (2) appliance faults will NOT trip breaker quickly, (3) GFCI protection can still provide shock protection even without a ground. ACCEPTABLE FIX: install GFCI receptacle labeled 'No Equipment Ground' — NEC-approved. Report language: 'Receptacle at [location] tested with open ground. Recommend evaluation by a qualified electrician.' Client language: 'This outlet doesn't have a ground wire. Your surge protectors won't protect anything here. An electrician can add GFCI protection as a safety upgrade.'"],
-                ["Tamper-Resistant (TR) Receptacles", "Receptacles with internal spring-loaded shutters behind the slots. Both prongs must be inserted simultaneously with equal pressure to open the shutters. Prevents children from inserting objects into individual slots. Required by NEC 406.12 since 2008 in all areas of dwelling units.", "Look for 'TR' stamped on the receptacle face, usually between the two vertical slots. May also say 'TAMPER RESISTANT' on the device body. If not present in post-2008 construction = not compliant.", "Not required to be retrofitted in older homes — only applies to new construction and renovations after 2008. If home was built or wired after 2008 and does not have TR receptacles, report as deficiency."]
+                [
+                  "Hot Slot (narrow slot)",
+                  "The shorter/narrower vertical slot on the right side of a standard receptacle (NEMA 5-15R). Connected to the BLACK (hot) wire carrying 120V. This is the energized conductor.",
+                  "3-light tester verifies hot is on the correct terminal. If tester shows two lights with the right amber pattern = correct.",
+                  "Hot and neutral reversed (reverse polarity) = shock hazard. Appliance chassis can become energized."
+                ],
+                [
+                  "Neutral Slot (wide slot)",
+                  "The taller/wider vertical slot on the left side. Connected to the WHITE (neutral) wire. Carries current back to the panel. The wider slot is a safety feature — polarized plugs can only insert one way.",
+                  "3-light tester confirms neutral is correctly wired. Width ensures polarized plugs orient correctly.",
+                  "If neutral is interrupted (open neutral), current has no return path — can cause voltage fluctuations, equipment damage, and shock hazard."
+                ],
+                [
+                  "Ground Pin (round hole)",
+                  "The round hole below (or above) the two slots. Connected to the BARE COPPER or GREEN ground wire. Provides a safe fault current path back to the panel, allowing the breaker to trip on a ground fault.",
+                  "3-light tester: if only the center light is on (open ground pattern), ground is missing or not connected. Two-prong receptacles have no ground pin at all.",
+                  "Open ground = no equipment grounding path. Surge protectors will NOT function. Appliance faults will NOT trip the breaker quickly — shock and fire hazard."
+                ],
+                [
+                  "Cover Plate (faceplate)",
+                  "The decorative plate covering the electrical box and receptacle. Can be plastic, nylon, metal, or decorative material. MUST be present on every receptacle and switch box.",
+                  "Present and intact? Cracked, broken, or missing? Warm to touch? Discolored or melted? Tight against wall (no gaps)?",
+                  "Missing cover plate = exposed live wiring inside box = shock hazard. Warm/discolored plate = overheating connection behind it = FIRE HAZARD. CYA: PHOTOGRAPH any missing cover plate and any warm/discolored cover plate."
+                ],
+                [
+                  "Electrical Box",
+                  "The metal or plastic enclosure mounted in the wall that houses the receptacle and wire connections. Nailed or screwed to the wall stud. Must be flush with or slightly proud of the finished wall surface.",
+                  "Secure to wall? Flush with wall surface or recessed? Correct box type for location (weatherproof if exterior, listed for wet locations in bathrooms)? Box fill not exceeded (too many wires)?",
+                  "Recessed box = gap around cover plate = fire spread path into wall cavity. Loose box = strain on wire connections = arcing risk. Overfilled box = overheating."
+                ],
+                [
+                  "3-Light Tester Patterns",
+                  "A plug-in device with 3 neon lights (two amber, one red) that reads the wiring condition of a receptacle. The ONLY required electrical testing tool per ASHI SOP. Reading the light pattern tells you the wiring condition instantly.",
+                  "Correct: two amber lights (right and center) lit. Open Ground: center light only. Open Neutral: no lights (or right light only). Hot/Neutral Reversed: left and center lights. Hot/Ground Reversed: right light only. Open Hot: no lights.",
+                  "Any pattern other than 'correct' (two amber) is a wiring defect. ALWAYS report the tester reading and the receptacle location. CYA: PHOTOGRAPH the tester showing any incorrect pattern — this is your objective evidence of the wiring defect."
+                ],
+                [
+                  "Bootleg Ground",
+                  "A dangerous condition where someone connects the ground terminal to the neutral terminal at the receptacle (jumper wire from neutral screw to ground screw) to make a 3-light tester show 'correct' wiring. There is NO actual ground wire to the panel. The 3-light tester CANNOT detect this.",
+                  "Your 3-light tester will show CORRECT (two amber lights) even though no real ground exists. Detection: use your GFCI tester's TEST button — press it. If the circuit does NOT trip, suspect bootleg ground.",
+                  "Bootleg ground is MORE DANGEROUS than an open ground because: (1) it gives a false sense of safety, (2) surge protectors think they have a ground path but don't, (3) if the neutral fails, the appliance chassis becomes energized. FIRE and SHOCK hazard. CYA: PHOTOGRAPH any receptacle where GFCI tester does not trip AND 3-light shows correct."
+                ],
+                [
+                  "Reverse Polarity",
+                  "Hot and neutral wires are swapped at the receptacle terminals — black wire on the silver (neutral) screw, white wire on the brass (hot) screw. The receptacle will still 'work' but the safety orientation is wrong.",
+                  "3-light tester pattern: LEFT and CENTER lights lit (amber + red). This is an unambiguous reading — always a defect.",
+                  "With reverse polarity, the switch on a lamp controls the neutral instead of the hot — the socket remains energized even when 'off.' Touching the socket threads = shock. Report every instance. Report language: 'Receptacle at [location] tested with reverse polarity (hot and neutral reversed). Recommend correction by a qualified electrician.' Client language: 'The wires are backwards on this outlet — you could get shocked changing a light bulb.'"
+                ],
+                [
+                  "Open Ground",
+                  "The ground wire is either missing (pre-1962 home with 2-wire cable) or not connected at the receptacle. A 3-prong receptacle is installed but no ground wire runs to the panel.",
+                  "3-light tester pattern: CENTER light only. Hot and neutral are correct, but no ground path exists.",
+                  "No equipment grounding conductor means: (1) surge protectors will NOT provide protection, (2) appliance faults will NOT trip breaker quickly, (3) GFCI protection can still provide shock protection even without a ground. ACCEPTABLE FIX: install GFCI receptacle labeled 'No Equipment Ground' — NEC-approved. Report language: 'Receptacle at [location] tested with open ground. Recommend evaluation by a qualified electrician.' Client language: 'This outlet doesn't have a ground wire. Your surge protectors won't protect anything here. An electrician can add GFCI protection as a safety upgrade.'"
+                ],
+                [
+                  "Tamper-Resistant (TR) Receptacles",
+                  "Receptacles with internal spring-loaded shutters behind the slots. Both prongs must be inserted simultaneously with equal pressure to open the shutters. Prevents children from inserting objects into individual slots. Required by NEC 406.12 since 2008 in all areas of dwelling units.",
+                  "Look for 'TR' stamped on the receptacle face, usually between the two vertical slots. May also say 'TAMPER RESISTANT' on the device body. If not present in post-2008 construction = not compliant.",
+                  "Not required to be retrofitted in older homes — only applies to new construction and renovations after 2008. If home was built or wired after 2008 and does not have TR receptacles, report as deficiency."
+                ]
               ]
             },
             {
               "id": "tester-pattern-quick-ref",
               "title": "3-Light Tester Quick Reference",
-              "columns": ["Pattern (L-C-R)", "Meaning", "Severity", "Action"],
+              "columns": [
+                "Pattern (L-C-R)",
+                "Meaning",
+                "Severity",
+                "Action"
+              ],
               "rows": [
                 {
                   "pattern": "OFF-ON-ON",
@@ -21147,7 +22765,6 @@ var INSPECTION_DATA = {
   ]
 };
 
-
 /* ============================================
    STATE MANAGEMENT
    ============================================ */
@@ -22601,10 +24218,10 @@ var searchIndex = [];
 var searchTimeout = null;
 
 var CROSS_REFS = {
-  "ext-caulking":["ext-windows","ext-foundation","ext-flashing","ext-siding","ext-hosebibs","roof-flashing"],
-  "ext-flashing":["roof-flashing","ext-caulking","ext-windows","ext-siding","roof-chimney","roof-vents"],
+  "ext-caulking":["ext-windows","ext-foundation","ext-flashing","ext-siding","ext-hosebibs","roof-flashing","ext-trim","ext-close-access"],
+  "ext-flashing":["roof-flashing","ext-caulking","ext-windows","ext-siding","roof-chimney","roof-vents","ext-trim","ext-close-access"],
   "roof-flashing":["ext-flashing","ext-caulking","roof-chimney","roof-vents","roof-valleys","roof-skylights"],
-  "ext-windows":["ext-caulking","ext-flashing","ext-siding","int-rooms"],
+  "ext-windows":["ext-caulking","ext-flashing","ext-siding","int-rooms","ext-trim","ext-close-access"],
   "ext-foundation":["basement-foundation","ext-caulking","grounds-grading","basement-moisture"],
   "basement-foundation":["ext-foundation","basement-structure","basement-moisture","grounds-grading"],
   "plumb-water-heater":["plumb-gas","plumb-supply","plumb-dwv","elec-branch","heat-system"],
@@ -22638,10 +24255,10 @@ var CROSS_REFS = {
   "grounds-grading":["ext-foundation","basement-moisture","grounds-retaining","ext-gutters"],
   "grounds-fence":["grounds-retaining","grounds-grading"],
   "grounds-retaining":["grounds-grading","ext-foundation","basement-moisture","grounds-fence"],
-  "ext-soffit":["ext-fascia","ext-gutters","roof-ventilation","attic-insulation"],
-  "ext-fascia":["ext-soffit","ext-gutters","roof-flashing"],
+  "ext-soffit":["ext-fascia","ext-gutters","roof-ventilation","attic-insulation","ext-trim","ext-close-access"],
+  "ext-fascia":["ext-soffit","ext-gutters","roof-flashing","ext-trim","ext-close-access"],
   "ext-gutters":["ext-soffit","ext-fascia","ext-foundation","grounds-grading","basement-moisture"],
-  "ext-siding":["ext-caulking","ext-flashing","ext-windows","ext-foundation"],
+  "ext-siding":["ext-caulking","ext-flashing","ext-windows","ext-foundation","ext-trim","ext-close-access"],
   "ext-hosebibs":["plumb-supply","ext-caulking"],
   "ext-service-entry":["elec-main","ext-receptacles"],
   "ext-receptacles":["elec-gfci","ext-service-entry","garage-service"],
@@ -22660,7 +24277,9 @@ var CROSS_REFS = {
   "basement-moisture":["basement-foundation","grounds-grading","plumb-supply","ext-gutters"],
   "elec-smoke-co":["int-smoke-co","elec-branch","heat-system","plumb-gas"],
   "elec-afci":["elec-main","elec-branch","elec-gfci"],
-  "plumb-water-softener":["plumb-supply","plumb-water-heater"]
+  "plumb-water-softener":["plumb-supply","plumb-water-heater"],
+  "ext-trim":["ext-siding","ext-flashing","ext-windows","ext-caulking","ext-fascia","ext-soffit"],
+  "ext-close-access":["ext-siding","ext-soffit","ext-fascia","ext-windows","ext-doors","ext-trim","ext-flashing","ext-caulking"]
 };
 
 function buildSearchIndex() {
