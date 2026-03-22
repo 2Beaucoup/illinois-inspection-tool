@@ -39395,8 +39395,32 @@ var INSPECTION_DATA = {
                 "clues": "Individual wires running through porcelain knobs and tubes. Pre-1950. No ground wire. Rubber/cloth insulation. Wires run separately (not bundled)."
               },
               {
-                "name": "Conduit",
-                "clues": "Metal or plastic tubing with individual wires pulled through. EMT (thin-wall metal), rigid metal, or PVC."
+                "name": "Conduit — EMT (Electrical Metallic Tubing)",
+                "clues": "Thin-wall metal tubing. NO threads — uses set-screw or compression fittings. Lightweight. Most common residential conduit. Silver/galvanized finish."
+              },
+              {
+                "name": "Conduit — IMC (Intermediate Metal Conduit)",
+                "clues": "Medium-wall metal tubing. HAS threads at ends. Stamped 'IMC' or 'INTERMEDIATE'. Heavier than EMT. Available since 1971. Common for service masts."
+              },
+              {
+                "name": "Conduit — RMC (Rigid Metal Conduit)",
+                "clues": "Thick-wall metal tubing. HAS threads. Stamped 'RMC' or 'RIGID'. Heaviest metal conduit. Galvanized steel. Gold standard for service masts."
+              },
+              {
+                "name": "Conduit — PVC (Rigid Nonmetallic)",
+                "clues": "Plastic tubing. Gray or white. Glued joints (no threads). Light weight. Used underground and in wet locations."
+              },
+              {
+                "name": "Conduit — FMC (Flexible Metal Conduit / Greenfield)",
+                "clues": "Spiral metal jacket, similar to BX but EMPTY — no wires inside until pulled through. Used for short connections to equipment (AC units, disposals). Typically 6 ft or less."
+              },
+              {
+                "name": "UF Cable (Underground Feeder)",
+                "clues": "Looks similar to NM/Romex but conductors are EMBEDDED in solid plastic (not loose inside a jacket). Gray jacket. Rated for direct burial. Feels stiffer than NM."
+              },
+              {
+                "name": "SE Cable (Service Entrance)",
+                "clues": "Larger cable with 2 or 3 insulated conductors wrapped in a concentric neutral (bare wires spiraling around the outside under the jacket). Flat or round profile. Runs from meter to panel."
               }
             ],
             "options": [
@@ -39573,6 +39597,26 @@ var INSPECTION_DATA = {
             }
           ],
           "refTables": [
+            {
+              "id": "wiring-methods-quick-id",
+              "title": "Wiring Methods — Quick Field ID",
+              "alwaysVisible": true,
+              "description": "How to identify what type of wiring you are looking at. The jacket/sheath is the primary visual identifier.",
+              "columns": ["Type", "Jacket/Sheath", "Quick Test", "Ground Method", "Era"],
+              "rows": [
+                ["NM (Romex)", "Smooth plastic, flat", "Plastic jacket, loose wires inside", "Bare copper wire inside (post-1960s)", "1960s–present"],
+                ["UF (Underground)", "Solid plastic, flat, gray", "Squeeze: solid, no loose wires. Stiff.", "Bare copper embedded in plastic", "Used for buried runs"],
+                ["AC/BX (Armored)", "Metal spiral jacket", "Metal armor, 2 insulated wires + bonding strip", "Metal jacket IS the ground", "1920s–1960s common"],
+                ["MC (Metal-Clad)", "Metal spiral jacket", "Metal armor, 3+ wires incl. green/bare ground", "Separate ground wire inside", "1980s–present"],
+                ["EMT (Thin-Wall)", "Round metal tube", "NO threads. Set-screw or compression fittings.", "Conduit is ground path", "Common residential"],
+                ["IMC (Intermediate)", "Round metal tube", "HAS threads. Stamped 'IMC'. Medium weight.", "Conduit is ground path", "Since 1971"],
+                ["RMC (Rigid)", "Round metal tube", "HAS threads. Stamped 'RMC'. Heaviest.", "Conduit is ground path", "All eras"],
+                ["PVC (Nonmetallic)", "Round plastic tube, gray", "Glued joints. Lightweight. No metal.", "Requires separate ground wire", "Outdoor/underground"],
+                ["FMC (Greenfield)", "Flexible metal spiral", "Empty spiral tube — wires pulled through", "May need separate ground wire", "Short equipment connections"],
+                ["K&T (Knob-and-Tube)", "None — individual wires", "Porcelain knobs/tubes, cloth/rubber insulation", "NO ground — 2-wire only", "Pre-1950"],
+                ["SE Cable", "Plastic jacket, round/flat", "Large cable with concentric neutral wrapped outside", "Neutral wrapped around conductors", "Service entrance runs"]
+              ]
+            },
             {
               "id": "wire-breaker-match",
               "title": "Wire Gauge → Maximum Breaker Size",
@@ -40204,6 +40248,112 @@ var INSPECTION_DATA = {
             "wireTemperatureNote": "Wire temperature ratings and their impact on ampacity (current-carrying capacity). Every wire has an insulation material rated for a maximum operating temperature (60°C, 75°C, or 90°C). Higher temperature ratings mean the insulation can withstand more heat, which allows the wire to carry more current without the insulation degrading. However, the practical ampacity is limited by the weakest thermal link in the system — usually the termination (breaker, device, or connector)."
           },
           "confusedMaterials": [
+            {
+              "id": "nm-vs-armored",
+              "title": "NM Cable (Romex) vs. Armored Cable (BX/MC)",
+              "description": "The two most common residential wiring methods. Identifying which is present determines grounding checks.",
+              "comparison": [
+                {
+                  "item": "NM Cable (Romex)",
+                  "appearance": "Smooth PLASTIC outer jacket. Flat or slightly rounded profile. Flexible. Color-coded by gauge post-2001: White=#14, Yellow=#12, Orange=#10.",
+                  "era": "1960s to present. Most common in residential.",
+                  "groundingMethod": "Bare copper ground wire inside the jacket (post-1960s). Pre-1960s cloth NM had NO ground wire.",
+                  "keyFeature": "PLASTIC jacket — if you see plastic sheathing, it is NM (or UF)."
+                },
+                {
+                  "item": "Armored Cable (BX/MC)",
+                  "appearance": "METAL spiral (helical) jacket wrapping the wires. Rigid feel. Silver metallic finish.",
+                  "era": "BX: 1920s-1960s. MC: 1980s to present.",
+                  "groundingMethod": "BX: metal jacket IS the ground (no separate ground wire). MC: has a separate green/bare ground wire inside.",
+                  "keyFeature": "METAL spiral jacket — if you see metal spiraling around wires, it is armored cable."
+                }
+              ],
+              "quickDistinguish": [
+                "JACKET MATERIAL is the test: Plastic = NM/Romex. Metal spiral = Armored (BX or MC).",
+                "If metal jacket: count wires at termination — 2 wires (hot+neutral only) = BX, 3+ wires (hot+neutral+ground) = MC.",
+                "Both can coexist in the same house — older areas may be BX, additions may be NM or MC."
+              ]
+            },
+            {
+              "id": "ac-vs-mc-cable",
+              "title": "AC Cable (BX) vs. MC Cable (Modern Armored)",
+              "description": "Both have metal spiral armor but differ in grounding method. AC uses the jacket as ground. MC has a separate ground wire inside.",
+              "comparison": [
+                {
+                  "item": "AC Cable (Type AC / BX)",
+                  "appearance": "Metal spiral jacket. Internal bonding strip (thin aluminum ribbon). Paper/fiber wrapping inside.",
+                  "groundingMethod": "Metal jacket IS the equipment grounding conductor. Internal bonding strip provides redundant continuity. No separate ground wire.",
+                  "era": "Original design from 1899. Still manufactured. Common in older IL homes and Chicago-area construction."
+                },
+                {
+                  "item": "MC Cable (Type MC)",
+                  "appearance": "Metal spiral jacket. Separate insulated or bare ground wire inside. May have additional conductors.",
+                  "groundingMethod": "Separate green or bare ground wire inside. Metal jacket may or may not serve as supplementary ground.",
+                  "era": "Modern standard. Common from 1980s onward."
+                }
+              ],
+              "quickDistinguish": [
+                "LOOK AT THE TERMINATION: AC/BX has only 2 insulated conductors + bonding strip. MC has 3+ conductors including green/bare ground.",
+                "COUNT WIRES AT THE PANEL: 2 insulated wires from armored cable = AC/BX. 3+ wires including ground = MC.",
+                "BONDING STRIP: AC/BX has a thin aluminum bonding strip visible at connectors."
+              ]
+            },
+            {
+              "id": "emt-vs-imc-vs-rmc",
+              "title": "EMT vs. IMC vs. RMC (Metal Conduit Types)",
+              "description": "All three are round metal tubing. The critical difference is wall thickness and connection method. EMT is NOT approved for service masts. (ICA Module 22)",
+              "comparison": [
+                {
+                  "item": "EMT (Electrical Metallic Tubing)",
+                  "appearance": "Thin-wall metal tubing. Lightweight. NO threads at ends.",
+                  "test": "NO THREADS — smooth tube end with set-screw or compression coupling. This is the definitive test.",
+                  "approved": "Branch circuits, indoor/outdoor. NOT approved for service masts (lacks structural strength)."
+                },
+                {
+                  "item": "IMC (Intermediate Metal Conduit)",
+                  "appearance": "Medium-wall metal tubing. Stamped 'IMC' or 'INTERMEDIATE'. Has THREADS at ends.",
+                  "test": "THREADED ends. Read stamping. Available since 1971 — pre-1971 threaded conduit is RMC.",
+                  "approved": "All locations including service masts. Most common residential service mast conduit."
+                },
+                {
+                  "item": "RMC (Rigid Metal Conduit)",
+                  "appearance": "Thick-wall metal tubing. Heaviest. Stamped 'RMC' or 'RIGID'. Has THREADS.",
+                  "test": "THREADED ends. Noticeably heavier than IMC. Thickest wall of any metal conduit.",
+                  "approved": "All locations. Gold standard for service masts."
+                }
+              ],
+              "quickDistinguish": [
+                "THREAD TEST: No threads = EMT. Threads = IMC or RMC.",
+                "WEIGHT TEST: If threaded, heavy = RMC, medium = IMC.",
+                "READ STAMPINGS: 'EMT' vs 'IMC'/'INTERMEDIATE' vs 'RMC'/'RIGID' stamped on the conduit body.",
+                "AGE: Pre-1971 threaded metal conduit is RMC (IMC did not exist yet).",
+                "SERVICE MAST: EMT = DEFECT. Only IMC or RMC are acceptable."
+              ]
+            },
+            {
+              "id": "nm-vs-uf-cable",
+              "title": "NM Cable (Romex) vs. UF Cable (Underground Feeder)",
+              "description": "Both are plastic-sheathed cables. UF is rated for direct burial, NM is not. NM underground = defect.",
+              "comparison": [
+                {
+                  "item": "NM Cable (Romex)",
+                  "appearance": "Plastic jacket with individual insulated conductors LOOSE inside. Jacket strips easily.",
+                  "test": "SQUEEZE the cable — you can feel individual round wires moving inside. Jacket strips away easily.",
+                  "approved": "Indoor dry locations only. NOT rated for burial or wet locations."
+                },
+                {
+                  "item": "UF Cable (Underground Feeder)",
+                  "appearance": "Plastic jacket with conductors EMBEDDED in solid plastic. Stiffer. Gray jacket.",
+                  "test": "SQUEEZE the cable — feels solid, cannot feel individual wires. Jacket is bonded to conductors. Read markings: 'UF'.",
+                  "approved": "Direct burial, wet locations, outdoor. Can also be used anywhere NM is permitted."
+                }
+              ],
+              "quickDistinguish": [
+                "SQUEEZE TEST: NM = loose wires in a tube. UF = solid flat ribbon.",
+                "STRIPPING TEST: NM jacket strips easily. UF jacket is bonded to conductors — hard to strip.",
+                "LOCATION: Running underground or to outbuilding = should be UF. NM buried = defect."
+              ]
+            },
             {
               "id": "aluminum-vs-tinned-copper",
               "title": "Aluminum Wire vs. Tinned Copper Wire",
@@ -49704,6 +49854,35 @@ function buildSearchIndex() {
         addIdx(t, si, sn, sx, ci, ct, cx, 'red-flag', t);
       });
 
+      // Confused Materials (a vs b comparison guides)
+      if (comp.confusedMaterials) comp.confusedMaterials.forEach(function(cm) {
+        var cmText = (cm.pair || ((cm.a || '') + ' vs ' + (cm.b || ''))) + ' ' + (cm.why || '') + ' ';
+        if (cm.howToTell) {
+          if (Array.isArray(cm.howToTell)) cmText += cm.howToTell.join(' ');
+          else if (typeof cm.howToTell === 'string') cmText += cm.howToTell;
+        }
+        if (cm.tests) {
+          if (Array.isArray(cm.tests)) cmText += ' ' + cm.tests.join(' ');
+        }
+        addIdx(cmText, si, sn, sx, ci, ct, cx, 'material-id', cm.pair || ((cm.a || '') + ' vs ' + (cm.b || '')));
+      });
+
+      // Safe Language templates
+      if (comp.safeLanguage) comp.safeLanguage.forEach(function(sl) {
+        addIdx((sl.instead || '') + ' ' + (sl.say || ''), si, sn, sx, ci, ct, cx, 'safe-language', sl.say || sl.instead || '');
+      });
+
+      // Interactive Logic / Wizards
+      if (comp.interactiveLogic) comp.interactiveLogic.forEach(function(wiz) {
+        var wizText = (wiz.title || wiz.id || '') + ' ';
+        if (wiz.steps) wiz.steps.forEach(function(step) {
+          wizText += (step.question || step.label || '') + ' ';
+          if (step.options) step.options.forEach(function(o) { wizText += (o.label || '') + ' '; });
+          if (step.outcome) wizText += (step.outcome.summary || '') + ' ' + (step.outcome.action || '') + ' ';
+        });
+        addIdx(wizText, si, sn, sx, ci, ct, cx, 'wizard', wiz.title || wiz.id || '');
+      });
+
       // Study content
       if (comp.study) {
         var st = (comp.study.whatItIs || '') + ' ' + (comp.study.howToInspect || '') + ' ' + (comp.study.ashiSop || '');
@@ -49724,6 +49903,9 @@ function buildSearchIndex() {
 
 function gft(f) {
   var t = '';
+  if (f.define) t += f.define + ' ';
+  if (f.direct) t += f.direct + ' ';
+  if (f.defer) t += f.defer + ' ';
   if (f.context) {
     if (f.context.yes) t += f.context.yes.join(' ') + ' ';
     if (f.context.no) t += f.context.no.join(' ') + ' ';
