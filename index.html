@@ -6741,6 +6741,50 @@ var INSPECTION_DATA = {
               "componentId": "ext-close-access",
               "relationship": "High fascia on upper stories, areas behind vegetation, and sections above porches/additions may limit inspection. Document any areas where fascia could not be assessed."
             }
+          ],
+          "findings": [
+            {
+              "id": "fascia-rot-deterioration",
+              "chipLabel": "Rot / Deterioration",
+              "define": "Fascia board deterioration observed at [location]. Wood appears soft, discolored, or structurally compromised. Gutter attachment [is/is not] affected at this location.",
+              "direct": "Recommend evaluation and repair by a qualified carpenter. Probe adjacent areas for extent of deterioration. Check gutter attachment stability at affected sections.",
+              "defer": "Refer to a qualified carpenter for evaluation and repair of deteriorated fascia and gutter reattachment as needed."
+            },
+            {
+              "id": "fascia-paint-failure",
+              "chipLabel": "Paint Failure / Peeling",
+              "define": "Paint failure (peeling, cracking, blistering) observed on fascia at [location]. Exposed wood substrate is absorbing moisture, accelerating deterioration.",
+              "direct": "Recommend scraping, priming, and repainting by a qualified painter. Pre-1978 homes: follow EPA RRP lead paint guidelines. Check for underlying rot at areas of paint failure.",
+              "defer": "Refer to a qualified painter or contractor for prep and repainting of fascia. Pre-1978 homes should follow lead paint safe work practices."
+            },
+            {
+              "id": "fascia-detachment",
+              "chipLabel": "Pulling Away / Detached",
+              "define": "Fascia board at [location] observed pulling away from rafter tails or detached from the eave structure.",
+              "direct": "Recommend re-securing or replacement by a qualified carpenter. Check for rot at attachment points. Verify gutter stability.",
+              "defer": "Refer to a qualified carpenter for re-attachment or replacement of fascia boards."
+            },
+            {
+              "id": "fascia-animal-pest-damage",
+              "chipLabel": "Animal / Pest Damage",
+              "define": "Evidence of animal or pest damage observed on fascia at [location]. [Gnaw marks / holes / pried-open sections] indicate possible entry into the attic or eave space.",
+              "direct": "Recommend repair of fascia by a qualified contractor. Inspect attic for animal activity. If active pest entry is suspected, recommend evaluation by a pest control professional.",
+              "defer": "Refer to a qualified contractor for fascia repair and a pest control professional if animal entry to attic is suspected."
+            },
+            {
+              "id": "fascia-missing-sections",
+              "chipLabel": "Missing Fascia Sections",
+              "define": "Fascia board missing at [location], exposing rafter tails and eave framing to weather and pest entry.",
+              "direct": "Recommend replacement by a qualified carpenter. Open eave allows water damage to roof sheathing, soffit damage, and provides direct entry for animals.",
+              "defer": "Refer to a qualified carpenter for installation of fascia to close the exposed eave."
+            },
+            {
+              "id": "fascia-water-damage",
+              "chipLabel": "Water Damage / Staining",
+              "define": "Water damage or staining observed on fascia at [location], indicating chronic moisture exposure. Common behind leaking or clogged gutters.",
+              "direct": "Recommend identifying and correcting the moisture source (gutter leak, missing drip edge, ice dam) before repairing or replacing the fascia. Probe for underlying rot.",
+              "defer": "Refer to a qualified contractor to identify the moisture source and repair or replace water-damaged fascia."
+            }
           ]
         },
         {
@@ -7011,7 +7055,58 @@ var INSPECTION_DATA = {
               "ALWAYS RECOMMEND GUTTERS: Even on slab-on-grade homes. Roof water off eaves erodes soil, splashes siding, undermines walkways."
             ],
             "ashiSop": "ASHI SOP Section 5: Inspector shall inspect roof drainage systems."
-          }
+          },
+          "findings": [
+            {
+              "id": "gutter-sagging",
+              "chipLabel": "Sagging / Pulling Away",
+              "define": "Gutter is sagging or pulling away from the fascia at [location]. Sagging gutters hold standing water, which adds weight and accelerates further sagging. Gutters pulling away from fascia may indicate rotted fascia board, failed hangers, or improper hanger spacing. (ICA: gutters must slope toward downspouts at 1/4 inch per 10 feet)",
+              "direct": "Recommend re-securing or replacing gutter hangers. Check fascia behind the gutter for rot — sagging gutters are often caused by rotted fascia that can no longer hold the fasteners. Cross-reference with ext-fascia.",
+              "defer": "Refer to a qualified gutter contractor for re-hanging or replacement. If fascia is rotted, refer to a qualified carpenter for fascia repair before gutter re-installation."
+            },
+            {
+              "id": "gutter-improper-slope",
+              "chipLabel": "Improper Slope / Ponding",
+              "define": "Gutter at [location] has insufficient slope or reverse slope, resulting in standing water (ponding). Proper slope is 1/4 inch per 10 feet toward the nearest downspout. Standing water breeds mosquitoes, adds weight that accelerates sagging, and can overflow during rain events, depositing water at the foundation.",
+              "direct": "Recommend re-hanging gutters with proper slope (1/4 inch per 10 feet toward nearest downspout) by a qualified gutter contractor. Verify downspout locations are adequate — one downspout per 35-40 linear feet of gutter.",
+              "defer": "Refer to a qualified gutter contractor for re-sloping gutters to achieve proper drainage toward downspouts."
+            },
+            {
+              "id": "gutter-missing-damaged-extensions",
+              "chipLabel": "Missing / Damaged Extensions",
+              "define": "Downspout extension is [missing / damaged / disconnected / too short] at [location]. Water is discharging at or near the foundation. Downspout extensions must carry water a minimum of 5-6 feet from the foundation. Splash blocks are NOT adequate — per ICA instruction, they redirect water only a few inches. (ICA: splash blocks are inadequate; minimum 5-6 feet from foundation)",
+              "direct": "Recommend installation of downspout extensions (minimum 5-6 feet) or connection to underground drain. Splash blocks are NOT acceptable. Verify discharge point slopes away from foundation.",
+              "defer": "Refer to a qualified gutter or drainage contractor for installation of proper downspout extensions directing water a minimum of 5-6 feet from foundation."
+            },
+            {
+              "id": "gutter-leaking-joints",
+              "chipLabel": "Leaking at Joints / Seams",
+              "define": "Gutter is leaking at [joint / seam / corner / end cap / downspout connection] at [location]. Leaking gutters deposit water directly against the fascia and foundation below, causing the same damage as having no gutters at these locations.",
+              "direct": "Recommend repair of leaking joints with gutter sealant or replacement of damaged sections. Seamless gutters eliminate most joint leak issues. Check fascia and siding below the leak for moisture damage.",
+              "defer": "Refer to a qualified gutter contractor for repair of leaking joints or replacement with seamless gutters."
+            },
+            {
+              "id": "gutter-clogged",
+              "chipLabel": "Clogged / Debris-Filled",
+              "define": "Gutters at [location] are clogged with [leaves / debris / granules / organic matter]. Clogged gutters overflow during rain, depositing large volumes of water directly at the foundation. Heavy granule accumulation may indicate aging roof shingles.",
+              "direct": "Recommend cleaning all gutters and downspouts. If heavy granule buildup is present, note this in the roof section — excessive granule loss indicates shingle aging. Recommend gutter guards if recurring clogging is likely (nearby trees).",
+              "defer": "Recommend professional gutter cleaning and evaluation for gutter guard installation if trees are nearby."
+            },
+            {
+              "id": "gutter-missing-sections",
+              "chipLabel": "Missing Gutter Sections",
+              "define": "Gutters are missing at [location / elevation]. Roof water is discharging directly off the eave at this location, eroding soil at the foundation, splashing siding, and undermining adjacent walkways. Per ICA instruction, gutters should always be recommended, even on slab-on-grade homes.",
+              "direct": "Recommend installation of gutters and downspouts with extensions at this location. Verify that grade slopes away from foundation at the drip line. Note any erosion or splash damage to siding and foundation below.",
+              "defer": "Refer to a qualified gutter contractor for installation of gutters and downspouts with proper extensions at all eaves."
+            },
+            {
+              "id": "gutter-downspout-too-close",
+              "chipLabel": "Downspout Too Close to Foundation",
+              "define": "Downspout at [location] is discharging water [at / within 2 feet of] the foundation. Water concentrated at the foundation wall is the primary cause of basement moisture problems. Per ICA instruction, 90% of foundation moisture problems are caused by surface drainage issues (gutters and grading), not groundwater.",
+              "direct": "Recommend extending the downspout a minimum of 5-6 feet from the foundation or connecting to an underground drain that daylight outlets away from the structure. Verify the ground at the discharge point slopes away from the foundation.",
+              "defer": "Refer to a qualified gutter or drainage contractor for installation of downspout extensions carrying water a minimum of 5-6 feet from foundation."
+            }
+          ]
         },
         {
           "id": "ext-siding",
@@ -8273,6 +8368,64 @@ var INSPECTION_DATA = {
               "componentId": "ext-close-access",
               "relationship": "Areas where siding could not be fully inspected due to access limitations (height, vegetation, attached structures) should be documented."
             }
+          ],
+          "findings": [
+            {
+              "id": "siding-cracking-splitting",
+              "chipLabel": "Cracking / Splitting",
+              "define": "Cracking or splitting observed in siding at [location]. [Vertical cracks in fiber cement may indicate improper nailing (over-driven, no gap) / checking/cracking in wood indicates weathering or UV exposure / cracks in stucco may indicate substrate movement or settlement]. Cracked siding compromises the weather barrier. (ICA Module 6: checking/cracking as typical siding defect)",
+              "direct": "Recommend repair or replacement of damaged sections by a qualified siding contractor. Identify the cause — improper fastening, age, or structural movement. Isolated cracks differ from pattern cracking that suggests a systemic issue.",
+              "defer": "Refer to a qualified siding contractor for repair or replacement of cracked siding. If cracking is widespread or follows a pattern, recommend evaluation for underlying structural causes."
+            },
+            {
+              "id": "siding-missing-damaged",
+              "chipLabel": "Missing / Damaged Sections",
+              "define": "Siding is [missing / broken / damaged] at [location], exposing [housewrap / sheathing / framing / building paper] to weather. Any breach in the siding exposes the building assembly to moisture, wind-driven rain, pests, and UV degradation of the weather-resistive barrier. (ICA Module 6: physical damage as typical siding defect; ASHI SOP Section 4: inspect wall coverings)",
+              "direct": "Recommend repair or replacement by a qualified siding contractor. Inspect exposed surfaces for moisture damage. Temporary protection (house wrap tape) should be applied if repair will be delayed.",
+              "defer": "Refer to a qualified siding contractor for replacement of missing or damaged siding sections."
+            },
+            {
+              "id": "siding-moisture-intrusion",
+              "chipLabel": "Moisture Intrusion Evidence",
+              "define": "Evidence of moisture intrusion behind siding at [location]: [staining / swelling / bubbling / mold growth / rotted sheathing visible / musty odor at wall]. Moisture behind siding causes concealed damage to sheathing, framing, and insulation that is far more extensive than what is visible from the exterior. (ICA Module 6: siding weather barrier function)",
+              "direct": "Recommend further evaluation by a qualified contractor. Probe suspect areas with a screwdriver or moisture meter. Identify the moisture source — most commonly missing or failed flashing, caulk, or improper siding installation. Interior walls in this area should also be checked.",
+              "defer": "Refer to a qualified siding contractor for evaluation of moisture intrusion. The moisture source must be identified and corrected before repairs. Interior evaluation of the wall assembly in this area is also recommended."
+            },
+            {
+              "id": "siding-soil-contact",
+              "chipLabel": "Soil / Grade Contact",
+              "define": "Siding is in contact with or within 6 inches of soil, mulch, or grade at [location]. Siding in contact with grade absorbs moisture (wicking), provides a concealed pathway for termite entry, and prevents inspection of the foundation for shelter tubes and cracks. Minimum 6 inches of visible foundation is required. (68 Ill. Admin. Code 1410; ICA Module 6)",
+              "direct": "Recommend lowering grade or trimming siding to maintain minimum 6-inch clearance between siding and grade. Check for termite shelter tubes at the siding-to-foundation junction. This is particularly critical for wood and fiber cement siding.",
+              "defer": "Refer to a qualified contractor or landscaping professional to correct siding-to-grade clearance. Minimum 6 inches of visible foundation is required per Illinois administrative code."
+            },
+            {
+              "id": "siding-improper-installation",
+              "chipLabel": "Improper Installation",
+              "define": "Improper siding installation observed at [location]: [nails over-driven through face / no expansion gap at trim / reverse lap (lower piece over upper) / missing starter strip / J-channel not installed at transitions / no weep screed at base of stucco / courses not level]. Improper installation compromises the weather barrier and reduces the service life of the siding. (ICA Module 6: poor installation as typical siding defect)",
+              "direct": "Recommend correction by a qualified siding contractor. Document the specific installation defect and its location. Some installation defects (reverse lap, missing starter strip) require immediate correction; others (cosmetic alignment) are lower priority.",
+              "defer": "Refer to a qualified siding contractor for evaluation and correction of improper installation."
+            },
+            {
+              "id": "siding-paint-coating-failure",
+              "chipLabel": "Paint / Coating Failure",
+              "define": "Paint or coating failure observed on siding at [location]: [peeling / cracking / blistering / chalking / fading / bare substrate exposed]. Failed paint or coating exposes the siding substrate to moisture and UV damage, accelerating deterioration. On pre-1978 homes, deteriorated paint may contain lead. (ICA Module 6: weathered paint as typical defect; EPA RRP Rule for pre-1978 homes)",
+              "direct": "Recommend scraping, priming, and repainting by a qualified painter. Pre-1978 homes: follow EPA RRP lead paint guidelines. Blistering may indicate moisture trapped behind siding — investigate before repainting.",
+              "defer": "Refer to a qualified painter or siding contractor for preparation and recoating. Pre-1978 homes: recommend lead paint testing before disturbance."
+            },
+            {
+              "id": "siding-buckling-warping",
+              "chipLabel": "Buckling / Warping",
+              "define": "Siding is [buckling / warping / bowing / rippling] at [location]. Buckling in vinyl siding typically indicates over-nailing (nails driven tight, preventing thermal expansion). Warping in wood siding indicates moisture imbalance (one side absorbing more moisture than the other). Buckling in any material may also indicate heat exposure from nearby sources. (ICA Module 6: warping as typical siding defect)",
+              "direct": "Recommend evaluation and correction by a qualified siding contractor. For vinyl: verify nails are centered in slots and not driven tight. For wood: investigate moisture source on the back side. Check for proper ventilation behind the siding.",
+              "defer": "Refer to a qualified siding contractor for evaluation of buckling/warping cause and correction."
+            },
+            {
+              "id": "siding-impact-damage",
+              "chipLabel": "Impact Damage",
+              "define": "Impact damage (dents, holes, punctures) observed in siding at [location]. Impact damage compromises the weather barrier at the point of damage. [Vinyl siding cracks on impact in cold weather / aluminum siding dents permanently / fiber cement chips and exposes substrate / wood siding splits]. (ICA Module 6: physical damage)",
+              "direct": "Recommend replacement of damaged sections by a qualified siding contractor. Repair of impact damage is generally not feasible — the damaged section should be replaced to restore the weather barrier.",
+              "defer": "Refer to a qualified siding contractor for replacement of impact-damaged siding sections."
+            }
           ]
         },
         {
@@ -8952,6 +9105,50 @@ var INSPECTION_DATA = {
               "componentId": "int-windows",
               "relationship": "Interior water staining below windows may indicate missing head flashing on exterior that is not visible. (M6)"
             }
+          ],
+          "findings": [
+            {
+              "id": "flashing-missing-wall-roof",
+              "chipLabel": "Missing at Wall-Roof Junction",
+              "define": "Flashing is missing or not visible at the wall-to-roof junction at [location]. Step flashing is required wherever a roof slope meets a vertical wall. Without step flashing, water runs down the wall and directly into the building assembly at the roof-wall intersection. This is one of the most common and damaging installation defects. (ICA Module 5 S3.4, S3.7: open flashing leads to rotted siding and active leaks; ASHI SOP Section 4: inspect flashing)",
+              "direct": "Recommend installation of step flashing by a qualified roofing contractor. Check for evidence of water damage to adjacent siding and interior walls below this junction. Caulk alone is NOT adequate at roof-wall junctions.",
+              "defer": "Refer to a qualified roofing contractor for installation of proper step flashing at all roof-to-wall junctions. Interior walls below this junction should be evaluated for concealed moisture damage."
+            },
+            {
+              "id": "flashing-corroded",
+              "chipLabel": "Corroded / Deteriorated",
+              "define": "Flashing at [location] is [corroded / rusted / deteriorated / perforated]. Corroded flashing has lost its waterproofing function and will allow water into the building assembly. Galvanized steel flashing in contact with dissimilar metals (copper, aluminum) will corrode due to galvanic action. (ICA Module 7: rusting lintels and metal deterioration)",
+              "direct": "Recommend replacement by a qualified roofing or siding contractor. Use compatible metals to avoid galvanic corrosion. Aluminum or pre-painted steel is standard for most residential applications.",
+              "defer": "Refer to a qualified roofing or siding contractor for replacement of corroded flashing with appropriate material."
+            },
+            {
+              "id": "flashing-improperly-installed",
+              "chipLabel": "Improperly Installed",
+              "define": "Flashing at [location] is improperly installed: [exposed nails through face / reversed lap / insufficient overlap / not integrated with weather-resistive barrier / counter flashing missing / top edge not tucked under siding or into reglet]. Improperly installed flashing provides a false sense of waterproofing while actually directing water into the wall assembly. (ICA Module 5: proper flashing installation; Module 6: window/door flashing)",
+              "direct": "Recommend correction by a qualified roofing or siding contractor. Proper flashing must shed water outward at every lap, with each upper piece overlapping the lower piece. Top edge must be under siding or sealed into a reglet.",
+              "defer": "Refer to a qualified roofing or siding contractor for correction of improperly installed flashing."
+            },
+            {
+              "id": "flashing-gaps-separations",
+              "chipLabel": "Gaps / Separations",
+              "define": "Gaps or separations observed in flashing at [location]. Flashing has [pulled away from wall / lifted at roof edge / separated at a joint / sealant has failed at overlap]. Even small gaps in flashing allow water behind the building envelope. (ICA Module 5 S3.4)",
+              "direct": "Recommend repair or replacement by a qualified roofing or siding contractor. Small separations at laps may be sealed, but lifted or displaced flashing should be re-installed properly.",
+              "defer": "Refer to a qualified roofing or siding contractor for repair of flashing gaps and separations."
+            },
+            {
+              "id": "flashing-missing-kickout",
+              "chipLabel": "Missing Kick-Out Flashing",
+              "define": "Kick-out (diverter) flashing is missing where the roof step flashing terminates at the bottom of a wall at [location]. Without kick-out flashing, water running down the step flashing is directed behind the siding at the roof-wall termination point. This is the #1 cause of concealed rot at roof-to-wall intersections. (ICA Module 7: flashing and trim section)",
+              "direct": "Recommend installation of kick-out flashing by a qualified roofing contractor. Inspect the siding and wall assembly below this point for concealed moisture damage — probe with screwdriver for soft spots.",
+              "defer": "Refer to a qualified roofing contractor for installation of kick-out (diverter) flashing. The wall assembly below this point should be evaluated for concealed moisture damage."
+            },
+            {
+              "id": "flashing-caulk-only",
+              "chipLabel": "Caulk-Only at Critical Junction",
+              "define": "Caulk is the only waterproofing measure at a critical junction at [location] where proper flashing is required. Caulk is NOT a substitute for flashing — it is a secondary sealant. Caulk fails within 5-10 years; flashing lasts the life of the installation. Reliance on caulk alone at roof-wall, window head, or siding transition junctions is an installation defect. (ICA Module 5: caulk is not flashing; ASHI SOP Section 4)",
+              "direct": "Recommend installation of proper flashing by a qualified contractor. Remove caulk, install appropriate flashing (step, drip cap, Z-flashing, or kick-out as applicable), then re-caulk as a secondary seal over the flashing.",
+              "defer": "Refer to a qualified roofing or siding contractor for installation of proper flashing. Caulk alone will fail and allow concealed water entry at this location."
+            }
           ]
         },
         {
@@ -9439,6 +9636,50 @@ var INSPECTION_DATA = {
             {
               "componentId": "ext-close-access",
               "relationship": "Close-access assessment includes trim checks on each elevation. Trim deterioration patterns across multiple elevations should be documented in the close-access summary."
+            }
+          ],
+          "findings": [
+            {
+              "id": "trim-rot-deterioration",
+              "chipLabel": "Rot / Deterioration",
+              "define": "Rot or deterioration observed on exterior trim at [location]. Trim rot is one of the most common exterior defects, particularly at window casings, corner boards, and horizontal transitions where water collects. Rotted trim allows water and pest entry into the wall cavity. (ICA Module 7: eaves/soffits/fascia section — deterioration patterns; ASHI SOP Section 4: inspect flashing and trim)",
+              "direct": "Recommend repair or replacement by a qualified carpenter. Probe with screwdriver to determine extent of rot. Identify the moisture source — most trim rot is caused by missing Z-flashing or drip caps at horizontal trim joints.",
+              "defer": "Refer to a qualified carpenter for replacement of rotted trim. The moisture source (missing flashing, failed caulk, or failed paint) should be corrected to prevent recurrence."
+            },
+            {
+              "id": "trim-missing-sections",
+              "chipLabel": "Missing Trim Sections",
+              "define": "Exterior trim is missing at [location], exposing [wall sheathing / framing / siding edges / gaps in wall assembly]. Missing trim leaves the building envelope unsealed at this location, allowing water, air, and pest entry.",
+              "direct": "Recommend installation of replacement trim by a qualified carpenter. Match existing material and profile. Ensure proper flashing and caulk at all transitions.",
+              "defer": "Refer to a qualified carpenter for installation of replacement trim to reseal the building envelope at this location."
+            },
+            {
+              "id": "trim-paint-failure",
+              "chipLabel": "Paint Failure / Bare Wood",
+              "define": "Paint failure (peeling, cracking, blistering, or bare wood) observed on exterior trim at [location]. Unprotected wood trim absorbs moisture and will deteriorate rapidly. On pre-1978 homes, deteriorated paint may contain lead. (ICA Module 6: weathered paint as typical defect; EPA RRP Rule)",
+              "direct": "Recommend scraping, priming, and repainting all bare wood trim surfaces. Pre-1978 homes: follow EPA RRP lead paint guidelines. Prioritize horizontal surfaces (sills, cap trim) which collect the most water.",
+              "defer": "Refer to a qualified painter or contractor for preparation and repainting. Pre-1978 homes: recommend lead paint testing before disturbance."
+            },
+            {
+              "id": "trim-improper-material-at-grade",
+              "chipLabel": "Improper Material at Grade",
+              "define": "Non-rated trim material (untreated wood, MDF, or composite not rated for ground contact) is in contact with or near grade at [location]. Trim in contact with soil or mulch will absorb moisture and rot, and provides a pathway for termite and pest entry into the wall assembly.",
+              "direct": "Recommend replacement with pressure-treated, PVC, or fiber cement trim rated for ground contact. Maintain minimum clearance between trim and grade. Check for termite shelter tubes at the trim-to-foundation junction.",
+              "defer": "Refer to a qualified contractor for replacement of ground-contact trim with appropriate moisture- and pest-resistant material."
+            },
+            {
+              "id": "trim-gaps-water-pest-entry",
+              "chipLabel": "Gaps Allowing Water / Pest Entry",
+              "define": "Gaps observed at trim joints at [location] where trim pieces have separated, shrunk, or were improperly fitted. These gaps allow water behind the wall covering and provide pest entry points into the wall cavity.",
+              "direct": "Recommend sealing gaps with appropriate exterior-grade caulk. Larger gaps may require backer rod or replacement of the trim piece. Verify the gap is not caused by structural movement.",
+              "defer": "Refer to a qualified contractor for sealing or replacement of trim with gaps allowing water and pest entry."
+            },
+            {
+              "id": "trim-warping-cupping",
+              "chipLabel": "Warping / Cupping",
+              "define": "Warped, cupped, or bowed trim observed at [location]. Warping indicates moisture absorption from one side (typically the back), suggesting failed paint, missing vapor management, or trapped moisture behind the trim. Warped trim pulls away from the wall, creating gaps for water entry.",
+              "direct": "Recommend replacement by a qualified carpenter. Investigate why moisture is reaching the back side of the trim — missing housewrap, failed flashing, or condensation in the wall cavity are common causes.",
+              "defer": "Refer to a qualified carpenter for replacement of warped trim. The cause of moisture imbalance should be identified and corrected."
             }
           ]
         },
@@ -10195,6 +10436,43 @@ var INSPECTION_DATA = {
             {
               "componentId": "electrical",
               "relationship": "Electrical meter base penetration should be sealed. Cable/phone/data line entries through exterior wall should be sealed."
+            }
+          ],
+          "findings": [
+            {
+              "id": "caulk-failed-at-penetrations",
+              "chipLabel": "Failed Caulk at Penetrations",
+              "define": "Caulk has [cracked / separated / deteriorated / is missing] around [pipe / vent / wire / cable / conduit] penetration at [location]. Failed caulk at penetrations allows water and air infiltration directly into the wall cavity. (ICA Module 6: weather barrier function of siding and sealants)",
+              "direct": "Recommend removal of failed caulk and re-sealing with appropriate exterior-grade sealant (polyurethane or silicone). Ensure full contact between sealant and both surfaces.",
+              "defer": "Refer to a qualified contractor for removal of failed caulk and re-sealing of all exterior penetrations with appropriate exterior-grade sealant."
+            },
+            {
+              "id": "caulk-missing-critical-junction",
+              "chipLabel": "Missing at Critical Junction",
+              "define": "Caulk is missing at a critical junction at [location]: [window/door head / siding-to-trim transition / siding material change / chimney-to-siding / deck ledger-to-wall]. This junction requires sealant to prevent water entry into the wall assembly.",
+              "direct": "Recommend sealing with appropriate exterior-grade sealant. Note: caulk is NOT a substitute for proper flashing. If flashing is also missing at this junction, document under ext-flashing.",
+              "defer": "Refer to a qualified contractor for sealing of all unsealed critical exterior junctions."
+            },
+            {
+              "id": "caulk-improper-sealant",
+              "chipLabel": "Improper Sealant Type",
+              "define": "Improper sealant type observed at [location]. [Latex/acrylic caulk used in a high-movement joint / rigid sealant used between dissimilar materials / interior-grade caulk used on exterior]. The wrong sealant type will fail prematurely due to UV exposure, temperature cycling, or movement.",
+              "direct": "Recommend removal and replacement with appropriate exterior-grade sealant. Polyurethane for high-movement joints; silicone for non-paintable waterproof joints; high-quality latex/silicone blend for paintable low-movement joints.",
+              "defer": "Refer to a qualified contractor for removal and replacement with the correct sealant type for each application."
+            },
+            {
+              "id": "caulk-gaps-window-door",
+              "chipLabel": "Gaps at Window / Door Frame",
+              "define": "Gaps observed between [window / door] frame and surrounding siding or trim at [location]. These gaps allow water behind the wall covering and into the wall cavity, and permit air infiltration that increases energy costs. (ICA Module 6: window/door flashing and weather barrier)",
+              "direct": "Recommend sealing with exterior-grade caulk. Apply to top and sides of window/door frames. Do NOT caulk the bottom of windows — they need to drain. Verify head flashing is present above the frame.",
+              "defer": "Refer to a qualified contractor for sealing gaps at window and door frames with appropriate exterior-grade sealant."
+            },
+            {
+              "id": "caulk-gaps-utility-penetrations",
+              "chipLabel": "Gaps at Utility Penetrations",
+              "define": "Unsealed gaps observed around utility penetrations at [location]: [electrical conduit / gas line / HVAC refrigerant lines / dryer vent / exhaust fan vent / cable/phone lines / water supply]. Each unsealed penetration is a direct path for water, air, and pests into the building envelope.",
+              "direct": "Recommend sealing all utility penetrations with appropriate exterior-grade sealant or foam. Large gaps may require backer rod before caulking. Metal flashing collars are preferred for larger penetrations.",
+              "defer": "Refer to a qualified contractor for sealing of all unsealed utility penetrations through the exterior wall."
             }
           ]
         },
@@ -11053,6 +11331,64 @@ var INSPECTION_DATA = {
               "componentId": "ext-close-access",
               "relationship": "Close-access assessment includes window checks on each elevation. Pattern findings should be documented in close-access summary."
             }
+          ],
+          "findings": [
+            {
+              "id": "window-failed-thermal-seal",
+              "chipLabel": "Failed Thermal Seal",
+              "define": "Failed thermal seal (IGU failure) observed at window at [location]. Evidence includes [condensation / fogging / haze / mineral deposits] between the panes of the insulated glass unit. The seal has broken, allowing moisture between panes and eliminating the insulating gas fill. This reduces energy efficiency but is not a structural deficiency.",
+              "direct": "Recommend replacement of the insulated glass unit (IGU) or full window sash. Note: the glass unit can often be replaced without replacing the entire window frame. Document the number and locations of all failed seals.",
+              "defer": "Refer to a qualified window contractor for replacement of the failed insulated glass unit(s). Full window replacement is not typically required unless the frame is also damaged."
+            },
+            {
+              "id": "window-wood-rot-sill",
+              "chipLabel": "Wood Rot at Sill / Frame",
+              "define": "Wood rot observed at [sill / frame / jamb / casing] of window at [location]. Window sills are the most vulnerable point for moisture accumulation. Rotted sills and frames compromise the weather seal and structural support of the window. (ICA Module 6: rotted wood is a typical siding/exterior defect; Module 7: eaves/soffits/fascia deterioration patterns apply similarly to window frames)",
+              "direct": "Recommend repair or replacement by a qualified carpenter or window contractor. Probe with screwdriver to determine extent of rot. Check for missing or failed caulk and flashing as the moisture source.",
+              "defer": "Refer to a qualified carpenter or window contractor for repair or replacement of rotted window components. The moisture source (missing caulk, failed flashing, or failed paint) should be corrected to prevent recurrence."
+            },
+            {
+              "id": "window-missing-failed-caulk",
+              "chipLabel": "Missing / Failed Caulk",
+              "define": "Caulk at window at [location] is [missing / cracked / separated / deteriorated], creating gaps between the window frame and the wall covering. These gaps allow water to enter the wall cavity behind the siding, causing concealed moisture damage. (ICA Module 6: window/door weather barrier function)",
+              "direct": "Recommend removal of failed caulk and re-caulking with high-quality exterior-grade sealant (polyurethane or silicone). Ensure caulk is applied to the top and sides of the frame. Bottom of window should NOT be caulked — it needs to drain.",
+              "defer": "Refer to a qualified contractor for re-caulking of window-to-wall transitions. Use exterior-grade polyurethane or silicone sealant."
+            },
+            {
+              "id": "window-improper-flashing",
+              "chipLabel": "Improper / Missing Head Flashing",
+              "define": "Head flashing (drip cap) is [missing / improperly installed / relying on caulk only] above window at [location]. Head flashing is the single most important waterproofing component at a window installation. Without it, water runs down the wall and directly behind the window frame into the wall cavity. (ICA Module 6: window flashing with drip caps; ASHI SOP Section 4: inspect flashing)",
+              "direct": "Recommend installation of proper head flashing (drip cap, Z-flashing) by a qualified contractor. Caulk alone is NOT adequate protection above a window. Cross-reference with ext-flashing component.",
+              "defer": "Refer to a qualified contractor for installation of head flashing above window. This is a concealed moisture entry point that will cause progressive damage to the wall assembly."
+            },
+            {
+              "id": "window-cracked-glass",
+              "chipLabel": "Cracked / Broken Glass",
+              "define": "Cracked or broken glass observed at window at [location]. Cracked glass compromises the weather seal, thermal performance, and security of the opening. On insulated glass units, a crack in one pane will also cause the thermal seal to fail.",
+              "direct": "Recommend replacement of the glass or insulated glass unit by a qualified glass or window contractor. Document the size and location of the crack.",
+              "defer": "Refer to a qualified glass or window contractor for replacement."
+            },
+            {
+              "id": "window-hardware-failure",
+              "chipLabel": "Hardware Failure / Inoperable",
+              "define": "Window at [location] is [inoperable / difficult to open or close / will not lock / will not stay open / has broken balance or spring]. Bedroom windows that will not open are a life safety concern — they may serve as emergency egress. (ASHI SOP: inspect a representative number of windows; Illinois SOP: inspect windows)",
+              "direct": "Recommend repair by a qualified window contractor. For bedroom windows: verify the window meets egress requirements (minimum 5.7 sq ft clear opening, 24\" min height, 20\" min width, max 44\" sill height). An inoperable bedroom window is a life safety deficiency.",
+              "defer": "Refer to a qualified window contractor for repair or replacement of window hardware. If a bedroom window, note the egress safety concern."
+            },
+            {
+              "id": "window-missing-screens",
+              "chipLabel": "Missing Screens",
+              "define": "Window screens are missing at [location / number of windows]. While screens are not a structural component, their absence is a reportable observation per standard inspection practice.",
+              "direct": "Note the number and locations of missing screens. This is informational for the client.",
+              "defer": "Recommend replacement of missing screens for pest prevention and ventilation comfort."
+            },
+            {
+              "id": "window-paint-failure",
+              "chipLabel": "Paint Failure on Wood Windows",
+              "define": "Paint failure (peeling, cracking, blistering, bare wood exposed) observed on wood window [frame / sash / sill / casing] at [location]. Exposed wood will absorb moisture and begin to rot. On pre-1978 homes, deteriorated paint may contain lead. (ICA Module 6: weathered paint as a typical exterior defect; EPA RRP Rule for pre-1978 homes)",
+              "direct": "Recommend scraping, priming, and repainting all bare wood surfaces. Pre-1978 homes: follow EPA RRP lead paint guidelines. Paint failure on window sills is especially urgent — horizontal surfaces collect the most water.",
+              "defer": "Refer to a qualified painter or contractor for preparation and repainting. Pre-1978 homes: recommend lead paint testing before disturbance."
+            }
           ]
         },
         {
@@ -11819,6 +12155,64 @@ var INSPECTION_DATA = {
               "componentId": "ext-close-access",
               "relationship": "Decks, porches, additions, vegetation, and landscaping can obscure foundation walls. Document any areas where the foundation could not be inspected."
             }
+          ],
+          "findings": [
+            {
+              "id": "foundation-structural-crack",
+              "chipLabel": "Structural Crack",
+              "define": "Structural crack observed in foundation wall at [location]. The crack is [horizontal / diagonal / stair-step / wider than 1/4 inch / showing displacement]. Horizontal cracks indicate lateral soil pressure. Diagonal cracks indicate differential settlement. Stair-step cracks in block or brick foundations indicate settlement or movement. Any crack showing displacement (one side higher than the other) is structural. (ICA Module 3, Module 7: cracking indicating structural problems)",
+              "direct": "Recommend evaluation by a qualified structural engineer. Document crack width, length, direction, and any displacement. Photograph with a ruler for scale. Cross-reference with interior foundation inspection.",
+              "defer": "Refer to a qualified structural engineer for evaluation and repair recommendation. Do not defer to a general contractor — structural cracks require engineering assessment."
+            },
+            {
+              "id": "foundation-shrinkage-crack",
+              "chipLabel": "Shrinkage / Cosmetic Crack",
+              "define": "Minor hairline crack observed in foundation at [location], consistent with typical concrete shrinkage or curing stress. Crack is less than 1/8 inch wide, vertical, with no displacement. (ICA Module 6: reporting cracks — typical vs. problematic)",
+              "direct": "Monitor for changes. Recommend sealing with appropriate masonry sealant to prevent water entry. Note: even cosmetic cracks can admit water and should be sealed.",
+              "defer": "Recommend sealing with appropriate masonry sealant to prevent water entry. Monitor for widening or displacement over time."
+            },
+            {
+              "id": "foundation-spalling",
+              "chipLabel": "Spalling / Surface Deterioration",
+              "define": "Spalling (flaking, chipping, or delamination of surface material) observed on foundation at [location]. Spalling is caused by moisture penetrating the concrete or masonry and expanding during freeze-thaw cycles. (ICA Module 7: spalling from moisture)",
+              "direct": "Recommend repair by a qualified masonry contractor. Identify and correct the moisture source causing the spalling (failed parging, poor drainage, missing waterproofing).",
+              "defer": "Refer to a qualified masonry contractor for evaluation and repair of spalled foundation areas. The moisture source driving the deterioration should be identified and corrected."
+            },
+            {
+              "id": "foundation-efflorescence",
+              "chipLabel": "Efflorescence / Mineral Deposits",
+              "define": "Efflorescence (white mineral deposits) observed on foundation at [location]. Efflorescence is caused by moisture migrating through the foundation wall, dissolving mineral salts, and depositing them on the surface as the water evaporates. This confirms moisture is moving through the wall. (ICA Module 7: efflorescence from moisture)",
+              "direct": "Recommend identifying and correcting the moisture source. Check grading, gutter discharge, and drainage at this location. Efflorescence itself is cosmetic, but the moisture it indicates can cause structural damage over time.",
+              "defer": "Refer to a qualified waterproofing contractor to evaluate the moisture source. The efflorescence indicates ongoing moisture migration through the foundation wall."
+            },
+            {
+              "id": "foundation-water-entry",
+              "chipLabel": "Water Entry Evidence",
+              "define": "Evidence of water entry observed at the exterior foundation at [location]: [active moisture / water staining / erosion channels / soil washout at base]. Cross-reference with interior basement inspection for corresponding evidence. (ICA: 90% of foundation moisture problems are surface drainage issues)",
+              "direct": "Recommend correcting surface drainage (grading, gutter extensions) as the primary remedy. Check that grade slopes away from foundation at minimum 1 inch per foot for 6 feet. Verify gutter downspout extensions discharge at least 6 feet from foundation.",
+              "defer": "Refer to a qualified waterproofing or drainage contractor for evaluation. Correct surface drainage (grading and gutters) before considering interior waterproofing systems."
+            },
+            {
+              "id": "foundation-parging-deteriorated",
+              "chipLabel": "Deteriorated Parging",
+              "define": "Parging (thin cement coating) on foundation at [location] is [cracked / peeling / missing / deteriorated], exposing the underlying block or stone foundation to moisture penetration, freeze-thaw damage, and pest entry.",
+              "direct": "Recommend repair by a qualified masonry contractor. Failing parging on block or stone foundations accelerates deterioration of the underlying material.",
+              "defer": "Refer to a qualified masonry contractor for parging repair or replacement."
+            },
+            {
+              "id": "foundation-grade-contact",
+              "chipLabel": "Grade Contact / Insufficient Clearance",
+              "define": "Grade (soil, mulch, or landscaping) is in contact with or within 6 inches of the siding or framing at [location]. Minimum 6 inches of visible foundation is required between grade and siding to allow inspection for termite shelter tubes and to prevent moisture wicking into the wall assembly. (68 Ill. Admin. Code 1410; ICA Module 6)",
+              "direct": "Recommend lowering grade or removing soil/mulch to maintain a minimum 6-inch clearance between grade and siding. This is particularly critical for wood siding and framing.",
+              "defer": "Refer to a qualified contractor or landscaping professional to correct grade-to-siding clearance. Minimum 6 inches of visible foundation is required."
+            },
+            {
+              "id": "foundation-bowing",
+              "chipLabel": "Bowing / Displacement",
+              "define": "Foundation wall at [location] is bowing inward or shows lateral displacement. This indicates excessive lateral soil pressure exceeding the wall's structural capacity. Bowing walls are a serious structural concern that can worsen progressively. (ICA Module 3)",
+              "direct": "Recommend immediate evaluation by a qualified structural engineer. Measure and document the degree of displacement. Do not enter areas where wall collapse appears imminent.",
+              "defer": "Refer to a qualified structural engineer for immediate evaluation. Bowing foundation walls are a significant structural deficiency requiring professional engineering assessment and repair design."
+            }
           ]
         },
         {
@@ -11966,7 +12360,37 @@ var INSPECTION_DATA = {
               "INTERIOR SHUTOFF: Standard bibs should have a dedicated interior valve. Must be closed in winter."
             ],
             "ashiSop": "ASHI SOP: Inspector shall inspect exterior faucets."
-          }
+          },
+          "findings": [
+            {
+              "id": "hosebib-leaking",
+              "chipLabel": "Leaking Hose Bib",
+              "define": "Hose bib at [location] is leaking at [handle packing nut / wall penetration / spout]. A leak at the wall penetration is of particular concern as water may be entering the wall cavity and causing concealed damage.",
+              "direct": "Recommend repair by a qualified plumber. If leaking at wall penetration, prioritize — water is entering the wall cavity. Probe surrounding siding and sheathing for moisture damage.",
+              "defer": "Refer to a qualified plumber for repair. If leaking at wall penetration, also recommend evaluation of the surrounding wall assembly for concealed moisture damage."
+            },
+            {
+              "id": "hosebib-no-vacuum-breaker",
+              "chipLabel": "No Vacuum Breaker",
+              "define": "Hose bib at [location] lacks a vacuum breaker (anti-siphon device). Without this device, contaminated water (e.g., hose submerged in pool, fertilizer sprayer attached) can siphon back into the potable water supply under negative pressure conditions.",
+              "direct": "Recommend installation of a hose bib vacuum breaker. These are inexpensive, thread-on devices available at any hardware store.",
+              "defer": "Refer to a qualified plumber for installation of anti-siphon devices on all exterior hose bibs."
+            },
+            {
+              "id": "hosebib-freeze-damage",
+              "chipLabel": "Freeze Damage / Seized",
+              "define": "Hose bib at [location] appears to have freeze damage — [handle will not turn / pipe is split / water flows even when valve is closed / dripping from wall behind bib]. Freeze damage typically occurs when a hose is left attached to a frost-free sillcock or when a standard bib's interior shutoff is not closed for winter.",
+              "direct": "Recommend evaluation and repair by a qualified plumber. Check interior for water damage in the wall cavity and on the floor below the hose bib location.",
+              "defer": "Refer to a qualified plumber for repair or replacement. Recommend interior evaluation for water damage in the wall cavity behind the hose bib."
+            },
+            {
+              "id": "hosebib-missing-shutoff",
+              "chipLabel": "No Interior Shutoff (Standard Bib)",
+              "define": "Standard (non-frost-free) hose bib at [location] with no dedicated interior shutoff valve identified. In Illinois winters, the interior shutoff must be closed and the exterior bib opened to drain the line. Without this shutoff, the water-filled pipe in the wall is at high risk of freezing and bursting.",
+              "direct": "Recommend installation of a dedicated interior shutoff valve by a qualified plumber, or upgrade to a frost-free sillcock. Verify by tracing the supply line from the interior side.",
+              "defer": "Refer to a qualified plumber for installation of an interior shutoff valve or upgrade to a frost-free sillcock appropriate for Illinois climate."
+            }
+          ]
         },
         {
           "id": "ext-service-entry",
@@ -13553,7 +13977,44 @@ var INSPECTION_DATA = {
               "LOCATION: Required at front and back of house (post-2002). Older homes may have none. Note limitation on older homes."
             ],
             "ashiSop": "ASHI SOP Section 7: Inspector shall inspect ground fault circuit interrupters."
-          }
+          },
+          "findings": [
+            {
+              "id": "receptacle-no-gfci",
+              "chipLabel": "No GFCI Protection",
+              "define": "Exterior receptacle at [location] is not GFCI-protected. All exterior receptacles require GFCI protection per NEC 210.8(A)(3) and Illinois adopted electrical code. Absence creates an electrocution hazard in wet conditions.",
+              "direct": "Recommend correction by a qualified electrician. Test with GFCI tester to confirm. Protection may be at the receptacle, upstream GFCI, or breaker panel.",
+              "defer": "Refer to a qualified electrician for installation of GFCI protection on all exterior receptacles."
+            },
+            {
+              "id": "receptacle-missing-wp-cover",
+              "chipLabel": "Missing Weatherproof Cover",
+              "define": "Exterior receptacle at [location] lacks a weatherproof cover, exposing the receptacle to rain, snow, and moisture. This creates a shock and fire hazard.",
+              "direct": "Recommend immediate installation of an in-use (bubble-type) weatherproof cover. Old flat flip-style covers only protect when nothing is plugged in and do not meet current standards.",
+              "defer": "Refer to a qualified electrician for installation of an in-use weatherproof cover."
+            },
+            {
+              "id": "receptacle-missing-cover-plate",
+              "chipLabel": "Missing Cover Plate",
+              "define": "Exterior receptacle at [location] is missing the cover plate, exposing wiring and junction box to weather and physical contact. This is a safety hazard.",
+              "direct": "Recommend immediate installation of an appropriate exterior-rated cover plate and weatherproof cover by a qualified electrician.",
+              "defer": "Refer to a qualified electrician for installation of cover plate and weatherproof in-use cover."
+            },
+            {
+              "id": "receptacle-not-operational",
+              "chipLabel": "Not Operational",
+              "define": "Exterior receptacle at [location] did not provide power when tested. The circuit may be tripped, disconnected, or wiring may be damaged.",
+              "direct": "Check for tripped GFCI upstream (garage, bathroom, or panel). If no tripped GFCI found, recommend evaluation by a qualified electrician.",
+              "defer": "Refer to a qualified electrician for evaluation and repair of non-functional exterior receptacle."
+            },
+            {
+              "id": "receptacle-reverse-polarity",
+              "chipLabel": "Reverse Polarity / Open Ground",
+              "define": "Exterior receptacle at [location] tested as [reverse polarity / open ground / open neutral] per 3-light tester. This is a wiring defect that creates a shock hazard.",
+              "direct": "Recommend correction by a qualified electrician. Do not use until corrected.",
+              "defer": "Refer to a qualified electrician for correction of wiring defect at exterior receptacle."
+            }
+          ]
         },
         {
           "id": "ext-ac-unit",
@@ -13820,7 +14281,58 @@ var INSPECTION_DATA = {
               "COIL CONDITION: Heavy dirt/debris coating dramatically reduces efficiency. Bent fins reduce airflow. Recommend professional cleaning."
             ],
             "ashiSop": "ASHI SOP Section 9: Inspector shall inspect central and through-wall cooling equipment."
-          }
+          },
+          "findings": [
+            {
+              "id": "ac-insufficient-clearance",
+              "chipLabel": "Insufficient Clearance",
+              "define": "Exterior A/C or heat pump unit at [location] has less than 12 inches of clearance from [structure/fence/vegetation]. Restricted airflow reduces efficiency and accelerates compressor wear.",
+              "direct": "Recommend clearing obstructions to provide a minimum 12-24 inches of clearance on all sides. Remove debris from around the unit.",
+              "defer": "Refer to a qualified HVAC contractor for evaluation of unit performance and to a qualified contractor for removal of adjacent obstructions."
+            },
+            {
+              "id": "ac-vegetation-encroachment",
+              "chipLabel": "Vegetation Encroachment",
+              "define": "Vegetation is growing into or against the exterior A/C or heat pump unit at [location], blocking condenser coil airflow. Plant material can damage fins and trap moisture against the unit, accelerating corrosion.",
+              "direct": "Recommend trimming all vegetation back a minimum of 12-24 inches from unit on all sides. Remove leaf litter and organic debris from around the base.",
+              "defer": "Refer to a landscaping contractor for vegetation removal and to a qualified HVAC contractor for coil cleaning and evaluation of any damage."
+            },
+            {
+              "id": "ac-damaged-fins",
+              "chipLabel": "Damaged / Bent Fins",
+              "define": "Condenser coil fins on exterior A/C or heat pump unit at [location] are significantly bent, crushed, or damaged, reducing airflow across the coil and decreasing system efficiency.",
+              "direct": "Recommend professional coil cleaning and fin straightening by a qualified HVAC contractor. A fin comb can restore bent fins to improve airflow.",
+              "defer": "Refer to a qualified HVAC contractor for coil cleaning, fin straightening, and system performance evaluation."
+            },
+            {
+              "id": "ac-missing-disconnect",
+              "chipLabel": "Missing / Inaccessible Disconnect",
+              "define": "No visible electrical disconnect was observed within sight of the exterior A/C or heat pump unit at [location]. A disconnect within line of sight is required for safe servicing. (NEC 440.14)",
+              "direct": "Recommend installation of a disconnect switch within sight of the unit by a qualified electrician. Verify there is not a disconnect hidden behind vegetation or an access panel.",
+              "defer": "Refer to a qualified electrician for installation of a properly located disconnect switch per NEC 440.14."
+            },
+            {
+              "id": "ac-pad-settled",
+              "chipLabel": "Pad Settled / Below Grade",
+              "define": "A/C or heat pump pad at [location] has settled below surrounding grade, allowing water to pool around the unit base. Standing water accelerates corrosion and can damage electrical components.",
+              "direct": "Recommend raising the pad above surrounding grade to prevent water pooling. Verify grading directs water away from the unit.",
+              "defer": "Refer to a qualified contractor to raise and re-level the condenser pad above grade."
+            },
+            {
+              "id": "ac-unusual-noise",
+              "chipLabel": "Unusual Noise During Operation",
+              "define": "Unusual noise ([grinding/squealing/banging/rattling]) observed during operation of the exterior A/C or heat pump unit at [location]. This may indicate a failing compressor, loose fan blade, or worn motor bearings.",
+              "direct": "Recommend evaluation by a qualified HVAC contractor before continued use. Document the type of noise and operating conditions.",
+              "defer": "Refer to a qualified HVAC contractor for diagnosis and repair. Unusual compressor noise may indicate imminent failure."
+            },
+            {
+              "id": "ac-rust-corrosion",
+              "chipLabel": "Rust / Corrosion",
+              "define": "Significant rust or corrosion observed on the exterior A/C or heat pump cabinet, base, or coil housing at [location]. Advanced corrosion compromises structural integrity and may indicate the unit is nearing end of serviceable life.",
+              "direct": "Recommend evaluation by a qualified HVAC contractor. Document unit age from data plate and note extent of corrosion.",
+              "defer": "Refer to a qualified HVAC contractor for evaluation of remaining service life and repair or replacement recommendation."
+            }
+          ]
         },
         {
           "id": "ext-close-access",
@@ -31619,6 +32131,106 @@ var INSPECTION_DATA = {
               "componentId": "interior-walls",
               "relationship": "Foundation movement manifests as diagonal cracks in interior walls, sticking doors, and gaps at ceiling/wall junctions on floors above. Interior crack patterns can help locate foundation problems."
             }
+          ],
+          "findings": [
+            {
+              "id": "foundation-horiz-crack",
+              "chipLabel": "Horizontal Crack",
+              "define": "Horizontal crack observed in foundation wall at [location]. Horizontal cracking indicates lateral soil pressure acting on the wall and is always a structural concern regardless of foundation type or crack width. Wall bowing status: [straight / bowing inward approximately X inches].",
+              "direct": "Recommend evaluation by a qualified foundation contractor or licensed structural engineer. Horizontal cracks can progress to wall failure if not addressed.",
+              "defer": "Refer to a qualified foundation contractor or licensed structural engineer."
+            },
+            {
+              "id": "foundation-stairstep-crack",
+              "chipLabel": "Stair-Step Crack",
+              "define": "Stair-step cracking observed in foundation wall at [location], following mortar joints in a stair-step pattern. This cracking pattern indicates differential settlement where one portion of the foundation is moving relative to another. Crack width approximately [width]. Displacement: [none / slight / moderate / significant].",
+              "direct": "Recommend monitoring with pencil marks and dates. If crack width exceeds 1/4 inch or displacement is present, recommend evaluation by a qualified foundation contractor.",
+              "defer": "Refer to a qualified foundation contractor."
+            },
+            {
+              "id": "foundation-vert-crack",
+              "chipLabel": "Vertical Crack",
+              "define": "Vertical crack observed in foundation wall at [location], approximately [width] wide. [Consistent width throughout suggests shrinkage from curing. / Wider at top than bottom (or vice versa) suggests possible settlement.] Displacement: [none / present]. Moisture evidence: [none / staining / active seepage].",
+              "direct": "Recommend monitoring with pencil marks and dates. If width exceeds 1/4 inch, displacement develops, or water seepage occurs, recommend evaluation by a qualified foundation contractor.",
+              "defer": "Refer to a qualified foundation contractor if crack is widening or allowing water seepage."
+            },
+            {
+              "id": "foundation-settlement-crack",
+              "chipLabel": "Settlement Crack",
+              "define": "Crack pattern consistent with foundation settlement observed at [location]. Evidence includes [diagonal cracking from corners of openings / tapered crack wider at top / floor slab separation from wall / corresponding interior wall cracking above]. Settlement may be active or historic.",
+              "direct": "Recommend evaluation by a qualified foundation contractor or licensed structural engineer to determine if settlement is active or stabilized. Mark and date cracks for monitoring.",
+              "defer": "Refer to a qualified foundation contractor or licensed structural engineer."
+            },
+            {
+              "id": "foundation-spalling",
+              "chipLabel": "Spalling / Surface Deterioration",
+              "define": "Spalling (surface flaking, chipping, or delamination) observed on foundation wall at [location]. Spalling is caused by moisture penetrating the concrete or masonry surface and expanding during freeze-thaw cycles. [Shallow surface spalling / deep spalling exposing aggregate or rebar]. Illinois 42-inch frost line and clay soil conditions accelerate this deterioration.",
+              "direct": "Recommend evaluation by a qualified foundation contractor. Shallow spalling may be cosmetic; deep spalling exposing aggregate or rebar is a structural concern requiring repair.",
+              "defer": "Refer to a qualified foundation contractor or mason."
+            },
+            {
+              "id": "foundation-efflorescence",
+              "chipLabel": "Efflorescence",
+              "define": "Efflorescence (white crystalline mineral deposits) observed on foundation wall at [location]. Efflorescence is caused by water migrating through masonry, dissolving mineral salts, and depositing them on the surface as the water evaporates. This confirms past or ongoing water migration through the wall at this location. [Minor / widespread] efflorescence noted.",
+              "direct": "Address the water source causing migration through the wall. Check exterior grading and gutter discharge at this location. Efflorescence itself is not harmful but confirms water is moving through the masonry.",
+              "defer": "Refer to a qualified waterproofing contractor to address the water source."
+            },
+            {
+              "id": "foundation-active-water",
+              "chipLabel": "Active Water Entry",
+              "define": "Active water intrusion observed at foundation wall at [location]. Water appears to be entering through [crack / mortar joint / form tie hole / wall-floor joint (cove joint) / cold joint / window well / other]. Severity: [minor seepage / moderate flow / significant water entry].",
+              "direct": "Recommend evaluation to determine source and appropriate correction. Check exterior grading and gutter discharge at this location. Correction may involve exterior waterproofing, interior drain tile, or crack injection depending on the source.",
+              "defer": "Refer to a qualified foundation or waterproofing contractor."
+            },
+            {
+              "id": "foundation-previous-water",
+              "chipLabel": "Previous Water Evidence",
+              "define": "Evidence of previous water intrusion observed at foundation wall at [location]. Indicators include [water staining / tide marks / mineral deposits / discoloration / peeling paint / prior waterproofing patches]. No active water observed at the time of inspection, but evidence indicates water has entered at this location in the past.",
+              "direct": "Recommend monitoring during and after heavy rain. Check exterior grading and gutter discharge at this location. Previous water evidence does not confirm the problem has been resolved.",
+              "defer": "Refer to a qualified waterproofing contractor for evaluation if moisture recurs."
+            },
+            {
+              "id": "foundation-bowing",
+              "chipLabel": "Wall Bowing / Displacement",
+              "define": "Foundation wall at [location] is bowing inward approximately [X inches] from straight as sighted along the wall. [Horizontal cracking observed at the point of maximum inward deflection. / No cracking observed at this time.] Bowing indicates lateral soil pressure exceeding the wall's capacity. Illinois clay soils exert significant lateral pressure when saturated.",
+              "direct": "Recommend evaluation by a qualified foundation contractor or licensed structural engineer. Remediation options may include steel I-beams, carbon fiber straps, helical tiebacks, or wall anchors depending on severity.",
+              "defer": "Refer to a qualified foundation contractor or licensed structural engineer."
+            },
+            {
+              "id": "foundation-parging-deterioration",
+              "chipLabel": "Parging Deterioration",
+              "define": "Parging (mortar coating) on foundation wall at [location] is [cracking / peeling / falling off / deteriorated]. Parging is applied over stone or block foundations to create a smoother surface and reduce air and moisture infiltration. Deteriorated parging exposes the underlying foundation material to direct moisture contact and may conceal developing issues beneath.",
+              "direct": "Recommend evaluation by a qualified mason. Parging should be removed from deteriorated areas and reapplied after assessing the underlying wall condition. Do not apply new parging over failing parging.",
+              "defer": "Refer to a qualified mason experienced with foundation parging."
+            },
+            {
+              "id": "foundation-exposed-rebar",
+              "chipLabel": "Exposed Rebar / Reinforcement",
+              "define": "Exposed reinforcing steel (rebar) observed in foundation wall at [location]. Rebar is exposed due to [spalling concrete / insufficient concrete cover / construction defect]. Exposed rebar corrodes (rusts), and rust expansion further deteriorates the surrounding concrete in a progressive cycle. [Surface rust / active corrosion / section loss] observed on exposed reinforcement.",
+              "direct": "Recommend evaluation and repair by a qualified foundation contractor. Exposed rebar must be cleaned of corrosion, treated, and re-covered with appropriate concrete or repair mortar to halt progressive deterioration.",
+              "defer": "Refer to a qualified foundation contractor."
+            },
+            {
+              "id": "foundation-grade-too-high",
+              "chipLabel": "Grade Too High at Foundation",
+              "define": "Soil grade at [location] is too high against the foundation wall, with less than 6 inches of foundation visible above grade. [Soil is in contact with siding / wood framing / sill plate.] High grade allows moisture to wick into the wall assembly above the foundation, promotes wood-destroying insect access, and conceals the foundation wall from inspection. Per IRC R404.1.6, minimum 6 inches of foundation must be visible above grade.",
+              "direct": "Recommend lowering soil grade to expose minimum 6 inches of foundation wall. Ensure siding, wood framing, and sill plate are above the soil line. This may require regrading by a qualified landscaping or grading contractor.",
+              "defer": "Refer to a qualified grading contractor."
+            },
+            {
+              "id": "foundation-sill-plate-damage",
+              "chipLabel": "Sill Plate Damage",
+              "define": "Sill plate (the wood member resting on top of the foundation wall) at [location] shows [rot / insect damage / moisture wicking / deterioration]. Sill plate damage is caused by [moisture wicking from concrete / contact with soil / lack of sill sealer / wood-destroying insect activity]. The sill plate is the critical connection between the foundation and the wood framing above.",
+              "direct": "Recommend evaluation by a qualified carpenter or structural contractor. Damaged sill plate sections may need replacement. Address the moisture source causing deterioration.",
+              "defer": "Refer to a qualified carpenter. If insect damage is suspected, also refer to a licensed pest control professional for inspection."
+            },
+            {
+              "id": "foundation-anchor-bolt",
+              "chipLabel": "Anchor Bolt Issues",
+              "define": "Foundation anchor bolt deficiency observed at [location]. [Anchor bolts appear missing / anchor bolts are loose / anchor bolts are corroded / anchor bolts have inadequate embedment / sill plate is not secured to foundation wall]. Anchor bolts secure the sill plate to the foundation wall, resisting uplift and lateral forces.",
+              "direct": "Recommend evaluation by a qualified contractor. Missing or deficient anchor bolts can be supplemented with retrofit anchor systems. Proper spacing is typically every 6 feet and within 12 inches of each end of the sill plate.",
+              "defer": "Refer to a qualified carpenter or foundation contractor."
+            }
           ]
         },
         {
@@ -31746,6 +32358,48 @@ var INSPECTION_DATA = {
               "define": "Floor joist at [location] appears to have been [cut / notched / over-bored] for [plumbing / HVAC / other]. Modification appears to exceed allowable limits.",
               "direct": "Recommend evaluation by a qualified carpenter.",
               "defer": "Refer to a qualified carpenter."
+            },
+            {
+              "id": "beam-shim",
+              "chipLabel": "Improper Beam Shims",
+              "define": "Beam at [location] is shimmed with [wood shims / clay brick / stacked materials]. Wood and clay brick shims are not acceptable -- they rot, crush, and deteriorate over time, allowing the beam to settle. Only steel plate shims are acceptable for beam shimming.",
+              "direct": "Recommend replacement of improper shims with steel plate shims by a qualified contractor.",
+              "defer": "Refer to a qualified carpenter or structural contractor."
+            },
+            {
+              "id": "beam-bearing-inadequate",
+              "chipLabel": "Inadequate Beam Bearing",
+              "define": "Beam at [location] has insufficient bearing surface. [Beam has less than 3 inches of bearing on masonry / less than 1.5 inches of bearing on wood or metal]. Minimum beam bearing is 3 inches on masonry and 1.5 inches on wood or metal. Inadequate bearing concentrates load on a small area and risks beam displacement.",
+              "direct": "Recommend evaluation by a qualified contractor to increase bearing surface. May require a bearing plate or extended pocket.",
+              "defer": "Refer to a qualified carpenter or structural contractor."
+            },
+            {
+              "id": "joist-sag",
+              "chipLabel": "Sagging Joists",
+              "define": "Floor joists at [location] show excessive sagging/deflection. [Visible downward bow when sighted along the joist / floor above feels bouncy or uneven]. Causes may include undersized joists for the span, excessive loads, weakened joists from modifications, or moisture damage.",
+              "direct": "Recommend evaluation by a qualified carpenter. Repair options may include sistering (adding a new joist alongside the existing one), installing a supplemental beam, or adding mid-span support.",
+              "defer": "Refer to a qualified carpenter or licensed structural engineer."
+            },
+            {
+              "id": "sill-plate-rot",
+              "chipLabel": "Sill Plate Rot / Damage",
+              "define": "Sill plate at [location] shows [rot / insect damage / moisture deterioration / wood-destroying organism damage]. The sill plate is the critical connection between the foundation wall and the wood framing above. Damage is caused by [moisture wicking from concrete / soil contact / inadequate sill sealer / insect activity]. Probing with screwdriver revealed [solid wood / soft spots / significant deterioration].",
+              "direct": "Recommend evaluation by a qualified carpenter. Damaged sections may require replacement. Address the moisture source. If insect damage is suspected, also recommend inspection by a licensed pest control professional.",
+              "defer": "Refer to a qualified carpenter. If insect damage, also refer to licensed pest control."
+            },
+            {
+              "id": "subfloor-damage",
+              "chipLabel": "Subfloor Water Damage",
+              "define": "Subfloor at [location] shows evidence of water damage when viewed from below. [Staining / delamination / swelling / mold growth / rot] observed. Location corresponds to [bathroom / kitchen / laundry] above, suggesting a plumbing leak in the floor above.",
+              "direct": "Recommend evaluation to identify and repair the source of water. Damaged subfloor sections may need replacement. Check plumbing connections in the room above.",
+              "defer": "Refer to a qualified plumber to address the leak source and a qualified carpenter to assess structural damage."
+            },
+            {
+              "id": "makeshift-support",
+              "chipLabel": "Makeshift / Improper Support",
+              "define": "Makeshift or improper structural support observed at [location]. [Stacked cinder blocks used as column / temporary adjustable post left as permanent / column not secured at top or bottom / 2x4 used as permanent support column / support appears to have been added by homeowner]. Makeshift supports indicate a structural need was identified but not properly addressed.",
+              "direct": "Recommend evaluation by a qualified contractor to install proper permanent support. Makeshift supports can fail without warning.",
+              "defer": "Refer to a qualified carpenter or licensed structural engineer."
             }
           ],
           "study": {
@@ -32223,6 +32877,41 @@ var INSPECTION_DATA = {
               "define": "Crawlspace lacks a vapor barrier on the ground surface. Ground moisture can migrate into the structure causing wood deterioration.",
               "direct": "Recommend installation of 6-mil polyethylene vapor barrier by a qualified contractor.",
               "defer": "Refer to a qualified contractor."
+            },
+            {
+              "id": "historic-staining",
+              "chipLabel": "Historic Water Staining",
+              "define": "Historic water staining observed on basement [wall / floor / both] at [location]. Staining appears [dry and uniform / shows tide marks at varying heights / follows gravity flow path]. No active moisture was noted at the time of inspection. Staining indicates water has entered at this location in the past. [Height of staining above floor: approximately X inches.]",
+              "direct": "Recommend monitoring during and after heavy rain events. Check exterior grading and gutter discharge at corresponding exterior location. Historic staining does not confirm the problem has been resolved -- it may recur during heavy rain or snowmelt.",
+              "defer": "Refer to a qualified waterproofing contractor if moisture recurs."
+            },
+            {
+              "id": "iron-ochre",
+              "chipLabel": "Iron Ochre in Sump",
+              "define": "Orange/reddish-brown slimy deposits (iron ochre) observed in the sump crock at [location]. Iron ochre is caused by iron bacteria in the groundwater. This biological growth clogs drain tile systems and sump pump mechanisms, reducing their effectiveness over time. Very common in certain Illinois soil conditions.",
+              "direct": "Recommend periodic cleaning of the sump crock and drain tile system by a qualified plumber or waterproofing contractor. Iron ochre requires ongoing maintenance -- it cannot be permanently eliminated. Sump pump may need more frequent replacement.",
+              "defer": "Refer to a qualified waterproofing contractor for drain tile maintenance."
+            },
+            {
+              "id": "crawl-standing-water",
+              "chipLabel": "Standing Water in Crawlspace",
+              "define": "Standing water observed in the crawlspace at [location]. [Depth approximately X inches. / Extent: localized / widespread.] Standing water causes wood deterioration of structural framing above, promotes mold growth, attracts wood-destroying insects, and creates unhealthy conditions.",
+              "direct": "Recommend evaluation by a qualified waterproofing contractor to determine water source and appropriate drainage solution. Water must be removed and the source addressed before structural damage occurs.",
+              "defer": "Refer to a qualified waterproofing contractor."
+            },
+            {
+              "id": "sump-discharge-issue",
+              "chipLabel": "Sump Discharge Issue",
+              "define": "Sump pump discharge at [location] is [terminating too close to foundation (less than 6 feet) / discharging into floor drain / discharging into laundry tub / pipe disconnected / not visible]. Discharge that terminates near the foundation allows water to re-enter the drain tile system and recirculate, causing the pump to run excessively.",
+              "direct": "Recommend extending the discharge pipe to terminate at least 6 feet from the foundation, directed away from the house and neighboring properties. Discharge should not recirculate to the drain tile system.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "floor-drain-dry",
+              "chipLabel": "Floor Drain Trap Dry",
+              "define": "Floor drain at [location] appears to have a dry trap. [Sewer gas odor noted near drain / musty smell near drain.] Floor drain traps that dry out allow sewer gas to enter the living space. This is common in basements where floor drains are not regularly used.",
+              "direct": "Recommend pouring water into the floor drain to refill the trap and create a water seal. This should be done periodically (every few months) to maintain the seal. If odor persists after filling, recommend evaluation by a qualified plumber.",
+              "defer": "Refer to a qualified plumber if odor persists after trap is refilled."
             }
           ],
           "safeLanguage": [
@@ -33309,6 +33998,92 @@ var INSPECTION_DATA = {
               "componentId": "plumb-gas",
               "relationship": "Gas and water piping often run in parallel. Galvanized pipe that LOOKS like water supply pipe may actually be gas piping. Verify what each pipe carries before assessing -- galvanized is acceptable for water but NEVER for gas (propane reacts with mercaptan odorant, causes internal corrosion)."
             }
+          ],
+          "findings": [
+            {
+              "id": "supply-galvanized",
+              "chipLabel": "Galvanized Supply Piping",
+              "define": "Galvanized steel supply piping observed [throughout the home / at specific locations]. Galvanized piping has a typical service life of 40-50 years and corrodes internally over time, restricting water flow. [Flow test showed reduced flow. / Water showed rust discoloration when first turned on.] Internal corrosion is not visible from the outside and cannot be reversed -- only replacement addresses the issue. Very common in Illinois homes built before 1960.",
+              "direct": "Recommend evaluation by a qualified plumber for potential replacement. Galvanized supply piping at or beyond its service life should be budgeted for replacement with copper or PEX.",
+              "defer": "Refer to a qualified plumber for replacement evaluation."
+            },
+            {
+              "id": "supply-polybutylene",
+              "chipLabel": "Polybutylene (PB) Supply Piping",
+              "define": "Polybutylene (PB) supply piping observed at [location]. [PB2110 markings confirmed on pipe. / Gray flexible plastic pipe consistent with polybutylene observed.] PB is a known defective material installed in approximately 6-10 million US homes between 1978 and 1995. It deteriorates from contact with chlorinated water and fails primarily at fittings. PB was the subject of the largest class action lawsuit in US construction history (Cox v. Shell Oil Company). Fitting type: [acetal (plastic) / copper crimp / metal insert]. Extent: [entire supply system / main supply line / branch lines / isolated sections].",
+              "direct": "Recommend full evaluation by a qualified plumber experienced with polybutylene systems. Consider complete replacement with modern piping (PEX or copper). Advise buyer that some insurance companies require PB replacement as a condition of coverage or may refuse to issue a policy.",
+              "defer": "Refer to a qualified plumber for full assessment and replacement estimate."
+            },
+            {
+              "id": "supply-lead",
+              "chipLabel": "Lead Supply Piping",
+              "define": "Supply piping at [location] appears to be lead. [Confirmed by scratch test -- soft gray pipe showing shiny silver when scratched. / Suspected based on age and appearance.] Lead supply piping is a health concern as lead leaches into drinking water, particularly when water sits in the pipe (first draw in morning). Lead service lines were common in homes built before 1930. [Lead appears to be the service line from street / interior supply piping / both].",
+              "direct": "Recommend water quality testing through the local health department or a certified laboratory. Recommend evaluation by a qualified plumber for replacement. Until replaced, run cold water for 30-60 seconds before using for drinking or cooking to flush standing water from lead pipes.",
+              "defer": "Refer to a qualified plumber. Recommend water testing through the local health department or certified lab."
+            },
+            {
+              "id": "supply-active-leak",
+              "chipLabel": "Active Supply Leak",
+              "define": "Active leak observed in supply piping at [location]. [Dripping at joint / pinhole leak with spray / weeping at connection / leak at valve]. Supply leaks are pressurized and leak continuously whether fixtures are running or not. [Pipe material: copper / galvanized / PEX / CPVC / other]. Evidence of water damage at surrounding materials: [none / staining / rot / mold growth].",
+              "direct": "Recommend repair by a qualified plumber. Supply leaks are pressurized and will worsen over time. Surrounding damaged materials should be evaluated after repair.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-corrosion",
+              "chipLabel": "Pipe Corrosion",
+              "define": "Corrosion observed on supply piping at [location]. [Green patina or verdigris on copper joints / rust buildup at galvanized threaded connections / mineral deposits at connections / pinhole corrosion spots]. Corrosion type: [galvanic (dissimilar metals) / internal (age-related) / electrolytic / water chemistry related]. Pipe material: [copper / galvanized / other].",
+              "direct": "Recommend evaluation by a qualified plumber. Corrosion at joints may indicate active or impending leaks. Advanced corrosion may warrant replacement of affected sections.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-dissimilar-metals",
+              "chipLabel": "Dissimilar Metal Connection",
+              "define": "Dissimilar metals connected without a dielectric union or approved transition fitting at [location]. [Copper connected directly to galvanized steel / other dissimilar metal combination]. When dissimilar metals are in contact in the presence of water, galvanic corrosion occurs -- the less noble metal (galvanized) corrodes at an accelerated rate. This is an electrochemical reaction that cannot be stopped without separating the metals with a dielectric union.",
+              "direct": "Recommend installation of a dielectric union or approved dielectric fitting by a qualified plumber at each dissimilar metal connection.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-low-pressure",
+              "chipLabel": "Low Water Pressure / Reduced Flow",
+              "define": "Water pressure or flow appears [low / significantly reduced] based on [multi-fixture flow test / observation at individual fixtures]. [Noticeable drop in kitchen flow when bathroom faucet and toilet are running simultaneously. / Flow at [fixture] is noticeably weak.] Common causes include: internal corrosion of galvanized piping, partially closed shutoff valve, failed pressure reducing valve (PRV), undersized supply line, or municipal supply issue.",
+              "direct": "Recommend evaluation by a qualified plumber to determine cause. If galvanized piping is present, internal corrosion is the most likely cause and replacement may be the only effective remedy.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-cross-connection",
+              "chipLabel": "Cross-Connection / Backflow Risk",
+              "define": "Cross-connection observed at [location]. [Faucet spout below flood rim of fixture / handheld shower hose can reach below tub flood rim / garden hose connected without vacuum breaker / boiler fill without backflow preventer / water softener drain line submerged / other]. A cross-connection exists wherever potable water supply could contact non-potable water without adequate protection (air gap or backflow preventer). This is a health hazard -- contaminated water can be siphoned back into the drinking water supply. Minimum air gap: 1 inch or 2x supply pipe diameter, whichever is greater.",
+              "direct": "Recommend correction by a qualified plumber. Install appropriate backflow prevention: air gap (physical separation), vacuum breaker (hose bibbs), or backflow preventer (RPZ or double-check valve) as appropriate for the specific cross-connection.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-valve-issues",
+              "chipLabel": "Shutoff Valve Deficiency",
+              "define": "Shutoff valve deficiency observed at [location]. [Main shutoff valve is a gate valve showing corrosion -- may not close fully / individual fixture shutoff valve missing at [fixture] / shutoff valve leaking at stem / shutoff valve handle missing or broken / shutoff valve inaccessible behind finished wall]. Gate valves (round handle) are less reliable than ball valves (lever handle) and frequently fail to fully close after years of disuse.",
+              "direct": "Recommend evaluation by a qualified plumber. [Gate valve replacement with ball valve recommended for reliability. / Missing fixture shutoffs should be installed for maintenance access. / Leaking valve stem requires repair or replacement.]",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-pipe-support",
+              "chipLabel": "Inadequate Pipe Support",
+              "define": "Supply piping at [location] is inadequately supported. [Pipes sagging between supports / missing hangers / pipes resting on sharp edges / copper pipes in contact with dissimilar metal hangers without protective sleeves]. Inadequate support stresses joints, causes sagging runs that trap air, and can lead to water hammer and premature joint failure.",
+              "direct": "Recommend installation of proper pipe supports by a qualified plumber. Copper pipe requires copper or plastic-coated hangers (not galvanized steel hangers) to prevent galvanic corrosion at contact points.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-freeze-susceptible",
+              "chipLabel": "Freeze-Susceptible Piping",
+              "define": "Supply piping at [location] appears susceptible to freezing. [Pipe runs through unheated space (garage, crawlspace, exterior wall) without insulation / pipe near exterior wall with no insulation / pipe in area below the 42-inch Illinois frost line without protection]. Frozen pipes can burst, causing significant water damage. Illinois winters regularly reach temperatures that will freeze unprotected water pipes.",
+              "direct": "Recommend insulation of exposed supply piping in unheated spaces by a qualified plumber or contractor. Pipe insulation sleeves are readily available and effective. For pipes in exterior walls, additional measures such as relocating the pipe or adding heat trace cable may be needed.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "supply-cpvc-brittle",
+              "chipLabel": "CPVC Brittleness / Cracking",
+              "define": "CPVC supply piping at [location] appears [brittle / cracked / showing stress fractures]. CPVC (chlorinated polyvinyl chloride) becomes brittle with age, particularly in cold environments or near heat sources. Typical service life is 25-40 years. [Cracks observed near hangers or supports / pipe sounds hollow and fragile when tapped / visible stress whitening at bends]. CPVC must NOT connect directly to combustion water heaters without 6-inch metal nipples, as heat accelerates brittleness.",
+              "direct": "Recommend evaluation by a qualified plumber. If brittleness is widespread, replacement with copper or PEX may be warranted. Handle CPVC gently -- brittle CPVC can shatter from minor impact.",
+              "defer": "Refer to a qualified plumber."
+            }
           ]
         },
         {
@@ -33577,6 +34352,41 @@ var INSPECTION_DATA = {
               "chipLabel": "No Visible Plumbing Vent",
               "define": "No plumbing vent pipe was observed extending through the roof. Every house must have at least one plumbing vent through the roof or a whole-house AAV in the attic.",
               "direct": "Recommend evaluation by a qualified plumber. Check attic for whole-house AAV or terminated vent pipe.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "dwv-slow-drain",
+              "chipLabel": "Slow Drain / Backup",
+              "define": "Slow drain observed at [fixture] at [location]. [Water drains very slowly / partial backup observed / gurgling sounds heard during drainage]. Slow drains may indicate: internal pipe corrosion (galvanized or cast iron), venting problem, partial blockage, or improper slope in the drain line.",
+              "direct": "Recommend evaluation by a qualified plumber to determine cause and clear any blockage. If cast iron or galvanized drain piping is present, internal corrosion may be the cause.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "dwv-improper-slope",
+              "chipLabel": "Improper Slope / Bellied Pipe",
+              "define": "Drain pipe at [location] appears to have [insufficient slope / negative slope (belly) / sagging between supports]. Proper slope for drain pipes is 1/4 inch per foot for pipes 3 inches and under, and 1/8 inch per foot for pipes over 3 inches (IPC Table 704.1). A belly in the pipe creates a low point where waste collects, leading to repeated clogs and potential pipe deterioration.",
+              "direct": "Recommend repair by a qualified plumber to correct slope or re-support sagging section.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "dwv-leak",
+              "chipLabel": "DWV Pipe Leak",
+              "define": "Leak observed in drain/waste/vent piping at [location]. [Dripping at joint / separated connection / crack in pipe / failed gasket on no-hub coupling / deteriorated cast iron]. DWV leaks only occur when fixtures are running (gravity-fed, not pressurized). [Staining / water damage / mold growth] observed at surrounding materials.",
+              "direct": "Recommend repair by a qualified plumber. DWV leaks can cause concealed water damage and mold growth.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "dwv-no-cleanout",
+              "chipLabel": "No Accessible Cleanout",
+              "define": "No accessible main drain cleanout was observed. A cleanout provides access for clearing drain blockages and for sewer line camera inspection. Without an accessible cleanout, drain service requires opening the system at a fixture or at the vent stack.",
+              "direct": "Recommend installation of an accessible cleanout by a qualified plumber if none exists. If a cleanout exists but is concealed, recommend making it accessible.",
+              "defer": "Refer to a qualified plumber."
+            },
+            {
+              "id": "dwv-improper-transition",
+              "chipLabel": "Improper PVC-ABS Transition",
+              "define": "PVC and ABS drain pipe connected at [location] without a proper transition fitting. PVC (white) and ABS (black) require different cements and cannot be joined with standard cement. Proper transition requires green transition cement (the only product approved for PVC-to-ABS) or a mechanical coupling (rubber coupling with band clamps). An improperly cemented PVC-to-ABS joint can separate over time.",
+              "direct": "Recommend evaluation by a qualified plumber. Joint may need to be replaced with a proper mechanical coupling.",
               "defer": "Refer to a qualified plumber."
             }
           ],
@@ -34035,6 +34845,34 @@ var INSPECTION_DATA = {
               "define": "Possible gas odor detected at [location]. This is a safety concern.",
               "direct": "Recommend immediate evaluation by the gas utility or a qualified plumber. Recommend occupants ventilate and avoid ignition sources.",
               "defer": "Contact gas utility immediately."
+            },
+            {
+              "id": "gas-missing-drip-leg",
+              "chipLabel": "Missing Drip Leg",
+              "define": "Gas appliance at [location] does not have a drip leg (sediment trap) at the gas supply connection. A drip leg is a short vertical pipe section below the gas connection point that catches moisture and debris before they enter the appliance gas valve. Missing drip legs allow sediment to clog appliance gas valves and burner orifices.",
+              "direct": "Recommend installation of a drip leg by a qualified plumber or gas fitter at each gas appliance connection lacking one.",
+              "defer": "Refer to a qualified plumber or gas fitter."
+            },
+            {
+              "id": "gas-missing-shutoff",
+              "chipLabel": "Missing Individual Gas Shutoff",
+              "define": "Gas appliance at [location] does not have an individual shutoff valve on the gas supply line. Per IRC G2420.5, each gas appliance must have its own shutoff valve within 6 feet, on the rigid pipe upstream of the flex connector. Without an individual shutoff, the only way to isolate this appliance is to shut off gas to the entire house.",
+              "direct": "Recommend installation of an individual gas shutoff valve by a qualified plumber or gas fitter.",
+              "defer": "Refer to a qualified plumber or gas fitter."
+            },
+            {
+              "id": "gas-flex-connector",
+              "chipLabel": "Improper Gas Flex Connector",
+              "define": "Gas flex connector at [location] appears [damaged / kinked / corroded / passing through wall or floor / connected in series (daisy-chained) / appears to be a reused connector from a previous appliance]. Gas flex connectors must not pass through building assemblies (walls, floors, ceilings), must not be reused when appliances are replaced, and must not be connected in series.",
+              "direct": "Recommend replacement or correction by a qualified plumber or gas fitter. Only one properly rated flex connector per appliance.",
+              "defer": "Refer to a qualified plumber or gas fitter."
+            },
+            {
+              "id": "gas-pipe-unsupported",
+              "chipLabel": "Gas Pipe Inadequately Supported",
+              "define": "Gas piping at [location] is inadequately supported. [Pipe sagging between supports / no visible hangers / pipe resting on other components]. Gas piping must be supported at appropriate intervals (typically every 6-8 feet for horizontal runs, at each floor for vertical runs). Unsupported runs stress threaded joints and can cause gas leaks over time.",
+              "direct": "Recommend installation of proper pipe supports by a qualified plumber or gas fitter.",
+              "defer": "Refer to a qualified plumber or gas fitter."
             }
           ],
           "study": {
@@ -35772,6 +36610,27 @@ var INSPECTION_DATA = {
               "chipLabel": "Brine Tank Overflow",
               "define": "Water level in brine tank is above the salt level or overflowing.",
               "direct": "This indicates a stuck brine valve or failed float mechanism. Recommend service.",
+              "defer": "Refer to a water treatment specialist."
+            },
+            {
+              "id": "softener-leak",
+              "chipLabel": "Water Softener Leak",
+              "define": "Water leak observed at water softener at [location]. [Leak at control head seal / leak at inlet-outlet connection / leak at resin tank base / leak at brine tank]. Water pooling or staining observed around the unit.",
+              "direct": "Recommend evaluation and repair by a qualified plumber or water treatment specialist. Ongoing leaks can cause floor and structural damage.",
+              "defer": "Refer to a qualified plumber or water treatment specialist."
+            },
+            {
+              "id": "softener-no-salt",
+              "chipLabel": "Brine Tank Empty / No Salt",
+              "define": "Brine tank contains no salt or salt level is below the minimum operating level. Without salt, the softener cannot regenerate and is not softening the water. The resin beads are saturated with hardness minerals and are passing hard water through to the home.",
+              "direct": "Recommend adding salt to the brine tank and initiating a manual regeneration cycle. If the unit has been operating without salt for an extended period, the resin may need professional cleaning or replacement.",
+              "defer": "Refer to a water treatment specialist if the unit does not function properly after salt is added."
+            },
+            {
+              "id": "softener-control-failure",
+              "chipLabel": "Control Head Not Functioning",
+              "define": "Water softener control head at [location] appears [unpowered / display blank or flashing / not cycling / stuck in one position]. The control head manages regeneration timing. If the control head is not functioning, the softener is not regenerating on schedule and may not be softening water.",
+              "direct": "Recommend service by a qualified water treatment specialist. Control head may need repair or replacement.",
               "defer": "Refer to a water treatment specialist."
             }
           ],
