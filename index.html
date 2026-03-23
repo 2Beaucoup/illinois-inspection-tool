@@ -224,6 +224,22 @@ body{font-family:var(--font-ui);color:var(--ink);background:var(--bg);padding:0;
 .report-block.direct{background:var(--direct-bg)}.report-block.direct .label{color:var(--direct)}.report-block.direct .text{color:var(--direct)}
 .report-block.defer{background:var(--defer-bg)}.report-block.defer .label{color:var(--defer)}.report-block.defer .text{color:var(--defer)}
 
+/* CASCADE TRIGGERS */
+.cascade-triggers{margin-top:10px;border-top:1px solid rgba(0,0,0,0.08);padding-top:8px}
+.cascade-header{font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:6px}
+.cascade-item{background:var(--accent-bg,rgba(37,99,235,0.06));border:1px solid rgba(37,99,235,0.15);border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:4px;cursor:pointer;transition:background .15s}
+.cascade-item:hover{background:rgba(37,99,235,0.12)}
+.cascade-item:last-child{margin-bottom:0}
+.cascade-target{font-size:0.75rem;font-weight:700;color:var(--accent)}
+.cascade-check{font-size:0.78rem;color:var(--ink);line-height:1.35;margin-top:2px}
+
+/* PATTERN RECOGNITION */
+.pattern-summary{background:var(--warn-bg);border:1px solid rgba(180,130,20,0.2);border-radius:var(--radius-md);padding:12px 14px;margin:12px 0}
+.pattern-header{font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--warn);margin-bottom:6px}
+.pattern-item{font-size:0.8rem;color:var(--ink);line-height:1.4;padding:4px 0;border-bottom:1px solid rgba(0,0,0,0.04)}
+.pattern-item:last-child{border-bottom:none}
+.pattern-count{font-weight:700;color:var(--warn)}
+
 /* IL NOTE */
 .il-note{padding:8px 12px;background:var(--warn-bg);border-radius:var(--radius-sm);font-size:0.78rem;color:var(--warn);line-height:1.4;display:flex;align-items:flex-start;gap:6px}
 .il-note .flag{font-size:0.9rem;flex-shrink:0}
@@ -1111,7 +1127,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Walkway Slopes Toward Foundation",
               "define": "Walkway surface at [location] appeared to slope toward the foundation rather than away from the structure.",
               "direct": "Recommend correction by a qualified contractor to redirect drainage away from the foundation. Check the interior basement wall on this side for moisture evidence.",
-              "defer": "Refer to a qualified contractor for further evaluation."
+              "defer": "Refer to a qualified contractor for further evaluation.",
+              "cascades": [
+                {
+                  "to": "ext-foundation",
+                  "check": "Check foundation on this side for moisture evidence or staining"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check interior basement wall on this side for water entry"
+                }
+              ]
             },
             {
               "id": "walkway-scaling-spalling",
@@ -3780,7 +3806,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Missing Ledger Flashing",
               "define": "No visible flashing above the deck ledger board at [location]. Water path from house wall directly behind ledger is unprotected.",
               "direct": "Recommend installation of proper ledger flashing by a qualified contractor. Inspect the existing ledger and house band joist for moisture damage before installing flashing.",
-              "defer": "Refer to a qualified contractor for further evaluation."
+              "defer": "Refer to a qualified contractor for further evaluation.",
+              "cascades": [
+                {
+                  "to": "ext-siding",
+                  "check": "Check siding behind and around deck attachment for moisture damage"
+                },
+                {
+                  "to": "ext-flashing",
+                  "check": "Verify flashing condition at deck-to-house connection"
+                }
+              ]
             },
             {
               "id": "deck-ledger-rot",
@@ -6854,7 +6890,17 @@ var INSPECTION_DATA = {
                     "chipLabel": "Short Downspouts",
                     "define": "Downspouts discharge at the foundation at [location].",
                     "direct": "Recommend extending discharge to a minimum of 6 feet from the structure.",
-                    "defer": "Refer to a qualified gutter contractor to extend downspout discharge to a minimum of 6 feet from the foundation."
+                    "defer": "Refer to a qualified gutter contractor to extend downspout discharge to a minimum of 6 feet from the foundation.",
+                    "cascades": [
+                      {
+                        "to": "ext-foundation",
+                        "check": "Check foundation near downspout discharge for water staining or erosion"
+                      },
+                      {
+                        "to": "basement-moisture",
+                        "check": "Check interior basement wall on this side for moisture entry"
+                      }
+                    ]
                   },
                   {
                     "id": "sagging",
@@ -6905,7 +6951,17 @@ var INSPECTION_DATA = {
                     "chipLabel": "Short Downspouts",
                     "define": "Downspouts discharge at the foundation.",
                     "direct": "Recommend extending to minimum 6 feet from the structure.",
-                    "defer": "Refer to a qualified gutter contractor to extend downspout discharge away from the foundation."
+                    "defer": "Refer to a qualified gutter contractor to extend downspout discharge away from the foundation.",
+                    "cascades": [
+                      {
+                        "to": "ext-foundation",
+                        "check": "Check foundation near downspout discharge for water staining or erosion"
+                      },
+                      {
+                        "to": "basement-moisture",
+                        "check": "Check interior basement wall on this side for moisture entry"
+                      }
+                    ]
                   }
                 ]
               },
@@ -7062,7 +7118,13 @@ var INSPECTION_DATA = {
               "chipLabel": "Sagging / Pulling Away",
               "define": "Gutter is sagging or pulling away from the fascia at [location]. Sagging gutters hold standing water, which adds weight and accelerates further sagging. Gutters pulling away from fascia may indicate rotted fascia board, failed hangers, or improper hanger spacing. (ICA: gutters must slope toward downspouts at 1/4 inch per 10 feet)",
               "direct": "Recommend re-securing or replacing gutter hangers. Check fascia behind the gutter for rot — sagging gutters are often caused by rotted fascia that can no longer hold the fasteners. Cross-reference with ext-fascia.",
-              "defer": "Refer to a qualified gutter contractor for re-hanging or replacement. If fascia is rotted, refer to a qualified carpenter for fascia repair before gutter re-installation."
+              "defer": "Refer to a qualified gutter contractor for re-hanging or replacement. If fascia is rotted, refer to a qualified carpenter for fascia repair before gutter re-installation.",
+              "cascades": [
+                {
+                  "to": "ext-fascia",
+                  "check": "Check fascia behind gutter for rot or water damage"
+                }
+              ]
             },
             {
               "id": "gutter-improper-slope",
@@ -7076,7 +7138,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Missing / Damaged Extensions",
               "define": "Downspout extension is [missing / damaged / disconnected / too short] at [location]. Water is discharging at or near the foundation. Downspout extensions must carry water a minimum of 5-6 feet from the foundation. Splash blocks are NOT adequate — per ICA instruction, they redirect water only a few inches. (ICA: splash blocks are inadequate; minimum 5-6 feet from foundation)",
               "direct": "Recommend installation of downspout extensions (minimum 5-6 feet) or connection to underground drain. Splash blocks are NOT acceptable. Verify discharge point slopes away from foundation.",
-              "defer": "Refer to a qualified gutter or drainage contractor for installation of proper downspout extensions directing water a minimum of 5-6 feet from foundation."
+              "defer": "Refer to a qualified gutter or drainage contractor for installation of proper downspout extensions directing water a minimum of 5-6 feet from foundation.",
+              "cascades": [
+                {
+                  "to": "ext-foundation",
+                  "check": "Check foundation wall near downspout discharge for water staining or efflorescence"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check interior basement wall on this side for moisture entry"
+                }
+              ]
             },
             {
               "id": "gutter-leaking-joints",
@@ -8389,14 +8461,34 @@ var INSPECTION_DATA = {
               "chipLabel": "Moisture Intrusion Evidence",
               "define": "Evidence of moisture intrusion behind siding at [location]: [staining / swelling / bubbling / mold growth / rotted sheathing visible / musty odor at wall]. Moisture behind siding causes concealed damage to sheathing, framing, and insulation that is far more extensive than what is visible from the exterior. (ICA Module 6: siding weather barrier function)",
               "direct": "Recommend further evaluation by a qualified contractor. Probe suspect areas with a screwdriver or moisture meter. Identify the moisture source — most commonly missing or failed flashing, caulk, or improper siding installation. Interior walls in this area should also be checked.",
-              "defer": "Refer to a qualified siding contractor for evaluation of moisture intrusion. The moisture source must be identified and corrected before repairs. Interior evaluation of the wall assembly in this area is also recommended."
+              "defer": "Refer to a qualified siding contractor for evaluation of moisture intrusion. The moisture source must be identified and corrected before repairs. Interior evaluation of the wall assembly in this area is also recommended.",
+              "cascades": [
+                {
+                  "to": "ext-flashing",
+                  "check": "Check flashing above moisture area for failure or gaps"
+                },
+                {
+                  "to": "ext-caulking",
+                  "check": "Check sealant at penetrations near moisture area for failure"
+                }
+              ]
             },
             {
               "id": "siding-soil-contact",
               "chipLabel": "Soil / Grade Contact",
               "define": "Siding is in contact with or within 6 inches of soil, mulch, or grade at [location]. Siding in contact with grade absorbs moisture (wicking), provides a concealed pathway for termite entry, and prevents inspection of the foundation for shelter tubes and cracks. Minimum 6 inches of visible foundation is required. (68 Ill. Admin. Code 1410; ICA Module 6)",
               "direct": "Recommend lowering grade or trimming siding to maintain minimum 6-inch clearance between siding and grade. Check for termite shelter tubes at the siding-to-foundation junction. This is particularly critical for wood and fiber cement siding.",
-              "defer": "Refer to a qualified contractor or landscaping professional to correct siding-to-grade clearance. Minimum 6 inches of visible foundation is required per Illinois administrative code."
+              "defer": "Refer to a qualified contractor or landscaping professional to correct siding-to-grade clearance. Minimum 6 inches of visible foundation is required per Illinois administrative code.",
+              "cascades": [
+                {
+                  "to": "ext-foundation",
+                  "check": "Check foundation exposure — soil contact conceals foundation from inspection"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check interior at this location for pest entry or moisture wicking"
+                }
+              ]
             },
             {
               "id": "siding-improper-installation",
@@ -11345,7 +11437,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Wood Rot at Sill / Frame",
               "define": "Wood rot observed at [sill / frame / jamb / casing] of window at [location]. Window sills are the most vulnerable point for moisture accumulation. Rotted sills and frames compromise the weather seal and structural support of the window. (ICA Module 6: rotted wood is a typical siding/exterior defect; Module 7: eaves/soffits/fascia deterioration patterns apply similarly to window frames)",
               "direct": "Recommend repair or replacement by a qualified carpenter or window contractor. Probe with screwdriver to determine extent of rot. Check for missing or failed caulk and flashing as the moisture source.",
-              "defer": "Refer to a qualified carpenter or window contractor for repair or replacement of rotted window components. The moisture source (missing caulk, failed flashing, or failed paint) should be corrected to prevent recurrence."
+              "defer": "Refer to a qualified carpenter or window contractor for repair or replacement of rotted window components. The moisture source (missing caulk, failed flashing, or failed paint) should be corrected to prevent recurrence.",
+              "cascades": [
+                {
+                  "to": "ext-flashing",
+                  "check": "Check head flashing above window for failure allowing moisture entry"
+                },
+                {
+                  "to": "ext-caulking",
+                  "check": "Check sealant around window for gaps or failure"
+                }
+              ]
             },
             {
               "id": "window-missing-failed-caulk",
@@ -11679,7 +11781,17 @@ var INSPECTION_DATA = {
                     "chipLabel": "Improper Grade",
                     "define": "Grade slopes toward foundation at [location], directing water against the structure.",
                     "direct": "Recommend re-grading to slope away from the foundation at minimum 1\" per foot for 6 feet.",
-                    "defer": "Refer to a qualified contractor for further evaluation and repair."
+                    "defer": "Refer to a qualified contractor for further evaluation and repair.",
+                    "cascades": [
+                      {
+                        "to": "ext-foundation",
+                        "check": "Check foundation wall on this side for water staining or efflorescence"
+                      },
+                      {
+                        "to": "basement-moisture",
+                        "check": "Check interior basement wall on this side for moisture entry"
+                      }
+                    ]
                   }
                 ]
               }
@@ -14806,16 +14918,19 @@ var INSPECTION_DATA = {
               "defer": "Recommend evaluation by a qualified contractor to determine the source and extent of moisture intrusion. Cross-reference with interior observations at this location.",
               "cascades": [
                 {
-                  "check": "interior > walls-ceilings",
-                  "reason": "Exterior water intrusion evidence at [location] — check interior walls and ceilings at corresponding location for staining, mold, or damage."
+                  "check": "Check for related conditions in this area",
+                  "reason": "Exterior water intrusion evidence at [location] — check interior walls and ceilings at corresponding location for staining, mold, or damage.",
+                  "to": "int-rooms"
                 },
                 {
-                  "check": "structure > foundation",
-                  "reason": "Exterior moisture patterns may indicate water reaching the foundation — verify from interior."
+                  "check": "Check for related conditions in this area",
+                  "reason": "Exterior moisture patterns may indicate water reaching the foundation — verify from interior.",
+                  "to": "ext-foundation"
                 },
                 {
-                  "check": "attic > insulation-moisture",
-                  "reason": "If water intrusion is near the roofline, check attic insulation for moisture at corresponding location."
+                  "check": "Check for related conditions in this area",
+                  "reason": "If water intrusion is near the roofline, check attic insulation for moisture at corresponding location.",
+                  "to": "attic-insulation"
                 }
               ]
             },
@@ -14827,12 +14942,14 @@ var INSPECTION_DATA = {
               "defer": "Recommend evaluation by a licensed structural engineer or qualified foundation contractor. Per ICA Module 7: cracking in masonry could indicate a structural problem and almost always traces back to the foundation.",
               "cascades": [
                 {
-                  "check": "structure > foundation",
-                  "reason": "Exterior structural indicators at [location] — verify foundation condition from interior for corresponding movement or cracking."
+                  "check": "Check for related conditions in this area",
+                  "reason": "Exterior structural indicators at [location] — verify foundation condition from interior for corresponding movement or cracking.",
+                  "to": "ext-foundation"
                 },
                 {
-                  "check": "interior > doors-windows",
-                  "reason": "Structural movement visible on exterior — check interior doors and windows for binding, out-of-square frames, or cracked drywall at corresponding location."
+                  "check": "Check for related conditions in this area",
+                  "reason": "Structural movement visible on exterior — check interior doors and windows for binding, out-of-square frames, or cracked drywall at corresponding location.",
+                  "to": "int-rooms"
                 }
               ]
             },
@@ -14844,8 +14961,9 @@ var INSPECTION_DATA = {
               "defer": "Refer to a qualified roofing or siding contractor for evaluation and installation of proper flashing at [location].",
               "cascades": [
                 {
-                  "check": "interior > walls-ceilings",
-                  "reason": "Flashing deficiency at [location] — check interior walls at corresponding location for evidence of moisture intrusion."
+                  "check": "Check for related conditions in this area",
+                  "reason": "Flashing deficiency at [location] — check interior walls at corresponding location for evidence of moisture intrusion.",
+                  "to": "int-rooms"
                 }
               ]
             },
@@ -14877,19 +14995,23 @@ var INSPECTION_DATA = {
               "cascades": [
                 {
                   "check": "int-rooms.walls-ceilings",
-                  "reason": "Exterior water intrusion evidence at [location] -- check interior walls and ceilings at corresponding location for staining, mold, or damage."
+                  "reason": "Exterior water intrusion evidence at [location] -- check interior walls and ceilings at corresponding location for staining, mold, or damage.",
+                  "to": "int-rooms"
                 },
                 {
                   "check": "ext-flashing",
-                  "reason": "Water intrusion evidence on exterior -- verify flashing is present and intact at this location. Missing or failed flashing is the most common cause of wall assembly moisture intrusion."
+                  "reason": "Water intrusion evidence on exterior -- verify flashing is present and intact at this location. Missing or failed flashing is the most common cause of wall assembly moisture intrusion.",
+                  "to": "ext-flashing"
                 },
                 {
                   "check": "ext-caulking",
-                  "reason": "Water intrusion evidence -- verify caulking is intact at windows, doors, and penetrations at this location."
+                  "reason": "Water intrusion evidence -- verify caulking is intact at windows, doors, and penetrations at this location.",
+                  "to": "ext-caulking"
                 },
                 {
                   "check": "attic.insulation",
-                  "reason": "If water intrusion is near the roofline, check attic insulation for moisture at corresponding location."
+                  "reason": "If water intrusion is near the roofline, check attic insulation for moisture at corresponding location.",
+                  "to": "attic-insulation"
                 }
               ]
             },
@@ -14904,23 +15026,28 @@ var INSPECTION_DATA = {
               "cascades": [
                 {
                   "check": "ext-flashing",
-                  "reason": "Pattern of deterioration on [elevation] -- primary suspect is missing or failed flashing. Verify all flashing at this elevation."
+                  "reason": "Pattern of deterioration on [elevation] -- primary suspect is missing or failed flashing. Verify all flashing at this elevation.",
+                  "to": "ext-flashing"
                 },
                 {
                   "check": "ext-caulking",
-                  "reason": "Pattern of deterioration -- verify caulking at all penetrations and transitions on affected elevation."
+                  "reason": "Pattern of deterioration -- verify caulking at all penetrations and transitions on affected elevation.",
+                  "to": "ext-caulking"
                 },
                 {
                   "check": "ext-siding",
-                  "reason": "Pattern of deterioration -- evaluate siding condition on affected elevation for moisture damage."
+                  "reason": "Pattern of deterioration -- evaluate siding condition on affected elevation for moisture damage.",
+                  "to": "ext-siding"
                 },
                 {
                   "check": "ext-trim",
-                  "reason": "Pattern of deterioration -- evaluate trim condition on affected elevation for moisture damage."
+                  "reason": "Pattern of deterioration -- evaluate trim condition on affected elevation for moisture damage.",
+                  "to": "ext-trim"
                 },
                 {
                   "check": "grounds-grading",
-                  "reason": "Pattern of deterioration may be caused by grade directing water toward the wall. Check grading at this elevation."
+                  "reason": "Pattern of deterioration may be caused by grade directing water toward the wall. Check grading at this elevation.",
+                  "to": "grounds-grading"
                 }
               ]
             },
@@ -17207,7 +17334,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Inadequate Ventilation",
               "define": "Attic ventilation appears inadequate. [Only exhaust / only intake / blocked soffits] observed.",
               "direct": "Recommend adding ventilation to achieve balanced intake and exhaust. A qualified roofing contractor can assess the best approach for this roof configuration.",
-              "defer": "Recommend evaluation by a qualified roofing contractor to improve ventilation balance."
+              "defer": "Recommend evaluation by a qualified roofing contractor to improve ventilation balance.",
+              "cascades": [
+                {
+                  "to": "attic-insulation",
+                  "check": "Check underside of roof deck for moisture, frost, or condensation from poor ventilation"
+                },
+                {
+                  "to": "roof-condition",
+                  "check": "Check for premature shingle aging or curling from heat buildup due to poor ventilation"
+                }
+              ]
             },
             {
               "id": "incompatible-vent",
@@ -18331,14 +18468,38 @@ var INSPECTION_DATA = {
               "chipLabel": "End of Life",
               "define": "Roof covering shows [widespread granule loss / curling / cracking] consistent with aging. Appears to be approaching end of expected service life.",
               "direct": "Recommend budget planning for roof replacement. Consult a qualified roofing contractor for a detailed assessment of remaining service life.",
-              "defer": "Recommend evaluation by a qualified roofing contractor to determine remaining service life and budget planning for replacement."
+              "defer": "Recommend evaluation by a qualified roofing contractor to determine remaining service life and budget planning for replacement.",
+              "cascades": [
+                {
+                  "to": "attic-structure",
+                  "check": "Check roof deck for daylight, moisture, or staining from aging roof"
+                },
+                {
+                  "to": "ext-gutters",
+                  "check": "Check gutters for excessive granule accumulation indicating shingle deterioration"
+                }
+              ]
             },
             {
               "id": "active-leak",
               "chipLabel": "Active Leak Evidence",
               "define": "Water staining observed at [location on interior] suggesting active or recent roof leak.",
               "direct": "Recommend repair by a qualified roofing contractor.",
-              "defer": "Refer to a qualified roofing contractor for evaluation and repair. Active leaks cause progressive damage to framing, insulation, and interior finishes."
+              "defer": "Refer to a qualified roofing contractor for evaluation and repair. Active leaks cause progressive damage to framing, insulation, and interior finishes.",
+              "cascades": [
+                {
+                  "to": "attic-structure",
+                  "check": "Check roof deck above leak location for moisture, staining, or mold"
+                },
+                {
+                  "to": "attic-insulation",
+                  "check": "Check insulation below leak area for moisture or compression"
+                },
+                {
+                  "to": "int-rooms",
+                  "check": "Check ceiling below leak location for water stains or damage"
+                }
+              ]
             },
             {
               "id": "sagging-structure",
@@ -19384,7 +19545,13 @@ var INSPECTION_DATA = {
               "chipLabel": "Cracked Pipe Boot",
               "define": "Pipe boot at [location] shows cracking from UV exposure. This is an active or imminent leak source.",
               "direct": "Recommend replacement by a qualified roofing contractor.",
-              "defer": "Refer to a qualified roofing contractor for boot replacement. Typical cost is $15-20 per boot — leak damage is far more expensive."
+              "defer": "Refer to a qualified roofing contractor for boot replacement. Typical cost is $15-20 per boot — leak damage is far more expensive.",
+              "cascades": [
+                {
+                  "to": "attic-structure",
+                  "check": "Check roof deck around penetration for moisture staining or mold"
+                }
+              ]
             },
             {
               "id": "missing-step",
@@ -19398,14 +19565,34 @@ var INSPECTION_DATA = {
               "chipLabel": "Missing Kick-Out Flashing",
               "define": "Kick-out/diverter flashing not observed at [location] where roof-to-wall junction meets gutter line. Without kick-out flashing, water runs behind siding causing hidden damage.",
               "direct": "Recommend installation by a qualified roofing contractor.",
-              "defer": "Refer to a qualified roofing contractor for installation of kick-out flashing. Also check siding at this location for hidden moisture damage."
+              "defer": "Refer to a qualified roofing contractor for installation of kick-out flashing. Also check siding at this location for hidden moisture damage.",
+              "cascades": [
+                {
+                  "to": "ext-siding",
+                  "check": "Check siding below roof-to-wall junction for moisture damage, staining, or swelling"
+                },
+                {
+                  "to": "int-rooms",
+                  "check": "Check interior wall below this junction for moisture staining or damage"
+                }
+              ]
             },
             {
               "id": "missing-cricket",
               "chipLabel": "Missing Cricket/Saddle",
               "define": "Cricket/saddle not observed behind chimney at [location] (chimney appears wider than 30\"). Water pools against chimney back without a cricket.",
               "direct": "Recommend installation by a qualified roofing contractor.",
-              "defer": "Refer to a qualified roofing contractor for installation of a cricket/saddle behind the chimney."
+              "defer": "Refer to a qualified roofing contractor for installation of a cricket/saddle behind the chimney.",
+              "cascades": [
+                {
+                  "to": "attic-structure",
+                  "check": "Check roof deck behind chimney for moisture staining or damage"
+                },
+                {
+                  "to": "roof-chimney",
+                  "check": "Check chimney flashing condition at rear where water pools"
+                }
+              ]
             },
             {
               "id": "old-flashing-new-roof",
@@ -19949,14 +20136,34 @@ var INSPECTION_DATA = {
               "chipLabel": "Bath Fan to Attic",
               "define": "Bathroom exhaust fan appears to terminate in the attic rather than to the exterior at [location]. This causes significant moisture damage and mold growth.",
               "direct": "Recommend extending exhaust duct to terminate to the exterior.",
-              "defer": "Refer to a qualified HVAC or general contractor for extending the exhaust duct to terminate to the exterior."
+              "defer": "Refer to a qualified HVAC or general contractor for extending the exhaust duct to terminate to the exterior.",
+              "cascades": [
+                {
+                  "to": "attic-insulation",
+                  "check": "Check insulation near exhaust termination for moisture, mold, or discoloration"
+                },
+                {
+                  "to": "attic-structure",
+                  "check": "Check roof sheathing near exhaust for moisture damage or mold growth"
+                }
+              ]
             },
             {
               "id": "dryer-in-attic",
               "chipLabel": "Dryer Vent to Attic",
               "define": "Dryer vent appears to terminate in the attic at [location]. Lint in the attic is a fire hazard and moisture causes mold/rot.",
               "direct": "Recommend extending vent to terminate to the exterior. This is a safety concern.",
-              "defer": "Refer to a qualified HVAC or general contractor for extending the dryer vent to terminate to the exterior. This is a fire and moisture hazard."
+              "defer": "Refer to a qualified HVAC or general contractor for extending the dryer vent to terminate to the exterior. This is a fire and moisture hazard.",
+              "cascades": [
+                {
+                  "to": "attic-insulation",
+                  "check": "Check for lint accumulation on insulation near dryer vent — fire hazard"
+                },
+                {
+                  "to": "attic-structure",
+                  "check": "Check roof sheathing near dryer vent for moisture damage"
+                }
+              ]
             },
             {
               "id": "boot-deterioration",
@@ -20398,14 +20605,34 @@ var INSPECTION_DATA = {
                     "chipLabel": "Chimney Leaning",
                     "define": "Chimney appears to be leaning [away from / toward] the house at [location]. This is a structural concern.",
                     "direct": "Recommend immediate evaluation by a qualified mason.",
-                    "defer": "Refer to a qualified mason or structural engineer."
+                    "defer": "Refer to a qualified mason or structural engineer.",
+                    "cascades": [
+                      {
+                        "to": "int-fireplace",
+                        "check": "Check fireplace and firebox for cracking or separation related to chimney movement"
+                      },
+                      {
+                        "to": "attic-structure",
+                        "check": "Check chimney chase in attic for separation from framing"
+                      }
+                    ]
                   },
                   {
                     "id": "chimney-flashing-fail",
                     "chipLabel": "Chimney Flashing",
                     "define": "Chimney flashing at [location] shows [deterioration / gaps / improper installation].",
                     "direct": "Recommend repair by a qualified roofing contractor.",
-                    "defer": "Refer to a qualified roofing contractor."
+                    "defer": "Refer to a qualified roofing contractor.",
+                    "cascades": [
+                      {
+                        "to": "attic-structure",
+                        "check": "Check roof deck around chimney penetration for moisture staining"
+                      },
+                      {
+                        "to": "int-fireplace",
+                        "check": "Check interior near fireplace for water staining on walls or ceiling"
+                      }
+                    ]
                   },
                   {
                     "id": "efflorescence",
@@ -20526,7 +20753,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Chimney Leaning",
               "define": "Chimney at [location] appears to lean [away from / toward] the house structure.",
               "direct": "Recommend immediate evaluation by a qualified mason. If lean is severe, recommend evaluation by a structural engineer as well.",
-              "defer": "Refer to a qualified contractor for further evaluation."
+              "defer": "Refer to a qualified contractor for further evaluation.",
+              "cascades": [
+                {
+                  "to": "int-fireplace",
+                  "check": "Check fireplace and firebox for cracking or separation related to chimney movement"
+                },
+                {
+                  "to": "attic-structure",
+                  "check": "Check chimney chase in attic for separation from framing or flashing gaps"
+                }
+              ]
             },
             {
               "id": "no-flue-liner",
@@ -20547,7 +20784,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Spalling Bricks",
               "define": "Spalling (brick face popping off) observed on chimney exterior at [location]. [Isolated / multiple] bricks affected.",
               "direct": "Recommend evaluation and repair by a qualified mason. Affected bricks should be replaced and the water source addressed to prevent recurrence.",
-              "defer": "Refer to a qualified contractor for further evaluation."
+              "defer": "Refer to a qualified contractor for further evaluation.",
+              "cascades": [
+                {
+                  "to": "int-fireplace",
+                  "check": "Check fireplace and firebox condition — chimney deterioration may affect interior components"
+                },
+                {
+                  "to": "attic-structure",
+                  "check": "Check chimney chase in attic for moisture or deterioration"
+                }
+              ]
             }
           ],
           "safeLanguage": [
@@ -30013,7 +30260,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Modified Truss",
               "define": "Truss member at [location] appears to have been [cut/notched/modified]. Trusses are engineered systems and should not be modified.",
               "direct": "Photograph the modification and all affected truss members. Every piece of wood in a truss is critical to its overall strength because all extra material has been eliminated by engineering. A single modification compromises the entire truss. Do NOT refer to a carpenter — trusses cannot be field-repaired. Only a licensed structural engineer can evaluate and direct repairs to engineered components.",
-              "defer": "Recommend evaluation by a qualified structural engineer."
+              "defer": "Recommend evaluation by a qualified structural engineer.",
+              "cascades": [
+                {
+                  "to": "int-rooms",
+                  "check": "Check ceiling and walls below for cracking from structural movement"
+                },
+                {
+                  "to": "roof-condition",
+                  "check": "Check roof alignment above modified truss for sagging or irregularity"
+                }
+              ]
             },
             {
               "id": "rafter-crack",
@@ -30765,14 +31022,34 @@ var INSPECTION_DATA = {
               "chipLabel": "Inadequate Insulation",
               "define": "Insulation depth approximately [X inches of type], estimated R-value approximately R-[XX]. Illinois Climate Zone 5 recommends R-38 to R-49.",
               "direct": "Document the insulation type, measured depth, and estimated R-value. Illinois is Climate Zone 5, where R-38 is the minimum recommendation and R-49 to R-60 is ideal. Many older Illinois homes have only R-11 to R-19, which is seriously inadequate. Low insulation contributes to high heating costs, ice dam formation, and potential moisture problems from condensation. Adding insulation is one of the most cost-effective home improvements.",
-              "defer": "Recommend additional insulation to improve energy efficiency and reduce heating costs."
+              "defer": "Recommend additional insulation to improve energy efficiency and reduce heating costs.",
+              "cascades": [
+                {
+                  "to": "cool-ac",
+                  "check": "Note — poor insulation affects cooling performance"
+                },
+                {
+                  "to": "heat-system",
+                  "check": "Note — poor insulation affects heating efficiency"
+                }
+              ]
             },
             {
               "id": "bath-exhaust-attic",
               "chipLabel": "Exhaust Dumps in Attic",
               "define": "Bathroom exhaust fan appears to terminate in the attic rather than to the exterior at [location]. This can cause significant moisture damage and mold growth.",
               "direct": "Recommend extending exhaust duct to terminate to the exterior.",
-              "defer": "Refer to a qualified HVAC or general contractor for duct extension to the building exterior."
+              "defer": "Refer to a qualified HVAC or general contractor for duct extension to the building exterior.",
+              "cascades": [
+                {
+                  "to": "roof-ventilation",
+                  "check": "Check ventilation adequacy — exhaust dumping in attic adds moisture load"
+                },
+                {
+                  "to": "int-bathroom",
+                  "check": "Check exhaust fan operation in corresponding bathroom"
+                }
+              ]
             },
             {
               "id": "attic-moisture",
@@ -32138,14 +32415,38 @@ var INSPECTION_DATA = {
               "chipLabel": "Horizontal Crack",
               "define": "Horizontal crack observed in foundation wall at [location]. Horizontal cracking indicates lateral soil pressure acting on the wall and is always a structural concern regardless of foundation type or crack width. Wall bowing status: [straight / bowing inward approximately X inches].",
               "direct": "Recommend evaluation by a qualified foundation contractor or licensed structural engineer. Horizontal cracks can progress to wall failure if not addressed.",
-              "defer": "Refer to a qualified foundation contractor or licensed structural engineer."
+              "defer": "Refer to a qualified foundation contractor or licensed structural engineer.",
+              "cascades": [
+                {
+                  "to": "basement-structure",
+                  "check": "Check interior wall at this location for displacement or corresponding cracking"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check for water entry at crack location on interior"
+                },
+                {
+                  "to": "grounds-grading",
+                  "check": "Check exterior grade on this side for improper slope toward foundation"
+                }
+              ]
             },
             {
               "id": "foundation-stairstep-crack",
               "chipLabel": "Stair-Step Crack",
               "define": "Stair-step cracking observed in foundation wall at [location], following mortar joints in a stair-step pattern. This cracking pattern indicates differential settlement where one portion of the foundation is moving relative to another. Crack width approximately [width]. Displacement: [none / slight / moderate / significant].",
               "direct": "Recommend monitoring with pencil marks and dates. If crack width exceeds 1/4 inch or displacement is present, recommend evaluation by a qualified foundation contractor.",
-              "defer": "Refer to a qualified foundation contractor."
+              "defer": "Refer to a qualified foundation contractor.",
+              "cascades": [
+                {
+                  "to": "basement-structure",
+                  "check": "Check interior wall at this location for corresponding cracking or displacement"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check for moisture entry at crack location on interior"
+                }
+              ]
             },
             {
               "id": "foundation-vert-crack",
@@ -32180,7 +32481,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Active Water Entry",
               "define": "Active water intrusion observed at foundation wall at [location]. Water appears to be entering through [crack / mortar joint / form tie hole / wall-floor joint (cove joint) / cold joint / window well / other]. Severity: [minor seepage / moderate flow / significant water entry].",
               "direct": "Recommend evaluation to determine source and appropriate correction. Check exterior grading and gutter discharge at this location. Correction may involve exterior waterproofing, interior drain tile, or crack injection depending on the source.",
-              "defer": "Refer to a qualified foundation or waterproofing contractor."
+              "defer": "Refer to a qualified foundation or waterproofing contractor.",
+              "cascades": [
+                {
+                  "to": "basement-moisture",
+                  "check": "Check interior for water entry at corresponding location"
+                },
+                {
+                  "to": "grounds-grading",
+                  "check": "Check exterior drainage on this side — grade, gutters, downspout discharge"
+                }
+              ]
             },
             {
               "id": "foundation-previous-water",
@@ -32194,7 +32505,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Wall Bowing / Displacement",
               "define": "Foundation wall at [location] is bowing inward approximately [X inches] from straight as sighted along the wall. [Horizontal cracking observed at the point of maximum inward deflection. / No cracking observed at this time.] Bowing indicates lateral soil pressure exceeding the wall's capacity. Illinois clay soils exert significant lateral pressure when saturated.",
               "direct": "Recommend evaluation by a qualified foundation contractor or licensed structural engineer. Remediation options may include steel I-beams, carbon fiber straps, helical tiebacks, or wall anchors depending on severity.",
-              "defer": "Refer to a qualified foundation contractor or licensed structural engineer."
+              "defer": "Refer to a qualified foundation contractor or licensed structural engineer.",
+              "cascades": [
+                {
+                  "to": "basement-structure",
+                  "check": "Check interior wall for visible displacement or inward movement"
+                },
+                {
+                  "to": "grounds-grading",
+                  "check": "Check exterior grade on this side for signs of hydrostatic pressure — poor drainage or saturated soil"
+                }
+              ]
             },
             {
               "id": "foundation-parging-deterioration",
@@ -32215,7 +32536,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Grade Too High at Foundation",
               "define": "Soil grade at [location] is too high against the foundation wall, with less than 6 inches of foundation visible above grade. [Soil is in contact with siding / wood framing / sill plate.] High grade allows moisture to wick into the wall assembly above the foundation, promotes wood-destroying insect access, and conceals the foundation wall from inspection. Per IRC R404.1.6, minimum 6 inches of foundation must be visible above grade.",
               "direct": "Recommend lowering soil grade to expose minimum 6 inches of foundation wall. Ensure siding, wood framing, and sill plate are above the soil line. This may require regrading by a qualified landscaping or grading contractor.",
-              "defer": "Refer to a qualified grading contractor."
+              "defer": "Refer to a qualified grading contractor.",
+              "cascades": [
+                {
+                  "to": "basement-moisture",
+                  "check": "Check interior for moisture on wall where grade is high outside"
+                },
+                {
+                  "to": "ext-siding",
+                  "check": "Check siding at grade contact for moisture damage, wicking, or pest entry"
+                }
+              ]
             },
             {
               "id": "foundation-sill-plate-damage",
@@ -32378,7 +32709,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Sagging Joists",
               "define": "Floor joists at [location] show excessive sagging/deflection. [Visible downward bow when sighted along the joist / floor above feels bouncy or uneven]. Causes may include undersized joists for the span, excessive loads, weakened joists from modifications, or moisture damage.",
               "direct": "Recommend evaluation by a qualified carpenter. Repair options may include sistering (adding a new joist alongside the existing one), installing a supplemental beam, or adding mid-span support.",
-              "defer": "Refer to a qualified carpenter or licensed structural engineer."
+              "defer": "Refer to a qualified carpenter or licensed structural engineer.",
+              "cascades": [
+                {
+                  "to": "int-rooms",
+                  "check": "Check floor above for unevenness or bounce"
+                },
+                {
+                  "to": "plumb-supply",
+                  "check": "Check if plumbing is causing notching or damage to joists"
+                }
+              ]
             },
             {
               "id": "sill-plate-rot",
@@ -32883,7 +33224,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Historic Water Staining",
               "define": "Historic water staining observed on basement [wall / floor / both] at [location]. Staining appears [dry and uniform / shows tide marks at varying heights / follows gravity flow path]. No active moisture was noted at the time of inspection. Staining indicates water has entered at this location in the past. [Height of staining above floor: approximately X inches.]",
               "direct": "Recommend monitoring during and after heavy rain events. Check exterior grading and gutter discharge at corresponding exterior location. Historic staining does not confirm the problem has been resolved -- it may recur during heavy rain or snowmelt.",
-              "defer": "Refer to a qualified waterproofing contractor if moisture recurs."
+              "defer": "Refer to a qualified waterproofing contractor if moisture recurs.",
+              "cascades": [
+                {
+                  "to": "ext-foundation",
+                  "check": "Check exterior for cracks or defects on this side of foundation"
+                },
+                {
+                  "to": "ext-gutters",
+                  "check": "Check gutter and downspout condition above this location"
+                }
+              ]
             },
             {
               "id": "iron-ochre",
@@ -34005,7 +34356,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Galvanized Supply Piping",
               "define": "Galvanized steel supply piping observed [throughout the home / at specific locations]. Galvanized piping has a typical service life of 40-50 years and corrodes internally over time, restricting water flow. [Flow test showed reduced flow. / Water showed rust discoloration when first turned on.] Internal corrosion is not visible from the outside and cannot be reversed -- only replacement addresses the issue. Very common in Illinois homes built before 1960.",
               "direct": "Recommend evaluation by a qualified plumber for potential replacement. Galvanized supply piping at or beyond its service life should be budgeted for replacement with copper or PEX.",
-              "defer": "Refer to a qualified plumber for replacement evaluation."
+              "defer": "Refer to a qualified plumber for replacement evaluation.",
+              "cascades": [
+                {
+                  "to": "int-kitchen",
+                  "check": "Check water flow at kitchen faucet — reduced pressure common with galvanized piping"
+                },
+                {
+                  "to": "int-bathroom",
+                  "check": "Check water flow at bathroom fixtures — reduced pressure common with galvanized piping"
+                }
+              ]
             },
             {
               "id": "supply-polybutylene",
@@ -34026,7 +34387,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Active Supply Leak",
               "define": "Active leak observed in supply piping at [location]. [Dripping at joint / pinhole leak with spray / weeping at connection / leak at valve]. Supply leaks are pressurized and leak continuously whether fixtures are running or not. [Pipe material: copper / galvanized / PEX / CPVC / other]. Evidence of water damage at surrounding materials: [none / staining / rot / mold growth].",
               "direct": "Recommend repair by a qualified plumber. Supply leaks are pressurized and will worsen over time. Surrounding damaged materials should be evaluated after repair.",
-              "defer": "Refer to a qualified plumber."
+              "defer": "Refer to a qualified plumber.",
+              "cascades": [
+                {
+                  "to": "basement-structure",
+                  "check": "Check for water damage to framing near leak location"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check for moisture accumulation below or near leak"
+                }
+              ]
             },
             {
               "id": "supply-corrosion",
@@ -34040,7 +34411,13 @@ var INSPECTION_DATA = {
               "chipLabel": "Dissimilar Metal Connection",
               "define": "Dissimilar metals connected without a dielectric union or approved transition fitting at [location]. [Copper connected directly to galvanized steel / other dissimilar metal combination]. When dissimilar metals are in contact in the presence of water, galvanic corrosion occurs -- the less noble metal (galvanized) corrodes at an accelerated rate. This is an electrochemical reaction that cannot be stopped without separating the metals with a dielectric union.",
               "direct": "Recommend installation of a dielectric union or approved dielectric fitting by a qualified plumber at each dissimilar metal connection.",
-              "defer": "Refer to a qualified plumber."
+              "defer": "Refer to a qualified plumber.",
+              "cascades": [
+                {
+                  "to": "plumb-water-heater",
+                  "check": "Check water heater connections for same dissimilar metal issue"
+                }
+              ]
             },
             {
               "id": "supply-low-pressure",
@@ -34359,7 +34736,13 @@ var INSPECTION_DATA = {
               "chipLabel": "Slow Drain / Backup",
               "define": "Slow drain observed at [fixture] at [location]. [Water drains very slowly / partial backup observed / gurgling sounds heard during drainage]. Slow drains may indicate: internal pipe corrosion (galvanized or cast iron), venting problem, partial blockage, or improper slope in the drain line.",
               "direct": "Recommend evaluation by a qualified plumber to determine cause and clear any blockage. If cast iron or galvanized drain piping is present, internal corrosion may be the cause.",
-              "defer": "Refer to a qualified plumber."
+              "defer": "Refer to a qualified plumber.",
+              "cascades": [
+                {
+                  "to": "plumb-dwv",
+                  "check": "Check other drains in same branch — pattern may indicate main line issue"
+                }
+              ]
             },
             {
               "id": "dwv-improper-slope",
@@ -34844,14 +35227,42 @@ var INSPECTION_DATA = {
               "urgent": true,
               "define": "Possible gas odor detected at [location]. This is a safety concern.",
               "direct": "Recommend immediate evaluation by the gas utility or a qualified plumber. Recommend occupants ventilate and avoid ignition sources.",
-              "defer": "Contact gas utility immediately."
+              "defer": "Contact gas utility immediately.",
+              "cascades": [
+                {
+                  "to": "heat-system",
+                  "check": "Verify gas appliance operation — check for gas odor at furnace"
+                },
+                {
+                  "to": "plumb-water-heater",
+                  "check": "Check gas water heater connections for gas odor"
+                },
+                {
+                  "to": "int-kitchen",
+                  "check": "Check gas range connections if applicable"
+                }
+              ]
             },
             {
               "id": "gas-missing-drip-leg",
               "chipLabel": "Missing Drip Leg",
               "define": "Gas appliance at [location] does not have a drip leg (sediment trap) at the gas supply connection. A drip leg is a short vertical pipe section below the gas connection point that catches moisture and debris before they enter the appliance gas valve. Missing drip legs allow sediment to clog appliance gas valves and burner orifices.",
               "direct": "Recommend installation of a drip leg by a qualified plumber or gas fitter at each gas appliance connection lacking one.",
-              "defer": "Refer to a qualified plumber or gas fitter."
+              "defer": "Refer to a qualified plumber or gas fitter.",
+              "cascades": [
+                {
+                  "to": "heat-system",
+                  "check": "Check furnace gas connection for drip leg"
+                },
+                {
+                  "to": "plumb-water-heater",
+                  "check": "Check water heater gas connection for drip leg"
+                },
+                {
+                  "to": "int-kitchen",
+                  "check": "Check gas range connection for drip leg if applicable"
+                }
+              ]
             },
             {
               "id": "gas-missing-shutoff",
@@ -35732,7 +36143,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Aging Unit",
               "define": "Water heater appears to be approximately [age] years old. Typical service life for a tank water heater is 8-12 years.",
               "direct": "Recommend budgeting for replacement.",
-              "defer": "Refer to a qualified plumber for assessment of remaining useful life."
+              "defer": "Refer to a qualified plumber for assessment of remaining useful life.",
+              "cascades": [
+                {
+                  "to": "plumb-supply",
+                  "check": "Check for corrosion at water heater supply connections"
+                },
+                {
+                  "to": "basement-moisture",
+                  "check": "Check for slow leak or moisture around base of water heater"
+                }
+              ]
             },
             {
               "id": "wh-corrosion",
@@ -38305,7 +38726,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Heat Exchanger",
               "define": "Heat exchanger -- visible portions inspected from accessible openings. [Describe condition]. Note: complete heat exchanger inspection requires disassembly beyond the scope of a home inspection.",
               "direct": "Visible cracks, rust-through, or holes observed in heat exchanger. This is a serious safety concern as combustion gases including carbon monoxide can enter the living space. Recommend immediate evaluation by a qualified HVAC contractor.",
-              "defer": "Recommend evaluation by a qualified HVAC contractor if there are any concerns regarding the heat exchanger."
+              "defer": "Recommend evaluation by a qualified HVAC contractor if there are any concerns regarding the heat exchanger.",
+              "cascades": [
+                {
+                  "to": "elec-smoke-co",
+                  "check": "Verify CO detectors present and functional — cracked heat exchanger is a CO risk"
+                },
+                {
+                  "to": "int-rooms",
+                  "check": "Check for soot or discoloration near supply registers"
+                }
+              ]
             },
             {
               "id": "co",
@@ -38313,14 +38744,38 @@ var INSPECTION_DATA = {
               "urgent": true,
               "define": "Carbon monoxide detected at [location]. This is a safety concern.",
               "direct": "Recommend immediate evaluation by a qualified HVAC contractor. Notify occupants.",
-              "defer": "N/A -- carbon monoxide detection is an urgent safety issue requiring immediate action, not deferral."
+              "defer": "N/A -- carbon monoxide detection is an urgent safety issue requiring immediate action, not deferral.",
+              "cascades": [
+                {
+                  "to": "elec-smoke-co",
+                  "check": "Verify CO detectors present and functional"
+                },
+                {
+                  "to": "plumb-water-heater",
+                  "check": "Check water heater venting — potential CO source"
+                },
+                {
+                  "to": "int-fireplace",
+                  "check": "Check fireplace and chimney draft — potential CO source"
+                }
+              ]
             },
             {
               "id": "vent",
               "chipLabel": "Vent Problem",
               "define": "Heating system vent pipe shows [disconnection / corrosion / improper slope / damage] at [location].",
               "direct": "Recommend repair by a qualified HVAC contractor.",
-              "defer": "Minor vent wear observed but system is operational. Monitor condition and have evaluated by a qualified HVAC contractor during next scheduled maintenance."
+              "defer": "Minor vent wear observed but system is operational. Monitor condition and have evaluated by a qualified HVAC contractor during next scheduled maintenance.",
+              "cascades": [
+                {
+                  "to": "attic-structure",
+                  "check": "If vent passes through attic, check for moisture or condensation damage"
+                },
+                {
+                  "to": "roof-vents",
+                  "check": "Check vent termination at roof for proper installation"
+                }
+              ]
             },
             {
               "id": "age",
@@ -38377,7 +38832,13 @@ var INSPECTION_DATA = {
               "chipLabel": "No Combustion Air",
               "define": "No combustion air supply openings observed in enclosed utility space containing combustion heating equipment.",
               "direct": "Incomplete combustion = CO risk. Recommend evaluation by a qualified HVAC contractor.",
-              "defer": "Combustion air supply appears marginal for the equipment in this space. Recommend evaluation by a qualified HVAC contractor to determine if additional ventilation is needed."
+              "defer": "Combustion air supply appears marginal for the equipment in this space. Recommend evaluation by a qualified HVAC contractor to determine if additional ventilation is needed.",
+              "cascades": [
+                {
+                  "to": "elec-smoke-co",
+                  "check": "Verify CO detectors present and functional — inadequate combustion air increases CO risk"
+                }
+              ]
             }
           ],
           "safeLanguage": [
@@ -38640,7 +39101,17 @@ var INSPECTION_DATA = {
                     "chipLabel": "FPE Panel",
                     "define": "The panel is a Federal Pacific (Stab-Lok) which is well documented to have a high rate of breaker failure (25-74% failure rate) and is a fire hazard.",
                     "direct": "Further evaluation by a qualified electrician is recommended.",
-                    "defer": "For further information, search 'federal pacific electric' and 'breaker failure' online."
+                    "defer": "For further information, search 'federal pacific electric' and 'breaker failure' online.",
+                    "cascades": [
+                      {
+                        "to": "elec-receptacles",
+                        "check": "Test every accessible receptacle — FPE breakers may not trip on overcurrent"
+                      },
+                      {
+                        "to": "elec-gfci",
+                        "check": "Verify all GFCI protection is functional — breaker reliability is compromised"
+                      }
+                    ]
                   }
                 ]
               },
@@ -38666,7 +39137,17 @@ var INSPECTION_DATA = {
                     "chipLabel": "Zinsco Panel",
                     "define": "The panel is a Zinsco/Sylvania which is well documented to have breakers that fuse to the bus bar and may not trip during overcurrent. This is a fire hazard.",
                     "direct": "Further evaluation by a qualified electrician is recommended.",
-                    "defer": "For further information, search 'zinsco' and 'breaker failure' online."
+                    "defer": "For further information, search 'zinsco' and 'breaker failure' online.",
+                    "cascades": [
+                      {
+                        "to": "elec-receptacles",
+                        "check": "Test every accessible receptacle — Zinsco breakers may not trip on overcurrent"
+                      },
+                      {
+                        "to": "elec-gfci",
+                        "check": "Verify all GFCI protection is functional — breaker reliability is compromised"
+                      }
+                    ]
                   }
                 ]
               },
@@ -40565,7 +41046,13 @@ var INSPECTION_DATA = {
               "chipLabel": "Overfused",
               "define": "Wire gauge appears undersized for the breaker rating at [location/breaker number]. The conductor may overheat before the breaker trips. This condition presents a potential fire hazard.",
               "direct": "Recommend evaluation and correction by a qualified electrician.",
-              "defer": "Refer to a qualified electrician for evaluation of breaker and wire sizing."
+              "defer": "Refer to a qualified electrician for evaluation of breaker and wire sizing.",
+              "cascades": [
+                {
+                  "to": "elec-branch",
+                  "check": "Check wire gauge on overfused circuits — verify conductor size matches breaker rating"
+                }
+              ]
             },
             {
               "id": "bonding",
@@ -40579,7 +41066,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Grounding Issue",
               "define": "Grounding electrode conductor was not visible at the time of inspection.",
               "direct": "Recommend evaluation and correction by a qualified electrician.",
-              "defer": "Recommend verification of the grounding system by a licensed electrician."
+              "defer": "Recommend verification of the grounding system by a licensed electrician.",
+              "cascades": [
+                {
+                  "to": "ext-service-entry",
+                  "check": "Check grounding electrode system at exterior — look for ground rod or water pipe connection"
+                },
+                {
+                  "to": "elec-receptacles",
+                  "check": "Check for open ground on tester — missing grounding may affect all receptacles"
+                }
+              ]
             },
             {
               "id": "gec-clamp",
@@ -40816,7 +41313,17 @@ var INSPECTION_DATA = {
               "urgent": true,
               "define": "Fuses observed on both the hot AND neutral wires. The original electrical services from the 1920s and 1930s had fuses on both the hot and neutral wires. This is now considered a dangerous practice. If a fuse on the neutral wire blows, current with energy will still be present in the circuit because the hot side remains energized. A person who unknowingly completes the circuit to ground with their body could be hurt or killed. The neutral should NEVER be fused.",
               "direct": "Recommend immediate evaluation by a qualified electrician. This is a serious shock hazard.",
-              "defer": "Refer to a qualified electrician for immediate evaluation of fused neutral conductors."
+              "defer": "Refer to a qualified electrician for immediate evaluation of fused neutral conductors.",
+              "cascades": [
+                {
+                  "to": "elec-branch",
+                  "check": "Check all circuits for proper wiring — fused neutral affects entire system"
+                },
+                {
+                  "to": "elec-receptacles",
+                  "check": "Test all accessible receptacles — shock hazard present on all circuits"
+                }
+              ]
             },
             {
               "id": "overfused-fuses",
@@ -41850,7 +42357,17 @@ var INSPECTION_DATA = {
                     "chipLabel": "Active K&T",
                     "define": "Active knob-and-tube wiring was observed. While not inherently dangerous when in good condition, K&T has no equipment grounding conductor, uses aged rubber/cloth insulation, and is not rated for modern electrical loads. Insurance companies may not insure homes with active knob-and-tube wiring.",
                     "direct": "Recommend evaluation by a qualified electrician experienced with knob-and-tube systems.",
-                    "defer": "Recommend client check with their insurance company regarding K&T coverage."
+                    "defer": "Recommend client check with their insurance company regarding K&T coverage.",
+                    "cascades": [
+                      {
+                        "to": "attic-insulation",
+                        "check": "Check that K&T wiring is NOT in contact with insulation — fire hazard"
+                      },
+                      {
+                        "to": "elec-receptacles",
+                        "check": "Check for ungrounded outlets on K&T circuits"
+                      }
+                    ]
                   },
                   {
                     "id": "kt-buried-insulation",
@@ -41988,21 +42505,105 @@ var INSPECTION_DATA = {
               "title": "Wiring Methods — Quick Field ID",
               "alwaysVisible": true,
               "description": "How to identify what type of wiring you are looking at. The jacket/sheath is the primary visual identifier.",
-              "columns": ["Type", "Jacket/Sheath", "Quick Test", "Ground Method", "Era"],
+              "columns": [
+                "Type",
+                "Jacket/Sheath",
+                "Quick Test",
+                "Ground Method",
+                "Era"
+              ],
               "rows": [
-                ["NM (Romex)", "Smooth plastic, flat", "Plastic jacket, loose wires inside", "Bare copper wire inside (post-1960s)", "1960s–present"],
-                ["UF (Underground)", "Solid plastic, flat, gray", "Squeeze: solid, no loose wires. Stiff.", "Bare copper embedded in plastic", "Used for buried runs"],
-                ["AC/BX (Armored)", "Metal spiral jacket", "Metal armor, 2 insulated wires + bonding strip", "Metal jacket IS the ground", "1920s–1960s common"],
-                ["MC (Metal-Clad)", "Metal spiral jacket", "Metal armor, 3+ wires incl. green/bare ground", "Separate ground wire inside", "1980s–present"],
-                ["EMT (Thin-Wall)", "Round metal tube", "NO threads. Set-screw or compression fittings.", "Conduit is ground path", "Common residential"],
-                ["IMC (Intermediate)", "Round metal tube", "HAS threads. Stamped 'IMC'. Medium weight.", "Conduit is ground path", "Since 1971"],
-                ["RMC (Rigid)", "Round metal tube", "HAS threads. Stamped 'RMC'. Heaviest.", "Conduit is ground path", "All eras"],
-                ["PVC (Nonmetallic)", "Round plastic tube, gray", "Glued joints. Lightweight. No metal.", "Requires separate ground wire", "Outdoor/underground"],
-                ["FMC (Greenfield)", "Flexible metal spiral, bare", "Empty spiral tube — wires pulled through. No outer jacket.", "Requires separate ground wire", "Short indoor equipment connections"],
-                ["LFC (Sealtight)", "PVC jacket over metal spiral", "Smooth gray/black exterior over flexible metal core", "Requires separate ground wire", "Wet/outdoor equipment connections"],
-                ["ENT (Smurf Tubing)", "Corrugated plastic, no metal", "Flexible blue/orange plastic tubing. No metal.", "Requires separate ground wire", "Low-voltage; sometimes 120/240V"],
-                ["K&T (Knob-and-Tube)", "None — individual wires", "Porcelain knobs/tubes, cloth/rubber insulation", "NO ground — 2-wire only", "Pre-1950"],
-                ["SE Cable", "Plastic jacket, round/flat", "Large cable with concentric neutral wrapped outside", "Neutral wrapped around conductors", "Service entrance runs"]
+                [
+                  "NM (Romex)",
+                  "Smooth plastic, flat",
+                  "Plastic jacket, loose wires inside",
+                  "Bare copper wire inside (post-1960s)",
+                  "1960s–present"
+                ],
+                [
+                  "UF (Underground)",
+                  "Solid plastic, flat, gray",
+                  "Squeeze: solid, no loose wires. Stiff.",
+                  "Bare copper embedded in plastic",
+                  "Used for buried runs"
+                ],
+                [
+                  "AC/BX (Armored)",
+                  "Metal spiral jacket",
+                  "Metal armor, 2 insulated wires + bonding strip",
+                  "Metal jacket IS the ground",
+                  "1920s–1960s common"
+                ],
+                [
+                  "MC (Metal-Clad)",
+                  "Metal spiral jacket",
+                  "Metal armor, 3+ wires incl. green/bare ground",
+                  "Separate ground wire inside",
+                  "1980s–present"
+                ],
+                [
+                  "EMT (Thin-Wall)",
+                  "Round metal tube",
+                  "NO threads. Set-screw or compression fittings.",
+                  "Conduit is ground path",
+                  "Common residential"
+                ],
+                [
+                  "IMC (Intermediate)",
+                  "Round metal tube",
+                  "HAS threads. Stamped 'IMC'. Medium weight.",
+                  "Conduit is ground path",
+                  "Since 1971"
+                ],
+                [
+                  "RMC (Rigid)",
+                  "Round metal tube",
+                  "HAS threads. Stamped 'RMC'. Heaviest.",
+                  "Conduit is ground path",
+                  "All eras"
+                ],
+                [
+                  "PVC (Nonmetallic)",
+                  "Round plastic tube, gray",
+                  "Glued joints. Lightweight. No metal.",
+                  "Requires separate ground wire",
+                  "Outdoor/underground"
+                ],
+                [
+                  "FMC (Greenfield)",
+                  "Flexible metal spiral, bare",
+                  "Empty spiral tube — wires pulled through. No outer jacket.",
+                  "Requires separate ground wire",
+                  "Short indoor equipment connections"
+                ],
+                [
+                  "LFC (Sealtight)",
+                  "PVC jacket over metal spiral",
+                  "Smooth gray/black exterior over flexible metal core",
+                  "Requires separate ground wire",
+                  "Wet/outdoor equipment connections"
+                ],
+                [
+                  "ENT (Smurf Tubing)",
+                  "Corrugated plastic, no metal",
+                  "Flexible blue/orange plastic tubing. No metal.",
+                  "Requires separate ground wire",
+                  "Low-voltage; sometimes 120/240V"
+                ],
+                [
+                  "K&T (Knob-and-Tube)",
+                  "None — individual wires",
+                  "Porcelain knobs/tubes, cloth/rubber insulation",
+                  "NO ground — 2-wire only",
+                  "Pre-1950"
+                ],
+                [
+                  "SE Cable",
+                  "Plastic jacket, round/flat",
+                  "Large cable with concentric neutral wrapped outside",
+                  "Neutral wrapped around conductors",
+                  "Service entrance runs"
+                ]
               ]
             },
             {
@@ -42525,7 +43126,17 @@ var INSPECTION_DATA = {
               "chipLabel": "Aluminum Branch Wiring",
               "define": "Solid conductor aluminum branch circuit wiring was observed on 15–20A circuits. This type of wiring (common 1965–1973) has a documented history of overheating at connection points due to higher thermal expansion rates. This condition presents a potential fire hazard. Note: aluminum on service entrance conductors and large appliance circuits (range, dryer, A/C) is normal and acceptable.",
               "direct": "Recommend evaluation by a qualified electrician experienced with aluminum wiring remediation (COPALUM or AlumiConn connectors).",
-              "defer": "Refer to a qualified electrician experienced with aluminum wiring remediation."
+              "defer": "Refer to a qualified electrician experienced with aluminum wiring remediation.",
+              "cascades": [
+                {
+                  "to": "elec-receptacles",
+                  "check": "Check receptacle connections for signs of overheating — warm cover plates, discoloration"
+                },
+                {
+                  "to": "elec-fixtures",
+                  "check": "Check switch and fixture connections for signs of overheating"
+                }
+              ]
             },
             {
               "id": "overfused",
@@ -44513,14 +45124,30 @@ var INSPECTION_DATA = {
               "chipLabel": "Reverse Polarity",
               "define": "Receptacle at [location] tested with reverse polarity (hot and neutral conductors reversed). The receptacle functions, but the safety orientation is compromised — appliance internals remain energized when switched off.",
               "direct": "Recommend correction by a qualified electrician.",
-              "defer": "Refer to a qualified electrician for evaluation and correction of reversed wiring."
+              "defer": "Refer to a qualified electrician for evaluation and correction of reversed wiring.",
+              "cascades": [
+                {
+                  "to": "elec-main",
+                  "check": "Check for pattern — multiple reversed outlets may indicate panel wiring issue"
+                }
+              ]
             },
             {
               "id": "open-ground",
               "chipLabel": "Open Ground",
               "define": "Receptacle at [location] tested with open ground (no equipment grounding conductor detected). Surge protectors will not provide protection at this location. If a fault occurs, the circuit breaker may not trip promptly.",
               "direct": "Recommend evaluation by a qualified electrician. GFCI protection can be installed as an approved safety alternative (label 'No Equipment Ground').",
-              "defer": "Refer to a qualified electrician for evaluation and correction of open ground condition."
+              "defer": "Refer to a qualified electrician for evaluation and correction of open ground condition.",
+              "cascades": [
+                {
+                  "to": "elec-main",
+                  "check": "Verify grounding electrode system — open grounds may indicate system-wide grounding issue"
+                },
+                {
+                  "to": "elec-branch",
+                  "check": "Check wiring type — open grounds may indicate ungrounded wiring system"
+                }
+              ]
             },
             {
               "id": "open-neutral",
@@ -46580,7 +47207,21 @@ var INSPECTION_DATA = {
               "chipLabel": "Smoke Detectors Missing",
               "define": "Smoke detectors were not observed at [location(s)]. Smoke detectors are recommended in each bedroom, outside each sleeping area, and on each level of the home.",
               "direct": "Recommend installation of smoke detectors.",
-              "defer": "Refer to a qualified electrician for proper detector installation."
+              "defer": "Refer to a qualified electrician for proper detector installation.",
+              "cascades": [
+                {
+                  "to": "heat-system",
+                  "check": "Verify CO source — check for gas-fired heating appliances"
+                },
+                {
+                  "to": "int-fireplace",
+                  "check": "Verify CO source — check for fireplace or chimney"
+                },
+                {
+                  "to": "garage-service",
+                  "check": "Check fire separation between garage and living space"
+                }
+              ]
             },
             {
               "id": "smoke-battery-only-il",
@@ -46594,7 +47235,21 @@ var INSPECTION_DATA = {
               "chipLabel": "CO Detectors Missing",
               "define": "Carbon monoxide detectors were not observed. CO detectors are recommended within 15 feet of each sleeping area in homes with fuel-burning appliances or an attached garage.",
               "direct": "Recommend installation of CO detectors.",
-              "defer": "Refer to a qualified electrician for proper CO detector installation."
+              "defer": "Refer to a qualified electrician for proper CO detector installation.",
+              "cascades": [
+                {
+                  "to": "heat-system",
+                  "check": "Verify CO source — check for gas-fired heating appliances"
+                },
+                {
+                  "to": "int-fireplace",
+                  "check": "Verify CO source — check for fireplace or chimney"
+                },
+                {
+                  "to": "garage-service",
+                  "check": "Check fire separation between garage and living space"
+                }
+              ]
             },
             {
               "id": "detector-aged",
@@ -46812,8 +47467,14 @@ var INSPECTION_DATA = {
               {
                 "id": "recessed-can",
                 "label": "Recessed (can) lights",
-                "flags": ["Check IC rating in attic", "Check for missing trim ring"],
-                "enables": ["ic-rating-check", "trim-ring-check"],
+                "flags": [
+                  "Check IC rating in attic",
+                  "Check for missing trim ring"
+                ],
+                "enables": [
+                  "ic-rating-check",
+                  "trim-ring-check"
+                ],
                 "expectations": {
                   "normal": "Trim ring present, junction box concealed, fixture secure in ceiling, no insulation contact unless IC-rated"
                 }
@@ -46828,7 +47489,9 @@ var INSPECTION_DATA = {
               {
                 "id": "pendant-chandelier",
                 "label": "Pendant/chandelier",
-                "flags": ["Not allowed in closets — fire hazard"],
+                "flags": [
+                  "Not allowed in closets — fire hazard"
+                ],
                 "expectations": {
                   "normal": "Properly supported, canopy conceals junction box, wiring not visible, not in closet"
                 }
@@ -46843,7 +47506,9 @@ var INSPECTION_DATA = {
               {
                 "id": "fluorescent",
                 "label": "Fluorescent fixtures",
-                "flags": ["Check ballast for leaking or humming"],
+                "flags": [
+                  "Check ballast for leaking or humming"
+                ],
                 "expectations": {
                   "normal": "No humming ballast, no visible leaking, fixture secure, lens/diffuser intact"
                 }
@@ -46851,7 +47516,9 @@ var INSPECTION_DATA = {
               {
                 "id": "exterior",
                 "label": "Exterior fixtures",
-                "flags": ["Must be rated for wet/damp location"],
+                "flags": [
+                  "Must be rated for wet/damp location"
+                ],
                 "expectations": {
                   "normal": "Weatherproof rated, GFCI protected circuit, junction box has weatherproof cover, no moisture inside fixture"
                 }
@@ -47029,7 +47696,12 @@ var INSPECTION_DATA = {
               "fieldTest": "Access the attic and look at the fixture housing. Check for the IC marking on the label. IC-rated cans are typically double-walled (housing within a housing). To check from inside, you can pull the trim ring and remove the bulb to read the label inside the can — but this usually requires pulling the trim ring down, which is beyond the standard of practice. You can also recommend further evaluation instead."
             }
           ],
-          "crossReferences": ["elec-branch", "elec-receptacles", "elec-gfci", "elec-afci"],
+          "crossReferences": [
+            "elec-branch",
+            "elec-receptacles",
+            "elec-gfci",
+            "elec-afci"
+          ],
           "findings": [
             {
               "id": "missing-cover-switch",
@@ -48159,14 +48831,30 @@ var INSPECTION_DATA = {
               "chipLabel": "Delta-T Off",
               "define": "Supply air temperature measured at [X]°F, return air at [Y]°F, resulting in a [Z]°F temperature differential. Normal range is 14-22°F for conventional systems, 20-30°F for high-velocity systems.",
               "direct": "Reading is outside expected range. Recommend evaluation by a qualified HVAC contractor.",
-              "defer": "Delta-T is marginally outside expected range. System is cooling but performance may be declining. Recommend evaluation by a qualified HVAC contractor."
+              "defer": "Delta-T is marginally outside expected range. System is cooling but performance may be declining. Recommend evaluation by a qualified HVAC contractor.",
+              "cascades": [
+                {
+                  "to": "heat-system",
+                  "check": "Check filter condition — dirty filter affects cooling performance"
+                },
+                {
+                  "to": "attic-insulation",
+                  "check": "Check insulation adequacy — poor insulation affects cooling performance"
+                }
+              ]
             },
             {
               "id": "icing",
               "chipLabel": "Coil Icing",
               "define": "Ice/frost observed on the evaporator coil. This indicates restricted airflow or low refrigerant charge.",
               "direct": "Recommend evaluation by a qualified HVAC contractor. Check filter condition as restricted airflow is the most common cause.",
-              "defer": "Minor frost observed on evaporator coil. Most commonly caused by a dirty filter. Recommend filter replacement and monitoring. If icing recurs, have evaluated by a qualified HVAC contractor."
+              "defer": "Minor frost observed on evaporator coil. Most commonly caused by a dirty filter. Recommend filter replacement and monitoring. If icing recurs, have evaluated by a qualified HVAC contractor.",
+              "cascades": [
+                {
+                  "to": "heat-system",
+                  "check": "Check filter condition — dirty filter is the most common cause of coil icing"
+                }
+              ]
             },
             {
               "id": "condensate",
@@ -52633,6 +53321,26 @@ function renderFindings(compId, findings, state, prefix) {
       if (re) html += renderReportBlock('defer', re);
     }
 
+    // Cascade triggers — "Because you found this, also check..."
+    if (f.cascades && f.cascades.length) {
+      html += '<div class="cascade-triggers">';
+      html += '<div class="cascade-header">Also Check</div>';
+      f.cascades.forEach(function(c) {
+        var targetTitle = c.to;
+        // Look up component title from INSPECTION_DATA
+        INSPECTION_DATA.sections.forEach(function(s) {
+          s.components.forEach(function(comp) {
+            if (comp.id === c.to) targetTitle = comp.title;
+          });
+        });
+        html += '<div class="cascade-item" onclick="scrollToComponent(\'' + c.to + '\')">';
+        html += '<div class="cascade-target">' + esc(targetTitle) + '</div>';
+        html += '<div class="cascade-check">' + esc(c.check) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
     html += '</div></div></div>'; // close cp-body, cond-panel, finding panel
   });
 
@@ -52652,6 +53360,26 @@ function showFinding(el, panelId) {
   el.classList.toggle('active');
   var panel = document.getElementById('finding-' + panelId);
   if (panel) panel.classList.toggle('hidden');
+}
+
+function scrollToComponent(compId) {
+  var el = document.getElementById('comp-' + compId);
+  if (!el) {
+    // Try finding the section card
+    var cards = document.querySelectorAll('[data-comp-id]');
+    cards.forEach(function(card) {
+      if (card.getAttribute('data-comp-id') === compId) el = card;
+    });
+  }
+  if (el) {
+    // Open the component if it's collapsed
+    if (el.classList.contains('collapsed')) el.classList.remove('collapsed');
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Flash highlight
+    el.style.outline = '2px solid var(--accent)';
+    el.style.outlineOffset = '2px';
+    setTimeout(function() { el.style.outline = 'none'; }, 2000);
+  }
 }
 
 function showConditionResult(el, condId) {
